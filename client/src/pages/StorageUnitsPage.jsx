@@ -42,7 +42,7 @@ export default function StorageUnitsPage() {
     load();
   }, []);
 
-  const districts = ['All', 'Agra', 'Nashik', 'Shimla', 'Kolar', 'Jalandhar'];
+  const districts = ['All', ...Array.from(new Set(facilities.map(f => f.district)))];
 
   const filteredFacilities = facilities.filter((f) => {
     const matchesCrop = !selectedCropFilter || f.supportedCrops.includes(selectedCropFilter);
@@ -57,13 +57,13 @@ export default function StorageUnitsPage() {
       <div className="bg-gradient-to-r from-teal-900 via-slate-900 to-emerald-900 text-white rounded-3xl p-6 sm:p-10 shadow-lg flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <div className="max-w-2xl space-y-2">
           <span className="text-xs font-bold uppercase tracking-wider text-emerald-300 bg-emerald-800/60 px-3 py-1 rounded-full">
-            Real-Time Capacity & Location Registry
+            Telangana Cold Chain & Storage Registry
           </span>
           <h1 className="text-2xl sm:text-4xl font-black tracking-tight">
-            Cold Storage Units & Availability
+            Telangana Cold Storage Facilities
           </h1>
           <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-            Discover WDRA-accredited multi-chamber cold storage facilities calibrated for specific crops. Book directly to receive an automated gate token and advance SMS notification.
+            Discover real-time chamber capacities, WDRA certifications, and tariffs across Warangal, Nizamabad, Karimnagar, Khammam, Nalgonda, and Tandur.
           </p>
         </div>
 

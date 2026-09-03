@@ -66,8 +66,11 @@ class SmsService {
 
     const result = await response.json();
     console.log("[Fast2SMS Gateway Response]:", result);
-    if (!response.ok || result.return === false) {
-      throw new Error(result.message?.[0] || result.message || "Fast2SMS dispatch failed");
+    if (!response.ok || result.return === false || result.status_code !== 200 && result.return !== true) {
+      const errorMsg = Array.isArray(result.message)
+        ? result.message.join(", ")
+        : (result.message || "Fast2SMS dispatch failed");
+      throw new Error(errorMsg);
     }
     return result;
   }
@@ -115,22 +118,26 @@ class SmsService {
     if (process.env.FAST2SMS_API_KEY && process.env.FAST2SMS_API_KEY.trim()) {
       try {
         await this.sendViaFast2Sms(phone, message);
-        gatewayUsed = "Fast2SMS (Real SMS)";
+        gatewayUsed = "Fast2SMS (Cellular)";
         deliveryStatus = "SENT_TO_PHONE";
       } catch (err) {
         gatewayError = err.message;
-        console.warn(`[Fast2SMS Error]: ${err.message}. Falling back to simulation.`);
+        gatewayUsed = "Fast2SMS (Gateway Restricted)";
+        deliveryStatus = "GATEWAY_ERROR";
+        console.warn(`[Fast2SMS Gateway Error]: ${err.message}`);
       }
     }
     // 2. Or check Twilio
     else if (process.env.TWILIO_ACCOUNT_SID && process.env.TWILIO_AUTH_TOKEN && process.env.TWILIO_PHONE_NUMBER) {
       try {
         await this.sendViaTwilio(phone, message);
-        gatewayUsed = "Twilio (Real SMS)";
+        gatewayUsed = "Twilio (Cellular)";
         deliveryStatus = "SENT_TO_PHONE";
       } catch (err) {
         gatewayError = err.message;
-        console.warn(`[Twilio Error]: ${err.message}. Falling back to simulation.`);
+        gatewayUsed = "Twilio (Failed)";
+        deliveryStatus = "GATEWAY_ERROR";
+        console.warn(`[Twilio Gateway Error]: ${err.message}`);
       }
     } else {
       console.log(`[SMS SIMULATOR] Dispatched to on-screen phone. (Add FAST2SMS_API_KEY or Twilio credentials to server/.env to send real SMS).`);

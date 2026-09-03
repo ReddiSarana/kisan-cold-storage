@@ -26,11 +26,11 @@ export default function BookingModal() {
   const [formData, setFormData] = useState({
     farmerName: '',
     farmerPhone: '',
-    cropId: 'potato',
+    cropId: 'red_chilli',
     quantityQuintals: 150,
     expectedDurationMonths: 6,
     arrivalDate: '',
-    vehicleNumber: 'UP-80-BK-2026',
+    vehicleNumber: 'TS-03-BK-2026',
     vehicleType: 'Tractor Trolley',
     notes: ''
   });
@@ -44,11 +44,11 @@ export default function BookingModal() {
       setFormData({
         farmerName: currentUser.name || '',
         farmerPhone: currentUser.phone || '',
-        cropId: bookingModalUnit.prefilledCrop || bookingModalUnit.unit?.supportedCrops?.[0] || 'potato',
+        cropId: bookingModalUnit.prefilledCrop || bookingModalUnit.unit?.supportedCrops?.[0] || 'red_chilli',
         quantityQuintals: 150,
         expectedDurationMonths: 6,
         arrivalDate: today,
-        vehicleNumber: 'UP-80-BK-' + Math.floor(1000 + Math.random() * 9000),
+        vehicleNumber: 'TS-03-BK-' + Math.floor(1000 + Math.random() * 9000),
         vehicleType: 'Tractor Trolley',
         notes: ''
       });

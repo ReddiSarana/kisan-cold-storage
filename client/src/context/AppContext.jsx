@@ -5,28 +5,28 @@ const AppContext = createContext();
 export const DEMO_USERS = {
   farmer: {
     role: 'farmer',
-    name: 'Ramesh Kumar',
+    name: 'Mallaiah Goud',
     phone: '+91 98765 12345',
-    district: 'Agra',
-    state: 'Uttar Pradesh',
-    kccNumber: 'KCC-UP-44921',
-    primaryCrop: 'Potato',
+    district: 'Warangal',
+    state: 'Telangana',
+    kccNumber: 'KCC-TS-44921',
+    primaryCrop: 'Dry Red Chilli (Teja Mirchi)',
     avatar: '👨‍🌾'
   },
   facility_manager: {
     role: 'facility_manager',
-    name: 'Sanjay Singhal',
-    phone: '+91 98765 43210',
-    facilityId: 'cs-agra-01',
-    facilityName: 'Shiv Ganga Multi-Chamber Cold Storage',
-    district: 'Agra',
+    name: 'Srinivas Rao',
+    phone: '+91 94401 23456',
+    facilityId: 'cs-warangal-01',
+    facilityName: 'Kakatiya Mega Cold Chain & Spices Yard',
+    district: 'Warangal',
     avatar: '🏭'
   },
   procurement_officer: {
     role: 'procurement_officer',
-    name: 'Sunil Verma',
+    name: 'K. Venkateshwar Rao',
     phone: '+91 98230 55112',
-    organization: 'Agra APMC & Agri-Procurement Agency',
+    organization: 'Telangana State Co-operative Marketing Federation (TS-MARKFED)',
     avatar: '📋'
   }
 };

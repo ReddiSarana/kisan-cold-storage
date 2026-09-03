@@ -41,9 +41,9 @@ export default function Footer() {
 
           {/* Col 3: Supported Produce */}
           <div className="space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-200">Popular Perishables</h4>
+            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-200">Popular Telangana Crops</h4>
             <div className="flex flex-wrap gap-1.5 text-[11px]">
-              {['Potato (आलू)', 'Apple (सेब)', 'Onion (प्याज)', 'Tomato (टमाटर)', 'Carrot (गाजर)', 'Green Chilli (मिर्च)', 'Grapes (अंगूर)', 'Citrus (संतरा)'].map((crop, i) => (
+              {['Dry Red Chilli (మిరప)', 'Nizamabad Turmeric (పసుపు)', 'Hybrid Seed Paddy (వరి విత్తనాలు)', 'Tandur Red Gram (కందులు)', 'Banganapalli Mango (మామిడి)', 'Sweet Orange (బత్తాయి)', 'Cotton Seeds (పత్తి)', 'Tomato (టమాటా)'].map((crop, i) => (
                 <span key={i} className="bg-slate-800 text-slate-300 px-2 py-1 rounded border border-slate-700">
                   {crop}
                 </span>

@@ -10,7 +10,8 @@ import {
   Search,
   ArrowRight,
   Info,
-  Warehouse
+  Warehouse,
+  MapPin
 } from 'lucide-react';
 
 export default function CropsPage() {
@@ -39,11 +40,12 @@ export default function CropsPage() {
     setActiveTab('units');
   };
 
-  const categories = ['All', 'Tubers', 'Fruits', 'Bulbs', 'Vegetables', 'Root Vegetables', 'Spices/Vegetables'];
+  const categories = ['All', 'Commercial & Spices', 'Certified Seeds', 'Pulses & Grains', 'Fruits', 'Vegetables'];
 
   const filteredCrops = crops.filter(c => {
     const matchesSearch = c.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                          c.category.toLowerCase().includes(searchQuery.toLowerCase());
+                          c.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                          (c.growingDistricts && c.growingDistricts.toLowerCase().includes(searchQuery.toLowerCase()));
     const matchesCategory = selectedCategory === 'All' || c.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
@@ -52,15 +54,15 @@ export default function CropsPage() {
     <div className="space-y-8 py-6">
       {/* Header Banner */}
       <div className="bg-gradient-to-r from-emerald-800 to-teal-900 text-white rounded-3xl p-6 sm:p-10 shadow-lg">
-        <div className="max-w-2xl space-y-2">
+        <div className="max-w-3xl space-y-2">
           <span className="text-xs font-bold uppercase tracking-wider text-emerald-300 bg-emerald-700/50 px-3 py-1 rounded-full">
-            Agronomic Preservation Standards
+            Telangana Agronomic Cold Storage Standards
           </span>
           <h1 className="text-2xl sm:text-4xl font-black tracking-tight">
-            Perishable Crops & Cold Storage Guide
+            Telangana Crops, Produce & Seeds Catalog
           </h1>
           <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-            Every crop possesses a distinct respiration rate, chilling sensitivity, and humidity threshold. Explore standard parameters to prevent weight shrinkage, black-heart, or rotting during storage.
+            Scientific preservation standards calibrated specifically for commercial crops, certified seeds, pulses, fruits, and vegetables grown across Telangana — from Warangal Teja red chillies and Nizamabad turmeric to Seed Bowl hybrid paddy and Tandur GI red gram.
           </p>
         </div>
       </div>
@@ -134,8 +136,11 @@ export default function CropsPage() {
                 {/* Details */}
                 <div className="p-5 space-y-4">
                   <div>
-                    <h3 className="text-lg font-black text-slate-900">{crop.name}</h3>
-                    <p className="text-[11px] text-slate-500 mt-0.5">Standard Farm Harvest Produce</p>
+                    <h3 className="text-base font-black text-slate-900 leading-tight">{crop.name}</h3>
+                    <p className="text-[11px] text-emerald-800 font-semibold mt-1 flex items-center flex-wrap">
+                      <MapPin className="w-3 h-3 mr-1 text-emerald-600 flex-shrink-0" />
+                      <span>Telangana Hubs: <span className="font-normal text-slate-600">{crop.growingDistricts || 'Telangana Districts'}</span></span>
+                    </p>
                   </div>
 
                   {/* Primary Metrics 2x2 */}

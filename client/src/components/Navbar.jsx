@@ -83,8 +83,8 @@ export default function Navbar() {
             </div>
             <div>
               <div className="flex items-center space-x-1.5">
-                <span className="text-xl font-black tracking-tight text-slate-900">Kisan<span className="text-emerald-600">Cold</span></span>
-                <span className="text-[10px] font-bold bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded">किसान</span>
+                <span className="text-xl font-black tracking-tight text-slate-900">Agro<span className="text-emerald-600">Vault</span></span>
+                <span className="text-[10px] font-bold bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded">एग्रोवोल्ट</span>
               </div>
               <p className="text-[11px] text-slate-500 font-medium">Smart Cold Storage & Queue</p>
             </div>

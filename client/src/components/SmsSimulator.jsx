@@ -143,11 +143,11 @@ export default function SmsSimulator() {
             <div className="bg-emerald-700 text-white px-4 py-2.5 flex items-center justify-between shadow-sm">
               <div className="flex items-center space-x-2">
                 <div className="w-7 h-7 rounded-full bg-emerald-800/80 flex items-center justify-center text-xs font-bold">
-                  KC
+                  AV
                 </div>
                 <div>
                   <h4 className="text-xs font-bold leading-tight flex items-center">
-                    KISAN-COLD
+                    AGROVAULT
                     <span className="ml-1.5 w-1.5 h-1.5 rounded-full bg-emerald-300 animate-pulse"></span>
                   </h4>
                   <p className="text-[10px] text-emerald-100">SMS Gateway • Verified AGRI</p>
@@ -200,7 +200,7 @@ export default function SmsSimulator() {
                     <div className="bg-white rounded-2xl rounded-tl-sm px-3.5 py-2.5 shadow-sm border border-slate-200/80 text-xs text-slate-800 leading-relaxed">
                       <div className="flex items-center justify-between mb-1 pb-1 border-b border-slate-100">
                         <span className="text-[10px] font-bold text-emerald-700 uppercase tracking-tight">
-                          {msg.senderId || 'KISAN-COLD'}
+                          {msg.senderId || 'AGROVAULT'}
                         </span>
                         <span className="text-[9px] text-slate-400">
                           {new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}

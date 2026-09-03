@@ -1,4 +1,4 @@
-# 🌾 KisanCold (किसान कोल्ड) — Smart Cold Storage & Procurement Platform
+# 🌾 AgroVault (एग्रोवोल्ट) — Smart Cold Storage & Procurement Platform
 
 A web application designed for Indian farmers, cold storage facility operators, and procurement agencies. It solves post-harvest perishable crop losses by offering transparent cold room discovery, crop-specific temperature standards, live booking, digital Word (`.docx`) agreement & e-NWR generation, real-time yard gate token queues, and an automated SMS dispatch system.
 
@@ -61,7 +61,7 @@ Open **http://localhost:3000** in your browser.
 - Real-time synchronization via Server-Sent Events (SSE).
 
 ### 6. Interactive SMS Dispatcher & Live Smartphone Simulator (`/sms`)
-- **Realistic On-Screen Smartphone Simulator**: Toggleable in the bottom right corner with incoming alert sound/bubble, status bar, and verified sender ID `KISAN-COLD`.
+- **Realistic On-Screen Smartphone Simulator**: Toggleable in the bottom right corner with incoming alert sound/bubble, status bar, and verified sender ID `AGROVAULT`.
 - Full audit log of all dispatched SMS messages (Booking confirmations, Gate calls, Weighment reports, Settlements).
 - Ready for live SMS gateways (Twilio / Fast2SMS) via environment variables.
 

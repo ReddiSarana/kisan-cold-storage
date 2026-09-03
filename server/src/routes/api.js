@@ -136,7 +136,7 @@ router.post('/bookings', (req, res) => {
     recipientPhone: farmerPhone,
     recipientName: farmerName,
     type: "BOOKING_CONFIRMATION",
-    message: `KisanCold: Namaste ${farmerName}! Booking ${bookingId} confirmed at ${facility?.name || "Cold Store"} for ${qty} Qtl ${crop?.name}. Token: ${token.tokenId}. Date: ${arrivalDate}.`
+    message: `AgroVault: Namaste ${farmerName}! Booking ${bookingId} confirmed at ${facility?.name || "Cold Store"} for ${qty} Qtl ${crop?.name}. Token: ${token.tokenId}. Date: ${arrivalDate}.`
   });
 
   res.status(201).json({ success: true, data: newBooking, token });
@@ -184,7 +184,7 @@ router.patch('/bookings/:id', (req, res) => {
       recipientPhone: booking.farmerPhone,
       recipientName: booking.farmerName,
       type: "STORED_CONFIRMATION",
-      message: `KisanCold: Produce safely deposited in ${booking.chamberAllocated}. Net Weight: ${booking.weighmentNetKg || (booking.quantityQuintals * 50)} Kg. e-NWR No: ${booking.eNwrNumber}.`
+      message: `AgroVault: Produce safely deposited in ${booking.chamberAllocated}. Net Weight: ${booking.weighmentNetKg || (booking.quantityQuintals * 50)} Kg. e-NWR No: ${booking.eNwrNumber}.`
     });
   }
 
@@ -249,7 +249,7 @@ router.get('/documents/generate-docx', async (req, res) => {
     const facility = facilities.find(f => f.id === booking.facilityId) || facilities[0];
 
     let buffer;
-    let filename = `KisanCold_${docType}_${booking.id}.docx`;
+    let filename = `AgroVault_${docType}_${booking.id}.docx`;
 
     const payload = {
       ...booking,
@@ -285,7 +285,7 @@ router.post('/documents/generate-docx', async (req, res) => {
   try {
     const { docType = "agreement", ...customData } = req.body;
     let buffer;
-    const filename = `KisanCold_${docType}_${Date.now()}.docx`;
+    const filename = `AgroVault_${docType}_${Date.now()}.docx`;
 
     if (docType === "agreement") {
       buffer = await DocxService.generateStorageAgreement(customData);

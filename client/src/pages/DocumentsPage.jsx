@@ -319,7 +319,7 @@ export default function DocumentsPage() {
           {/* Letterhead Header */}
           <div className="text-center pb-4 border-b-2 border-blue-900 space-y-1">
             <h2 className="text-xl font-black tracking-tight text-blue-950 uppercase">
-              {docType === 'enwr' ? 'Warehousing Development and Regulatory Authority' : 'Kisan Cold Storage Preservation Network'}
+              {docType === 'enwr' ? 'Warehousing Development and Regulatory Authority' : 'AgroVault Cold Storage Preservation Network'}
             </h2>
             <h3 className="text-sm font-bold text-emerald-800">
               {docType === 'agreement' && 'STANDARD AGRICULTURAL COLD STORAGE BAILMENT CONTRACT'}

@@ -1,7 +1,7 @@
 {
-  "name": "kisan-cold-storage-server",
+  "name": "agrovault-server",
   "version": "1.0.0",
-  "description": "Backend API for KisanCold platform",
+  "description": "Backend API for AgroVault platform",
   "main": "src/server.js",
   "type": "module",
   "scripts": {

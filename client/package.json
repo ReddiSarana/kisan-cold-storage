@@ -1,5 +1,5 @@
 {
-  "name": "kisan-cold-storage-client",
+  "name": "agrovault-client",
   "private": true,
   "version": "1.0.0",
   "type": "module",

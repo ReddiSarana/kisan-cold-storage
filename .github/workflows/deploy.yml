@@ -1,4 +1,4 @@
-name: Deploy KisanCold to GitHub Pages
+name: Deploy AgroVault to GitHub Pages
 
 on:
   push:

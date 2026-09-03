@@ -1,4 +1,4 @@
-// Seed data for KisanCold platform: Crops, Cold Storage Facilities, and Initial Queue State
+// Seed data for AgroVault platform: Crops, Cold Storage Facilities, and Initial Queue State
 
 export const cropsData = [
   {
@@ -422,7 +422,7 @@ export const initialSmsLogs = [
     id: "sms-001",
     recipientPhone: "+91 98765 12345",
     recipientName: "Ramesh Kumar",
-    senderId: "KISAN-COLD",
+    senderId: "AGROVAULT",
     type: "BOOKING_CONFIRMATION",
     message: "Namaste Ramesh ji! Slot reserved at Shiv Ganga Cold Storage for 180 Qtl Potato. Token: TK-101. Date: 03-Sep. Gate opens 08:00 AM.",
     status: "DELIVERED",
@@ -432,7 +432,7 @@ export const initialSmsLogs = [
     id: "sms-002",
     recipientPhone: "+91 94250 67890",
     recipientName: "Suresh Patel",
-    senderId: "KISAN-COLD",
+    senderId: "AGROVAULT",
     type: "QUEUE_CALL",
     message: "ATTENTION Suresh Patel: Token TK-102 is called! Please proceed vehicle UP-80-T-9812 to Unloading Bay 1 immediately.",
     status: "DELIVERED",
@@ -442,7 +442,7 @@ export const initialSmsLogs = [
     id: "sms-003",
     recipientPhone: "+91 98765 12345",
     recipientName: "Ramesh Kumar",
-    senderId: "KISAN-COLD",
+    senderId: "AGROVAULT",
     type: "QUEUE_CALL",
     message: "ATTENTION Ramesh Kumar: Token TK-101 is called! Move tractor UP-80-AB-4521 to Bay 2 for weighbridge inspection.",
     status: "DELIVERED",

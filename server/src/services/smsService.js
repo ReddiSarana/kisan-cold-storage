@@ -1,4 +1,4 @@
-// SMS Dispatch Service for KisanCold
+// SMS Dispatch Service for AgroVault
 import { initialSmsLogs } from '../data/seedData.js';
 
 class SmsService {
@@ -33,7 +33,7 @@ class SmsService {
       id: `sms-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
       recipientPhone: recipientPhone || "+91 98765 00000",
       recipientName: recipientName || "Farmer",
-      senderId: "KISAN-COLD",
+      senderId: "AGROVAULT",
       type,
       message,
       status: "DELIVERED",

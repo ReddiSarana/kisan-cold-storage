@@ -40,7 +40,18 @@ export default function CropsPage() {
     setActiveTab('units');
   };
 
-  const categories = ['All', 'Commercial & Spices', 'Certified Seeds', 'Pulses & Grains', 'Fruits', 'Vegetables'];
+  const categories = [
+    'All',
+    'Cereals & Millets',
+    'Pulses & Legumes',
+    'Oilseeds',
+    'Commercial & Fiber',
+    'Commercial & Spices',
+    'Vegetables',
+    'Fruits',
+    'Certified Seeds',
+    'Plantation & Flowers'
+  ];
 
   const filteredCrops = crops.filter(c => {
     const matchesSearch = c.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -56,25 +67,25 @@ export default function CropsPage() {
       <div className="bg-gradient-to-r from-emerald-800 to-teal-900 text-white rounded-3xl p-6 sm:p-10 shadow-lg">
         <div className="max-w-3xl space-y-2">
           <span className="text-xs font-bold uppercase tracking-wider text-emerald-300 bg-emerald-700/50 px-3 py-1 rounded-full">
-            Telangana Agronomic Cold Storage Standards
+            Telangana Agronomic Standards • Complete 77 Commodities Catalog
           </span>
           <h1 className="text-2xl sm:text-4xl font-black tracking-tight">
-            Telangana Crops, Produce & Seeds Catalog
+            Telangana Crops, Produce & Seeds Catalog ({filteredCrops.length} of 77)
           </h1>
           <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-            Scientific preservation standards calibrated specifically for commercial crops, certified seeds, pulses, fruits, and vegetables grown across Telangana — from Warangal Teja red chillies and Nizamabad turmeric to Seed Bowl hybrid paddy and Tandur GI red gram.
+            Comprehensive cold preservation benchmarks calibrated specifically for all 77 crops, vegetables, fruits, pulses, oilseeds, spices, and certified seeds grown across Telangana — from Warangal Teja chillies and Nizamabad turmeric to Seed Bowl hybrid paddy and Tandur GI red gram.
           </p>
         </div>
       </div>
 
       {/* Filter Bar */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+      <div className="flex flex-col lg:flex-row items-center justify-between gap-4 bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
         {/* Search */}
-        <div className="relative w-full sm:w-80">
+        <div className="relative w-full lg:w-80 flex-shrink-0">
           <Search className="w-4 h-4 absolute left-3 top-3 text-slate-400" />
           <input
             type="text"
-            placeholder="Search crop (e.g. Potato, Apple, Onion)..."
+            placeholder="Search 77 crops (e.g. Mirchi, Turmeric, Mango)..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full bg-slate-50 border border-slate-200 pl-9 pr-4 py-2 rounded-xl text-xs text-slate-800 focus:bg-white focus:ring-1 focus:ring-emerald-600 focus:outline-none"
@@ -82,7 +93,7 @@ export default function CropsPage() {
         </div>
 
         {/* Category Pills */}
-        <div className="flex items-center space-x-1.5 overflow-x-auto w-full sm:w-auto pb-1 sm:pb-0">
+        <div className="flex items-center space-x-1.5 overflow-x-auto w-full pb-2 lg:pb-0 scrollbar-thin">
           {categories.map((cat) => (
             <button
               key={cat}

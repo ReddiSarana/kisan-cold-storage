@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useApp } from '../context/AppContext';
+import { useLanguage } from '../context/LanguageContext';
 import { fetchBookings, getDocxDownloadUrl } from '../services/api';
 import {
   FileText,
@@ -110,19 +111,20 @@ export default function DocumentsPage() {
     }
   ];
 
+  const { t } = useLanguage();
   return (
     <div className="space-y-8 py-6">
       {/* Header */}
       <div className="bg-gradient-to-r from-blue-900 via-slate-900 to-indigo-950 text-white rounded-3xl p-6 sm:p-10 shadow-lg flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <div className="max-w-2xl space-y-2">
           <span className="text-xs font-bold uppercase tracking-wider text-blue-300 bg-blue-800/60 px-3 py-1 rounded-full">
-            Official Legal Documentation Center
+            {t('docsTag', "Official Legal Documentation Center")}
           </span>
           <h1 className="text-2xl sm:text-4xl font-black tracking-tight">
-            DOCX Request & Generation Portal
+            {t('docsTitle', "DOCX Request & Generation Portal")}
           </h1>
           <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-            Generate and download certified Microsoft Word (<code className="bg-white/20 px-1 py-0.5 rounded text-white">.docx</code>) contracts, e-NWR negotiable warehouse receipts, and inward weighbridge slips for bank loan applications and official records.
+            {t('docsDesc', "Generate and download certified Microsoft Word (.docx) contracts, e-NWR negotiable warehouse receipts, and inward weighbridge slips for bank loan applications and official records.")}
           </p>
         </div>
 

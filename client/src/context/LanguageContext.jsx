@@ -11,68 +11,64 @@ export function LanguageProvider({ children }) {
 
   const currentLanguage = INDIAN_LANGUAGES.find(l => l.code === selectedLanguageCode) || INDIAN_LANGUAGES[0];
 
-  // Initialize Google Translate script in DOM
+  // Sync Google Translate on mount or whenever selected language code changes
   useEffect(() => {
-    if (!document.getElementById('google-translate-script')) {
-      window.googleTranslateElementInit = () => {
-        try {
-          if (window.google && window.google.translate) {
-            new window.google.translate.TranslateElement(
-              {
-                pageLanguage: 'en',
-                includedLanguages: INDIAN_LANGUAGES.map(l => l.code).join(','),
-                autoDisplay: false,
-                layout: window.google.translate.TranslateElement.InlineLayout?.SIMPLE
-              },
-              'google_translate_element'
-            );
-          }
-        } catch (e) {
-          console.warn('Google Translate initialization notice:', e);
-        }
-      };
+    const code = selectedLanguageCode;
+    const domain = window.location.hostname;
 
-      const script = document.createElement('script');
-      script.id = 'google-translate-script';
-      script.type = 'text/javascript';
-      script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
-      script.async = true;
-      document.body.appendChild(script);
+    if (code === 'en') {
+      // Clear translate cookies for English
+      document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${domain};`;
+      document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.${domain};`;
+    } else {
+      // Set /en/code format cookie for Google Translate
+      document.cookie = `googtrans=/en/${code}; path=/;`;
+      document.cookie = `googtrans=/en/${code}; path=/; domain=${domain};`;
+      if (domain !== 'localhost' && !domain.startsWith('127.0.0.1')) {
+        document.cookie = `googtrans=/en/${code}; path=/; domain=.${domain};`;
+      }
     }
 
-    // Ensure hidden container exists
-    if (!document.getElementById('google_translate_element')) {
-      const div = document.createElement('div');
-      div.id = 'google_translate_element';
-      div.style.display = 'none';
-      document.body.appendChild(div);
+    // Trigger Google Translate dropdown if available in DOM
+    const combo = document.querySelector('select.goog-te-combo');
+    if (combo && combo.value !== code) {
+      combo.value = code;
+      combo.dispatchEvent(new Event('change'));
     }
-  }, []);
+  }, [selectedLanguageCode]);
 
   const changeLanguage = (code) => {
     setSelectedLanguageCode(code);
     localStorage.setItem('kisan_lang', code);
 
-    // Apply Google Translate cookies for auto-translation
-    try {
-      const hostname = window.location.hostname;
-      document.cookie = `googtrans=/auto/${code}; path=/;`;
-      if (hostname !== 'localhost' && !hostname.startsWith('127.0.0.1')) {
-        document.cookie = `googtrans=/auto/${code}; domain=.${hostname}; path=/;`;
+    const domain = window.location.hostname;
+    if (code === 'en') {
+      document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${domain};`;
+      document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.${domain};`;
+    } else {
+      document.cookie = `googtrans=/en/${code}; path=/;`;
+      document.cookie = `googtrans=/en/${code}; path=/; domain=${domain};`;
+      if (domain !== 'localhost' && !domain.startsWith('127.0.0.1')) {
+        document.cookie = `googtrans=/en/${code}; path=/; domain=.${domain};`;
       }
-
-      // Update hidden Google Translate combo if already loaded
-      const combo = document.querySelector('.goog-te-combo');
-      if (combo) {
-        combo.value = code;
-        combo.dispatchEvent(new Event('change'));
-      }
-    } catch (err) {
-      console.warn('Could not set translate cookie:', err);
     }
+
+    // Try triggering Google translate combo in DOM
+    const combo = document.querySelector('select.goog-te-combo');
+    if (combo) {
+      combo.value = code;
+      combo.dispatchEvent(new Event('change'));
+    }
+
+    // Reload the page smoothly so that Google Translate immediately parses and translates the ENTIRE website DOM
+    setTimeout(() => {
+      window.location.reload();
+    }, 180);
   };
 
-  // Translation helper function
+  // Translation lookup helper
   const t = (key, fallback = '') => {
     if (!key) return '';
     const langDict = UI_TRANSLATIONS[selectedLanguageCode];

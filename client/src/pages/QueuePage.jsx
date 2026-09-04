@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useApp } from '../context/AppContext';
+import { useLanguage } from '../context/LanguageContext';
 import { fetchQueue, updateTokenStatus, callNextToken } from '../services/api';
 import {
   Clock,
@@ -17,6 +18,7 @@ import {
 
 export default function QueuePage() {
   const { currentUser, queueRefreshTrigger, showToast, setIsSmsSimulatorOpen } = useApp();
+  const { t } = useLanguage();
   const [queueTokens, setQueueTokens] = useState([]);
   const [selectedFacility, setSelectedFacility] = useState('cs-agra-01');
   const [isCallingNext, setIsCallingNext] = useState(false);
@@ -86,14 +88,14 @@ export default function QueuePage() {
               <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
             </span>
             <span className="text-xs font-bold uppercase tracking-wider text-emerald-400">
-              Live Cold Storage Gate & Weighbridge Board
+              {t('liveQueueTag', "Live Cold Storage Gate & Weighbridge Board")}
             </span>
           </div>
           <h1 className="text-2xl sm:text-4xl font-black tracking-tight">
-            Real-Time Yard Queue & Token System
+            {t('liveQueueTitle', "Real-Time Yard Queue & Token System")}
           </h1>
           <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
-            Eliminating highway tractor lines and harvest gate congestion. Farmers receive an automated digital entry token and live SMS call-out when their unloading bay is ready.
+            {t('liveQueueDesc', "Eliminating highway tractor lines and harvest gate congestion. Farmers receive an automated digital entry token and live SMS call-out when their unloading bay is ready.")}
           </p>
         </div>
 

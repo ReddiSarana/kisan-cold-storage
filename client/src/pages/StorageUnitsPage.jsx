@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useApp } from '../context/AppContext';
+import { useLanguage } from '../context/LanguageContext';
 import { fetchFacilities, fetchCrops } from '../services/api';
 import {
   Warehouse,
@@ -18,6 +19,7 @@ import {
 
 export default function StorageUnitsPage() {
   const { selectedCropFilter, setSelectedCropFilter, openBookingFor } = useApp();
+  const { t } = useLanguage();
   const [facilities, setFacilities] = useState([]);
   const [crops, setCrops] = useState([]);
   const [selectedDistrict, setSelectedDistrict] = useState('All');
@@ -57,13 +59,13 @@ export default function StorageUnitsPage() {
       <div className="bg-gradient-to-r from-teal-900 via-slate-900 to-emerald-900 text-white rounded-3xl p-6 sm:p-10 shadow-lg flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <div className="max-w-2xl space-y-2">
           <span className="text-xs font-bold uppercase tracking-wider text-emerald-300 bg-emerald-800/60 px-3 py-1 rounded-full">
-            Telangana Cold Chain & Storage Registry
+            {t('storageRegistry', "Telangana Cold Chain & Storage Registry")}
           </span>
           <h1 className="text-2xl sm:text-4xl font-black tracking-tight">
-            Telangana Cold Storage Facilities
+            {t('storageTitle', "Telangana Cold Storage Facilities")}
           </h1>
           <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-            Discover real-time chamber capacities, WDRA certifications, and tariffs across Warangal, Nizamabad, Karimnagar, Khammam, Nalgonda, and Tandur.
+            {t('storageDesc', "Discover real-time chamber capacities, WDRA certifications, and tariffs across Warangal, Nizamabad, Karimnagar, Khammam, Nalgonda, and Tandur.")}
           </p>
         </div>
 
@@ -91,14 +93,14 @@ export default function StorageUnitsPage() {
             <span>Crop & Location Filters</span>
           </div>
           <span className="text-xs text-slate-500 font-medium">
-            Showing <strong>{filteredFacilities.length}</strong> active facilities
+            Showing <strong>{filteredFacilities.length}</strong> {t('activeFacilities', "active facilities")}
           </span>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
           {/* Filter by Crop */}
           <div>
-            <label className="block font-semibold text-slate-700 mb-1.5">Select Crop Produced</label>
+            <label className="block font-semibold text-slate-700 mb-1.5">{t('selectCropFilter', "Select Crop Produced")}</label>
             <select
               value={selectedCropFilter}
               onChange={(e) => setSelectedCropFilter(e.target.value)}
@@ -113,14 +115,14 @@ export default function StorageUnitsPage() {
 
           {/* Filter by District */}
           <div>
-            <label className="block font-semibold text-slate-700 mb-1.5">Select District / Region</label>
+            <label className="block font-semibold text-slate-700 mb-1.5">{t('selectDistrictFilter', "Select District / Region")}</label>
             <select
               value={selectedDistrict}
               onChange={(e) => setSelectedDistrict(e.target.value)}
               className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:bg-white focus:ring-1 focus:ring-emerald-600"
             >
               {districts.map((d) => (
-                <option key={d} value={d}>{d === 'All' ? 'All Districts' : `${d} District`}</option>
+                <option key={d} value={d}>{d === 'All' ? t('allDistricts', 'All Districts') : `${d} District`}</option>
               ))}
             </select>
           </div>
@@ -128,7 +130,7 @@ export default function StorageUnitsPage() {
           {/* Max Rate Slider */}
           <div>
             <div className="flex justify-between font-semibold text-slate-700 mb-1.5">
-              <span>Max Storage Tariff:</span>
+              <span>{t('maxTariff', "Max Storage Tariff:")}</span>
               <strong className="text-emerald-700">₹{maxPrice} / Qtl / Month</strong>
             </div>
             <input

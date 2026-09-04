@@ -33,7 +33,27 @@ export const DEMO_USERS = {
 
 export function AppProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(DEMO_USERS.farmer);
-  const [activeTab, setActiveTab] = useState('about');
+  const [activeTab, setActiveTabState] = useState(() => {
+    return localStorage.getItem('kisan_active_tab') || 'about';
+  });
+
+  const setActiveTab = (tab) => {
+    setActiveTabState(tab);
+    localStorage.setItem('kisan_active_tab', tab);
+  };
+
+  // Re-trigger Google Translate when active tab changes so newly rendered view is translated
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const combo = document.querySelector('select.goog-te-combo');
+      const lang = localStorage.getItem('kisan_lang');
+      if (combo && lang && lang !== 'en') {
+        combo.value = lang;
+        combo.dispatchEvent(new Event('change'));
+      }
+    }, 200);
+    return () => clearTimeout(timer);
+  }, [activeTab]);
   const [selectedCropFilter, setSelectedCropFilter] = useState('');
   const [bookingModalUnit, setBookingModalUnit] = useState(null);
   const [isSmsSimulatorOpen, setIsSmsSimulatorOpen] = useState(false);

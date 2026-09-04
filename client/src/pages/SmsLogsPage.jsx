@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useApp } from '../context/AppContext';
+import { useLanguage } from '../context/LanguageContext';
 import { fetchSmsLogs, sendSms } from '../services/api';
 import {
   MessageSquare,
@@ -62,19 +63,20 @@ export default function SmsLogsPage() {
     }
   };
 
+  const { t } = useLanguage();
   return (
     <div className="space-y-8 py-6">
       {/* Banner */}
       <div className="bg-gradient-to-r from-emerald-950 via-teal-950 to-slate-900 text-white rounded-3xl p-6 sm:p-10 shadow-lg flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <div className="max-w-2xl space-y-2">
           <span className="text-xs font-bold uppercase tracking-wider text-emerald-400 bg-emerald-900/70 px-3 py-1 rounded-full">
-            AgroVault SMS Gateway & Notification Dispatcher
+            {t('smsTag', "AgroVault SMS Gateway & Notification Dispatcher")}
           </span>
           <h1 className="text-2xl sm:text-4xl font-black tracking-tight">
-            Automated Farmer SMS Alerts
+            {t('smsTitle', "Automated Farmer SMS Alerts")}
           </h1>
           <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-            Most Indian farmers rely on standard cellular SMS rather than mobile apps in remote field conditions. AgroVault triggers instant SMS alerts on slot reservations, bay calling, weighment validation, and payment receipts.
+            {t('smsDesc', "Most Indian farmers rely on standard cellular SMS rather than mobile apps in remote field conditions. AgroVault triggers instant SMS alerts on slot reservations, bay calling, weighment validation, and payment receipts.")}
           </p>
         </div>
 

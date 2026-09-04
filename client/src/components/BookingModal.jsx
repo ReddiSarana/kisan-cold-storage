@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useApp } from '../context/AppContext';
+import { useLanguage } from '../context/LanguageContext';
 import { createBooking, getDocxDownloadUrl } from '../services/api';
 import {
   X,
@@ -98,6 +99,8 @@ export default function BookingModal() {
     }
   };
 
+  const { t } = useLanguage();
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm overflow-y-auto">
       <div className="relative w-full max-w-2xl bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-100 my-8">
@@ -108,7 +111,7 @@ export default function BookingModal() {
               <Warehouse className="w-5 h-5 text-emerald-200" />
             </div>
             <div>
-              <h3 className="text-lg font-bold leading-tight">Book Cold Storage Chamber</h3>
+              <h3 className="text-lg font-bold leading-tight">{t('bookingTitle', "Book Cold Storage Chamber")}</h3>
               <p className="text-xs text-emerald-200">{unit.name} • {unit.district}, {unit.state}</p>
             </div>
           </div>

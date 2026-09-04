@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useApp } from '../context/AppContext';
+import { useLanguage } from '../context/LanguageContext';
 import { fetchBookings, updateBooking, getDocxDownloadUrl } from '../services/api';
 import {
   Activity,
@@ -117,19 +118,20 @@ export default function TrackingPage() {
 
   const currentStageIdx = selectedBooking ? getStageIndex(selectedBooking.status) : 0;
 
+  const { t } = useLanguage();
   return (
     <div className="space-y-8 py-6">
       {/* Top Banner */}
       <div className="bg-gradient-to-r from-slate-900 via-emerald-950 to-teal-900 text-white rounded-3xl p-6 sm:p-10 shadow-lg flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <div className="max-w-2xl space-y-2">
           <span className="text-xs font-bold uppercase tracking-wider text-emerald-400 bg-emerald-900/60 px-3 py-1 rounded-full">
-            End-to-End Agri-Logistics Audit Trail
+            {t('trackingTag', "End-to-End Agri-Logistics Audit Trail")}
           </span>
           <h1 className="text-2xl sm:text-4xl font-black tracking-tight">
-            Procurement & Transaction Tracker
+            {t('trackingTitle', "Procurement & Transaction Tracker")}
           </h1>
           <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-            Monitor the exact physical movement of your harvested crop from weighbridge gross logging, moisture quality grading, cold room stacking, to bank-pledged payment settlement.
+            {t('trackingDesc', "Monitor the exact physical movement of your harvested crop from weighbridge gross logging, moisture quality grading, cold room stacking, to bank-pledged payment settlement.")}
           </p>
         </div>
 

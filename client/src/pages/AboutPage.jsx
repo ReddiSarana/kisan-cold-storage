@@ -1,5 +1,6 @@
 import React from 'react';
 import { useApp } from '../context/AppContext';
+import { useLanguage } from '../context/LanguageContext';
 import {
   Snowflake,
   ShieldCheck,
@@ -16,6 +17,7 @@ import {
 
 export default function AboutPage() {
   const { setActiveTab, setSelectedCropFilter } = useApp();
+  const { t } = useLanguage();
 
   const handleCropQuickSelect = (cropId) => {
     setSelectedCropFilter(cropId);
@@ -32,18 +34,18 @@ export default function AboutPage() {
         <div className="relative z-10 max-w-3xl space-y-6">
           <div className="inline-flex items-center space-x-2 bg-emerald-500/20 border border-emerald-400/30 px-3.5 py-1.5 rounded-full text-emerald-300 text-xs font-semibold backdrop-blur">
             <Sparkles className="w-3.5 h-3.5 text-emerald-300" />
-            <span>Empowering India's Agricultural Cold Chain & Post-Harvest Wealth</span>
+            <span>{t('aboutHeroTag', "Empowering India's Agricultural Cold Chain & Post-Harvest Wealth")}</span>
           </div>
 
           <h1 className="text-3xl sm:text-5xl font-black tracking-tight leading-tight">
-            Stop Perishable Distress Sales. <br />
+            {t('aboutHeroTitle', "Stop Perishable Distress Sales.")} <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-teal-200 to-amber-200">
-              Preserve, Pledge & Profit.
+              {t('aboutHeroSubtitle', "Preserve, Pledge & Profit.")}
             </span>
           </h1>
 
           <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-            Every year, India loses nearly <strong>₹92,000 Crores</strong> worth of fruits and vegetables due to lacking cold storage access. <strong>AgroVault</strong> connects smallholder and commercial farmers directly with modern, multi-chamber cold storage facilities, transparent tariffs, live gate queues, and bank-pledgeable digital warehouse receipts (e-NWR).
+            {t('aboutHeroDesc', "Every year, India loses nearly ₹92,000 Crores worth of fruits and vegetables due to lacking cold storage access. AgroVault connects smallholder and commercial farmers directly with modern, multi-chamber cold storage facilities, transparent tariffs, live gate queues, and bank-pledgeable digital warehouse receipts (e-NWR).")}
           </p>
 
           <div className="flex flex-wrap items-center gap-3 pt-2">
@@ -51,7 +53,7 @@ export default function AboutPage() {
               onClick={() => setActiveTab('units')}
               className="flex items-center space-x-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold px-6 py-3 rounded-xl shadow-lg transition hover:scale-105 text-sm"
             >
-              <span>Find & Book Cold Storage</span>
+              <span>{t('findUnits', "Find & Book Cold Storage")}</span>
               <ArrowRight className="w-4 h-4" />
             </button>
 
@@ -60,14 +62,14 @@ export default function AboutPage() {
               className="flex items-center space-x-2 bg-white/10 hover:bg-white/20 text-white font-semibold px-5 py-3 rounded-xl backdrop-blur border border-white/20 transition text-sm"
             >
               <Clock className="w-4 h-4 text-emerald-300" />
-              <span>Live Yard Queue</span>
+              <span>{t('liveQueue', "Live Yard Queue")}</span>
             </button>
 
             <button
               onClick={() => setActiveTab('crops')}
               className="flex items-center space-x-2 text-emerald-300 hover:text-emerald-200 text-xs font-semibold px-4 py-2"
             >
-              <span>Explore Crop Temperature Guides &rarr;</span>
+              <span>{t('exploreGuidelines', "Explore Crop Temperature Guides →")}</span>
             </button>
           </div>
         </div>
@@ -76,19 +78,19 @@ export default function AboutPage() {
         <div className="mt-10 pt-8 border-t border-white/10 grid grid-cols-2 sm:grid-cols-4 gap-4 text-center sm:text-left">
           <div>
             <p className="text-2xl sm:text-3xl font-black text-emerald-300">45,000+ MT</p>
-            <p className="text-xs text-slate-400 mt-0.5">Cold Capacity Monitored</p>
+            <p className="text-xs text-slate-400 mt-0.5">{t('capacityMonitored', "Cold Capacity Monitored")}</p>
           </div>
           <div>
             <p className="text-2xl sm:text-3xl font-black text-teal-300">12,400+</p>
-            <p className="text-xs text-slate-400 mt-0.5">Registered Farmers</p>
+            <p className="text-xs text-slate-400 mt-0.5">{t('registeredFarmers', "Registered Farmers")}</p>
           </div>
           <div>
             <p className="text-2xl sm:text-3xl font-black text-amber-300">0 Mins</p>
-            <p className="text-xs text-slate-400 mt-0.5">Gate Congestion with Live Tokens</p>
+            <p className="text-xs text-slate-400 mt-0.5">{t('gateCongestion', "Gate Congestion with Live Tokens")}</p>
           </div>
           <div>
             <p className="text-2xl sm:text-3xl font-black text-blue-300">₹42 Cr+</p>
-            <p className="text-xs text-slate-400 mt-0.5">Pledge Credit Unlocked</p>
+            <p className="text-xs text-slate-400 mt-0.5">{t('pledgeCredit', "Pledge Credit Unlocked")}</p>
           </div>
         </div>
       </section>
@@ -97,10 +99,10 @@ export default function AboutPage() {
       <section className="space-y-6">
         <div className="text-center max-w-2xl mx-auto space-y-2">
           <span className="text-xs font-bold uppercase tracking-wider text-emerald-700 bg-emerald-100 px-3 py-1 rounded-full">
-            The Agricultural Challenge
+            {t('theChallenge', "The Agricultural Challenge")}
           </span>
           <h2 className="text-2xl sm:text-3xl font-black text-slate-900">
-            Why Cold Chain Access is Essential for Farmers
+            {t('whyColdChain', "Why Cold Chain Access is Essential for Farmers")}
           </h2>
           <p className="text-xs sm:text-sm text-slate-600">
             Post-harvest glut forces farmers to dump produce at throwaway prices. Scientific cold preservation balances demand and triples farmer incomes.

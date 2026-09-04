@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useApp, DEMO_USERS } from '../context/AppContext';
+import { useLanguage } from '../context/LanguageContext';
 import {
   Snowflake,
   Sprout,
@@ -12,7 +13,8 @@ import {
   PhoneCall,
   Menu,
   X,
-  ChevronDown
+  ChevronDown,
+  Globe
 } from 'lucide-react';
 
 export default function Navbar() {
@@ -26,17 +28,23 @@ export default function Navbar() {
     isSmsSimulatorOpen
   } = useApp();
 
+  const {
+    currentLanguage,
+    setIsLanguageModalOpen,
+    t
+  } = useLanguage();
+
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [roleDropdownOpen, setRoleDropdownOpen] = useState(false);
 
   const navItems = [
-    { id: 'about', label: 'About Us', icon: Sprout },
-    { id: 'crops', label: 'Crops Catalog', icon: Snowflake },
-    { id: 'units', label: 'Storage Units', icon: Warehouse },
-    { id: 'queue', label: 'Real-Time Queue', icon: Clock, badge: 'Live' },
-    { id: 'tracking', label: 'Procurement Tracker', icon: Activity },
-    { id: 'documents', label: 'Docx Request', icon: FileText },
-    { id: 'sms', label: 'SMS Alerts', icon: MessageSquare, countBadge: unreadSmsCount },
+    { id: 'about', label: t('about', 'About Us'), icon: Sprout },
+    { id: 'crops', label: t('crops', 'Crops Catalog'), icon: Snowflake },
+    { id: 'units', label: t('units', 'Storage Units'), icon: Warehouse },
+    { id: 'queue', label: t('queue', 'Real-Time Queue'), icon: Clock, badge: 'Live' },
+    { id: 'tracking', label: t('tracking', 'Procurement Tracker'), icon: Activity },
+    { id: 'documents', label: t('documents', 'Docx Request'), icon: FileText },
+    { id: 'sms', label: t('sms', 'SMS Alerts'), icon: MessageSquare, countBadge: unreadSmsCount },
   ];
 
   return (
@@ -46,21 +54,33 @@ export default function Navbar() {
         <div className="flex items-center space-x-3">
           <span className="flex items-center font-medium">
             <PhoneCall className="w-3.5 h-3.5 mr-1 text-emerald-300" />
-            Kisan Call Centre Toll-Free: <strong className="ml-1 text-emerald-200">1800-180-1551</strong>
+            {t('kisanCallCenter', 'Kisan Call Centre Toll-Free:')} <strong className="ml-1 text-emerald-200">1800-180-1551</strong>
           </span>
           <span className="hidden sm:inline-block text-emerald-300/50">|</span>
           <span className="hidden sm:inline-block text-emerald-200">
-            🌾 Cold Storage & Digital Warehouse Receipt Portal (WDRA Certified)
+            {t('portalDesc', '🌾 Cold Storage & Digital Warehouse Receipt Portal (WDRA Certified)')}
           </span>
         </div>
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-2.5">
+          {/* Language Switcher Trigger (Top Banner) */}
+          <button
+            onClick={() => setIsLanguageModalOpen(true)}
+            className="flex items-center space-x-1 bg-emerald-700/90 hover:bg-emerald-600 px-2.5 py-0.5 rounded text-white text-[11px] font-medium transition border border-emerald-500/50"
+            title="Change Language (22 Official Languages + English)"
+          >
+            <Globe className="w-3 h-3 text-emerald-300 mr-1" />
+            <span className="font-bold">{currentLanguage.native}</span>
+            <span className="text-emerald-200 text-[10px]">({currentLanguage.name})</span>
+            <ChevronDown className="w-2.5 h-2.5 text-emerald-300 ml-0.5" />
+          </button>
+
           {/* Real-time SMS Simulator Trigger */}
           <button
             onClick={() => setIsSmsSimulatorOpen(!isSmsSimulatorOpen)}
             className="flex items-center bg-emerald-700/80 hover:bg-emerald-600 px-2 py-0.5 rounded text-white text-[11px] font-medium transition"
           >
             <MessageSquare className="w-3 h-3 mr-1 text-emerald-300" />
-            SMS Simulator
+            {t('smsSimulator', 'SMS Simulator')}
             {unreadSmsCount > 0 && (
               <span className="ml-1.5 bg-amber-400 text-slate-900 text-[10px] font-bold px-1.5 py-0.2 rounded-full">
                 {unreadSmsCount}
@@ -84,9 +104,11 @@ export default function Navbar() {
             <div>
               <div className="flex items-center space-x-1.5">
                 <span className="text-xl font-black tracking-tight text-slate-900">Agro<span className="text-emerald-600">Vault</span></span>
-                <span className="text-[10px] font-bold bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded">एग्रोवोल्ट</span>
+                <span className="text-[10px] font-bold bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded">
+                  {currentLanguage.code === 'en' ? 'एग्रोवोल्ट' : currentLanguage.native}
+                </span>
               </div>
-              <p className="text-[11px] text-slate-500 font-medium">Smart Cold Storage & Queue</p>
+              <p className="text-[11px] text-slate-500 font-medium">{t('portalTagline', 'Smart Cold Storage & Queue')}</p>
             </div>
           </div>
 
@@ -122,8 +144,22 @@ export default function Navbar() {
             })}
           </nav>
 
-          {/* User Profile / Quick Switcher */}
-          <div className="hidden sm:flex items-center space-x-3">
+          {/* Language Switcher & User Profile / Quick Switcher */}
+          <div className="hidden sm:flex items-center space-x-2.5">
+            {/* Dedicated Desktop Language Switcher Button */}
+            <button
+              onClick={() => setIsLanguageModalOpen(true)}
+              className="flex items-center space-x-2 px-3 py-1.5 rounded-lg border border-slate-200 hover:border-emerald-400 bg-slate-50 hover:bg-emerald-50/50 text-slate-700 transition group shadow-2xs"
+              title="Select Language / 22 Official Scheduled Languages of India"
+            >
+              <Globe className="w-4 h-4 text-emerald-600 group-hover:rotate-45 transition-transform" />
+              <div className="text-left">
+                <p className="text-xs font-bold text-slate-800 leading-tight">{currentLanguage.native}</p>
+                <p className="text-[10px] text-slate-500 capitalize">{currentLanguage.name}</p>
+              </div>
+              <ChevronDown className="w-3.5 h-3.5 text-slate-400 group-hover:text-emerald-600" />
+            </button>
+
             <div className="relative">
               <button
                 onClick={() => setRoleDropdownOpen(!roleDropdownOpen)}
@@ -182,12 +218,19 @@ export default function Navbar() {
               onClick={() => setActiveTab('auth')}
               className="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold px-3 py-2 rounded-lg shadow-sm transition"
             >
-              Sign In
+              {t('signIn', 'Sign In')}
             </button>
           </div>
 
           {/* Mobile menu button */}
           <div className="flex lg:hidden items-center space-x-2">
+            <button
+              onClick={() => setIsLanguageModalOpen(true)}
+              className="p-2 text-slate-600 hover:text-emerald-700 relative rounded-lg hover:bg-slate-100"
+              title="Change Language"
+            >
+              <Globe className="w-5 h-5 text-emerald-600" />
+            </button>
             <button
               onClick={() => setIsSmsSimulatorOpen(!isSmsSimulatorOpen)}
               className="p-2 text-slate-600 hover:text-slate-900 relative"
@@ -210,6 +253,22 @@ export default function Navbar() {
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
         <div className="lg:hidden border-t border-slate-200 bg-white px-4 pt-3 pb-6 space-y-1 shadow-lg">
+          {/* Mobile Language Button */}
+          <button
+            onClick={() => {
+              setIsLanguageModalOpen(true);
+              setMobileMenuOpen(false);
+            }}
+            className="w-full flex items-center justify-between px-3 py-2.5 mb-2 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-900 font-semibold text-sm"
+          >
+            <div className="flex items-center space-x-2">
+              <Globe className="w-4 h-4 text-emerald-600" />
+              <span>Language:</span>
+              <strong className="text-emerald-700 font-bold">{currentLanguage.native} ({currentLanguage.name})</strong>
+            </div>
+            <span className="text-xs text-emerald-600 font-bold underline">Change &rarr;</span>
+          </button>
+
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = activeTab === item.id;

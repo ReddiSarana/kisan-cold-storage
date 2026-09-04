@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useApp } from '../context/AppContext';
+import { useLanguage } from '../context/LanguageContext';
 import { fetchCrops } from '../services/api';
 import {
   Thermometer,
   Droplets,
   Clock,
   Package,
-  TrendingUp,
   Search,
   ArrowRight,
   Info,
@@ -16,6 +16,7 @@ import {
 
 export default function CropsPage() {
   const { setActiveTab, setSelectedCropFilter } = useApp();
+  const { t } = useLanguage();
   const [crops, setCrops] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
@@ -70,10 +71,10 @@ export default function CropsPage() {
             Telangana Agronomic Standards • Complete 77 Commodities Catalog
           </span>
           <h1 className="text-2xl sm:text-4xl font-black tracking-tight">
-            Telangana Crops, Produce & Seeds Catalog ({filteredCrops.length} of 77)
+            {t('crops', 'Telangana Crops, Produce & Seeds Catalog')} ({filteredCrops.length} of 77)
           </h1>
           <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-            Comprehensive cold preservation benchmarks calibrated specifically for all 77 crops, vegetables, fruits, pulses, oilseeds, spices, and certified seeds grown across Telangana — from Warangal Teja chillies and Nizamabad turmeric to Seed Bowl hybrid paddy and Tandur GI red gram.
+            {t('exploreGuidelines', 'Comprehensive cold preservation benchmarks calibrated specifically for all 77 crops, vegetables, fruits, pulses, oilseeds, spices, and certified seeds grown across Telangana — from Warangal Teja chillies and Nizamabad turmeric to Seed Bowl hybrid paddy and Tandur GI red gram.')}
           </p>
         </div>
       </div>
@@ -85,7 +86,7 @@ export default function CropsPage() {
           <Search className="w-4 h-4 absolute left-3 top-3 text-slate-400" />
           <input
             type="text"
-            placeholder="Search 77 crops (e.g. Mirchi, Turmeric, Mango)..."
+            placeholder={t('searchCrop', 'Search 77 crops (e.g. Mirchi, Turmeric, Mango)...')}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full bg-slate-50 border border-slate-200 pl-9 pr-4 py-2 rounded-xl text-xs text-slate-800 focus:bg-white focus:ring-1 focus:ring-emerald-600 focus:outline-none"
@@ -164,7 +165,7 @@ export default function CropsPage() {
                     <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-100 flex items-start space-x-2">
                       <Thermometer className="w-4 h-4 text-rose-500 flex-shrink-0 mt-0.5" />
                       <div>
-                        <span className="text-[10px] text-slate-400 font-semibold block">Optimum Temp</span>
+                        <span className="text-[10px] text-slate-400 font-semibold block">{t('optimumTemp', 'Optimum Temp')}</span>
                         <strong className="text-slate-800 text-xs">{crop.optimumTemp}</strong>
                       </div>
                     </div>
@@ -172,7 +173,7 @@ export default function CropsPage() {
                     <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-100 flex items-start space-x-2">
                       <Droplets className="w-4 h-4 text-blue-500 flex-shrink-0 mt-0.5" />
                       <div>
-                        <span className="text-[10px] text-slate-400 font-semibold block">Humidity (RH)</span>
+                        <span className="text-[10px] text-slate-400 font-semibold block">{t('humidity', 'Humidity (RH)')}</span>
                         <strong className="text-slate-800 text-xs">{crop.humidity}</strong>
                       </div>
                     </div>
@@ -180,7 +181,7 @@ export default function CropsPage() {
                     <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-100 flex items-start space-x-2">
                       <Clock className="w-4 h-4 text-amber-500 flex-shrink-0 mt-0.5" />
                       <div>
-                        <span className="text-[10px] text-slate-400 font-semibold block">Cold Shelf Life</span>
+                        <span className="text-[10px] text-slate-400 font-semibold block">{t('shelfLife', 'Cold Shelf Life')}</span>
                         <strong className="text-slate-800 text-xs">{crop.shelfLifeCold}</strong>
                       </div>
                     </div>
@@ -188,7 +189,7 @@ export default function CropsPage() {
                     <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-100 flex items-start space-x-2">
                       <Package className="w-4 h-4 text-purple-500 flex-shrink-0 mt-0.5" />
                       <div>
-                        <span className="text-[10px] text-slate-400 font-semibold block">Packaging</span>
+                        <span className="text-[10px] text-slate-400 font-semibold block">{t('packaging', 'Packaging')}</span>
                         <strong className="text-slate-800 text-xs truncate block max-w-[100px]">{crop.packaging}</strong>
                       </div>
                     </div>
@@ -209,7 +210,7 @@ export default function CropsPage() {
                   className="w-full flex items-center justify-center space-x-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs py-3 px-4 rounded-xl shadow-sm transition"
                 >
                   <Warehouse className="w-4 h-4" />
-                  <span>Find & Book Cold Units for {crop.name.split(' ')[0]}</span>
+                  <span>{t('findForCrop', 'Find & Book Cold Units for')} {crop.name.split(' ')[0]}</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </button>
               </div>

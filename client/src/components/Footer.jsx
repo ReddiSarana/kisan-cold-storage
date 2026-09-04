@@ -1,9 +1,11 @@
 import React from 'react';
-import { Snowflake, ShieldCheck, Award, Phone, Mail, MapPin } from 'lucide-react';
+import { Snowflake, ShieldCheck, Phone, Mail, MapPin, Globe } from 'lucide-react';
 import { useApp } from '../context/AppContext';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Footer() {
   const { setActiveTab } = useApp();
+  const { currentLanguage, setIsLanguageModalOpen, t } = useLanguage();
 
   return (
     <footer className="bg-slate-900 text-slate-300 border-t border-slate-800">
@@ -23,6 +25,18 @@ export default function Footer() {
             <div className="flex items-center space-x-2 text-xs text-emerald-400 font-medium">
               <ShieldCheck className="w-4 h-4" />
               <span>WDRA Act 2007 Compliant Infrastructure</span>
+            </div>
+
+            {/* Language Selector Button in Footer */}
+            <div className="pt-2">
+              <button
+                onClick={() => setIsLanguageModalOpen(true)}
+                className="inline-flex items-center space-x-2 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-medium transition"
+              >
+                <Globe className="w-4 h-4 text-emerald-400" />
+                <span>Language: <strong className="text-emerald-300">{currentLanguage.native}</strong> ({currentLanguage.name})</span>
+                <span className="text-emerald-400 text-[10px] underline ml-1">Change</span>
+              </button>
             </div>
           </div>
 

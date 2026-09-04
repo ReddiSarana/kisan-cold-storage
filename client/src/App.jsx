@@ -1,9 +1,11 @@
 import React from 'react';
 import { useApp, AppProvider } from './context/AppContext';
+import { LanguageProvider } from './context/LanguageContext';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import SmsSimulator from './components/SmsSimulator';
 import BookingModal from './components/BookingModal';
+import LanguageModal from './components/LanguageModal';
 
 import AboutPage from './pages/AboutPage';
 import CropsPage from './pages/CropsPage';
@@ -50,6 +52,9 @@ function AppContent() {
       {/* Universal Cold Storage Booking Modal */}
       <BookingModal />
 
+      {/* Language Selection Modal (All 22 Official Languages + English) */}
+      <LanguageModal />
+
       {/* Universal Footer */}
       <Footer />
     </div>
@@ -59,7 +64,9 @@ function AppContent() {
 export default function App() {
   return (
     <AppProvider>
-      <AppContent />
+      <LanguageProvider>
+        <AppContent />
+      </LanguageProvider>
     </AppProvider>
   );
 }

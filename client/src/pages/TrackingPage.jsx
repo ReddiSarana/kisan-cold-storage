@@ -146,6 +146,61 @@ export default function TrackingPage() {
         )}
       </div>
 
+      {/* Farmer Consignment Journey Guide */}
+      <div className="bg-gradient-to-r from-teal-50 via-emerald-50 to-cyan-50 border-2 border-teal-300 rounded-3xl p-5 sm:p-6 shadow-sm">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-4 pb-3 border-b border-teal-200">
+          <div className="flex items-center space-x-3">
+            <div className="w-10 h-10 rounded-2xl bg-teal-700 text-white flex items-center justify-center font-black text-xl shadow-md">
+              📊
+            </div>
+            <div>
+              <h3 className="font-black text-slate-900 text-base sm:text-lg">
+                రైతుల పంట నిల్వ ప్రయాణం (5 సులువైన దశలు)
+              </h3>
+              <p className="text-xs text-slate-600 font-medium">
+                Farmer Guide: The 5 Clear Stages of Your Produce in Cold Storage
+              </p>
+            </div>
+          </div>
+          <div className="bg-teal-700 text-white px-3.5 py-1.5 rounded-full text-xs font-bold flex items-center space-x-1.5 shadow-sm self-start sm:self-auto">
+            <span>📞 Status Desk:</span>
+            <a href="tel:18001801551" className="underline font-mono">1800-180-1551</a>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3">
+          <div className="bg-white rounded-2xl p-3.5 border border-teal-200 shadow-sm">
+            <div className="w-7 h-7 rounded-full bg-teal-100 text-teal-800 font-black flex items-center justify-center text-xs mb-2">1</div>
+            <h4 className="font-bold text-slate-900 text-xs">📱 బుకింగ్ & టోకెన్</h4>
+            <p className="text-[11px] text-slate-600 mt-1 leading-snug">Chamber reserved online and digital gate entry token sent via SMS.</p>
+          </div>
+
+          <div className="bg-white rounded-2xl p-3.5 border border-emerald-200 shadow-sm">
+            <div className="w-7 h-7 rounded-full bg-emerald-100 text-emerald-800 font-black flex items-center justify-center text-xs mb-2">2</div>
+            <h4 className="font-bold text-slate-900 text-xs">⚖️ వేబ్రిడ్జి బరువు</h4>
+            <p className="text-[11px] text-slate-600 mt-1 leading-snug">Automated gross vehicle weighment logged before tractor enters unloading bay.</p>
+          </div>
+
+          <div className="bg-white rounded-2xl p-3.5 border border-cyan-200 shadow-sm">
+            <div className="w-7 h-7 rounded-full bg-cyan-100 text-cyan-800 font-black flex items-center justify-center text-xs mb-2">3</div>
+            <h4 className="font-bold text-slate-900 text-xs">🔬 నాణ్యత తనిఖీ</h4>
+            <p className="text-[11px] text-slate-600 mt-1 leading-snug">Moisture % and produce quality inspected according to Telangana standards.</p>
+          </div>
+
+          <div className="bg-white rounded-2xl p-3.5 border border-blue-200 shadow-sm">
+            <div className="w-7 h-7 rounded-full bg-blue-100 text-blue-800 font-black flex items-center justify-center text-xs mb-2">4</div>
+            <h4 className="font-bold text-slate-900 text-xs">❄️ కోల్డ్ రూమ్ & e-NWR</h4>
+            <p className="text-[11px] text-slate-600 mt-1 leading-snug">Produce stacked safely in cold room and official bank-pledgeable e-NWR issued.</p>
+          </div>
+
+          <div className="bg-white rounded-2xl p-3.5 border border-indigo-200 shadow-sm">
+            <div className="w-7 h-7 rounded-full bg-indigo-100 text-indigo-800 font-black flex items-center justify-center text-xs mb-2">5</div>
+            <h4 className="font-bold text-slate-900 text-xs">💰 చెల్లింపు లేదా విడుదల</h4>
+            <p className="text-[11px] text-slate-600 mt-1 leading-snug">Pay storage rent when market prices rise, sell crop, or release safely.</p>
+          </div>
+        </div>
+      </div>
+
       {/* Main Layout: Consignment Selector (Left) + Pipeline & Ledger (Right) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         {/* Left: Consignment List */}

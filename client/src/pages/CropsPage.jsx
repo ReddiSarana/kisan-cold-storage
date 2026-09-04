@@ -79,6 +79,73 @@ export default function CropsPage() {
         </div>
       </div>
 
+      {/* Farmer Crop Catalog Guide */}
+      <div className="bg-gradient-to-r from-emerald-50 via-teal-50 to-green-50 border-2 border-emerald-300 rounded-3xl p-5 sm:p-6 shadow-sm">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-4 pb-3 border-b border-emerald-200">
+          <div className="flex items-center space-x-3">
+            <div className="w-10 h-10 rounded-2xl bg-emerald-700 text-white flex items-center justify-center font-black text-xl shadow-md">
+              🌾
+            </div>
+            <div>
+              <h3 className="font-black text-slate-900 text-base sm:text-lg">
+                రైతులకు పంట గైడ్‌లైన్స్: నిల్వ ఉష్ణోగ్రత & బుకింగ్
+              </h3>
+              <p className="text-xs text-slate-600 font-medium">
+                Farmer Guide: Ideal Storage Temperatures, Shelf-Life & 1-Click Booking
+              </p>
+            </div>
+          </div>
+          <div className="bg-emerald-700 text-white px-3.5 py-1.5 rounded-full text-xs font-bold flex items-center space-x-1.5 shadow-sm self-start sm:self-auto">
+            <span>📞 Kisan Call Centre:</span>
+            <a href="tel:18001801551" className="underline font-mono">1800-180-1551</a>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="bg-white rounded-2xl p-4 border border-emerald-200 shadow-sm flex items-start space-x-3.5">
+            <div className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-800 font-black flex items-center justify-center text-sm shrink-0">
+              1
+            </div>
+            <div>
+              <h4 className="font-bold text-slate-900 text-sm">
+                🔍 మీ పంటను సెర్చ్ చేయండి
+              </h4>
+              <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+                కింది సెర్చ్ బార్‌లో మీ పంట పేరు (మిర్చి, పసుపు, టమాటా మొదలైనవి) టైప్ చేసి సరైన తేమ & ఉష్ణోగ్రత వివరాలు తెలుసుకోండి.
+              </p>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-2xl p-4 border border-teal-200 shadow-sm flex items-start space-x-3.5">
+            <div className="w-8 h-8 rounded-full bg-teal-100 text-teal-800 font-black flex items-center justify-center text-sm shrink-0">
+              2
+            </div>
+            <div>
+              <h4 className="font-bold text-slate-900 text-sm">
+                ❄️ నిల్వ సమయం & జాగ్రత్తలు
+              </h4>
+              <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+                ప్రతి పంట కార్డులో ఉష్ణోగ్రత (°C), తేమ (Humidity %), గరిష్ట నిల్వ కాలం మరియు ప్యాకేజింగ్ సలహాలు స్పష్టంగా చూడవచ్చు.
+              </p>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-2xl p-4 border border-green-200 shadow-sm flex items-start space-x-3.5">
+            <div className="w-8 h-8 rounded-full bg-green-100 text-green-800 font-black flex items-center justify-center text-sm shrink-0">
+              3
+            </div>
+            <div>
+              <h4 className="font-bold text-slate-900 text-sm">
+                🏬 "Book Units" క్లిక్ చేయండి
+              </h4>
+              <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+                మీ పంట కార్డుపై ఉన్న <strong>"Book Units for this Crop"</strong> బటన్ నొక్కగానే ఆ పంటకు అనువైన కోల్డ్ స్టోరేజ్ జాబితా కనిపిస్తుంది.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Filter Bar */}
       <div className="flex flex-col lg:flex-row items-center justify-between gap-4 bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
         {/* Search */}

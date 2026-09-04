@@ -85,6 +85,73 @@ export default function StorageUnitsPage() {
         )}
       </div>
 
+      {/* Farmer Booking 3-Step Guide Banner */}
+      <div className="bg-gradient-to-r from-emerald-50 via-teal-50 to-green-50 border-2 border-emerald-300 rounded-3xl p-5 sm:p-6 shadow-sm">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-4 pb-3 border-b border-emerald-200">
+          <div className="flex items-center space-x-3">
+            <div className="w-10 h-10 rounded-2xl bg-emerald-600 text-white flex items-center justify-center font-black text-xl shadow-md">
+              💡
+            </div>
+            <div>
+              <h3 className="font-black text-slate-900 text-base sm:text-lg">
+                రైతులకు సులువైన మార్గదర్శి: కోల్డ్ స్టోరేజ్ బుకింగ్ 3 దశల్లో
+              </h3>
+              <p className="text-xs text-slate-600 font-medium">
+                Simple 3-Step Farmer Booking Guide — Reserve cold storage space easily in minutes
+              </p>
+            </div>
+          </div>
+          <div className="bg-emerald-600 text-white px-3.5 py-1.5 rounded-full text-xs font-bold flex items-center space-x-1.5 shadow-sm self-start sm:self-auto">
+            <span>📞 Kisan Helpline:</span>
+            <a href="tel:18001801551" className="underline font-mono">1800-180-1551</a>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="bg-white rounded-2xl p-4 border border-emerald-200 shadow-sm flex items-start space-x-3.5">
+            <div className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-800 font-black flex items-center justify-center text-sm shrink-0">
+              1
+            </div>
+            <div>
+              <h4 className="font-bold text-slate-900 text-sm">
+                🌾 1. మీ పంటను ఎంచుకోండి (Pick Crop)
+              </h4>
+              <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+                Choose your harvest (Chilli, Turmeric, Tomato, Onion, etc.) using the crop filter below to see units with the ideal temperature room.
+              </p>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-2xl p-4 border border-teal-200 shadow-sm flex items-start space-x-3.5">
+            <div className="w-8 h-8 rounded-full bg-teal-100 text-teal-800 font-black flex items-center justify-center text-sm shrink-0">
+              2
+            </div>
+            <div>
+              <h4 className="font-bold text-slate-900 text-sm">
+                📍 2. దగ్గరలోని జిల్లాను చూడండి (Pick District)
+              </h4>
+              <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+                Filter by your district (Warangal, Nizamabad, Khammam, etc.) to locate facilities closest to your farm and reduce tractor transport expense.
+              </p>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-2xl p-4 border border-green-200 shadow-sm flex items-start space-x-3.5">
+            <div className="w-8 h-8 rounded-full bg-green-100 text-green-800 font-black flex items-center justify-center text-sm shrink-0">
+              3
+            </div>
+            <div>
+              <h4 className="font-bold text-slate-900 text-sm">
+                📱 3. "Book Space" బటన్ నొక్కండి (Book Space)
+              </h4>
+              <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+                Click the green <strong>"Book Space"</strong> button on your chosen facility card. Enter your bag count and get your instant SMS confirmation!
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Filter Toolbar */}
       <div className="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200 shadow-sm space-y-4">
         <div className="flex items-center justify-between border-b border-slate-100 pb-3">

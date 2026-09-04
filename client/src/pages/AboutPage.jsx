@@ -95,6 +95,129 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* Neat Farmer Step-by-Step Directions Board */}
+      <section className="bg-gradient-to-br from-emerald-50 via-teal-50 to-amber-50 border-2 border-emerald-300 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-emerald-200/80 pb-4">
+          <div>
+            <div className="flex items-center space-x-2">
+              <span className="bg-emerald-600 text-white text-xs font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+                Farmer Direct Guide • రైతులకు మార్గదర్శి
+              </span>
+              <span className="text-xs text-emerald-800 font-bold">Simple 4 Steps</span>
+            </div>
+            <h2 className="text-xl sm:text-2xl font-black text-slate-900 mt-1">
+              How Any Farmer Can Use This Website in 4 Simple Steps
+            </h2>
+            <p className="text-xs text-slate-600 mt-0.5">
+              Click any step below to immediately open that section. No complicated forms or logins required.
+            </p>
+          </div>
+
+          <div className="bg-white px-4 py-2.5 rounded-2xl border border-emerald-300 shadow-xs flex items-center space-x-3 shrink-0">
+            <PhoneCall className="w-5 h-5 text-emerald-600 animate-bounce" />
+            <div>
+              <span className="text-[10px] text-slate-400 uppercase font-bold block">Need Phone Help?</span>
+              <strong className="text-sm font-black text-emerald-800 font-mono">1800-180-1551</strong>
+            </div>
+          </div>
+        </div>
+
+        {/* 4 Big Simple Step Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div
+            onClick={() => setActiveTab('crops')}
+            className="bg-white p-5 rounded-2xl border-2 border-emerald-200 hover:border-emerald-500 shadow-xs hover:shadow-md transition cursor-pointer group flex flex-col justify-between"
+          >
+            <div>
+              <div className="flex items-center justify-between mb-3">
+                <span className="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-800 font-black text-sm flex items-center justify-center">
+                  1
+                </span>
+                <span className="text-2xl">🌱</span>
+              </div>
+              <h3 className="font-bold text-sm text-slate-900 group-hover:text-emerald-700 transition">
+                Check Crop Guidelines
+              </h3>
+              <p className="text-xs text-slate-500 mt-1.5 leading-relaxed">
+                See exact storage temperature, humidity & shelf life for 77 crops across Telangana.
+              </p>
+            </div>
+            <div className="mt-4 pt-3 border-t border-slate-100 flex items-center text-xs font-bold text-emerald-700 group-hover:translate-x-1 transition">
+              <span>View Crops &rarr;</span>
+            </div>
+          </div>
+
+          <div
+            onClick={() => setActiveTab('units')}
+            className="bg-white p-5 rounded-2xl border-2 border-teal-200 hover:border-teal-500 shadow-xs hover:shadow-md transition cursor-pointer group flex flex-col justify-between"
+          >
+            <div>
+              <div className="flex items-center justify-between mb-3">
+                <span className="w-8 h-8 rounded-xl bg-teal-100 text-teal-800 font-black text-sm flex items-center justify-center">
+                  2
+                </span>
+                <span className="text-2xl">🏬</span>
+              </div>
+              <h3 className="font-bold text-sm text-slate-900 group-hover:text-teal-700 transition">
+                Find & Book Cold Storage
+              </h3>
+              <p className="text-xs text-slate-500 mt-1.5 leading-relaxed">
+                Pick your district (Warangal, Nizamabad, etc.), check transparent rent, and reserve bags.
+              </p>
+            </div>
+            <div className="mt-4 pt-3 border-t border-slate-100 flex items-center text-xs font-bold text-teal-700 group-hover:translate-x-1 transition">
+              <span>Find Units &rarr;</span>
+            </div>
+          </div>
+
+          <div
+            onClick={() => setActiveTab('queue')}
+            className="bg-white p-5 rounded-2xl border-2 border-amber-200 hover:border-amber-500 shadow-xs hover:shadow-md transition cursor-pointer group flex flex-col justify-between"
+          >
+            <div>
+              <div className="flex items-center justify-between mb-3">
+                <span className="w-8 h-8 rounded-xl bg-amber-100 text-amber-800 font-black text-sm flex items-center justify-center">
+                  3
+                </span>
+                <span className="text-2xl">🚜</span>
+              </div>
+              <h3 className="font-bold text-sm text-slate-900 group-hover:text-amber-700 transition">
+                Live Gate Queue & Token
+              </h3>
+              <p className="text-xs text-slate-500 mt-1.5 leading-relaxed">
+                Avoid highway traffic jams! Get an SMS token and drive in only when your bay is ready.
+              </p>
+            </div>
+            <div className="mt-4 pt-3 border-t border-slate-100 flex items-center text-xs font-bold text-amber-700 group-hover:translate-x-1 transition">
+              <span>View Gate Queue &rarr;</span>
+            </div>
+          </div>
+
+          <div
+            onClick={() => setActiveTab('documents')}
+            className="bg-white p-5 rounded-2xl border-2 border-blue-200 hover:border-blue-500 shadow-xs hover:shadow-md transition cursor-pointer group flex flex-col justify-between"
+          >
+            <div>
+              <div className="flex items-center justify-between mb-3">
+                <span className="w-8 h-8 rounded-xl bg-blue-100 text-blue-800 font-black text-sm flex items-center justify-center">
+                  4
+                </span>
+                <span className="text-2xl">🏦</span>
+              </div>
+              <h3 className="font-bold text-sm text-slate-900 group-hover:text-blue-700 transition">
+                Get Bank Loan (e-NWR)
+              </h3>
+              <p className="text-xs text-slate-500 mt-1.5 leading-relaxed">
+                Download legal Government WDRA receipt and pledge with banks for 75% advance cash loan.
+              </p>
+            </div>
+            <div className="mt-4 pt-3 border-t border-slate-100 flex items-center text-xs font-bold text-blue-700 group-hover:translate-x-1 transition">
+              <span>Get Loan Receipt &rarr;</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* The Problem We Solve */}
       <section className="space-y-6">
         <div className="text-center max-w-2xl mx-auto space-y-2">

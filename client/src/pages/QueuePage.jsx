@@ -119,6 +119,87 @@ export default function QueuePage() {
         </div>
       </div>
 
+      {/* Farmer & Tractor Driver Gate Directions */}
+      <div className="bg-gradient-to-r from-amber-50 via-orange-50 to-amber-50 border-2 border-amber-300 rounded-3xl p-5 sm:p-6 shadow-sm">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-4 pb-3 border-b border-amber-200">
+          <div className="flex items-center space-x-3">
+            <div className="w-10 h-10 rounded-2xl bg-amber-600 text-white flex items-center justify-center font-black text-xl shadow-md">
+              🚜
+            </div>
+            <div>
+              <h3 className="font-black text-slate-900 text-base sm:text-lg">
+                గేటు వద్ద రైతులకు & డ్రైవర్లకు స్పష్టమైన మార్గదర్శకాలు
+              </h3>
+              <p className="text-xs text-slate-600 font-medium">
+                Tractor Driver & Farmer Directions: How the Live Yard Entry Queue Works
+              </p>
+            </div>
+          </div>
+          <div className="bg-amber-600 text-white px-3.5 py-1.5 rounded-full text-xs font-bold flex items-center space-x-1.5 shadow-sm self-start sm:self-auto">
+            <span>📞 Gate Marshal:</span>
+            <a href="tel:18001801551" className="underline font-mono">1800-180-1551</a>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="bg-white rounded-2xl p-4 border border-amber-200 shadow-sm flex items-start space-x-3">
+            <div className="w-8 h-8 rounded-full bg-amber-100 text-amber-800 font-black flex items-center justify-center text-sm shrink-0">
+              1
+            </div>
+            <div>
+              <h4 className="font-bold text-slate-900 text-sm">
+                📱 మీ టోకెన్ చూడండి (Check Token)
+              </h4>
+              <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+                Check your booking SMS for your unique Gate Token (e.g. <strong>TKN-8821</strong>). You do NOT need to wait in line outside.
+              </p>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-2xl p-4 border border-orange-200 shadow-sm flex items-start space-x-3">
+            <div className="w-8 h-8 rounded-full bg-orange-100 text-orange-800 font-black flex items-center justify-center text-sm shrink-0">
+              2
+            </div>
+            <div>
+              <h4 className="font-bold text-slate-900 text-sm">
+                🌳 రైతు విశ్రాంతి గది (Rest in Lounge)
+              </h4>
+              <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+                Park your tractor in the designated green holding zone or rest in the Kisan Lounge. Watch the live display screen above.
+              </p>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-2xl p-4 border border-emerald-200 shadow-sm flex items-start space-x-3">
+            <div className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-800 font-black flex items-center justify-center text-sm shrink-0">
+              3
+            </div>
+            <div>
+              <h4 className="font-bold text-slate-900 text-sm">
+                🔊 SMS / పిలుపు రాగానే బే వద్దకు (Go to Bay)
+              </h4>
+              <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+                When your token lights up green with <strong>"Bay 1, 2, or 3"</strong>, drive directly onto the electronic weighbridge for automated gross weighment.
+              </p>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-2xl p-4 border border-teal-200 shadow-sm flex items-start space-x-3">
+            <div className="w-8 h-8 rounded-full bg-teal-100 text-teal-800 font-black flex items-center justify-center text-sm shrink-0">
+              4
+            </div>
+            <div>
+              <h4 className="font-bold text-slate-900 text-sm">
+                🧾 అన్‌లోడ్ & రసీదు (Unload & e-Receipt)
+              </h4>
+              <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+                Warehouse staff unloads your produce into the cold chamber. You receive an instant SMS weighment pass and e-NWR receipt!
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Operator Control Panel (if logged in as manager) */}
       <div className="bg-emerald-50 border-2 border-emerald-300 rounded-3xl p-5 shadow-sm">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-emerald-200">

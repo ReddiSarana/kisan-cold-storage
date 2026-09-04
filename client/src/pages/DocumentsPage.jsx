@@ -139,6 +139,73 @@ export default function DocumentsPage() {
         </a>
       </div>
 
+      {/* Farmer Guide: Bank Pledge Loans & e-NWR */}
+      <div className="bg-gradient-to-r from-blue-50 via-indigo-50 to-sky-50 border-2 border-blue-300 rounded-3xl p-5 sm:p-6 shadow-sm">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-4 pb-3 border-b border-blue-200">
+          <div className="flex items-center space-x-3">
+            <div className="w-10 h-10 rounded-2xl bg-blue-700 text-white flex items-center justify-center font-black text-xl shadow-md">
+              🏦
+            </div>
+            <div>
+              <h3 className="font-black text-slate-900 text-base sm:text-lg">
+                రైతులకు బ్యాంక్ రుణాలు & అధికారిక పత్రాల మార్గదర్శి
+              </h3>
+              <p className="text-xs text-slate-600 font-medium">
+                Farmer Guide: How to Get up to 75% Bank Loans with your e-NWR Receipt
+              </p>
+            </div>
+          </div>
+          <div className="bg-blue-700 text-white px-3.5 py-1.5 rounded-full text-xs font-bold flex items-center space-x-1.5 shadow-sm self-start sm:self-auto">
+            <span>📞 NABARD Helpline:</span>
+            <a href="tel:18001801551" className="underline font-mono">1800-180-1551</a>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="bg-white rounded-2xl p-4 border border-blue-200 shadow-sm flex items-start space-x-3.5">
+            <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-800 font-black flex items-center justify-center text-sm shrink-0">
+              1
+            </div>
+            <div>
+              <h4 className="font-bold text-slate-900 text-sm">
+                📄 e-NWR రశీదు అంటే ఏమిటి?
+              </h4>
+              <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+                ఇది ప్రభుత్వ WDRA గుర్తింపు పొందిన ఎలక్ట్రానిక్ రశీదు. మీ పంట కోల్డ్ స్టోరేజీలో సురక్షితంగా ఉందని ఈ పత్రం నిర్ధారిస్తుంది.
+              </p>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-2xl p-4 border border-indigo-200 shadow-sm flex items-start space-x-3.5">
+            <div className="w-8 h-8 rounded-full bg-indigo-100 text-indigo-800 font-black flex items-center justify-center text-sm shrink-0">
+              2
+            </div>
+            <div>
+              <h4 className="font-bold text-slate-900 text-sm">
+                🌾 పంట అమ్మకుండా 75% రుణం పొందండి
+              </h4>
+              <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+                మార్కెట్లో ధర తక్కువగా ఉన్నప్పుడు పంటను తక్కువ ధరకు అమ్మాల్సిన అవసరం లేదు. ఈ రశీదు పెట్టి జాతీయ బ్యాంకుల్లో తక్కువ వడ్డీతో రుణం పొందవచ్చు.
+              </p>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-2xl p-4 border border-sky-200 shadow-sm flex items-start space-x-3.5">
+            <div className="w-8 h-8 rounded-full bg-sky-100 text-sky-800 font-black flex items-center justify-center text-sm shrink-0">
+              3
+            </div>
+            <div>
+              <h4 className="font-bold text-slate-900 text-sm">
+                📥 1-క్లిక్‌తో డౌన్‌లోడ్ చేసుకోండి
+              </h4>
+              <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+                క్రింద ఉన్న పత్రాన్ని ఎంచుకుని <strong>"Download Native .DOCX File"</strong> బటన్ నొక్కండి. ప్రింట్ తీసుకుని నేరుగా మీ బ్యాంక్ మేనేజర్‌కు ఇవ్వవచ్చు.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Document Type Selector Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {documentTypes.map((dt) => {

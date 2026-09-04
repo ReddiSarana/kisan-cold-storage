@@ -175,9 +175,35 @@ export default function Navbar() {
 
               {/* Role Switcher Dropdown */}
               {roleDropdownOpen && (
-                <div className="absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-xl border border-slate-200 p-2 z-50">
-                  <div className="px-2 py-1.5 border-b border-slate-100 mb-1">
-                    <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Demo Quick Switch</p>
+                <div className="absolute right-0 mt-2 w-72 bg-white rounded-2xl shadow-xl border border-slate-200 p-2.5 z-50 animate-in fade-in duration-150">
+                  {/* Current Profile Summary Card */}
+                  <div className="p-3 bg-emerald-50/80 rounded-xl border border-emerald-200/80 mb-2">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-2.5">
+                        <span className="text-2xl">{currentUser.avatar}</span>
+                        <div>
+                          <p className="font-black text-xs text-slate-900 leading-tight">{currentUser.name}</p>
+                          <p className="text-[10px] text-emerald-800 font-semibold">{currentUser.district}, {currentUser.state}</p>
+                        </div>
+                      </div>
+                      <span className="bg-emerald-600 text-white text-[9px] font-bold px-1.5 py-0.5 rounded shadow-xs">
+                        KYC ✓
+                      </span>
+                    </div>
+                    <button
+                      onClick={() => {
+                        setActiveTab('profile');
+                        setRoleDropdownOpen(false);
+                      }}
+                      className="mt-2.5 w-full flex items-center justify-center space-x-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold py-2 rounded-lg shadow-xs transition"
+                    >
+                      <User className="w-3.5 h-3.5" />
+                      <span>View & Edit My Profile</span>
+                    </button>
+                  </div>
+
+                  <div className="px-2 py-1 border-b border-slate-100 mb-1">
+                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Demo Quick Switch</p>
                   </div>
                   {Object.entries(DEMO_USERS).map(([key, user]) => (
                     <button
@@ -302,10 +328,20 @@ export default function Navbar() {
             </div>
             <button
               onClick={() => {
+                setActiveTab('profile');
+                setMobileMenuOpen(false);
+              }}
+              className="w-full flex items-center justify-center space-x-2 bg-emerald-50 border border-emerald-300 text-emerald-900 text-xs font-bold py-2.5 rounded-lg text-center hover:bg-emerald-100 transition"
+            >
+              <User className="w-4 h-4 text-emerald-700" />
+              <span>View & Edit My Profile</span>
+            </button>
+            <button
+              onClick={() => {
                 setActiveTab('auth');
                 setMobileMenuOpen(false);
               }}
-              className="w-full bg-emerald-600 text-white text-xs font-bold py-2.5 rounded-lg text-center"
+              className="w-full bg-emerald-600 text-white text-xs font-bold py-2.5 rounded-lg text-center shadow-xs"
             >
               Sign In / Switch Role
             </button>

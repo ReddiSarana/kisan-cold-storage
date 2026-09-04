@@ -15,6 +15,7 @@ import TrackingPage from './pages/TrackingPage';
 import DocumentsPage from './pages/DocumentsPage';
 import SmsLogsPage from './pages/SmsLogsPage';
 import AuthPage from './pages/AuthPage';
+import ProfilePage from './pages/ProfilePage';
 
 function AppContent() {
   const { activeTab, latestToast } = useApp();
@@ -44,6 +45,7 @@ function AppContent() {
         {activeTab === 'documents' && <DocumentsPage />}
         {activeTab === 'sms' && <SmsLogsPage />}
         {activeTab === 'auth' && <AuthPage />}
+        {activeTab === 'profile' && <ProfilePage />}
       </main>
 
       {/* Interactive On-Screen Farmer Smartphone SMS Simulator */}

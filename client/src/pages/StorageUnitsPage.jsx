@@ -95,7 +95,7 @@ export default function StorageUnitsPage() {
             </div>
             <div>
               <h3 className="font-black text-slate-900 text-base sm:text-lg">
-                రైతులకు సులువైన మార్గదర్శి: కోల్డ్ స్టోరేజ్ బుకింగ్ 3 దశల్లో
+                Farmer Guide: How to Reserve Cold Storage in 3 Simple Steps
               </h3>
               <p className="text-xs text-slate-600 font-medium">
                 Simple 3-Step Farmer Booking Guide — Reserve cold storage space easily in minutes
@@ -115,7 +115,7 @@ export default function StorageUnitsPage() {
             </div>
             <div>
               <h4 className="font-bold text-slate-900 text-sm">
-                🌾 1. మీ పంటను ఎంచుకోండి (Pick Crop)
+                🌾 Step 1: Pick Your Harvested Crop
               </h4>
               <p className="text-xs text-slate-600 mt-1 leading-relaxed">
                 Choose your harvest (Chilli, Turmeric, Tomato, Onion, etc.) using the crop filter below to see units with the ideal temperature room.
@@ -129,7 +129,7 @@ export default function StorageUnitsPage() {
             </div>
             <div>
               <h4 className="font-bold text-slate-900 text-sm">
-                📍 2. దగ్గరలోని జిల్లాను చూడండి (Pick District)
+                📍 Step 2: Choose Closest District / Facility
               </h4>
               <p className="text-xs text-slate-600 mt-1 leading-relaxed">
                 Filter by your district (Warangal, Nizamabad, Khammam, etc.) to locate facilities closest to your farm and reduce tractor transport expense.
@@ -143,7 +143,7 @@ export default function StorageUnitsPage() {
             </div>
             <div>
               <h4 className="font-bold text-slate-900 text-sm">
-                📅 3. స్లాట్ బుకింగ్ విండోకు వెళ్ళండి (Go to Slot Booking Window)
+                📅 Step 3: Open Slot Booking Window
               </h4>
               <p className="text-xs text-slate-600 mt-1 leading-relaxed">
                 Click <strong>"Book in Slot Booking Window"</strong> on your chosen facility to open the separate dedicated window where you pick your arrival date, time slot, and get your SMS token!

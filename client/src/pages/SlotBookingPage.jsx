@@ -158,7 +158,7 @@ export default function SlotBookingPage() {
               <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
             </span>
             <span className="text-xs font-bold uppercase tracking-wider text-emerald-300 bg-emerald-800/60 px-3 py-0.5 rounded-full">
-              {t('slotBookingWindow', "Dedicated Cold Storage Slot Booking Window • స్లాట్ బుకింగ్ విండో")}
+              {t('slotBookingWindow', "Dedicated Cold Storage Slot Booking Window")}
             </span>
           </div>
           <h1 className="text-2xl sm:text-4xl font-black tracking-tight">
@@ -192,7 +192,7 @@ export default function SlotBookingPage() {
             </div>
             <div>
               <h3 className="font-black text-slate-900 text-base sm:text-lg">
-                రైతులకు సులువైన బుకింగ్ మార్గదర్శకాలు (4 సులువైన దశలు)
+                Farmer Guide: 4 Easy Steps to Reserve Your Chamber Slot
               </h3>
               <p className="text-xs text-slate-600 font-medium">
                 Simple 4-Step Reservation Process — Direct booking without long gate waiting
@@ -214,10 +214,10 @@ export default function SlotBookingPage() {
             </div>
             <div>
               <h4 className="font-bold text-slate-900 text-sm">
-                🏬 కోల్డ్ స్టోరేజీని ఎంచుకోండి
+                🏬 Step 1: Select Facility
               </h4>
               <p className="text-xs text-slate-600 mt-1 leading-relaxed">
-                మీ జిల్లాలోని దగ్గరి కోల్డ్ స్టోరేజ్ యూనిట్‌ను ఎంచుకోండి.
+                Choose an accredited cold storage unit closest to your farm or market.
               </p>
             </div>
           </div>
@@ -228,10 +228,10 @@ export default function SlotBookingPage() {
             </div>
             <div>
               <h4 className="font-bold text-slate-900 text-sm">
-                🌾 పంట & బస్తాల వివరాలు
+                🌾 Step 2: Produce & Bags
               </h4>
               <p className="text-xs text-slate-600 mt-1 leading-relaxed">
-                పంట రకం, క్వింటాళ్లు మరియు ఎన్ని నెలలు నిల్వ ఉంచాలో నమోదు చేయండి.
+                Specify commodity type, quantity in quintals, and intended months of storage.
               </p>
             </div>
           </div>
@@ -242,10 +242,10 @@ export default function SlotBookingPage() {
             </div>
             <div>
               <h4 className="font-bold text-slate-900 text-sm">
-                ⏰ రాక సమయం (Slot)
+                ⏰ Step 3: Pick Arrival Slot
               </h4>
               <p className="text-xs text-slate-600 mt-1 leading-relaxed">
-                ఉదయం, మధ్యాహ్నం లేదా సాయంత్రం స్లాట్‌ను ఎంచుకోండి.
+                Choose morning, afternoon, or evening vehicle arrival window.
               </p>
             </div>
           </div>
@@ -256,10 +256,10 @@ export default function SlotBookingPage() {
             </div>
             <div>
               <h4 className="font-bold text-slate-900 text-sm">
-                📱 తక్షణ SMS గేట్ టోకెన్
+                📱 Step 4: Instant SMS Token
               </h4>
               <p className="text-xs text-slate-600 mt-1 leading-relaxed">
-                బుకింగ్ అవ్వగానే మీ ఫోన్‌కు గేట్ పాస్ SMS మరియు e-NWR రశీదు అందుతాయి.
+                Receive instant gate entry pass on mobile with zero highway congestion.
               </p>
             </div>
           </div>
@@ -395,7 +395,7 @@ export default function SlotBookingPage() {
             {/* Field 1: Choose Cold Storage Facility */}
             <div className="space-y-1.5">
               <label className="block text-xs font-bold text-slate-800 uppercase tracking-wider">
-                1. Select Cold Storage Facility (కోల్డ్ స్టోరేజీని ఎంచుకోండి) *
+                1. Select Cold Storage Facility *
               </label>
               <select
                 value={selectedFacilityId}
@@ -415,7 +415,7 @@ export default function SlotBookingPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-1.5">
                 <label className="block text-xs font-bold text-slate-800 uppercase tracking-wider">
-                  2. Harvested Crop (పంట రకం) *
+                  2. Harvested Crop Commodity *
                 </label>
                 <select
                   value={selectedCropId}
@@ -433,7 +433,7 @@ export default function SlotBookingPage() {
 
               <div className="space-y-1.5">
                 <label className="block text-xs font-bold text-slate-800 uppercase tracking-wider">
-                  3. Quantity in Quintals (క్వింటాళ్లు) *
+                  3. Quantity in Quintals *
                 </label>
                 <div className="relative">
                   <input
@@ -456,7 +456,7 @@ export default function SlotBookingPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-1.5">
                 <label className="block text-xs font-bold text-slate-800 uppercase tracking-wider">
-                  Estimated Bag Count (బస్తాల సంఖ్య)
+                  Estimated Bag Count
                 </label>
                 <input
                   type="number"
@@ -470,7 +470,7 @@ export default function SlotBookingPage() {
 
               <div className="space-y-1.5">
                 <label className="block text-xs font-bold text-slate-800 uppercase tracking-wider">
-                  Storage Duration (నిల్వ కాలం) *
+                  Storage Duration in Months *
                 </label>
                 <select
                   value={expectedDurationMonths}
@@ -491,7 +491,7 @@ export default function SlotBookingPage() {
             {/* Field 4: Arrival Date & Time Slot Cards */}
             <div className="space-y-3">
               <label className="block text-xs font-bold text-slate-800 uppercase tracking-wider">
-                4. Select Arrival Date & Time Slot (రాక తేదీ మరియు సమయం) *
+                4. Select Arrival Date & Time Slot *
               </label>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -555,14 +555,14 @@ export default function SlotBookingPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-1.5">
                 <label className="block text-xs font-bold text-slate-800 uppercase tracking-wider">
-                  Vehicle Type (వాహనం రకం)
+                  Vehicle Type
                 </label>
                 <select
                   value={vehicleType}
                   onChange={(e) => setVehicleType(e.target.value)}
                   className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs sm:text-sm font-semibold text-slate-900 focus:bg-white focus:ring-2 focus:ring-emerald-600 focus:outline-none"
                 >
-                  <option value="Tractor Trolley">Tractor Trolley (ట్రాక్టర్)</option>
+                  <option value="Tractor Trolley">Tractor Trolley</option>
                   <option value="Small Commercial Vehicle (Bolero/Ace)">Bolero Pickup / Mini Truck</option>
                   <option value="6-Wheeler Medium Truck">6-Wheeler Medium Truck</option>
                   <option value="10-Wheeler Heavy Truck">10-Wheeler Heavy Truck</option>
@@ -571,7 +571,7 @@ export default function SlotBookingPage() {
 
               <div className="space-y-1.5">
                 <label className="block text-xs font-bold text-slate-800 uppercase tracking-wider">
-                  Vehicle Reg Plate (వాహనం నంబర్) *
+                  Vehicle Reg Plate *
                 </label>
                 <input
                   type="text"
@@ -588,7 +588,7 @@ export default function SlotBookingPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-slate-100">
               <div className="space-y-1.5">
                 <label className="block text-xs font-bold text-slate-800 uppercase tracking-wider">
-                  Farmer Full Name (రైతు పేరు) *
+                  Farmer Full Name *
                 </label>
                 <input
                   type="text"
@@ -601,7 +601,7 @@ export default function SlotBookingPage() {
 
               <div className="space-y-1.5">
                 <label className="block text-xs font-bold text-slate-800 uppercase tracking-wider">
-                  Mobile Phone for SMS Token (ఫోన్ నంబర్) *
+                  Mobile Phone for SMS Token *
                 </label>
                 <input
                   type="tel"

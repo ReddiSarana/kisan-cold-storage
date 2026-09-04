@@ -128,10 +128,10 @@ export default function QueuePage() {
             </div>
             <div>
               <h3 className="font-black text-slate-900 text-base sm:text-lg">
-                గేటు వద్ద రైతులకు & డ్రైవర్లకు స్పష్టమైన మార్గదర్శకాలు
+                Tractor Driver & Farmer Directions: How Live Gate Entry Works
               </h3>
               <p className="text-xs text-slate-600 font-medium">
-                Tractor Driver & Farmer Directions: How the Live Yard Entry Queue Works
+                Live Yard Entry & Automated Weighbridge Protocol
               </p>
             </div>
           </div>
@@ -148,7 +148,7 @@ export default function QueuePage() {
             </div>
             <div>
               <h4 className="font-bold text-slate-900 text-sm">
-                📱 మీ టోకెన్ చూడండి (Check Token)
+                📱 Step 1: Check Your SMS Gate Token
               </h4>
               <p className="text-xs text-slate-600 mt-1 leading-relaxed">
                 Check your booking SMS for your unique Gate Token (e.g. <strong>TKN-8821</strong>). You do NOT need to wait in line outside.
@@ -162,7 +162,7 @@ export default function QueuePage() {
             </div>
             <div>
               <h4 className="font-bold text-slate-900 text-sm">
-                🌳 రైతు విశ్రాంతి గది (Rest in Lounge)
+                🌳 Step 2: Park & Rest in Kisan Lounge
               </h4>
               <p className="text-xs text-slate-600 mt-1 leading-relaxed">
                 Park your tractor in the designated green holding zone or rest in the Kisan Lounge. Watch the live display screen above.
@@ -176,7 +176,7 @@ export default function QueuePage() {
             </div>
             <div>
               <h4 className="font-bold text-slate-900 text-sm">
-                🔊 SMS / పిలుపు రాగానే బే వద్దకు (Go to Bay)
+                🔊 Step 3: Advance to Bay on SMS / Call
               </h4>
               <p className="text-xs text-slate-600 mt-1 leading-relaxed">
                 When your token lights up green with <strong>"Bay 1, 2, or 3"</strong>, drive directly onto the electronic weighbridge for automated gross weighment.
@@ -190,7 +190,7 @@ export default function QueuePage() {
             </div>
             <div>
               <h4 className="font-bold text-slate-900 text-sm">
-                🧾 అన్‌లోడ్ & రసీదు (Unload & e-Receipt)
+                🧾 Step 4: Rapid Unloading & Weighment Slip
               </h4>
               <p className="text-xs text-slate-600 mt-1 leading-relaxed">
                 Warehouse staff unloads your produce into the cold chamber. You receive an instant SMS weighment pass and e-NWR receipt!

@@ -88,10 +88,10 @@ export default function CropsPage() {
             </div>
             <div>
               <h3 className="font-black text-slate-900 text-base sm:text-lg">
-                రైతులకు పంట గైడ్‌లైన్స్: నిల్వ ఉష్ణోగ్రత & బుకింగ్
+                Farmer Guide: Temperature Benchmarks & 1-Click Booking
               </h3>
               <p className="text-xs text-slate-600 font-medium">
-                Farmer Guide: Ideal Storage Temperatures, Shelf-Life & 1-Click Booking
+                Ideal Storage Temperatures, Humidity Benchmarks & 1-Click Reservation
               </p>
             </div>
           </div>
@@ -108,10 +108,10 @@ export default function CropsPage() {
             </div>
             <div>
               <h4 className="font-bold text-slate-900 text-sm">
-                🔍 మీ పంటను సెర్చ్ చేయండి
+                🔍 Step 1: Search Your Commodity
               </h4>
               <p className="text-xs text-slate-600 mt-1 leading-relaxed">
-                కింది సెర్చ్ బార్‌లో మీ పంట పేరు (మిర్చి, పసుపు, టమాటా మొదలైనవి) టైప్ చేసి సరైన తేమ & ఉష్ణోగ్రత వివరాలు తెలుసుకోండి.
+                Type your harvested crop name (Chilli, Turmeric, Tomato, Onion, etc.) in the search bar below to view moisture and temperature tolerances.
               </p>
             </div>
           </div>
@@ -122,10 +122,10 @@ export default function CropsPage() {
             </div>
             <div>
               <h4 className="font-bold text-slate-900 text-sm">
-                ❄️ నిల్వ సమయం & జాగ్రత్తలు
+                ❄️ Step 2: Check Temperature & Shelf Life
               </h4>
               <p className="text-xs text-slate-600 mt-1 leading-relaxed">
-                ప్రతి పంట కార్డులో ఉష్ణోగ్రత (°C), తేమ (Humidity %), గరిష్ట నిల్వ కాలం మరియు ప్యాకేజింగ్ సలహాలు స్పష్టంగా చూడవచ్చు.
+                Each crop card specifies optimal chamber temperature (°C), relative humidity (RH %), ambient vs cold shelf-life, and packaging advice.
               </p>
             </div>
           </div>
@@ -136,10 +136,10 @@ export default function CropsPage() {
             </div>
             <div>
               <h4 className="font-bold text-slate-900 text-sm">
-                🏬 "Book Units" క్లిక్ చేయండి
+                🏬 Step 3: Click "Book Storage"
               </h4>
               <p className="text-xs text-slate-600 mt-1 leading-relaxed">
-                మీ పంట కార్డుపై ఉన్న <strong>"Book Units for this Crop"</strong> బటన్ నొక్కగానే ఆ పంటకు అనువైన కోల్డ్ స్టోరేజ్ జాబితా కనిపిస్తుంది.
+                Click <strong>"Book Units for this Crop"</strong> on any crop card to automatically filter and view available cold chambers with the right atmosphere.
               </p>
             </div>
           </div>

@@ -155,10 +155,10 @@ export default function TrackingPage() {
             </div>
             <div>
               <h3 className="font-black text-slate-900 text-base sm:text-lg">
-                రైతుల పంట నిల్వ ప్రయాణం (5 సులువైన దశలు)
+                Farmer Guide: The 5 Clear Stages of Your Produce in Cold Storage
               </h3>
               <p className="text-xs text-slate-600 font-medium">
-                Farmer Guide: The 5 Clear Stages of Your Produce in Cold Storage
+                End-to-End Visual Crop Lifecycle from Gate Inward to Release
               </p>
             </div>
           </div>
@@ -171,31 +171,31 @@ export default function TrackingPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3">
           <div className="bg-white rounded-2xl p-3.5 border border-teal-200 shadow-sm">
             <div className="w-7 h-7 rounded-full bg-teal-100 text-teal-800 font-black flex items-center justify-center text-xs mb-2">1</div>
-            <h4 className="font-bold text-slate-900 text-xs">📱 బుకింగ్ & టోకెన్</h4>
+            <h4 className="font-bold text-slate-900 text-xs">📱 Stage 1: Booking & Token</h4>
             <p className="text-[11px] text-slate-600 mt-1 leading-snug">Chamber reserved online and digital gate entry token sent via SMS.</p>
           </div>
 
           <div className="bg-white rounded-2xl p-3.5 border border-emerald-200 shadow-sm">
             <div className="w-7 h-7 rounded-full bg-emerald-100 text-emerald-800 font-black flex items-center justify-center text-xs mb-2">2</div>
-            <h4 className="font-bold text-slate-900 text-xs">⚖️ వేబ్రిడ్జి బరువు</h4>
+            <h4 className="font-bold text-slate-900 text-xs">⚖️ Stage 2: Weighbridge Gross</h4>
             <p className="text-[11px] text-slate-600 mt-1 leading-snug">Automated gross vehicle weighment logged before tractor enters unloading bay.</p>
           </div>
 
           <div className="bg-white rounded-2xl p-3.5 border border-cyan-200 shadow-sm">
             <div className="w-7 h-7 rounded-full bg-cyan-100 text-cyan-800 font-black flex items-center justify-center text-xs mb-2">3</div>
-            <h4 className="font-bold text-slate-900 text-xs">🔬 నాణ్యత తనిఖీ</h4>
+            <h4 className="font-bold text-slate-900 text-xs">🔬 Stage 3: Quality Check</h4>
             <p className="text-[11px] text-slate-600 mt-1 leading-snug">Moisture % and produce quality inspected according to Telangana standards.</p>
           </div>
 
           <div className="bg-white rounded-2xl p-3.5 border border-blue-200 shadow-sm">
             <div className="w-7 h-7 rounded-full bg-blue-100 text-blue-800 font-black flex items-center justify-center text-xs mb-2">4</div>
-            <h4 className="font-bold text-slate-900 text-xs">❄️ కోల్డ్ రూమ్ & e-NWR</h4>
+            <h4 className="font-bold text-slate-900 text-xs">❄️ Stage 4: Stacking & e-NWR</h4>
             <p className="text-[11px] text-slate-600 mt-1 leading-snug">Produce stacked safely in cold room and official bank-pledgeable e-NWR issued.</p>
           </div>
 
           <div className="bg-white rounded-2xl p-3.5 border border-indigo-200 shadow-sm">
             <div className="w-7 h-7 rounded-full bg-indigo-100 text-indigo-800 font-black flex items-center justify-center text-xs mb-2">5</div>
-            <h4 className="font-bold text-slate-900 text-xs">💰 చెల్లింపు లేదా విడుదల</h4>
+            <h4 className="font-bold text-slate-900 text-xs">💰 Stage 5: Settlement & Release</h4>
             <p className="text-[11px] text-slate-600 mt-1 leading-snug">Pay storage rent when market prices rise, sell crop, or release safely.</p>
           </div>
         </div>

@@ -112,9 +112,9 @@ export default function AboutPage() {
           <div>
             <div className="flex items-center space-x-2">
               <span className="bg-emerald-600 text-white text-xs font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider">
-                Farmer Direct Guide • రైతులకు మార్గదర్శి
+                Farmer Direct Guide • Easy 4 Steps
               </span>
-              <span className="text-xs text-emerald-800 font-bold">Simple 4 Steps</span>
+              <span className="text-xs text-emerald-800 font-bold">Simple Process</span>
             </div>
             <h2 className="text-xl sm:text-2xl font-black text-slate-900 mt-1">
               How Any Farmer Can Use This Website in 4 Simple Steps
@@ -170,7 +170,7 @@ export default function AboutPage() {
                 <span className="text-2xl">📅</span>
               </div>
               <h3 className="font-bold text-sm text-slate-900 group-hover:text-teal-700 transition">
-                స్లాట్ బుకింగ్ విండో (Slot Booking)
+                Chamber Slot Booking
               </h3>
               <p className="text-xs text-slate-500 mt-1.5 leading-relaxed">
                 Open dedicated slot booking window, select arrival date & time slot, and get your digital gate token.

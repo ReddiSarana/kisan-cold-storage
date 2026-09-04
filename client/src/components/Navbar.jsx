@@ -107,7 +107,7 @@ export default function Navbar() {
               <div className="flex items-center space-x-1.5">
                 <span className="text-xl font-black tracking-tight text-slate-900">Agro<span className="text-emerald-600">Vault</span></span>
                 <span className="text-[10px] font-bold bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded">
-                  {currentLanguage.code === 'en' ? 'एग्रोवोल्ट' : currentLanguage.native}
+                  {currentLanguage.code === 'en' ? 'Kisan Portal' : currentLanguage.native}
                 </span>
               </div>
               <p className="text-[11px] text-slate-500 font-medium">{t('portalTagline', 'Smart Cold Storage & Queue')}</p>

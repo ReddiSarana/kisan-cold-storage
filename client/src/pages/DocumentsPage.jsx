@@ -148,10 +148,10 @@ export default function DocumentsPage() {
             </div>
             <div>
               <h3 className="font-black text-slate-900 text-base sm:text-lg">
-                రైతులకు బ్యాంక్ రుణాలు & అధికారిక పత్రాల మార్గదర్శి
+                Farmer Guide: How to Avail 75% Bank Pledge Loans with e-NWR Receipts
               </h3>
               <p className="text-xs text-slate-600 font-medium">
-                Farmer Guide: How to Get up to 75% Bank Loans with your e-NWR Receipt
+                Official WDRA-Certified Receipts recognized by NABARD and Commercial Banks
               </p>
             </div>
           </div>
@@ -168,10 +168,10 @@ export default function DocumentsPage() {
             </div>
             <div>
               <h4 className="font-bold text-slate-900 text-sm">
-                📄 e-NWR రశీదు అంటే ఏమిటి?
+                📄 Step 1: What is an e-NWR Receipt?
               </h4>
               <p className="text-xs text-slate-600 mt-1 leading-relaxed">
-                ఇది ప్రభుత్వ WDRA గుర్తింపు పొందిన ఎలక్ట్రానిక్ రశీదు. మీ పంట కోల్డ్ స్టోరేజీలో సురక్షితంగా ఉందని ఈ పత్రం నిర్ధారిస్తుంది.
+                It is an electronic negotiable warehouse receipt certified under the Government WDRA Act. It legally proves your produce is safely preserved in an accredited cold chamber.
               </p>
             </div>
           </div>
@@ -182,10 +182,10 @@ export default function DocumentsPage() {
             </div>
             <div>
               <h4 className="font-bold text-slate-900 text-sm">
-                🌾 పంట అమ్మకుండా 75% రుణం పొందండి
+                🌾 Step 2: Get 75% Loan Without Selling
               </h4>
               <p className="text-xs text-slate-600 mt-1 leading-relaxed">
-                మార్కెట్లో ధర తక్కువగా ఉన్నప్పుడు పంటను తక్కువ ధరకు అమ్మాల్సిన అవసరం లేదు. ఈ రశీదు పెట్టి జాతీయ బ్యాంకుల్లో తక్కువ వడ్డీతో రుణం పొందవచ్చు.
+                Avoid distress selling at market troughs. Present this e-NWR receipt to any bank (SBI, Union Bank, Canara Bank, NABARD) for an instant credit loan at low agricultural interest rates.
               </p>
             </div>
           </div>
@@ -196,10 +196,10 @@ export default function DocumentsPage() {
             </div>
             <div>
               <h4 className="font-bold text-slate-900 text-sm">
-                📥 1-క్లిక్‌తో డౌన్‌లోడ్ చేసుకోండి
+                📥 Step 3: 1-Click .DOCX Download
               </h4>
               <p className="text-xs text-slate-600 mt-1 leading-relaxed">
-                క్రింద ఉన్న పత్రాన్ని ఎంచుకుని <strong>"Download Native .DOCX File"</strong> బటన్ నొక్కండి. ప్రింట్ తీసుకుని నేరుగా మీ బ్యాంక్ మేనేజర్‌కు ఇవ్వవచ్చు.
+                Select your required document below and click <strong>"Download Native .DOCX File"</strong>. Print and submit directly to your branch manager for loan sanction.
               </p>
             </div>
           </div>

@@ -3,7 +3,7 @@
 export const fallbackCrops = [
   {
     "id": "paddy",
-    "name": "Paddy / Rice (వరి / Telangana Sona - RNR 15048)",
+    "name": "Paddy / Rice (Telangana Sona - RNR 15048)",
     "category": "Cereals & Millets",
     "growingDistricts": "Nalgonda, Karimnagar, Suryapet, Nizamabad, Warangal",
     "optimumTemp": "12°C - 15°C",
@@ -20,7 +20,7 @@ export const fallbackCrops = [
   },
   {
     "id": "maize",
-    "name": "Maize / Corn (మొక్కజొన్న / Commercial Grain)",
+    "name": "Maize / Corn (Commercial Grain)",
     "category": "Cereals & Millets",
     "growingDistricts": "Nizamabad, Karimnagar, Siddipet, Warangal, Kamareddy",
     "optimumTemp": "10°C - 14°C",
@@ -37,7 +37,7 @@ export const fallbackCrops = [
   },
   {
     "id": "jowar",
-    "name": "Jowar / Sorghum (జొన్నలు / White Sorghum)",
+    "name": "Jowar / Sorghum (White Sorghum)",
     "category": "Cereals & Millets",
     "growingDistricts": "Adilabad, Asifabad, Mahabubnagar, Sangareddy",
     "optimumTemp": "12°C - 15°C",
@@ -54,7 +54,7 @@ export const fallbackCrops = [
   },
   {
     "id": "bajra",
-    "name": "Bajra / Pearl Millet (సజ్జలు / Sajja)",
+    "name": "Bajra / Pearl Millet (Sajja)",
     "category": "Cereals & Millets",
     "growingDistricts": "Mahabubnagar, Gadwal, Nagarkurnool, Nalgonda",
     "optimumTemp": "10°C - 14°C",
@@ -71,7 +71,7 @@ export const fallbackCrops = [
   },
   {
     "id": "ragi",
-    "name": "Ragi / Finger Millet (రాగులు / Ragulu)",
+    "name": "Ragi / Finger Millet (Ragulu)",
     "category": "Cereals & Millets",
     "growingDistricts": "Vikarabad, Mahabubnagar, Medak",
     "optimumTemp": "10°C - 14°C",
@@ -88,7 +88,7 @@ export const fallbackCrops = [
   },
   {
     "id": "foxtail_millet",
-    "name": "Foxtail Millet (కొర్రలు / Korralu)",
+    "name": "Foxtail Millet (Korralu)",
     "category": "Cereals & Millets",
     "growingDistricts": "Mahabubnagar, Narayanpet, Jogulamba Gadwal",
     "optimumTemp": "10°C - 13°C",
@@ -105,7 +105,7 @@ export const fallbackCrops = [
   },
   {
     "id": "little_millet",
-    "name": "Little Millet (సామలు / Samalu)",
+    "name": "Little Millet (Samalu)",
     "category": "Cereals & Millets",
     "growingDistricts": "Adilabad, Asifabad, Bhadradri Kothagudem",
     "optimumTemp": "10°C - 13°C",
@@ -122,7 +122,7 @@ export const fallbackCrops = [
   },
   {
     "id": "kodo_millet",
-    "name": "Kodo Millet (అరికెలు / Arikelu)",
+    "name": "Kodo Millet (Arikelu)",
     "category": "Cereals & Millets",
     "growingDistricts": "Vikarabad, Sangareddy, Medak",
     "optimumTemp": "10°C - 13°C",
@@ -139,7 +139,7 @@ export const fallbackCrops = [
   },
   {
     "id": "red_gram",
-    "name": "Tandur Red Gram / Tur Dal (తాండూరు కందులు - GI Tagged)",
+    "name": "Tandur Red Gram / Tur Dal (GI Tagged)",
     "category": "Pulses & Legumes",
     "growingDistricts": "Tandur, Vikarabad, Sangareddy, Narayanpet",
     "optimumTemp": "12°C - 15°C",
@@ -156,7 +156,7 @@ export const fallbackCrops = [
   },
   {
     "id": "bengal_gram",
-    "name": "Bengal Gram / Chickpea (శనగలు / Desi Chana)",
+    "name": "Bengal Gram / Chickpea (Desi Chana)",
     "category": "Pulses & Legumes",
     "growingDistricts": "Adilabad, Nirmal, Nizamabad, Kamareddy",
     "optimumTemp": "10°C - 13°C",
@@ -173,7 +173,7 @@ export const fallbackCrops = [
   },
   {
     "id": "green_gram",
-    "name": "Green Gram / Moong (పెసలు / Pesalu)",
+    "name": "Green Gram / Moong (Pesalu)",
     "category": "Pulses & Legumes",
     "growingDistricts": "Warangal, Khammam, Mahabubabad, Suryapet",
     "optimumTemp": "10°C - 14°C",
@@ -190,7 +190,7 @@ export const fallbackCrops = [
   },
   {
     "id": "black_gram",
-    "name": "Black Gram / Urad (మినుములు / Minumulu)",
+    "name": "Black Gram / Urad (Minumulu)",
     "category": "Pulses & Legumes",
     "growingDistricts": "Nizamabad, Kamareddy, Medak, Sangareddy",
     "optimumTemp": "10°C - 14°C",
@@ -207,7 +207,7 @@ export const fallbackCrops = [
   },
   {
     "id": "cowpea",
-    "name": "Cowpea / Lobia (అలసందలు / Bobbarlu)",
+    "name": "Cowpea / Lobia (Bobbarlu)",
     "category": "Pulses & Legumes",
     "growingDistricts": "Mahabubnagar, Wanaparthy, Nagarkurnool",
     "optimumTemp": "10°C - 12°C",
@@ -224,7 +224,7 @@ export const fallbackCrops = [
   },
   {
     "id": "horse_gram",
-    "name": "Horse Gram (ఉలవలు / Ulavalu)",
+    "name": "Horse Gram (Ulavalu)",
     "category": "Pulses & Legumes",
     "growingDistricts": "Mahabubnagar, Vikarabad, Nalgonda",
     "optimumTemp": "12°C - 15°C",
@@ -241,7 +241,7 @@ export const fallbackCrops = [
   },
   {
     "id": "field_bean",
-    "name": "Field Bean / Broad Bean (చిక్కుడు గింజలు / Anapa)",
+    "name": "Field Bean / Broad Bean (Anapa)",
     "category": "Pulses & Legumes",
     "growingDistricts": "Rangareddy, Vikarabad, Medak",
     "optimumTemp": "10°C - 12°C",
@@ -258,7 +258,7 @@ export const fallbackCrops = [
   },
   {
     "id": "green_peas",
-    "name": "Green Peas (పచ్చి బఠానీ / Fresh Batani)",
+    "name": "Green Peas (Fresh Batani)",
     "category": "Pulses & Legumes",
     "growingDistricts": "Rangareddy, Vikarabad, Medchal",
     "optimumTemp": "0°C - 1°C",
@@ -275,7 +275,7 @@ export const fallbackCrops = [
   },
   {
     "id": "groundnut",
-    "name": "Groundnut Pods / Palli (వేరుశనగ కాయలు)",
+    "name": "Groundnut Pods / Peanut",
     "category": "Oilseeds",
     "growingDistricts": "Mahabubnagar, Jogulamba Gadwal, Wanaparthy, Nalgonda",
     "optimumTemp": "5°C - 8°C",
@@ -292,7 +292,7 @@ export const fallbackCrops = [
   },
   {
     "id": "soybean",
-    "name": "Soybean (సోయాబీన్ / Yellow Soybean)",
+    "name": "Soybean (Yellow Soybean)",
     "category": "Oilseeds",
     "growingDistricts": "Adilabad, Kamareddy, Nizamabad, Sangareddy",
     "optimumTemp": "10°C - 15°C",
@@ -309,7 +309,7 @@ export const fallbackCrops = [
   },
   {
     "id": "sesame",
-    "name": "Sesame Seeds / Til (నువ్వులు / White & Black Gingelly)",
+    "name": "Sesame Seeds / Til (White & Black Gingelly)",
     "category": "Oilseeds",
     "growingDistricts": "Jagityal, Karimnagar, Nizamabad, Warangal",
     "optimumTemp": "8°C - 12°C",
@@ -326,7 +326,7 @@ export const fallbackCrops = [
   },
   {
     "id": "castor",
-    "name": "Castor Seeds (ఆముదాలు / Aamudalu)",
+    "name": "Castor Seeds (Aamudalu)",
     "category": "Oilseeds",
     "growingDistricts": "Mahabubnagar, Nalgonda, Gadwal, Wanaparthy",
     "optimumTemp": "10°C - 14°C",
@@ -343,7 +343,7 @@ export const fallbackCrops = [
   },
   {
     "id": "sunflower",
-    "name": "Sunflower Seeds (పొద్దుతిరుగుడు విత్తనాలు)",
+    "name": "Sunflower Seeds",
     "category": "Oilseeds",
     "growingDistricts": "Nizamabad, Medak, Siddipet, Karimnagar",
     "optimumTemp": "8°C - 12°C",
@@ -360,7 +360,7 @@ export const fallbackCrops = [
   },
   {
     "id": "safflower",
-    "name": "Safflower (కుసుమలు / Kusuma Seeds)",
+    "name": "Safflower (Kusuma Seeds)",
     "category": "Oilseeds",
     "growingDistricts": "Adilabad, Sangareddy, Vikarabad",
     "optimumTemp": "10°C - 14°C",
@@ -377,7 +377,7 @@ export const fallbackCrops = [
   },
   {
     "id": "mustard",
-    "name": "Mustard Seeds (ఆవాలు / Avalu)",
+    "name": "Mustard Seeds (Avalu)",
     "category": "Oilseeds",
     "growingDistricts": "Adilabad, Nizamabad",
     "optimumTemp": "10°C - 12°C",
@@ -394,7 +394,7 @@ export const fallbackCrops = [
   },
   {
     "id": "cotton",
-    "name": "Cotton / Kapas (పత్తి / Raw Seed Cotton)",
+    "name": "Cotton / Kapas (Raw Seed Cotton)",
     "category": "Commercial & Fiber",
     "growingDistricts": "Adilabad, Warangal, Nalgonda, Khammam, Karimnagar",
     "optimumTemp": "15°C - 20°C (Dry Air)",
@@ -411,7 +411,7 @@ export const fallbackCrops = [
   },
   {
     "id": "sugarcane",
-    "name": "Sugarcane Stalks (చెరకు / Cheruku)",
+    "name": "Sugarcane Stalks (Cheruku)",
     "category": "Commercial & Fiber",
     "growingDistricts": "Nizamabad, Medak, Kamareddy",
     "optimumTemp": "10°C - 12°C",
@@ -428,7 +428,7 @@ export const fallbackCrops = [
   },
   {
     "id": "mesta_jute",
-    "name": "Mesta / Roselle Fibre (గోగు నార / Gogu)",
+    "name": "Mesta / Roselle Fibre (Gogu)",
     "category": "Commercial & Fiber",
     "growingDistricts": "Adilabad, Khammam, Bhadradri",
     "optimumTemp": "15°C - 20°C",
@@ -445,7 +445,7 @@ export const fallbackCrops = [
   },
   {
     "id": "tobacco",
-    "name": "Tobacco Leaves (పొగాకు / Virginia Flue-Cured)",
+    "name": "Tobacco Leaves (Virginia Flue-Cured)",
     "category": "Commercial & Fiber",
     "growingDistricts": "Khammam, Bhadradri Kothagudem",
     "optimumTemp": "15°C - 18°C",
@@ -462,7 +462,7 @@ export const fallbackCrops = [
   },
   {
     "id": "red_chilli",
-    "name": "Dry Red Chilli (ఎండిన మిరప / Teja Mirchi)",
+    "name": "Dry Red Chilli (Teja Mirchi)",
     "category": "Commercial & Spices",
     "growingDistricts": "Khammam, Warangal, Mahabubabad, Jayashankar Bhupalpally",
     "optimumTemp": "4°C - 7°C",
@@ -479,7 +479,7 @@ export const fallbackCrops = [
   },
   {
     "id": "turmeric",
-    "name": "Nizamabad Turmeric (పసుపు కొమ్ములు / Finger Turmeric)",
+    "name": "Nizamabad Turmeric (Finger Turmeric)",
     "category": "Commercial & Spices",
     "growingDistricts": "Nizamabad (Armoor), Jagtial, Nirmal",
     "optimumTemp": "10°C - 15°C",
@@ -496,7 +496,7 @@ export const fallbackCrops = [
   },
   {
     "id": "ginger",
-    "name": "Fresh Ginger (పచ్చి అల్లం / Allam)",
+    "name": "Fresh Ginger (Allam)",
     "category": "Commercial & Spices",
     "growingDistricts": "Medak, Siddipet, Vikarabad, Rangareddy",
     "optimumTemp": "12°C - 14°C",
@@ -513,7 +513,7 @@ export const fallbackCrops = [
   },
   {
     "id": "garlic",
-    "name": "Garlic Bulbs (వెల్లుల్లి / Vellulli)",
+    "name": "Garlic Bulbs (Vellulli)",
     "category": "Commercial & Spices",
     "growingDistricts": "Adilabad, Nizamabad, Kamareddy",
     "optimumTemp": "0°C - 2°C (Dry Storage)",
@@ -530,7 +530,7 @@ export const fallbackCrops = [
   },
   {
     "id": "coriander_seeds",
-    "name": "Coriander Seeds (ధనియాలు / Dhaniyalu)",
+    "name": "Coriander Seeds (Dhaniyalu)",
     "category": "Commercial & Spices",
     "growingDistricts": "Warangal, Karimnagar, Medak, Khammam",
     "optimumTemp": "10°C - 12°C",
@@ -547,7 +547,7 @@ export const fallbackCrops = [
   },
   {
     "id": "cumin",
-    "name": "Cumin Seeds (జీలకర్ర / Jeelakarra)",
+    "name": "Cumin Seeds (Jeelakarra)",
     "category": "Commercial & Spices",
     "growingDistricts": "Adilabad, Nirmal",
     "optimumTemp": "8°C - 12°C",
@@ -564,7 +564,7 @@ export const fallbackCrops = [
   },
   {
     "id": "fenugreek_seeds",
-    "name": "Fenugreek Seeds (మెంతులు / Menthulu)",
+    "name": "Fenugreek Seeds (Menthulu)",
     "category": "Commercial & Spices",
     "growingDistricts": "Medak, Rangareddy, Mahabubnagar",
     "optimumTemp": "10°C - 14°C",
@@ -581,7 +581,7 @@ export const fallbackCrops = [
   },
   {
     "id": "ajwain",
-    "name": "Ajwain / Carom Seeds (వాము / Vamu)",
+    "name": "Ajwain / Carom Seeds (Vamu)",
     "category": "Commercial & Spices",
     "growingDistricts": "Mahabubnagar, Jogulamba Gadwal",
     "optimumTemp": "10°C - 12°C",
@@ -598,7 +598,7 @@ export const fallbackCrops = [
   },
   {
     "id": "tomato",
-    "name": "Tomato (టమాటా / Hybrid Tamata)",
+    "name": "Tomato (Hybrid Tamata)",
     "category": "Vegetables",
     "growingDistricts": "Rangareddy, Vikarabad, Medchal, Shamshabad",
     "optimumTemp": "10°C - 12°C",
@@ -615,7 +615,7 @@ export const fallbackCrops = [
   },
   {
     "id": "onion",
-    "name": "Onion (ఉల్లిపాయలు / Bellary & Nasik Red)",
+    "name": "Onion (Bellary & Nasik Red)",
     "category": "Vegetables",
     "growingDistricts": "Mahabubnagar, Medak, Gadwal, Siddipet",
     "optimumTemp": "0°C - 2°C (Ventilated Dry)",
@@ -632,7 +632,7 @@ export const fallbackCrops = [
   },
   {
     "id": "green_chilli",
-    "name": "Fresh Green Chilli (పచ్చి మిరప / G4 Chilli)",
+    "name": "Fresh Green Chilli (G4 Chilli)",
     "category": "Vegetables",
     "growingDistricts": "Khammam, Mahabubabad, Rangareddy",
     "optimumTemp": "7°C - 9°C",
@@ -649,7 +649,7 @@ export const fallbackCrops = [
   },
   {
     "id": "brinjal",
-    "name": "Brinjal / Eggplant (వంకాయ / Vankaya)",
+    "name": "Brinjal / Eggplant (Vankaya)",
     "category": "Vegetables",
     "growingDistricts": "Rangareddy, Medchal, Warangal, Nalgonda",
     "optimumTemp": "10°C - 12°C",
@@ -666,7 +666,7 @@ export const fallbackCrops = [
   },
   {
     "id": "okra",
-    "name": "Okra / Bhendi (బెండకాయ / Ladies Finger)",
+    "name": "Okra / Bhendi (Ladies Finger)",
     "category": "Vegetables",
     "growingDistricts": "Rangareddy, Warangal, Medchal, Siddipet",
     "optimumTemp": "8°C - 10°C",
@@ -683,7 +683,7 @@ export const fallbackCrops = [
   },
   {
     "id": "bottle_gourd",
-    "name": "Bottle Gourd (సొరకాయ / Anapakaya)",
+    "name": "Bottle Gourd (Anapakaya)",
     "category": "Vegetables",
     "growingDistricts": "Rangareddy, Medak, Vikarabad",
     "optimumTemp": "10°C - 12°C",
@@ -700,7 +700,7 @@ export const fallbackCrops = [
   },
   {
     "id": "bitter_gourd",
-    "name": "Bitter Gourd (కాకరకాయ / Kakarakaya)",
+    "name": "Bitter Gourd (Kakarakaya)",
     "category": "Vegetables",
     "growingDistricts": "Rangareddy, Mahabubnagar, Warangal",
     "optimumTemp": "11°C - 13°C",
@@ -717,7 +717,7 @@ export const fallbackCrops = [
   },
   {
     "id": "ridge_gourd",
-    "name": "Ridge Gourd (బీరకాయ / Beerakaya)",
+    "name": "Ridge Gourd (Beerakaya)",
     "category": "Vegetables",
     "growingDistricts": "Rangareddy, Medchal, Nalgonda",
     "optimumTemp": "10°C - 12°C",
@@ -734,7 +734,7 @@ export const fallbackCrops = [
   },
   {
     "id": "snake_gourd",
-    "name": "Snake Gourd (పొట్లకాయ / Potlakaya)",
+    "name": "Snake Gourd (Potlakaya)",
     "category": "Vegetables",
     "growingDistricts": "Rangareddy, Medak, Vikarabad",
     "optimumTemp": "11°C - 13°C",
@@ -751,7 +751,7 @@ export const fallbackCrops = [
   },
   {
     "id": "ivy_gourd",
-    "name": "Ivy Gourd / Tindora (దొండకాయ / Dondakaya)",
+    "name": "Ivy Gourd / Tindora (Dondakaya)",
     "category": "Vegetables",
     "growingDistricts": "Rangareddy, Nalgonda, Suryapet, Medchal",
     "optimumTemp": "8°C - 10°C",
@@ -768,7 +768,7 @@ export const fallbackCrops = [
   },
   {
     "id": "ash_gourd",
-    "name": "Ash Gourd (బూడిద గుమ్మడికాయ / Boodida Gummadi)",
+    "name": "Ash Gourd (Boodida Gummadi)",
     "category": "Vegetables",
     "growingDistricts": "Nalgonda, Suryapet, Khammam",
     "optimumTemp": "13°C - 15°C",
@@ -785,7 +785,7 @@ export const fallbackCrops = [
   },
   {
     "id": "pumpkin",
-    "name": "Sweet Pumpkin (తీపి గుమ్మడికాయ / Red Pumpkin)",
+    "name": "Sweet Pumpkin (Red Pumpkin)",
     "category": "Vegetables",
     "growingDistricts": "Medak, Siddipet, Warangal",
     "optimumTemp": "10°C - 13°C",
@@ -802,7 +802,7 @@ export const fallbackCrops = [
   },
   {
     "id": "drumstick",
-    "name": "Drumstick (మునగకాయ / PKM-1 Drumstick)",
+    "name": "Drumstick (PKM-1 Drumstick)",
     "category": "Vegetables",
     "growingDistricts": "Mahabubnagar, Nalgonda, Rangareddy",
     "optimumTemp": "7°C - 9°C",
@@ -819,7 +819,7 @@ export const fallbackCrops = [
   },
   {
     "id": "cluster_beans",
-    "name": "Cluster Beans / Guar (గోరుచిక్కుడు / Goruchikkudu)",
+    "name": "Cluster Beans / Guar (Goruchikkudu)",
     "category": "Vegetables",
     "growingDistricts": "Mahabubnagar, Gadwal, Rangareddy",
     "optimumTemp": "7°C - 9°C",
@@ -836,7 +836,7 @@ export const fallbackCrops = [
   },
   {
     "id": "french_beans",
-    "name": "French Beans (బీన్స్ / French Beans)",
+    "name": "French Beans",
     "category": "Vegetables",
     "growingDistricts": "Vikarabad, Rangareddy, Medchal",
     "optimumTemp": "5°C - 7°C",
@@ -853,7 +853,7 @@ export const fallbackCrops = [
   },
   {
     "id": "cabbage",
-    "name": "Green Cabbage (క్యాబేజీ / Cabbage)",
+    "name": "Green Cabbage",
     "category": "Vegetables",
     "growingDistricts": "Rangareddy, Vikarabad, Medak",
     "optimumTemp": "0°C - 1°C",
@@ -870,7 +870,7 @@ export const fallbackCrops = [
   },
   {
     "id": "cauliflower",
-    "name": "Cauliflower (కాలీఫ్లవర్ / Snowball Cauliflower)",
+    "name": "Cauliflower (Snowball Cauliflower)",
     "category": "Vegetables",
     "growingDistricts": "Rangareddy, Vikarabad, Medchal",
     "optimumTemp": "0°C - 1°C",
@@ -887,7 +887,7 @@ export const fallbackCrops = [
   },
   {
     "id": "carrot",
-    "name": "Carrot (క్యారెట్ / Kuroda & Red Carrot)",
+    "name": "Carrot (Kuroda & Red Carrot)",
     "category": "Vegetables",
     "growingDistricts": "Rangareddy, Vikarabad, Medchal",
     "optimumTemp": "0°C - 1°C",
@@ -904,7 +904,7 @@ export const fallbackCrops = [
   },
   {
     "id": "radish",
-    "name": "White Radish / Mooli (ముల్లంగి / Mullangi)",
+    "name": "White Radish / Mooli (Mullangi)",
     "category": "Vegetables",
     "growingDistricts": "Rangareddy, Medchal, Vikarabad",
     "optimumTemp": "0°C - 1°C",
@@ -921,7 +921,7 @@ export const fallbackCrops = [
   },
   {
     "id": "beetroot",
-    "name": "Beetroot (బీట్‌రూట్ / Crimson Globe)",
+    "name": "Beetroot (Crimson Globe)",
     "category": "Vegetables",
     "growingDistricts": "Rangareddy, Vikarabad, Medak",
     "optimumTemp": "0°C - 1°C",
@@ -938,7 +938,7 @@ export const fallbackCrops = [
   },
   {
     "id": "spinach",
-    "name": "Spinach (పాలకూర / Palakura)",
+    "name": "Spinach (Palakura)",
     "category": "Vegetables",
     "growingDistricts": "Rangareddy, Medchal, Sangareddy",
     "optimumTemp": "0°C - 2°C",
@@ -955,7 +955,7 @@ export const fallbackCrops = [
   },
   {
     "id": "amaranth",
-    "name": "Amaranth Greens (తోటకూర / Thotakura)",
+    "name": "Amaranth Greens (Thotakura)",
     "category": "Vegetables",
     "growingDistricts": "Rangareddy, Medchal, Nalgonda",
     "optimumTemp": "2°C - 4°C",
@@ -972,7 +972,7 @@ export const fallbackCrops = [
   },
   {
     "id": "mango",
-    "name": "Banganapalli Mango (బంగినపల్లి మామిడి / Benishan)",
+    "name": "Banganapalli Mango (Benishan)",
     "category": "Fruits",
     "growingDistricts": "Jagtial, Nagarkurnool, Khammam, Mancherial",
     "optimumTemp": "10°C - 13°C",
@@ -989,7 +989,7 @@ export const fallbackCrops = [
   },
   {
     "id": "sweet_orange",
-    "name": "Sweet Orange / Battayi (బత్తాయి / Nalgonda Mosambi)",
+    "name": "Sweet Orange / Battayi (Nalgonda Mosambi)",
     "category": "Fruits",
     "growingDistricts": "Nalgonda, Suryapet, Mahabubnagar",
     "optimumTemp": "5°C - 7°C",
@@ -1006,7 +1006,7 @@ export const fallbackCrops = [
   },
   {
     "id": "acid_lime",
-    "name": "Acid Lime / Lemon (నిమ్మకాయ / Kagzi Nimma)",
+    "name": "Acid Lime / Lemon (Kagzi Nimma)",
     "category": "Fruits",
     "growingDistricts": "Nalgonda, Suryapet, Mahabubnagar",
     "optimumTemp": "9°C - 10°C",
@@ -1023,7 +1023,7 @@ export const fallbackCrops = [
   },
   {
     "id": "guava",
-    "name": "Guava (జామకాయ / Taiwan Pink & Allahabad Safeda)",
+    "name": "Guava (Taiwan Pink & Allahabad Safeda)",
     "category": "Fruits",
     "growingDistricts": "Rangareddy, Medchal, Sangareddy, Mahabubnagar",
     "optimumTemp": "8°C - 10°C",
@@ -1040,7 +1040,7 @@ export const fallbackCrops = [
   },
   {
     "id": "pomegranate",
-    "name": "Pomegranate (దానిమ్మ / Bhagwa Danimma)",
+    "name": "Pomegranate (Bhagwa Danimma)",
     "category": "Fruits",
     "growingDistricts": "Mahabubnagar, Jogulamba Gadwal, Nagarkurnool",
     "optimumTemp": "5°C - 7°C",
@@ -1057,7 +1057,7 @@ export const fallbackCrops = [
   },
   {
     "id": "papaya",
-    "name": "Papaya (బొప్పాయి / Taiwan Red Lady 786)",
+    "name": "Papaya (Taiwan Red Lady 786)",
     "category": "Fruits",
     "growingDistricts": "Nalgonda, Mahabubnagar, Khammam, Rangareddy",
     "optimumTemp": "10°C - 12°C",
@@ -1074,7 +1074,7 @@ export const fallbackCrops = [
   },
   {
     "id": "banana",
-    "name": "Banana (అరటిపండు / Grand Naine & Karpura)",
+    "name": "Banana (Grand Naine & Karpura)",
     "category": "Fruits",
     "growingDistricts": "Khammam, Bhadradri Kothagudem, Mancherial",
     "optimumTemp": "13°C - 14°C",
@@ -1091,7 +1091,7 @@ export const fallbackCrops = [
   },
   {
     "id": "watermelon",
-    "name": "Watermelon (పుచ్చకాయ / Black Dragon)",
+    "name": "Watermelon (Black Dragon)",
     "category": "Fruits",
     "growingDistricts": "Nalgonda, Mahabubnagar, Suryapet, Wanaparthy",
     "optimumTemp": "10°C - 12°C",
@@ -1108,7 +1108,7 @@ export const fallbackCrops = [
   },
   {
     "id": "muskmelon",
-    "name": "Muskmelon (ఖర్బూజ / Kharbooja)",
+    "name": "Muskmelon (Kharbooja)",
     "category": "Fruits",
     "growingDistricts": "Mahabubnagar, Gadwal, Nalgonda",
     "optimumTemp": "3°C - 5°C",
@@ -1125,7 +1125,7 @@ export const fallbackCrops = [
   },
   {
     "id": "sapota",
-    "name": "Sapota / Chiku (సపోటా / Kalipatti)",
+    "name": "Sapota / Chiku (Kalipatti)",
     "category": "Fruits",
     "growingDistricts": "Mahabubnagar, Rangareddy, Medak",
     "optimumTemp": "12°C - 14°C",
@@ -1142,7 +1142,7 @@ export const fallbackCrops = [
   },
   {
     "id": "custard_apple",
-    "name": "Custard Apple / Seethaphal (సీతాఫలం / Balanagar Seethaphal)",
+    "name": "Custard Apple / Seethaphal (Balanagar Seethaphal)",
     "category": "Fruits",
     "growingDistricts": "Mahabubnagar, Rangareddy, Medak, Vikarabad",
     "optimumTemp": "12°C - 15°C",
@@ -1159,7 +1159,7 @@ export const fallbackCrops = [
   },
   {
     "id": "grapes",
-    "name": "Grapes (ద్రాక్ష / Anab-e-Shahi & Thomson Seedless)",
+    "name": "Grapes (Anab-e-Shahi & Thomson Seedless)",
     "category": "Fruits",
     "growingDistricts": "Hyderabad Peri-Urban, Medchal, Rangareddy",
     "optimumTemp": "-1°C - 0°C",
@@ -1176,7 +1176,7 @@ export const fallbackCrops = [
   },
   {
     "id": "seed_paddy",
-    "name": "Certified Hybrid Seed Paddy (వరి విత్తనాలు / Telangana Sona - RNR 15048)",
+    "name": "Certified Hybrid Seed Paddy (Telangana Sona - RNR 15048)",
     "category": "Certified Seeds",
     "growingDistricts": "Karimnagar, Nalgonda, Warangal (Seed Bowl of India)",
     "optimumTemp": "12°C - 15°C",
@@ -1193,7 +1193,7 @@ export const fallbackCrops = [
   },
   {
     "id": "seed_maize",
-    "name": "Certified Hybrid Maize Seeds (హైబ్రిడ్ మొక్కజొన్న విత్తనాలు)",
+    "name": "Certified Hybrid Maize Seeds",
     "category": "Certified Seeds",
     "growingDistricts": "Nizamabad, Karimnagar, Siddipet, Warangal",
     "optimumTemp": "10°C - 14°C",
@@ -1210,7 +1210,7 @@ export const fallbackCrops = [
   },
   {
     "id": "seed_cotton",
-    "name": "Certified Bt Cotton Seeds (బీటీ పత్తి విత్తనాలు / Hybrid Seeds)",
+    "name": "Certified Bt Cotton Seeds (Hybrid Seeds)",
     "category": "Certified Seeds",
     "growingDistricts": "Adilabad, Warangal, Nalgonda, Asifabad",
     "optimumTemp": "10°C - 12°C",
@@ -1227,7 +1227,7 @@ export const fallbackCrops = [
   },
   {
     "id": "seed_sorghum",
-    "name": "Certified Hybrid Jowar Seeds (హైబ్రిడ్ జొన్న విత్తనాలు)",
+    "name": "Certified Hybrid Jowar Seeds",
     "category": "Certified Seeds",
     "growingDistricts": "Mahabubnagar, Sangareddy, Adilabad",
     "optimumTemp": "10°C - 13°C",
@@ -1244,7 +1244,7 @@ export const fallbackCrops = [
   },
   {
     "id": "seed_bajra",
-    "name": "Certified Hybrid Bajra Seeds (హైబ్రిడ్ సజ్జ విత్తనాలు)",
+    "name": "Certified Hybrid Bajra Seeds",
     "category": "Certified Seeds",
     "growingDistricts": "Mahabubnagar, Gadwal, Wanaparthy",
     "optimumTemp": "10°C - 13°C",
@@ -1261,7 +1261,7 @@ export const fallbackCrops = [
   },
   {
     "id": "oil_palm",
-    "name": "Oil Palm Fresh Fruit Bunches (ఆయిల్ పామ్ / FFB)",
+    "name": "Oil Palm Fresh Fruit Bunches (FFB)",
     "category": "Plantation & Flowers",
     "growingDistricts": "Khammam, Bhadradri Kothagudem, Nalgonda, Suryapet",
     "optimumTemp": "12°C - 15°C",
@@ -1278,7 +1278,7 @@ export const fallbackCrops = [
   },
   {
     "id": "marigold",
-    "name": "African Marigold Flowers (బంతి పూలు / Banti Poolu)",
+    "name": "African Marigold Flowers (Banti Poolu)",
     "category": "Plantation & Flowers",
     "growingDistricts": "Rangareddy, Medchal, Siddipet, Medak",
     "optimumTemp": "2°C - 4°C",
@@ -1295,7 +1295,7 @@ export const fallbackCrops = [
   },
   {
     "id": "jasmine",
-    "name": "Jasmine Flowers (మల్లె పూలు / Malle Poolu)",
+    "name": "Jasmine Flowers (Malle Poolu)",
     "category": "Plantation & Flowers",
     "growingDistricts": "Nizamabad, Rangareddy, Mahabubnagar",
     "optimumTemp": "4°C - 6°C",

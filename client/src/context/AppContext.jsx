@@ -177,8 +177,21 @@ export function AppProvider({ children }) {
     showToast('✅ Profile details updated successfully!');
   };
 
+  const [selectedBookingFacility, setSelectedBookingFacility] = useState(null);
+  const [selectedBookingCrop, setSelectedBookingCrop] = useState('');
+
+  const navigateToSlotBooking = (facility = null, crop = '') => {
+    if (facility) setSelectedBookingFacility(facility);
+    if (crop) setSelectedBookingCrop(crop);
+    setActiveTab('booking');
+    if (facility) {
+      showToast(`📍 Opening Slot Booking for ${facility.name}`);
+    }
+  };
+
   const openBookingFor = (unit, prefilledCrop = '') => {
-    setBookingModalUnit({ unit, prefilledCrop });
+    // Directs to the separate Slot Booking window instead of opening modal in storage units window
+    navigateToSlotBooking(unit, prefilledCrop);
   };
 
   const closeBookingModal = () => {
@@ -195,6 +208,11 @@ export function AppProvider({ children }) {
       setActiveTab,
       selectedCropFilter,
       setSelectedCropFilter,
+      selectedBookingFacility,
+      setSelectedBookingFacility,
+      selectedBookingCrop,
+      setSelectedBookingCrop,
+      navigateToSlotBooking,
       bookingModalUnit,
       openBookingFor,
       closeBookingModal,

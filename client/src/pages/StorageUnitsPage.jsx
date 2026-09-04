@@ -14,11 +14,12 @@ import {
   ArrowRight,
   Phone,
   Layers,
-  Sparkles
+  Sparkles,
+  CalendarCheck
 } from 'lucide-react';
 
 export default function StorageUnitsPage() {
-  const { selectedCropFilter, setSelectedCropFilter, openBookingFor } = useApp();
+  const { selectedCropFilter, setSelectedCropFilter, navigateToSlotBooking, openBookingFor } = useApp();
   const { t } = useLanguage();
   const [facilities, setFacilities] = useState([]);
   const [crops, setCrops] = useState([]);
@@ -142,10 +143,10 @@ export default function StorageUnitsPage() {
             </div>
             <div>
               <h4 className="font-bold text-slate-900 text-sm">
-                📱 3. "Book Space" బటన్ నొక్కండి (Book Space)
+                📅 3. స్లాట్ బుకింగ్ విండోకు వెళ్ళండి (Go to Slot Booking Window)
               </h4>
               <p className="text-xs text-slate-600 mt-1 leading-relaxed">
-                Click the green <strong>"Book Space"</strong> button on your chosen facility card. Enter your bag count and get your instant SMS confirmation!
+                Click <strong>"Book in Slot Booking Window"</strong> on your chosen facility to open the separate dedicated window where you pick your arrival date, time slot, and get your SMS token!
               </p>
             </div>
           </div>
@@ -343,11 +344,11 @@ export default function StorageUnitsPage() {
                   </div>
 
                   <button
-                    onClick={() => openBookingFor(fac, selectedCropFilter)}
+                    onClick={() => navigateToSlotBooking(fac, selectedCropFilter)}
                     className="flex items-center space-x-2 bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-700 hover:to-teal-800 text-white font-bold text-xs py-3 px-5 rounded-xl shadow-md transition hover:scale-105"
                   >
-                    <Warehouse className="w-4 h-4" />
-                    <span>Book Chamber Slot</span>
+                    <CalendarCheck className="w-4 h-4" />
+                    <span>Book in Slot Booking Window</span>
                     <ArrowRight className="w-3.5 h-3.5" />
                   </button>
                 </div>

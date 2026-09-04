@@ -12,7 +12,9 @@ import {
   Clock,
   ArrowRight,
   Sparkles,
-  PhoneCall
+  PhoneCall,
+  Warehouse,
+  CalendarCheck
 } from 'lucide-react';
 
 export default function AboutPage() {
@@ -50,11 +52,20 @@ export default function AboutPage() {
 
           <div className="flex flex-wrap items-center gap-3 pt-2">
             <button
-              onClick={() => setActiveTab('units')}
+              onClick={() => setActiveTab('booking')}
               className="flex items-center space-x-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold px-6 py-3 rounded-xl shadow-lg transition hover:scale-105 text-sm"
             >
-              <span>{t('findUnits', "Find & Book Cold Storage")}</span>
+              <CalendarCheck className="w-4 h-4" />
+              <span>{t('bookSlot', "Book Chamber Slot")}</span>
               <ArrowRight className="w-4 h-4" />
+            </button>
+
+            <button
+              onClick={() => setActiveTab('units')}
+              className="flex items-center space-x-2 bg-white/10 hover:bg-white/20 text-white font-semibold px-5 py-3 rounded-xl backdrop-blur border border-white/20 transition text-sm"
+            >
+              <Warehouse className="w-4 h-4 text-emerald-300" />
+              <span>{t('findUnits', "Storage Units Registry")}</span>
             </button>
 
             <button
@@ -148,7 +159,7 @@ export default function AboutPage() {
           </div>
 
           <div
-            onClick={() => setActiveTab('units')}
+            onClick={() => setActiveTab('booking')}
             className="bg-white p-5 rounded-2xl border-2 border-teal-200 hover:border-teal-500 shadow-xs hover:shadow-md transition cursor-pointer group flex flex-col justify-between"
           >
             <div>
@@ -156,17 +167,17 @@ export default function AboutPage() {
                 <span className="w-8 h-8 rounded-xl bg-teal-100 text-teal-800 font-black text-sm flex items-center justify-center">
                   2
                 </span>
-                <span className="text-2xl">🏬</span>
+                <span className="text-2xl">📅</span>
               </div>
               <h3 className="font-bold text-sm text-slate-900 group-hover:text-teal-700 transition">
-                Find & Book Cold Storage
+                స్లాట్ బుకింగ్ విండో (Slot Booking)
               </h3>
               <p className="text-xs text-slate-500 mt-1.5 leading-relaxed">
-                Pick your district (Warangal, Nizamabad, etc.), check transparent rent, and reserve bags.
+                Open dedicated slot booking window, select arrival date & time slot, and get your digital gate token.
               </p>
             </div>
             <div className="mt-4 pt-3 border-t border-slate-100 flex items-center text-xs font-bold text-teal-700 group-hover:translate-x-1 transition">
-              <span>Find Units &rarr;</span>
+              <span>Open Slot Booking Window &rarr;</span>
             </div>
           </div>
 

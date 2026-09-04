@@ -10,6 +10,7 @@ import LanguageModal from './components/LanguageModal';
 import AboutPage from './pages/AboutPage';
 import CropsPage from './pages/CropsPage';
 import StorageUnitsPage from './pages/StorageUnitsPage';
+import SlotBookingPage from './pages/SlotBookingPage';
 import QueuePage from './pages/QueuePage';
 import TrackingPage from './pages/TrackingPage';
 import DocumentsPage from './pages/DocumentsPage';
@@ -40,6 +41,7 @@ function AppContent() {
         {activeTab === 'about' && <AboutPage />}
         {activeTab === 'crops' && <CropsPage />}
         {activeTab === 'units' && <StorageUnitsPage />}
+        {activeTab === 'booking' && <SlotBookingPage />}
         {activeTab === 'queue' && <QueuePage />}
         {activeTab === 'tracking' && <TrackingPage />}
         {activeTab === 'documents' && <DocumentsPage />}
@@ -50,9 +52,6 @@ function AppContent() {
 
       {/* Interactive On-Screen Farmer Smartphone SMS Simulator */}
       <SmsSimulator />
-
-      {/* Universal Cold Storage Booking Modal */}
-      <BookingModal />
 
       {/* Language Selection Modal (All 22 Official Languages + English) */}
       <LanguageModal />

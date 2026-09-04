@@ -16,7 +16,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 38,
     "marketDemand": "Very High",
     "storageTips": "Maintains optimal moisture at 12-14%. Aerated cold store inhibits rice weevil (Sitophilus oryzae) and grain yellowing.",
-    "image": "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/paddy.jpg"
   },
   {
     "id": "maize",
@@ -33,7 +33,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 36,
     "marketDemand": "High",
     "storageTips": "Maintain grain moisture below 13%. Temperature-controlled ventilation prevents Aspergillus flavus and heating.",
-    "image": "https://images.unsplash.com/photo-1551754655-cd27e38d2076?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/maize.jpg"
   },
   {
     "id": "jowar",
@@ -50,7 +50,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 35,
     "marketDemand": "Moderate",
     "storageTips": "Low humidity dry cold chamber protects grain protein and prevents red flour beetle infestation.",
-    "image": "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/jowar.jpg"
   },
   {
     "id": "bajra",
@@ -67,7 +67,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 35,
     "marketDemand": "Moderate",
     "storageTips": "High lipid content requires cool storage to arrest lipase enzyme activity and rancidity.",
-    "image": "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/bajra.jpg"
   },
   {
     "id": "ragi",
@@ -84,7 +84,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 36,
     "marketDemand": "High",
     "storageTips": "Naturally pest resistant. Cool dry conditions preserve rich calcium and mineral bioavailability.",
-    "image": "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/ragi.jpg"
   },
   {
     "id": "foxtail_millet",
@@ -101,7 +101,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 38,
     "marketDemand": "High",
     "storageTips": "Major nutritious Siri Dhanya crop. Controlled dry environment prevents grain discolouration and moth attacks.",
-    "image": "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/foxtail_millet.jpg"
   },
   {
     "id": "little_millet",
@@ -118,7 +118,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 38,
     "marketDemand": "High",
     "storageTips": "Store dehulled or unhulled grain in humidity-controlled bays to prevent rancidity.",
-    "image": "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/little_millet.jpg"
   },
   {
     "id": "kodo_millet",
@@ -135,7 +135,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 38,
     "marketDemand": "High",
     "storageTips": "Rich in polyphenols and fiber; maintain temperature below 14°C to retain nutritional purity.",
-    "image": "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/kodo_millet.jpg"
   },
   {
     "id": "red_gram",
@@ -152,7 +152,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 42,
     "marketDemand": "Very High",
     "storageTips": "GI-tagged high-protein pulse. Temperature control eliminates pulse beetle (Callosobruchus) breeding without fumigation.",
-    "image": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/red_gram.jpg"
   },
   {
     "id": "bengal_gram",
@@ -169,7 +169,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 40,
     "marketDemand": "High",
     "storageTips": "Pre-clean and de-dust before storage. Cool dry air preserves test weight and seed luster.",
-    "image": "https://images.unsplash.com/photo-1515543237350-b3eea1ec8082?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/bengal_gram.jpg"
   },
   {
     "id": "green_gram",
@@ -186,7 +186,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 42,
     "marketDemand": "High",
     "storageTips": "Highly prone to bruchids at ambient temperatures; cold preservation maintains green shine and germination.",
-    "image": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/green_gram.jpg"
   },
   {
     "id": "black_gram",
@@ -203,7 +203,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 44,
     "marketDemand": "High",
     "storageTips": "Prevents grain hardness and moisture loss; keeps dal milling recovery percentage high.",
-    "image": "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/black_gram.jpg"
   },
   {
     "id": "cowpea",
@@ -220,7 +220,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 42,
     "marketDemand": "Moderate",
     "storageTips": "Maintain clean air circulation to arrest weevil multiplication and seed darkening.",
-    "image": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/cowpea.jpg"
   },
   {
     "id": "horse_gram",
@@ -237,7 +237,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 38,
     "marketDemand": "Moderate",
     "storageTips": "Traditional drought pulse; cold dry storage keeps seed coat hard and free of fungal spots.",
-    "image": "https://images.unsplash.com/photo-1515543237350-b3eea1ec8082?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/horse_gram.jpg"
   },
   {
     "id": "field_bean",
@@ -254,7 +254,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 44,
     "marketDemand": "High Seasonal",
     "storageTips": "Winter harvest pulse; cold aeration preserves sweetness and cooking softness.",
-    "image": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/field_bean.jpg"
   },
   {
     "id": "green_peas",
@@ -271,7 +271,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 70,
     "marketDemand": "High",
     "storageTips": "Rapid hydro-cooling preserves sugars from converting to starch.",
-    "image": "https://images.unsplash.com/photo-1587735243615-c03f25aaff15?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/green_peas.jpg"
   },
   {
     "id": "groundnut",
@@ -288,7 +288,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 44,
     "marketDemand": "High",
     "storageTips": "Maintains pod moisture <8% to eliminate aflatoxin. Cold room prevents oil acidification and rancid smell.",
-    "image": "https://images.unsplash.com/photo-1567892325505-1ff25435941a?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/groundnut.jpg"
   },
   {
     "id": "soybean",
@@ -305,7 +305,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 40,
     "marketDemand": "High",
     "storageTips": "Protects high protein (40%) and oil content from oxidation during hot Telangana summers.",
-    "image": "https://images.unsplash.com/photo-1599940824399-b87987ceb72a?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/soybean.jpg"
   },
   {
     "id": "sesame",
@@ -322,7 +322,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 50,
     "marketDemand": "Very High",
     "storageTips": "Delicate oilseed; cold chamber retains natural sesame lignan antioxidants and stops rancid oil smell.",
-    "image": "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/sesame.jpg"
   },
   {
     "id": "castor",
@@ -339,7 +339,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 42,
     "marketDemand": "High",
     "storageTips": "Maintains ricinoleic acid content and prevents self-heating in large stacks.",
-    "image": "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/castor.jpg"
   },
   {
     "id": "sunflower",
@@ -356,7 +356,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 44,
     "marketDemand": "Moderate",
     "storageTips": "Keeps linoleic acid oil quality intact and prevents seed hull darkening.",
-    "image": "https://images.unsplash.com/photo-1597848212624-a19eb35e2651?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/sunflower.jpg"
   },
   {
     "id": "safflower",
@@ -373,7 +373,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 40,
     "marketDemand": "Moderate",
     "storageTips": "High in polyunsaturated fatty acids; temperature regulation preserves seed oil purity.",
-    "image": "https://images.unsplash.com/photo-1597848212624-a19eb35e2651?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/safflower.jpg"
   },
   {
     "id": "mustard",
@@ -390,7 +390,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 45,
     "marketDemand": "High",
     "storageTips": "Preserves allyl isothiocyanate pungent aroma and oil stability.",
-    "image": "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/mustard.jpg"
   },
   {
     "id": "cotton",
@@ -407,7 +407,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 42,
     "marketDemand": "Very High",
     "storageTips": "Telangana's 'White Gold'. Low humidity warehouse environment prevents fiber yellowing, microbial staining, and spontaneous heating.",
-    "image": "https://images.unsplash.com/photo-1606041008023-472dfb5e530f?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/cotton.jpg"
   },
   {
     "id": "sugarcane",
@@ -424,7 +424,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 35,
     "marketDemand": "Seasonal",
     "storageTips": "Post-harvest cooling reduces invertase enzyme activity and sucrose inversion loss.",
-    "image": "https://images.unsplash.com/photo-1551754655-cd27e38d2076?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/sugarcane.jpg"
   },
   {
     "id": "mesta_jute",
@@ -441,7 +441,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 36,
     "marketDemand": "Moderate",
     "storageTips": "Keep moisture <14% to avoid tensile strength degradation and fungal rot.",
-    "image": "https://images.unsplash.com/photo-1606041008023-472dfb5e530f?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/mesta_jute.jpg"
   },
   {
     "id": "tobacco",
@@ -458,7 +458,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 48,
     "marketDemand": "High",
     "storageTips": "Precise humidity prevents leaf shatter; cool storage eliminates tobacco beetle (Lasioderma serricorne).",
-    "image": "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/tobacco.jpg"
   },
   {
     "id": "red_chilli",
@@ -475,7 +475,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 55,
     "marketDemand": "Very High",
     "storageTips": "Maintains bright red ASTA color and capsaicin pungency. Avoids darkening and eliminates aflatoxin and beetle infestation.",
-    "image": "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/red_chilli.jpg"
   },
   {
     "id": "turmeric",
@@ -492,7 +492,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 48,
     "marketDemand": "Very High",
     "storageTips": "Crucial for retaining curcumin content and essential volatile oils. Requires dry aeration to stop weevil perforation.",
-    "image": "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/turmeric.jpg"
   },
   {
     "id": "ginger",
@@ -509,7 +509,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 60,
     "marketDemand": "High",
     "storageTips": "Sensitive to chilling injury below 10°C. High humidity avoids fiber drying and rhizome shrivelling.",
-    "image": "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/ginger.jpg"
   },
   {
     "id": "garlic",
@@ -526,7 +526,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 55,
     "marketDemand": "High",
     "storageTips": "Do not store at 5-15°C which induces sprouting. Requires dry cold air draft.",
-    "image": "https://images.unsplash.com/photo-1618512496248-a07fe83aa8cb?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/garlic.jpg"
   },
   {
     "id": "coriander_seeds",
@@ -543,7 +543,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 46,
     "marketDemand": "High",
     "storageTips": "Prevents essential linalool aroma oil loss and split seed bug damage.",
-    "image": "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/coriander_seeds.jpg"
   },
   {
     "id": "cumin",
@@ -560,7 +560,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 55,
     "marketDemand": "High",
     "storageTips": "Preserves volatile cuminaldehyde oils and protects against dampness.",
-    "image": "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/cumin.jpg"
   },
   {
     "id": "fenugreek_seeds",
@@ -577,7 +577,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 44,
     "marketDemand": "Moderate",
     "storageTips": "Maintains golden yellow color and bitter saponin quality.",
-    "image": "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/fenugreek_seeds.jpg"
   },
   {
     "id": "ajwain",
@@ -594,7 +594,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 50,
     "marketDemand": "Moderate",
     "storageTips": "High thymol essential oil preservation; prevents insect infestation.",
-    "image": "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/ajwain.jpg"
   },
   {
     "id": "tomato",
@@ -611,7 +611,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 50,
     "marketDemand": "Fluctuating",
     "storageTips": "Store at turning/breaker stage. Never drop below 8°C to prevent chilling injury and watery breakdown.",
-    "image": "https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/tomato.jpg"
   },
   {
     "id": "onion",
@@ -628,7 +628,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 46,
     "marketDemand": "High",
     "storageTips": "Strict low humidity (65%) with strong ventilation is essential to inhibit root emergence and neck rot.",
-    "image": "https://images.unsplash.com/photo-1618512496248-a07fe83aa8cb?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/onion.jpg"
   },
   {
     "id": "green_chilli",
@@ -645,7 +645,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 60,
     "marketDemand": "High",
     "storageTips": "Rapid forced-air pre-cooling preserves green stalk calyx and avoids shrivelling.",
-    "image": "https://images.unsplash.com/photo-1588252303782-cb80119abd6d?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/green_chilli.jpg"
   },
   {
     "id": "brinjal",
@@ -662,7 +662,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 52,
     "marketDemand": "High",
     "storageTips": "Subject to chilling injury below 10°C causing seed browning and peel pitting.",
-    "image": "https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/brinjal.jpg"
   },
   {
     "id": "okra",
@@ -679,7 +679,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 58,
     "marketDemand": "High",
     "storageTips": "Highly perishable with high respiration rate. Chilling injury occurs below 7°C causing surface discoloration.",
-    "image": "https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/okra.jpg"
   },
   {
     "id": "bottle_gourd",
@@ -696,7 +696,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 45,
     "marketDemand": "Moderate",
     "storageTips": "Do not freeze; maintain 10-12°C to prevent peel water-soaking.",
-    "image": "https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/bottle_gourd.jpg"
   },
   {
     "id": "bitter_gourd",
@@ -713,7 +713,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 55,
     "marketDemand": "High",
     "storageTips": "Highly sensitive to ethylene. Keep isolated to prevent quick yellowing and fruit splitting.",
-    "image": "https://images.unsplash.com/photo-1588252303782-cb80119abd6d?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/bitter_gourd.jpg"
   },
   {
     "id": "ridge_gourd",
@@ -730,7 +730,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 52,
     "marketDemand": "High",
     "storageTips": "Maintain humidity to keep crisp ridges from turning dry and fibrous.",
-    "image": "https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/ridge_gourd.jpg"
   },
   {
     "id": "snake_gourd",
@@ -747,7 +747,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 48,
     "marketDemand": "Moderate",
     "storageTips": "Avoid chilling injury by storing above 10°C; wrap carefully to prevent mechanical scratches.",
-    "image": "https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/snake_gourd.jpg"
   },
   {
     "id": "ivy_gourd",
@@ -764,7 +764,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 55,
     "marketDemand": "High",
     "storageTips": "High humidity maintains crunchiness and stops internal pulp from turning red/ripe.",
-    "image": "https://images.unsplash.com/photo-1588252303782-cb80119abd6d?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/ivy_gourd.jpg"
   },
   {
     "id": "ash_gourd",
@@ -781,7 +781,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 35,
     "marketDemand": "Moderate",
     "storageTips": "Natural waxy coating protects from decay; do not wash off bloom before storage.",
-    "image": "https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/ash_gourd.jpg"
   },
   {
     "id": "pumpkin",
@@ -798,7 +798,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 36,
     "marketDemand": "Moderate",
     "storageTips": "Cure fruits for 10 days before storage; cool dry storage prevents black rot.",
-    "image": "https://images.unsplash.com/photo-1506917728037-b6fb018dbb16?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/pumpkin.jpg"
   },
   {
     "id": "drumstick",
@@ -815,7 +815,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 60,
     "marketDemand": "High",
     "storageTips": "High humidity chamber prevents pod hardening, yellowing, and pulp drying.",
-    "image": "https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/drumstick.jpg"
   },
   {
     "id": "cluster_beans",
@@ -832,7 +832,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 50,
     "marketDemand": "Moderate",
     "storageTips": "Rapid pre-cooling maintains pod tenderness and dark green color.",
-    "image": "https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/cluster_beans.jpg"
   },
   {
     "id": "french_beans",
@@ -849,7 +849,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 55,
     "marketDemand": "High",
     "storageTips": "Avoid temperatures below 5°C to avert russeting and chilling pits.",
-    "image": "https://images.unsplash.com/photo-1587735243615-c03f25aaff15?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/french_beans.jpg"
   },
   {
     "id": "cabbage",
@@ -866,7 +866,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 40,
     "marketDemand": "High",
     "storageTips": "Near freezing temperatures with high RH preserves head firmness and green outer leaves.",
-    "image": "https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/cabbage.jpg"
   },
   {
     "id": "cauliflower",
@@ -883,7 +883,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 45,
     "marketDemand": "High",
     "storageTips": "Store curds with jacket leaves intact to protect white curd from yellowing and bruising.",
-    "image": "https://images.unsplash.com/photo-1568584711075-3d021a7c3ca3?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/cauliflower.jpg"
   },
   {
     "id": "carrot",
@@ -900,7 +900,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 42,
     "marketDemand": "High",
     "storageTips": "Keep away from ethylene sources like ripening mangoes to prevent bitter isocoumarin synthesis.",
-    "image": "https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/carrot.jpg"
   },
   {
     "id": "radish",
@@ -917,7 +917,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 40,
     "marketDemand": "Moderate",
     "storageTips": "Remove tops before cold storage to drastically cut water evaporation and pithiness.",
-    "image": "https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/radish.jpg"
   },
   {
     "id": "beetroot",
@@ -934,7 +934,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 42,
     "marketDemand": "Moderate",
     "storageTips": "Cut greens 2cm above crown; near 98% RH prevents shrivelling and internal blackening.",
-    "image": "https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/beetroot.jpg"
   },
   {
     "id": "spinach",
@@ -951,7 +951,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 65,
     "marketDemand": "High",
     "storageTips": "Highest respiration vegetable. Rapid cooling and misting stops chlorophyll degradation and leaf yellowing.",
-    "image": "https://images.unsplash.com/photo-1576045057995-568f588f82fb?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/spinach.jpg"
   },
   {
     "id": "amaranth",
@@ -968,7 +968,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 65,
     "marketDemand": "High",
     "storageTips": "Telangana staple leafy green; hydro-cooling immediately after morning harvest preserves crispness.",
-    "image": "https://images.unsplash.com/photo-1576045057995-568f588f82fb?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/amaranth.jpg"
   },
   {
     "id": "mango",
@@ -985,7 +985,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 75,
     "marketDemand": "Peak Seasonal",
     "storageTips": "Hydro-cooling to 12°C followed by controlled ethylene atmosphere delays ripening and prevents spongy tissue disorder.",
-    "image": "https://images.unsplash.com/photo-1553279768-865429fa0078?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/mango.jpg"
   },
   {
     "id": "sweet_orange",
@@ -1002,7 +1002,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 52,
     "marketDemand": "High",
     "storageTips": "Post-harvest dip in anti-fungal solution and carnauba waxing prevents stem-end rot, green mold, and peel desiccation.",
-    "image": "https://images.unsplash.com/photo-1611080626919-7cf5a9dbab5b?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/sweet_orange.jpg"
   },
   {
     "id": "acid_lime",
@@ -1019,7 +1019,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 50,
     "marketDemand": "High",
     "storageTips": "Avoid temperatures below 8°C which cause rind pitting and peteca breakdown.",
-    "image": "https://images.unsplash.com/photo-1534939561126-855b8675edd7?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/acid_lime.jpg"
   },
   {
     "id": "guava",
@@ -1036,7 +1036,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 60,
     "marketDemand": "High",
     "storageTips": "Harvest at color break stage; cold storage preserves vitamin C and prevents anthracnose spotting.",
-    "image": "https://images.unsplash.com/photo-1536511135899-7323b7c84490?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/guava.jpg"
   },
   {
     "id": "pomegranate",
@@ -1053,7 +1053,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 70,
     "marketDemand": "High",
     "storageTips": "Pre-cooling and anti-fungal dip prevents aril discoloration and rind shrivelling.",
-    "image": "https://images.unsplash.com/photo-1541344999736-83eca872f24f?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/pomegranate.jpg"
   },
   {
     "id": "papaya",
@@ -1070,7 +1070,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 50,
     "marketDemand": "High",
     "storageTips": "Harvest when color breaks to one-quarter yellow. Below 10°C fruit suffers chilling injury and failure to ripen.",
-    "image": "https://images.unsplash.com/photo-1517282009859-f000ec3b26fe?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/papaya.jpg"
   },
   {
     "id": "banana",
@@ -1087,7 +1087,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 55,
     "marketDemand": "Very High",
     "storageTips": "Never store green bananas below 13°C to avoid peel graying and under-peel sub-epidermal browning.",
-    "image": "https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/banana.jpg"
   },
   {
     "id": "watermelon",
@@ -1104,7 +1104,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 35,
     "marketDemand": "Seasonal Peak",
     "storageTips": "Store above 10°C to prevent red flesh pitting, loss of sweetness, and flavor degradation.",
-    "image": "https://images.unsplash.com/photo-1587049352846-4a222e784d38?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/watermelon.jpg"
   },
   {
     "id": "muskmelon",
@@ -1121,7 +1121,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 45,
     "marketDemand": "Seasonal Peak",
     "storageTips": "Pre-cool promptly to retain aromatic esters and prevent mold breakdown at stem scar.",
-    "image": "https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/muskmelon.jpg"
   },
   {
     "id": "sapota",
@@ -1138,7 +1138,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 48,
     "marketDemand": "High",
     "storageTips": "Harvest mature brown fruit; cold storage delays softening and preserves sweet sugary pulp.",
-    "image": "https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/sapota.jpg"
   },
   {
     "id": "custard_apple",
@@ -1155,7 +1155,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 75,
     "marketDemand": "Peak Seasonal",
     "storageTips": "Famous Telangana wild & cultivated fruit. Ripens very rapidly; pre-cooling to 13°C delays fruit splitting.",
-    "image": "https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/custard_apple.jpg"
   },
   {
     "id": "grapes",
@@ -1172,7 +1172,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 85,
     "marketDemand": "High",
     "storageTips": "Historic Anab-e-Shahi grape heritage. Use sulfur dioxide (SO2) generating pads to eliminate gray mold rot.",
-    "image": "https://images.unsplash.com/photo-1537640538966-79f369143f8f?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/grapes.jpg"
   },
   {
     "id": "seed_paddy",
@@ -1189,7 +1189,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 50,
     "marketDemand": "High",
     "storageTips": "Dehumidified cold storage preserves high germination vigor (>85%) and seed membrane integrity across crop seasons.",
-    "image": "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/seed_paddy.jpg"
   },
   {
     "id": "seed_maize",
@@ -1206,7 +1206,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 45,
     "marketDemand": "High",
     "storageTips": "Dehumidified chamber keeps seed moisture below 10%, preserving hybrid seed germination percentage above 90%.",
-    "image": "https://images.unsplash.com/photo-1551754655-cd27e38d2076?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/seed_maize.jpg"
   },
   {
     "id": "seed_cotton",
@@ -1223,7 +1223,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 60,
     "marketDemand": "Very High",
     "storageTips": "High value commercial seed packets. Strict humidity control preserves genetic purity and prevents seed oil rancidity.",
-    "image": "https://images.unsplash.com/photo-1606041008023-472dfb5e530f?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/seed_cotton.jpg"
   },
   {
     "id": "seed_sorghum",
@@ -1240,7 +1240,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 44,
     "marketDemand": "Moderate",
     "storageTips": "Preserves embryo viability and eliminates weevil boring during humid monsoon storage.",
-    "image": "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/seed_sorghum.jpg"
   },
   {
     "id": "seed_bajra",
@@ -1257,7 +1257,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 44,
     "marketDemand": "Moderate",
     "storageTips": "High-oil millet seed. Low temperature and dry atmosphere prevent embryo degradation.",
-    "image": "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/seed_bajra.jpg"
   },
   {
     "id": "oil_palm",
@@ -1274,7 +1274,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 38,
     "marketDemand": "High Growing",
     "storageTips": "Major Telangana crop expansion. Prompt processing or cool holding prevents Free Fatty Acid (FFA) buildup.",
-    "image": "https://images.unsplash.com/photo-1611080626919-7cf5a9dbab5b?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/oil_palm.jpg"
   },
   {
     "id": "marigold",
@@ -1291,7 +1291,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 75,
     "marketDemand": "Peak Festive",
     "storageTips": "Commercial festive flower crop. Pre-cooling to 4°C with high humidity keeps petals fresh and bright.",
-    "image": "https://images.unsplash.com/photo-1597848212624-a19eb35e2651?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/marigold.jpg"
   },
   {
     "id": "jasmine",
@@ -1308,7 +1308,7 @@ export const fallbackCrops = [
     "avgTariffPerQuintalMonth": 90,
     "marketDemand": "High Festive",
     "storageTips": "Store tight buds at 5°C to hold opening for market and preserve delicate fragrance.",
-    "image": "https://images.unsplash.com/photo-1597848212624-a19eb35e2651?auto=format&fit=crop&w=600&q=80"
+    "image": "./crops/jasmine.jpg"
   }
 ];
 

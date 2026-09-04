@@ -42,14 +42,15 @@ export default function Footer() {
 
           {/* Col 2: Quick Links */}
           <div className="space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-200">Platform Features</h4>
+            <h4 className="text-xs font-black uppercase tracking-wider text-slate-200">Platform Features</h4>
             <ul className="space-y-2 text-xs">
-              <li><button onClick={() => setActiveTab('crops')} className="hover:text-emerald-400 transition">Crops Cold Storage Guidelines</button></li>
-              <li><button onClick={() => setActiveTab('units')} className="hover:text-emerald-400 transition">Find & Book Cold Storage Units</button></li>
-              <li><button onClick={() => setActiveTab('queue')} className="hover:text-emerald-400 transition">Live Gate & Weighbridge Queue</button></li>
-              <li><button onClick={() => setActiveTab('tracking')} className="hover:text-emerald-400 transition">Procurement & Consignment Tracker</button></li>
-              <li><button onClick={() => setActiveTab('documents')} className="hover:text-emerald-400 transition">Docx Agreement & e-NWR Generator</button></li>
-              <li><button onClick={() => setActiveTab('sms')} className="hover:text-emerald-400 transition">SMS Dispatch & Alert Center</button></li>
+              <li><button onClick={() => setActiveTab('crops')} className="hover:text-emerald-400 transition font-medium">Crops Cold Storage Guidelines</button></li>
+              <li><button onClick={() => setActiveTab('units')} className="hover:text-emerald-400 transition font-medium">Storage Units Registry</button></li>
+              <li><button onClick={() => setActiveTab('booking')} className="hover:text-emerald-400 transition font-bold text-emerald-300">Dedicated Slot Booking Window 📅</button></li>
+              <li><button onClick={() => setActiveTab('queue')} className="hover:text-emerald-400 transition font-medium">Live Gate & Weighbridge Queue</button></li>
+              <li><button onClick={() => setActiveTab('tracking')} className="hover:text-emerald-400 transition font-medium">Procurement & Consignment Tracker</button></li>
+              <li><button onClick={() => setActiveTab('documents')} className="hover:text-emerald-400 transition font-medium">Docx Agreement & e-NWR Generator</button></li>
+              <li><button onClick={() => setActiveTab('sms')} className="hover:text-emerald-400 transition font-medium">SMS Dispatch & Alert Center</button></li>
             </ul>
           </div>
 

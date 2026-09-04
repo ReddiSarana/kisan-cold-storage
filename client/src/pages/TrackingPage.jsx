@@ -122,39 +122,42 @@ export default function TrackingPage() {
   return (
     <div className="space-y-8 py-6">
       {/* Top Banner */}
-      <div className="bg-gradient-to-r from-slate-900 via-emerald-950 to-teal-900 text-white rounded-3xl p-6 sm:p-10 shadow-lg flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-        <div className="max-w-2xl space-y-2">
-          <span className="text-xs font-bold uppercase tracking-wider text-emerald-400 bg-emerald-900/60 px-3 py-1 rounded-full">
+      <div className="relative overflow-hidden bg-gradient-to-r from-slate-950 via-emerald-950 to-teal-950 text-white rounded-3xl p-6 sm:p-10 shadow-2xl border border-emerald-900/50 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+        <div className="absolute top-0 right-0 -mt-10 -mr-10 w-80 h-80 bg-emerald-500/15 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute bottom-0 left-0 -mb-10 -ml-10 w-80 h-80 bg-teal-500/15 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div className="relative z-10 max-w-2xl space-y-2.5">
+          <span className="text-xs font-black uppercase tracking-wider text-emerald-300 bg-emerald-800/70 border border-emerald-600/40 px-3.5 py-1 rounded-full shadow-xs">
             {t('trackingTag', "End-to-End Agri-Logistics Audit Trail")}
           </span>
           <h1 className="text-2xl sm:text-4xl font-black tracking-tight">
             {t('trackingTitle', "Procurement & Transaction Tracker")}
           </h1>
-          <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+          <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-xl font-normal">
             {t('trackingDesc', "Monitor the exact physical movement of your harvested crop from weighbridge gross logging, moisture quality grading, cold room stacking, to bank-pledged payment settlement.")}
           </p>
         </div>
 
         {selectedBooking && (
-          <div className="bg-white/10 backdrop-blur border border-white/20 p-4 rounded-2xl flex items-center space-x-3">
+          <div className="relative z-10 bg-white/10 backdrop-blur-md border border-white/20 p-5 rounded-2xl flex items-center space-x-3.5 shadow-lg card-hover-lift">
             <div>
-              <p className="text-[10px] text-emerald-300 font-bold uppercase">Active Consignment</p>
-              <p className="text-lg font-black font-mono text-white">{selectedBooking.id}</p>
-              <p className="text-[11px] text-slate-300">{selectedBooking.cropName}</p>
+              <p className="text-[10px] text-emerald-300 font-extrabold uppercase tracking-wide">Active Consignment</p>
+              <p className="text-xl font-black font-mono text-white">{selectedBooking.id}</p>
+              <p className="text-xs text-emerald-100 font-bold">{selectedBooking.cropName}</p>
             </div>
           </div>
         )}
       </div>
 
       {/* Farmer Consignment Journey Guide */}
-      <div className="bg-gradient-to-r from-teal-50 via-emerald-50 to-cyan-50 border-2 border-teal-300 rounded-3xl p-5 sm:p-6 shadow-sm">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-4 pb-3 border-b border-teal-200">
+      <div className="bg-gradient-to-r from-teal-50/90 via-emerald-50/70 to-cyan-50/80 border-2 border-teal-300/80 rounded-3xl p-6 sm:p-7 shadow-xs">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-5 pb-4 border-b border-teal-200/80">
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 rounded-2xl bg-teal-700 text-white flex items-center justify-center font-black text-xl shadow-md">
+            <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-teal-600 to-emerald-700 text-white flex items-center justify-center font-black text-xl shadow-md">
               📊
             </div>
             <div>
-              <h3 className="font-black text-slate-900 text-base sm:text-lg">
+              <h3 className="font-black text-slate-900 text-base sm:text-lg tracking-tight">
                 Farmer Guide: The 5 Clear Stages of Your Produce in Cold Storage
               </h3>
               <p className="text-xs text-slate-600 font-medium">
@@ -162,41 +165,41 @@ export default function TrackingPage() {
               </p>
             </div>
           </div>
-          <div className="bg-teal-700 text-white px-3.5 py-1.5 rounded-full text-xs font-bold flex items-center space-x-1.5 shadow-sm self-start sm:self-auto">
+          <div className="bg-gradient-to-r from-teal-700 to-emerald-800 text-white px-4 py-2 rounded-full text-xs font-black flex items-center space-x-2 shadow-sm self-start sm:self-auto border border-teal-600">
             <span>📞 Status Desk:</span>
-            <a href="tel:18001801551" className="underline font-mono">1800-180-1551</a>
+            <a href="tel:18001801551" className="underline font-mono tracking-wide">1800-180-1551</a>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3">
-          <div className="bg-white rounded-2xl p-3.5 border border-teal-200 shadow-sm">
-            <div className="w-7 h-7 rounded-full bg-teal-100 text-teal-800 font-black flex items-center justify-center text-xs mb-2">1</div>
-            <h4 className="font-bold text-slate-900 text-xs">📱 Stage 1: Booking & Token</h4>
-            <p className="text-[11px] text-slate-600 mt-1 leading-snug">Chamber reserved online and digital gate entry token sent via SMS.</p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3.5">
+          <div className="bg-white/95 backdrop-blur rounded-2xl p-4 border border-teal-200/90 shadow-xs card-hover-lift">
+            <div className="w-8 h-8 rounded-xl bg-teal-100 text-teal-800 font-black flex items-center justify-center text-xs mb-2 shadow-xs">1</div>
+            <h4 className="font-black text-slate-900 text-xs">📱 Stage 1: Booking & Token</h4>
+            <p className="text-[11px] text-slate-600 mt-1 leading-relaxed">Chamber reserved online and digital gate entry token sent via SMS.</p>
           </div>
 
-          <div className="bg-white rounded-2xl p-3.5 border border-emerald-200 shadow-sm">
-            <div className="w-7 h-7 rounded-full bg-emerald-100 text-emerald-800 font-black flex items-center justify-center text-xs mb-2">2</div>
-            <h4 className="font-bold text-slate-900 text-xs">⚖️ Stage 2: Weighbridge Gross</h4>
-            <p className="text-[11px] text-slate-600 mt-1 leading-snug">Automated gross vehicle weighment logged before tractor enters unloading bay.</p>
+          <div className="bg-white/95 backdrop-blur rounded-2xl p-4 border border-emerald-200/90 shadow-xs card-hover-lift">
+            <div className="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-800 font-black flex items-center justify-center text-xs mb-2 shadow-xs">2</div>
+            <h4 className="font-black text-slate-900 text-xs">⚖️ Stage 2: Weighbridge Gross</h4>
+            <p className="text-[11px] text-slate-600 mt-1 leading-relaxed">Automated gross vehicle weighment logged before tractor enters unloading bay.</p>
           </div>
 
-          <div className="bg-white rounded-2xl p-3.5 border border-cyan-200 shadow-sm">
-            <div className="w-7 h-7 rounded-full bg-cyan-100 text-cyan-800 font-black flex items-center justify-center text-xs mb-2">3</div>
-            <h4 className="font-bold text-slate-900 text-xs">🔬 Stage 3: Quality Check</h4>
-            <p className="text-[11px] text-slate-600 mt-1 leading-snug">Moisture % and produce quality inspected according to Telangana standards.</p>
+          <div className="bg-white/95 backdrop-blur rounded-2xl p-4 border border-cyan-200/90 shadow-xs card-hover-lift">
+            <div className="w-8 h-8 rounded-xl bg-cyan-100 text-cyan-800 font-black flex items-center justify-center text-xs mb-2 shadow-xs">3</div>
+            <h4 className="font-black text-slate-900 text-xs">🔬 Stage 3: Quality Check</h4>
+            <p className="text-[11px] text-slate-600 mt-1 leading-relaxed">Moisture % and produce quality inspected according to Telangana standards.</p>
           </div>
 
-          <div className="bg-white rounded-2xl p-3.5 border border-blue-200 shadow-sm">
-            <div className="w-7 h-7 rounded-full bg-blue-100 text-blue-800 font-black flex items-center justify-center text-xs mb-2">4</div>
-            <h4 className="font-bold text-slate-900 text-xs">❄️ Stage 4: Stacking & e-NWR</h4>
-            <p className="text-[11px] text-slate-600 mt-1 leading-snug">Produce stacked safely in cold room and official bank-pledgeable e-NWR issued.</p>
+          <div className="bg-white/95 backdrop-blur rounded-2xl p-4 border border-blue-200/90 shadow-xs card-hover-lift">
+            <div className="w-8 h-8 rounded-xl bg-blue-100 text-blue-800 font-black flex items-center justify-center text-xs mb-2 shadow-xs">4</div>
+            <h4 className="font-black text-slate-900 text-xs">❄️ Stage 4: Stacking & e-NWR</h4>
+            <p className="text-[11px] text-slate-600 mt-1 leading-relaxed">Produce stacked safely in cold room and official bank-pledgeable e-NWR issued.</p>
           </div>
 
-          <div className="bg-white rounded-2xl p-3.5 border border-indigo-200 shadow-sm">
-            <div className="w-7 h-7 rounded-full bg-indigo-100 text-indigo-800 font-black flex items-center justify-center text-xs mb-2">5</div>
-            <h4 className="font-bold text-slate-900 text-xs">💰 Stage 5: Settlement & Release</h4>
-            <p className="text-[11px] text-slate-600 mt-1 leading-snug">Pay storage rent when market prices rise, sell crop, or release safely.</p>
+          <div className="bg-white/95 backdrop-blur rounded-2xl p-4 border border-indigo-200/90 shadow-xs card-hover-lift">
+            <div className="w-8 h-8 rounded-xl bg-indigo-100 text-indigo-800 font-black flex items-center justify-center text-xs mb-2 shadow-xs">5</div>
+            <h4 className="font-black text-slate-900 text-xs">💰 Stage 5: Settlement & Release</h4>
+            <p className="text-[11px] text-slate-600 mt-1 leading-relaxed">Pay storage rent when market prices rise, sell crop, or release safely.</p>
           </div>
         </div>
       </div>

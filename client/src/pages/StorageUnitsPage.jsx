@@ -57,28 +57,31 @@ export default function StorageUnitsPage() {
   return (
     <div className="space-y-8 py-6">
       {/* Header Banner */}
-      <div className="bg-gradient-to-r from-teal-900 via-slate-900 to-emerald-900 text-white rounded-3xl p-6 sm:p-10 shadow-lg flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-        <div className="max-w-2xl space-y-2">
-          <span className="text-xs font-bold uppercase tracking-wider text-emerald-300 bg-emerald-800/60 px-3 py-1 rounded-full">
+      <div className="relative overflow-hidden bg-gradient-to-r from-slate-950 via-emerald-950 to-teal-950 text-white rounded-3xl p-6 sm:p-10 shadow-2xl border border-emerald-900/50 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+        <div className="absolute top-0 right-0 -mt-10 -mr-10 w-80 h-80 bg-emerald-500/20 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute bottom-0 left-0 -mb-10 -ml-10 w-80 h-80 bg-teal-500/15 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div className="relative z-10 max-w-2xl space-y-2.5">
+          <span className="text-xs font-black uppercase tracking-wider text-emerald-300 bg-emerald-800/70 border border-emerald-600/40 px-3.5 py-1 rounded-full shadow-xs">
             {t('storageRegistry', "Telangana Cold Chain & Storage Registry")}
           </span>
           <h1 className="text-2xl sm:text-4xl font-black tracking-tight">
             {t('storageTitle', "Telangana Cold Storage Facilities")}
           </h1>
-          <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+          <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-xl font-normal">
             {t('storageDesc', "Discover real-time chamber capacities, WDRA certifications, and tariffs across Warangal, Nizamabad, Karimnagar, Khammam, Nalgonda, and Tandur.")}
           </p>
         </div>
 
         {selectedCropFilter && (
-          <div className="bg-white/10 backdrop-blur border border-white/20 p-4 rounded-2xl flex items-center space-x-3">
+          <div className="relative z-10 bg-white/10 backdrop-blur-md border border-white/20 p-4 rounded-2xl flex items-center space-x-3 shadow-lg card-hover-lift">
             <div>
-              <p className="text-[11px] text-emerald-300 font-bold uppercase">Filtered for Crop</p>
+              <p className="text-[10px] text-emerald-300 font-extrabold uppercase tracking-wide">Filtered for Crop</p>
               <p className="text-base font-black capitalize text-white">{selectedCropFilter.replace('_', ' ')}</p>
             </div>
             <button
               onClick={() => setSelectedCropFilter('')}
-              className="text-xs bg-white/20 hover:bg-white/30 text-white px-2.5 py-1 rounded-lg transition"
+              className="text-xs bg-white/20 hover:bg-white/30 text-white font-bold px-3 py-1.5 rounded-xl transition"
             >
               Clear
             </button>
@@ -87,14 +90,14 @@ export default function StorageUnitsPage() {
       </div>
 
       {/* Farmer Booking 3-Step Guide Banner */}
-      <div className="bg-gradient-to-r from-emerald-50 via-teal-50 to-green-50 border-2 border-emerald-300 rounded-3xl p-5 sm:p-6 shadow-sm">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-4 pb-3 border-b border-emerald-200">
+      <div className="bg-gradient-to-r from-emerald-50/90 via-teal-50/70 to-green-50/80 border-2 border-emerald-300/80 rounded-3xl p-6 sm:p-7 shadow-xs">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-5 pb-4 border-b border-emerald-200/80">
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 rounded-2xl bg-emerald-600 text-white flex items-center justify-center font-black text-xl shadow-md">
+            <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-emerald-600 to-teal-700 text-white flex items-center justify-center font-black text-xl shadow-md">
               💡
             </div>
             <div>
-              <h3 className="font-black text-slate-900 text-base sm:text-lg">
+              <h3 className="font-black text-slate-900 text-base sm:text-lg tracking-tight">
                 Farmer Guide: How to Reserve Cold Storage in 3 Simple Steps
               </h3>
               <p className="text-xs text-slate-600 font-medium">
@@ -102,19 +105,19 @@ export default function StorageUnitsPage() {
               </p>
             </div>
           </div>
-          <div className="bg-emerald-600 text-white px-3.5 py-1.5 rounded-full text-xs font-bold flex items-center space-x-1.5 shadow-sm self-start sm:self-auto">
+          <div className="bg-gradient-to-r from-emerald-700 to-teal-800 text-white px-4 py-2 rounded-full text-xs font-black flex items-center space-x-2 shadow-sm self-start sm:self-auto border border-emerald-600">
             <span>📞 Kisan Helpline:</span>
-            <a href="tel:18001801551" className="underline font-mono">1800-180-1551</a>
+            <a href="tel:18001801551" className="underline font-mono tracking-wide">1800-180-1551</a>
           </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="bg-white rounded-2xl p-4 border border-emerald-200 shadow-sm flex items-start space-x-3.5">
-            <div className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-800 font-black flex items-center justify-center text-sm shrink-0">
+          <div className="bg-white/95 backdrop-blur rounded-2xl p-4.5 border border-emerald-200/90 shadow-xs card-hover-lift flex items-start space-x-3.5">
+            <div className="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-800 font-black flex items-center justify-center text-sm shrink-0 shadow-xs">
               1
             </div>
             <div>
-              <h4 className="font-bold text-slate-900 text-sm">
+              <h4 className="font-black text-slate-900 text-sm">
                 🌾 Step 1: Pick Your Harvested Crop
               </h4>
               <p className="text-xs text-slate-600 mt-1 leading-relaxed">
@@ -123,12 +126,12 @@ export default function StorageUnitsPage() {
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl p-4 border border-teal-200 shadow-sm flex items-start space-x-3.5">
-            <div className="w-8 h-8 rounded-full bg-teal-100 text-teal-800 font-black flex items-center justify-center text-sm shrink-0">
+          <div className="bg-white/95 backdrop-blur rounded-2xl p-4.5 border border-teal-200/90 shadow-xs card-hover-lift flex items-start space-x-3.5">
+            <div className="w-8 h-8 rounded-xl bg-teal-100 text-teal-800 font-black flex items-center justify-center text-sm shrink-0 shadow-xs">
               2
             </div>
             <div>
-              <h4 className="font-bold text-slate-900 text-sm">
+              <h4 className="font-black text-slate-900 text-sm">
                 📍 Step 2: Choose Closest District / Facility
               </h4>
               <p className="text-xs text-slate-600 mt-1 leading-relaxed">
@@ -137,7 +140,7 @@ export default function StorageUnitsPage() {
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl p-4 border border-green-200 shadow-sm flex items-start space-x-3.5">
+          <div className="bg-white/95 backdrop-blur rounded-2xl p-4.5 border border-green-200/90 shadow-xs card-hover-lift flex items-start space-x-3.5">
             <div className="w-8 h-8 rounded-full bg-green-100 text-green-800 font-black flex items-center justify-center text-sm shrink-0">
               3
             </div>
@@ -240,79 +243,82 @@ export default function StorageUnitsPage() {
             return (
               <div
                 key={fac.id}
-                className="bg-white rounded-3xl border border-slate-200/90 shadow-sm hover:shadow-md transition overflow-hidden flex flex-col justify-between"
+                className="bg-white/95 backdrop-blur rounded-3xl border border-slate-200/90 shadow-sm card-hover-lift hover:border-emerald-400/80 transition overflow-hidden flex flex-col justify-between"
               >
                 <div>
                   {/* Top Image & Badges */}
-                  <div className="relative h-48 bg-slate-100 overflow-hidden">
+                  <div className="relative h-52 bg-slate-100 overflow-hidden group">
                     <img
                       src={fac.image}
                       alt={fac.name}
-                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
-                    <div className="absolute top-3 left-3 flex flex-wrap gap-1.5">
-                      <span className="bg-emerald-700/90 backdrop-blur text-white text-[11px] font-bold px-2.5 py-1 rounded-full shadow">
-                        WDRA Certified
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/10 to-transparent pointer-events-none"></div>
+
+                    <div className="absolute top-3.5 left-3.5 flex flex-wrap gap-1.5">
+                      <span className="bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 text-[10px] font-black px-3 py-1 rounded-full shadow-md uppercase tracking-wider flex items-center space-x-1">
+                        <ShieldCheck className="w-3 h-3 text-slate-950 inline mr-0.5" />
+                        <span>WDRA Certified</span>
                       </span>
-                      <span className="bg-slate-900/80 backdrop-blur text-white text-[11px] font-medium px-2.5 py-1 rounded-full">
+                      <span className="bg-slate-950/80 backdrop-blur text-white text-[10px] font-bold px-3 py-1 rounded-full border border-white/10">
                         {fac.chambersCount} Chambers
                       </span>
                     </div>
 
-                    <div className="absolute top-3 right-3 bg-white/95 backdrop-blur px-2.5 py-1 rounded-full shadow flex items-center space-x-1 text-xs font-bold text-slate-800">
+                    <div className="absolute top-3.5 right-3.5 bg-white/95 backdrop-blur px-3 py-1 rounded-full shadow-md flex items-center space-x-1 text-xs font-black text-slate-900">
                       <Star className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
                       <span>{fac.rating}</span>
-                      <span className="text-slate-400 text-[10px]">({fac.reviewsCount})</span>
+                      <span className="text-slate-400 text-[10px] font-normal">({fac.reviewsCount})</span>
                     </div>
 
-                    <div className="absolute bottom-3 left-3 bg-slate-900/85 backdrop-blur text-white px-3 py-1 rounded-lg text-xs flex items-center space-x-1.5">
+                    <div className="absolute bottom-3.5 left-3.5 bg-slate-900/85 backdrop-blur text-white px-3 py-1.5 rounded-xl text-xs flex items-center space-x-1.5 border border-white/10">
                       <MapPin className="w-3.5 h-3.5 text-emerald-400" />
-                      <span>{fac.location}, {fac.district}</span>
+                      <span className="font-semibold">{fac.location}, {fac.district}</span>
                     </div>
                   </div>
 
                   {/* Body Content */}
                   <div className="p-6 space-y-5">
                     <div>
-                      <h3 className="text-xl font-black text-slate-900 leading-snug">{fac.name}</h3>
-                      <p className="text-xs text-slate-500 mt-1">Manager: {fac.managerName} • {fac.contactPhone}</p>
+                      <h3 className="text-xl font-black text-slate-900 leading-snug tracking-tight">{fac.name}</h3>
+                      <p className="text-xs text-slate-500 mt-1 font-medium">Manager: {fac.managerName} • {fac.contactPhone}</p>
                     </div>
 
                     {/* Real-time Capacity Progress Bar */}
-                    <div className="space-y-1.5 bg-slate-50 p-3 rounded-2xl border border-slate-100">
+                    <div className="space-y-2 bg-slate-50/90 p-4 rounded-2xl border border-slate-100 shadow-2xs">
                       <div className="flex justify-between items-center text-xs">
                         <span className="font-bold text-slate-700">Live Cold Room Capacity:</span>
-                        <span className="text-emerald-700 font-bold">
+                        <span className="text-emerald-700 font-extrabold font-mono">
                           {fac.availableCapacityMT} MT Available / {fac.totalCapacityMT} MT Total
                         </span>
                       </div>
-                      <div className="w-full h-2.5 bg-slate-200 rounded-full overflow-hidden">
+                      <div className="w-full h-3 bg-slate-200 rounded-full overflow-hidden p-0.5">
                         <div
                           className={`h-full rounded-full transition-all duration-500 ${
-                            occupancyPct > 85 ? 'bg-amber-500' : 'bg-emerald-600'
+                            occupancyPct > 85 ? 'bg-gradient-to-r from-amber-500 to-rose-500' : 'bg-gradient-to-r from-emerald-500 to-teal-500'
                           }`}
                           style={{ width: `${occupancyPct}%` }}
                         ></div>
                       </div>
-                      <div className="flex justify-between text-[10px] text-slate-400">
-                        <span>{occupancyPct}% Booked</span>
+                      <div className="flex justify-between text-[10px] font-semibold text-slate-400">
+                        <span className={occupancyPct > 85 ? 'text-amber-700' : 'text-emerald-700'}>{occupancyPct}% Booked</span>
                         <span>{fac.unloadingBays} Active Unloading Bays</span>
                       </div>
                     </div>
 
                     {/* Supported Crops */}
                     <div>
-                      <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block mb-2">
+                      <span className="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider block mb-2">
                         Calibrated produce chambers:
                       </span>
                       <div className="flex flex-wrap gap-1.5">
                         {fac.supportedCrops.map((c) => (
                           <span
                             key={c}
-                            className={`text-xs font-semibold px-2.5 py-1 rounded-lg capitalize border ${
+                            className={`text-xs font-bold px-3 py-1 rounded-xl capitalize border transition ${
                               selectedCropFilter === c
-                                ? 'bg-emerald-100 border-emerald-400 text-emerald-800'
-                                : 'bg-slate-100 border-slate-200 text-slate-700'
+                                ? 'bg-emerald-100 border-emerald-400 text-emerald-900 shadow-2xs'
+                                : 'bg-slate-50 hover:bg-slate-100 border-slate-200 text-slate-700'
                             }`}
                           >
                             {c.replace('_', ' ')}
@@ -322,11 +328,11 @@ export default function StorageUnitsPage() {
                     </div>
 
                     {/* Features checklist */}
-                    <div className="grid grid-cols-2 gap-1.5 text-xs text-slate-600">
+                    <div className="grid grid-cols-2 gap-2 text-xs text-slate-600">
                       {fac.features.slice(0, 4).map((feat, i) => (
-                        <div key={i} className="flex items-center space-x-1.5 truncate">
+                        <div key={i} className="flex items-center space-x-2 truncate">
                           <CheckCircle className="w-3.5 h-3.5 text-emerald-600 flex-shrink-0" />
-                          <span className="truncate">{feat}</span>
+                          <span className="truncate font-medium">{feat}</span>
                         </div>
                       ))}
                     </div>
@@ -336,20 +342,20 @@ export default function StorageUnitsPage() {
                 {/* Footer Tariff & Booking Action */}
                 <div className="p-6 pt-0 border-t border-slate-100 mt-4 flex items-center justify-between">
                   <div>
-                    <span className="text-[10px] text-slate-400 font-semibold block uppercase">Storage Tariff</span>
+                    <span className="text-[10px] text-slate-400 font-bold block uppercase tracking-wide">Storage Tariff</span>
                     <div className="flex items-baseline space-x-1">
-                      <span className="text-xl font-black text-slate-900">₹{fac.baseRatePerQuintalMonth}</span>
-                      <span className="text-[11px] text-slate-500 font-medium">/ Qtl / Month</span>
+                      <span className="text-2xl font-black font-mono text-slate-900">₹{fac.baseRatePerQuintalMonth}</span>
+                      <span className="text-xs text-slate-500 font-medium">/ Qtl / Month</span>
                     </div>
                   </div>
 
                   <button
                     onClick={() => navigateToSlotBooking(fac, selectedCropFilter)}
-                    className="flex items-center space-x-2 bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-700 hover:to-teal-800 text-white font-bold text-xs py-3 px-5 rounded-xl shadow-md transition hover:scale-105"
+                    className="flex items-center space-x-2 bg-gradient-to-r from-emerald-500 via-teal-600 to-emerald-600 hover:from-emerald-400 hover:to-teal-500 text-slate-950 font-black text-xs py-3.5 px-5 rounded-2xl shadow-lg shadow-emerald-500/20 transition-all hover:scale-105"
                   >
-                    <CalendarCheck className="w-4 h-4" />
+                    <CalendarCheck className="w-4 h-4 text-slate-950" />
                     <span>Book in Slot Booking Window</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
+                    <ArrowRight className="w-3.5 h-3.5 text-slate-950" />
                   </button>
                 </div>
               </div>

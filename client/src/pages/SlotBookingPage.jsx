@@ -150,48 +150,51 @@ export default function SlotBookingPage() {
   return (
     <div className="space-y-8 py-6">
       {/* Top Window Header */}
-      <div className="bg-gradient-to-r from-emerald-900 via-teal-900 to-slate-900 text-white rounded-3xl p-6 sm:p-10 shadow-xl border border-emerald-800 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-        <div className="max-w-2xl space-y-2">
+      <div className="relative overflow-hidden bg-gradient-to-r from-slate-950 via-emerald-950 to-teal-950 text-white rounded-3xl p-6 sm:p-10 shadow-2xl border border-emerald-900/50 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+        <div className="absolute top-0 right-0 -mt-10 -mr-10 w-80 h-80 bg-emerald-500/20 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute bottom-0 left-0 -mb-10 -ml-10 w-80 h-80 bg-teal-500/15 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div className="relative z-10 max-w-2xl space-y-3">
           <div className="flex items-center space-x-2">
             <span className="flex h-3 w-3 relative">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
             </span>
-            <span className="text-xs font-bold uppercase tracking-wider text-emerald-300 bg-emerald-800/60 px-3 py-0.5 rounded-full">
+            <span className="text-xs font-black uppercase tracking-wider text-emerald-300 bg-emerald-800/70 border border-emerald-600/40 px-3.5 py-1 rounded-full shadow-xs">
               {t('slotBookingWindow', "Dedicated Cold Storage Slot Booking Window")}
             </span>
           </div>
           <h1 className="text-2xl sm:text-4xl font-black tracking-tight">
             Chamber Slot Reservation & Gate Pass
           </h1>
-          <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+          <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-xl font-normal">
             Reserve temperature-controlled cold chamber space across Telangana's WDRA certified facilities. Choose your vehicle arrival slot, lock transparent tariff rates, and receive an instant digital Gate Token on your mobile via SMS.
           </p>
         </div>
 
-        <div className="bg-white/10 backdrop-blur border border-white/20 p-4 rounded-2xl flex items-center space-x-3 shrink-0">
-          <div className="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-300 flex items-center justify-center font-bold text-lg">
+        <div className="relative z-10 bg-white/10 backdrop-blur-md border border-white/20 p-5 rounded-2xl flex items-center space-x-3.5 shrink-0 shadow-lg card-hover-lift">
+          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 text-white flex items-center justify-center font-bold text-xl shadow-md">
             📞
           </div>
           <div>
-            <p className="text-[10px] text-emerald-300 font-bold uppercase">Booking Assistance Desk</p>
-            <a href="tel:18001801551" className="text-sm font-black text-white hover:underline font-mono">
-              1800-180-1551 (Toll-Free)
+            <p className="text-[10px] text-emerald-300 font-extrabold uppercase tracking-wide">Booking Assistance Desk</p>
+            <a href="tel:18001801551" className="text-base font-black text-white hover:text-emerald-200 hover:underline font-mono block">
+              1800-180-1551
             </a>
-            <p className="text-[10px] text-slate-400">Available 24x7 for Farmers</p>
+            <p className="text-[10px] text-slate-300">Toll-Free • 24x7 for Farmers</p>
           </div>
         </div>
       </div>
 
       {/* Neat 4-Step Farmer Guide Banner */}
-      <div className="bg-gradient-to-r from-emerald-50 via-teal-50 to-green-50 border-2 border-emerald-300 rounded-3xl p-5 sm:p-6 shadow-sm">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-4 pb-3 border-b border-emerald-200">
+      <div className="bg-gradient-to-r from-emerald-50/90 via-teal-50/70 to-green-50/80 border-2 border-emerald-300/80 rounded-3xl p-6 sm:p-7 shadow-xs">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-5 pb-4 border-b border-emerald-200/80">
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 rounded-2xl bg-emerald-700 text-white flex items-center justify-center font-black text-xl shadow-md">
+            <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-emerald-600 to-teal-700 text-white flex items-center justify-center font-black text-xl shadow-md">
               💡
             </div>
             <div>
-              <h3 className="font-black text-slate-900 text-base sm:text-lg">
+              <h3 className="font-black text-slate-900 text-base sm:text-lg tracking-tight">
                 Farmer Guide: 4 Easy Steps to Reserve Your Chamber Slot
               </h3>
               <p className="text-xs text-slate-600 font-medium">
@@ -201,19 +204,19 @@ export default function SlotBookingPage() {
           </div>
           <button
             onClick={() => setActiveTab('units')}
-            className="text-xs bg-white text-emerald-800 border border-emerald-300 hover:bg-emerald-100 font-bold px-3 py-1.5 rounded-xl transition"
+            className="text-xs bg-white text-emerald-800 border border-emerald-300 hover:border-emerald-500 hover:bg-emerald-50 font-bold px-4 py-2 rounded-xl transition shadow-xs"
           >
             Explore Storage Registry &rarr;
           </button>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="bg-white rounded-2xl p-4 border border-emerald-200 shadow-sm flex items-start space-x-3">
-            <div className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-800 font-black flex items-center justify-center text-sm shrink-0">
+          <div className="bg-white/95 backdrop-blur rounded-2xl p-4.5 border border-emerald-200/90 shadow-xs card-hover-lift flex items-start space-x-3.5">
+            <div className="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-800 font-black flex items-center justify-center text-sm shrink-0 shadow-xs">
               1
             </div>
             <div>
-              <h4 className="font-bold text-slate-900 text-sm">
+              <h4 className="font-black text-slate-900 text-sm">
                 🏬 Step 1: Select Facility
               </h4>
               <p className="text-xs text-slate-600 mt-1 leading-relaxed">
@@ -222,12 +225,12 @@ export default function SlotBookingPage() {
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl p-4 border border-teal-200 shadow-sm flex items-start space-x-3">
-            <div className="w-8 h-8 rounded-full bg-teal-100 text-teal-800 font-black flex items-center justify-center text-sm shrink-0">
+          <div className="bg-white/95 backdrop-blur rounded-2xl p-4.5 border border-teal-200/90 shadow-xs card-hover-lift flex items-start space-x-3.5">
+            <div className="w-8 h-8 rounded-xl bg-teal-100 text-teal-800 font-black flex items-center justify-center text-sm shrink-0 shadow-xs">
               2
             </div>
             <div>
-              <h4 className="font-bold text-slate-900 text-sm">
+              <h4 className="font-black text-slate-900 text-sm">
                 🌾 Step 2: Produce & Bags
               </h4>
               <p className="text-xs text-slate-600 mt-1 leading-relaxed">
@@ -236,12 +239,12 @@ export default function SlotBookingPage() {
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl p-4 border border-green-200 shadow-sm flex items-start space-x-3">
-            <div className="w-8 h-8 rounded-full bg-green-100 text-green-800 font-black flex items-center justify-center text-sm shrink-0">
+          <div className="bg-white/95 backdrop-blur rounded-2xl p-4.5 border border-green-200/90 shadow-xs card-hover-lift flex items-start space-x-3.5">
+            <div className="w-8 h-8 rounded-xl bg-green-100 text-green-800 font-black flex items-center justify-center text-sm shrink-0 shadow-xs">
               3
             </div>
             <div>
-              <h4 className="font-bold text-slate-900 text-sm">
+              <h4 className="font-black text-slate-900 text-sm">
                 ⏰ Step 3: Pick Arrival Slot
               </h4>
               <p className="text-xs text-slate-600 mt-1 leading-relaxed">
@@ -250,12 +253,12 @@ export default function SlotBookingPage() {
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl p-4 border border-blue-200 shadow-sm flex items-start space-x-3">
-            <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-800 font-black flex items-center justify-center text-sm shrink-0">
+          <div className="bg-white/95 backdrop-blur rounded-2xl p-4.5 border border-blue-200/90 shadow-xs card-hover-lift flex items-start space-x-3.5">
+            <div className="w-8 h-8 rounded-xl bg-blue-100 text-blue-800 font-black flex items-center justify-center text-sm shrink-0 shadow-xs">
               4
             </div>
             <div>
-              <h4 className="font-bold text-slate-900 text-sm">
+              <h4 className="font-black text-slate-900 text-sm">
                 📱 Step 4: Instant SMS Token
               </h4>
               <p className="text-xs text-slate-600 mt-1 leading-relaxed">
@@ -505,47 +508,56 @@ export default function SlotBookingPage() {
                   />
                 </div>
 
-                <div className="sm:col-span-2 grid grid-cols-3 gap-2">
+                <div className="sm:col-span-2 grid grid-cols-3 gap-2.5">
                   <button
                     type="button"
                     onClick={() => setTimeSlot('morning')}
-                    className={`p-2.5 rounded-xl border-2 text-center transition flex flex-col items-center justify-center ${
+                    className={`p-3 rounded-2xl border-2 text-center transition-all duration-200 flex flex-col items-center justify-center relative overflow-hidden card-hover-lift ${
                       timeSlot === 'morning'
-                        ? 'border-emerald-600 bg-emerald-50 text-emerald-950 font-bold shadow-xs'
+                        ? 'border-emerald-500 bg-gradient-to-b from-emerald-50 to-teal-50 text-emerald-950 font-black shadow-md ring-2 ring-emerald-500/20'
                         : 'border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700'
                     }`}
                   >
-                    <span className="text-base">🌅</span>
-                    <span className="text-xs font-bold mt-1">Morning</span>
-                    <span className="text-[10px] text-slate-500">8 AM - 11 AM</span>
+                    {timeSlot === 'morning' && (
+                      <span className="absolute top-2 right-2 w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    )}
+                    <span className="text-xl">🌅</span>
+                    <span className="text-xs font-black mt-1">Morning</span>
+                    <span className="text-[10px] text-slate-500 font-semibold">8 AM - 11 AM</span>
                   </button>
 
                   <button
                     type="button"
                     onClick={() => setTimeSlot('afternoon')}
-                    className={`p-2.5 rounded-xl border-2 text-center transition flex flex-col items-center justify-center ${
+                    className={`p-3 rounded-2xl border-2 text-center transition-all duration-200 flex flex-col items-center justify-center relative overflow-hidden card-hover-lift ${
                       timeSlot === 'afternoon'
-                        ? 'border-emerald-600 bg-emerald-50 text-emerald-950 font-bold shadow-xs'
+                        ? 'border-emerald-500 bg-gradient-to-b from-emerald-50 to-teal-50 text-emerald-950 font-black shadow-md ring-2 ring-emerald-500/20'
                         : 'border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700'
                     }`}
                   >
-                    <span className="text-base">☀️</span>
-                    <span className="text-xs font-bold mt-1">Afternoon</span>
-                    <span className="text-[10px] text-slate-500">12 PM - 3 PM</span>
+                    {timeSlot === 'afternoon' && (
+                      <span className="absolute top-2 right-2 w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    )}
+                    <span className="text-xl">☀️</span>
+                    <span className="text-xs font-black mt-1">Afternoon</span>
+                    <span className="text-[10px] text-slate-500 font-semibold">12 PM - 3 PM</span>
                   </button>
 
                   <button
                     type="button"
                     onClick={() => setTimeSlot('evening')}
-                    className={`p-2.5 rounded-xl border-2 text-center transition flex flex-col items-center justify-center ${
+                    className={`p-3 rounded-2xl border-2 text-center transition-all duration-200 flex flex-col items-center justify-center relative overflow-hidden card-hover-lift ${
                       timeSlot === 'evening'
-                        ? 'border-emerald-600 bg-emerald-50 text-emerald-950 font-bold shadow-xs'
+                        ? 'border-emerald-500 bg-gradient-to-b from-emerald-50 to-teal-50 text-emerald-950 font-black shadow-md ring-2 ring-emerald-500/20'
                         : 'border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700'
                     }`}
                   >
-                    <span className="text-base">🌇</span>
-                    <span className="text-xs font-bold mt-1">Evening</span>
-                    <span className="text-[10px] text-slate-500">4 PM - 7 PM</span>
+                    {timeSlot === 'evening' && (
+                      <span className="absolute top-2 right-2 w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    )}
+                    <span className="text-xl">🌇</span>
+                    <span className="text-xs font-black mt-1">Evening</span>
+                    <span className="text-[10px] text-slate-500 font-semibold">4 PM - 7 PM</span>
                   </button>
                 </div>
               </div>
@@ -618,7 +630,7 @@ export default function SlotBookingPage() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-700 hover:to-teal-800 text-white font-bold text-sm py-4 px-6 rounded-2xl shadow-xl transition disabled:opacity-50 flex items-center justify-center space-x-2"
+                className="w-full bg-gradient-to-r from-emerald-500 via-teal-600 to-emerald-700 hover:from-emerald-600 hover:to-teal-800 text-slate-950 font-black text-sm py-4 px-6 rounded-2xl shadow-xl transition disabled:opacity-50 flex items-center justify-center space-x-2"
               >
                 <span>{isSubmitting ? 'Reserving Slot...' : 'Confirm Slot & Generate Gate Token'}</span>
                 <ArrowRight className="w-4 h-4" />
@@ -629,30 +641,30 @@ export default function SlotBookingPage() {
           {/* Right: Live Tariff Breakdown & Instant Receipt Preview (5 cols) */}
           <div className="lg:col-span-5 space-y-6">
             {/* Facility Highlights Card */}
-            <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+            <div className="bg-white/95 backdrop-blur p-6 rounded-3xl border border-slate-200/90 shadow-sm space-y-4 card-hover-lift">
               <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-                <span className="text-[10px] font-bold text-emerald-700 uppercase tracking-wider bg-emerald-50 px-2 py-0.5 rounded-full">
+                <span className="text-[10px] font-black text-emerald-800 uppercase tracking-wider bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-full">
                   Chamber Spec Check
                 </span>
-                <span className="text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono">
+                <span className="text-[10px] bg-slate-100 text-slate-700 px-2.5 py-0.5 rounded-full font-mono font-bold">
                   WDRA Certified
                 </span>
               </div>
 
               <div>
-                <h4 className="font-black text-slate-900 text-base">{activeFacility?.name}</h4>
+                <h4 className="font-black text-slate-900 text-lg tracking-tight">{activeFacility?.name}</h4>
                 <p className="text-xs text-slate-500 mt-0.5 flex items-center">
-                  <MapPin className="w-3.5 h-3.5 text-emerald-600 mr-1" />
+                  <MapPin className="w-3.5 h-3.5 text-emerald-600 mr-1 flex-shrink-0" />
                   {activeFacility?.district}, {activeFacility?.state}
                 </p>
               </div>
 
               <div className="grid grid-cols-2 gap-3 pt-2 text-xs">
-                <div className="bg-slate-50 p-3 rounded-xl">
+                <div className="bg-slate-50/80 p-3 rounded-2xl border border-slate-100">
                   <span className="text-slate-400 text-[10px] block uppercase font-bold">Chamber Temp</span>
                   <strong className="text-slate-800 font-mono text-sm">{activeFacility?.temperatureRange || '2°C - 4°C'}</strong>
                 </div>
-                <div className="bg-slate-50 p-3 rounded-xl">
+                <div className="bg-slate-50/80 p-3 rounded-2xl border border-slate-100">
                   <span className="text-slate-400 text-[10px] block uppercase font-bold">Humidity RH</span>
                   <strong className="text-slate-800 font-mono text-sm">{activeFacility?.humidityRange || '85% - 90%'}</strong>
                 </div>
@@ -660,48 +672,48 @@ export default function SlotBookingPage() {
             </div>
 
             {/* Live Tariff Calculator & Cost Breakdown */}
-            <div className="bg-gradient-to-br from-slate-900 to-emerald-950 text-white p-6 sm:p-7 rounded-3xl shadow-xl space-y-5">
+            <div className="relative overflow-hidden bg-gradient-to-br from-slate-950 via-emerald-950 to-teal-950 text-white p-6 sm:p-7 rounded-3xl shadow-2xl border border-emerald-900/60 space-y-5">
               <div className="flex items-center justify-between border-b border-white/10 pb-3">
-                <span className="text-xs font-bold text-emerald-300 uppercase tracking-wider">
+                <span className="text-xs font-black text-emerald-300 uppercase tracking-wider">
                   Transparent Tariff Ledger
                 </span>
-                <span className="text-xs bg-white/10 text-emerald-300 px-2.5 py-0.5 rounded-full font-mono">
+                <span className="text-xs bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 px-3 py-0.5 rounded-full font-mono font-bold">
                   Live Calculator
                 </span>
               </div>
 
               {/* Items Breakdown */}
-              <div className="space-y-3 text-xs">
+              <div className="space-y-3.5 text-xs">
                 <div className="flex items-center justify-between text-slate-300">
-                  <span>Chamber Rent ({quantityQuintals} Qtl × ₹{ratePerQtlMonth} × {expectedDurationMonths} mo)</span>
+                  <span className="font-medium">Chamber Rent ({quantityQuintals} Qtl × ₹{ratePerQtlMonth} × {expectedDurationMonths} mo)</span>
                   <span className="font-mono font-bold text-white">₹{storageTariff.toLocaleString()}</span>
                 </div>
 
                 <div className="flex items-center justify-between text-slate-300">
-                  <span>Weighbridge & Bag Stacking Fee ({bagsCount} Bags × ₹{handlingFeePerBag})</span>
+                  <span className="font-medium">Weighbridge & Bag Stacking Fee ({bagsCount} Bags × ₹{handlingFeePerBag})</span>
                   <span className="font-mono font-bold text-white">₹{handlingCharges.toLocaleString()}</span>
                 </div>
 
-                <div className="border-t border-white/10 pt-3 flex items-center justify-between text-sm">
+                <div className="border-t border-white/10 pt-3.5 flex items-center justify-between text-sm">
                   <span className="font-bold text-white">Total Estimated Storage Charges</span>
-                  <span className="text-xl font-black font-mono text-emerald-400">
+                  <span className="text-2xl font-black font-mono text-emerald-300">
                     ₹{totalEstimatedCost.toLocaleString()}
                   </span>
                 </div>
 
-                <div className="bg-white/5 p-3 rounded-xl border border-white/10 flex items-center justify-between text-xs">
+                <div className="bg-white/5 backdrop-blur-md p-3.5 rounded-2xl border border-white/10 flex items-center justify-between text-xs">
                   <div>
                     <p className="font-bold text-emerald-200">25% Advance Payable at Gate Weighment</p>
                     <p className="text-[10px] text-slate-400">Remaining 75% settled upon produce release</p>
                   </div>
-                  <span className="text-base font-black font-mono text-amber-300">
+                  <span className="text-lg font-black font-mono text-amber-300">
                     ₹{advanceAmount.toLocaleString()}
                   </span>
                 </div>
               </div>
 
               {/* Bank Loan Subvention callout */}
-              <div className="bg-emerald-800/40 border border-emerald-500/30 rounded-2xl p-3.5 flex items-start space-x-2.5">
+              <div className="bg-emerald-900/40 border border-emerald-500/30 rounded-2xl p-3.5 flex items-start space-x-2.5">
                 <ShieldCheck className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
                 <p className="text-[11px] text-emerald-100 leading-relaxed">
                   <strong>75% NABARD Pledge Loan Eligible:</strong> Once deposited, use your e-NWR receipt at any SBI / Andhra Bank branch for an instant credit loan without selling your crop.
@@ -712,7 +724,7 @@ export default function SlotBookingPage() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-slate-950 font-black text-sm py-4 px-6 rounded-2xl shadow-xl transition hover:scale-102 disabled:opacity-50 flex items-center justify-center space-x-2"
+                className="w-full bg-gradient-to-r from-emerald-400 via-teal-400 to-emerald-400 hover:from-emerald-300 hover:to-teal-300 text-slate-950 font-black text-sm py-4 px-6 rounded-2xl shadow-xl shadow-emerald-500/20 transition-all hover:scale-102 disabled:opacity-50 flex items-center justify-center space-x-2"
               >
                 <span>{isSubmitting ? 'Reserving Chamber Slot...' : 'Confirm Slot & Generate Gate Token'}</span>
                 <ArrowRight className="w-4 h-4" />

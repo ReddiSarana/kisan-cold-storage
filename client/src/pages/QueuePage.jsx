@@ -80,54 +80,57 @@ export default function QueuePage() {
   return (
     <div className="space-y-8 py-6">
       {/* Real-time Status Banner */}
-      <div className="bg-slate-900 text-white rounded-3xl p-6 sm:p-10 shadow-xl border border-slate-800 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-        <div className="space-y-2 max-w-2xl">
+      <div className="relative overflow-hidden bg-gradient-to-r from-slate-950 via-slate-900 to-emerald-950 text-white rounded-3xl p-6 sm:p-10 shadow-2xl border border-slate-800 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+        <div className="absolute top-0 right-0 -mt-10 -mr-10 w-80 h-80 bg-emerald-500/15 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute bottom-0 left-0 -mb-10 -ml-10 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div className="relative z-10 space-y-2.5 max-w-2xl">
           <div className="flex items-center space-x-2">
             <span className="flex h-3 w-3 relative">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
             </span>
-            <span className="text-xs font-bold uppercase tracking-wider text-emerald-400">
+            <span className="text-xs font-black uppercase tracking-wider text-emerald-400 bg-emerald-950/80 border border-emerald-500/30 px-3.5 py-1 rounded-full shadow-xs">
               {t('liveQueueTag', "Live Cold Storage Gate & Weighbridge Board")}
             </span>
           </div>
           <h1 className="text-2xl sm:text-4xl font-black tracking-tight">
             {t('liveQueueTitle', "Real-Time Yard Queue & Token System")}
           </h1>
-          <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
+          <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-xl font-normal">
             {t('liveQueueDesc', "Eliminating highway tractor lines and harvest gate congestion. Farmers receive an automated digital entry token and live SMS call-out when their unloading bay is ready.")}
           </p>
         </div>
 
         {/* Refresh & Operator Switch */}
-        <div className="flex items-center space-x-3 bg-slate-800 p-2 rounded-2xl border border-slate-700">
+        <div className="relative z-10 flex items-center space-x-2.5 bg-slate-800/80 backdrop-blur-md p-2.5 rounded-2xl border border-slate-700/80 shadow-lg">
           <button
             onClick={loadQueue}
-            className="flex items-center space-x-1.5 bg-slate-700 hover:bg-slate-600 px-3 py-2 rounded-xl text-xs font-semibold text-white transition"
+            className="flex items-center space-x-1.5 bg-slate-700 hover:bg-slate-600 px-3.5 py-2 rounded-xl text-xs font-bold text-white transition shadow-xs"
           >
-            <RefreshCw className="w-3.5 h-3.5" />
+            <RefreshCw className="w-3.5 h-3.5 text-emerald-400" />
             <span>Sync Live</span>
           </button>
 
           <button
             onClick={() => setIsSmsSimulatorOpen(true)}
-            className="flex items-center space-x-1.5 bg-emerald-600 hover:bg-emerald-700 px-3 py-2 rounded-xl text-xs font-bold text-white transition"
+            className="flex items-center space-x-1.5 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 px-3.5 py-2 rounded-xl text-xs font-black text-slate-950 transition shadow-md shadow-emerald-500/20"
           >
-            <Bell className="w-3.5 h-3.5" />
+            <Bell className="w-3.5 h-3.5 text-slate-950" />
             <span>SMS Phone</span>
           </button>
         </div>
       </div>
 
       {/* Farmer & Tractor Driver Gate Directions */}
-      <div className="bg-gradient-to-r from-amber-50 via-orange-50 to-amber-50 border-2 border-amber-300 rounded-3xl p-5 sm:p-6 shadow-sm">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-4 pb-3 border-b border-amber-200">
+      <div className="bg-gradient-to-r from-amber-50/90 via-orange-50/70 to-amber-50/80 border-2 border-amber-300/80 rounded-3xl p-6 sm:p-7 shadow-xs">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-5 pb-4 border-b border-amber-200/80">
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 rounded-2xl bg-amber-600 text-white flex items-center justify-center font-black text-xl shadow-md">
+            <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-amber-600 to-orange-700 text-white flex items-center justify-center font-black text-xl shadow-md">
               🚜
             </div>
             <div>
-              <h3 className="font-black text-slate-900 text-base sm:text-lg">
+              <h3 className="font-black text-slate-900 text-base sm:text-lg tracking-tight">
                 Tractor Driver & Farmer Directions: How Live Gate Entry Works
               </h3>
               <p className="text-xs text-slate-600 font-medium">
@@ -135,9 +138,9 @@ export default function QueuePage() {
               </p>
             </div>
           </div>
-          <div className="bg-amber-600 text-white px-3.5 py-1.5 rounded-full text-xs font-bold flex items-center space-x-1.5 shadow-sm self-start sm:self-auto">
+          <div className="bg-gradient-to-r from-amber-600 to-orange-700 text-white px-4 py-2 rounded-full text-xs font-black flex items-center space-x-2 shadow-sm self-start sm:self-auto border border-amber-500">
             <span>📞 Gate Marshal:</span>
-            <a href="tel:18001801551" className="underline font-mono">1800-180-1551</a>
+            <a href="tel:18001801551" className="underline font-mono tracking-wide">1800-180-1551</a>
           </div>
         </div>
 
@@ -271,37 +274,49 @@ export default function QueuePage() {
             {activeUnloading.map((token) => (
               <div
                 key={token.tokenId}
-                className="bg-white rounded-3xl border-2 border-emerald-500 shadow-md p-5 flex flex-col justify-between relative overflow-hidden"
+                className="bg-white/95 backdrop-blur rounded-3xl border-2 border-emerald-500/80 shadow-md card-hover-lift p-6 flex flex-col justify-between relative overflow-hidden"
               >
-                <div className="absolute top-0 right-0 bg-emerald-600 text-white font-black text-xs px-3 py-1 rounded-bl-xl uppercase tracking-wider">
+                <div className="absolute top-0 right-0 bg-gradient-to-r from-emerald-600 to-teal-700 text-white font-black text-xs px-3.5 py-1.5 rounded-bl-2xl uppercase tracking-wider shadow-xs">
                   {token.assignedBay || 'Gate Bay'}
                 </div>
 
-                <div className="space-y-3 pt-2">
+                <div className="space-y-3.5 pt-1">
                   <div className="flex items-center space-x-2">
                     <span className="text-2xl font-black font-mono text-slate-900">{token.tokenId}</span>
-                    <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase ${
-                      token.status === 'called' ? 'bg-amber-100 text-amber-800 animate-pulse' :
-                      token.status === 'weighing' ? 'bg-blue-100 text-blue-800' : 'bg-emerald-100 text-emerald-800'
+                    <span className={`text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider ${
+                      token.status === 'called' ? 'bg-amber-100 text-amber-900 border border-amber-300 animate-pulse' :
+                      token.status === 'weighing' ? 'bg-blue-100 text-blue-900 border border-blue-300' : 'bg-emerald-100 text-emerald-900 border border-emerald-300'
                     }`}>
                       {token.status === 'called' ? 'Called to Gate' : (token.status === 'weighing' ? 'On Weighbridge' : 'Unloading Cargo')}
                     </span>
                   </div>
 
-                  <div className="space-y-1 text-xs text-slate-600">
-                    <p>Farmer: <strong className="text-slate-900">{token.farmerName}</strong></p>
-                    <p>Phone: <strong className="font-mono text-emerald-700">{token.farmerPhone}</strong></p>
-                    <p>Vehicle: <strong className="text-slate-800">{token.vehicleNumber}</strong></p>
-                    <p>Cargo: <strong>{token.quantityQuintals} Qtl {token.cropName}</strong></p>
+                  <div className="space-y-1.5 text-xs text-slate-600 bg-slate-50/80 p-3 rounded-2xl border border-slate-100">
+                    <p className="flex justify-between">
+                      <span className="text-slate-400">Farmer:</span>
+                      <strong className="text-slate-900 font-bold">{token.farmerName}</strong>
+                    </p>
+                    <p className="flex justify-between">
+                      <span className="text-slate-400">Phone:</span>
+                      <strong className="font-mono text-emerald-700 font-bold">{token.farmerPhone}</strong>
+                    </p>
+                    <p className="flex justify-between">
+                      <span className="text-slate-400">Vehicle:</span>
+                      <strong className="text-slate-800 font-bold font-mono">{token.vehicleNumber}</strong>
+                    </p>
+                    <p className="flex justify-between">
+                      <span className="text-slate-400">Cargo:</span>
+                      <strong className="text-emerald-800 font-bold">{token.quantityQuintals} Qtl {token.cropName}</strong>
+                    </p>
                   </div>
                 </div>
 
                 {/* Operator Actions for this Token */}
-                <div className="mt-4 pt-3 border-t border-slate-100 flex flex-wrap gap-1.5">
+                <div className="mt-5 pt-3.5 border-t border-slate-100 flex flex-wrap gap-2">
                   {token.status === 'called' && (
                     <button
                       onClick={() => handleStatusChange(token.tokenId, 'weighing')}
-                      className="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-[11px] font-bold py-1.5 px-2 rounded-lg text-center"
+                      className="flex-1 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-[11px] font-black py-2 px-2.5 rounded-xl text-center shadow-xs transition"
                     >
                       Start Weighment
                     </button>
@@ -309,14 +324,14 @@ export default function QueuePage() {
                   {token.status === 'weighing' && (
                     <button
                       onClick={() => handleStatusChange(token.tokenId, 'unloading')}
-                      className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white text-[11px] font-bold py-1.5 px-2 rounded-lg text-center"
+                      className="flex-1 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white text-[11px] font-black py-2 px-2.5 rounded-xl text-center shadow-xs transition"
                     >
                       Dock to Chamber
                     </button>
                   )}
                   <button
                     onClick={() => handleStatusChange(token.tokenId, 'completed')}
-                    className="flex-1 bg-slate-800 hover:bg-slate-900 text-white text-[11px] font-bold py-1.5 px-2 rounded-lg text-center"
+                    className="flex-1 bg-slate-900 hover:bg-slate-800 text-white text-[11px] font-black py-2 px-2.5 rounded-xl text-center shadow-xs transition"
                   >
                     Finish & Issue Slip
                   </button>

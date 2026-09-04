@@ -50,16 +50,20 @@ export default function Navbar() {
   ];
 
   return (
-    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-slate-200 shadow-sm">
+    <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-xl border-b border-slate-200/80 shadow-sm">
       {/* Top Banner for Farmer Helpline & Language */}
-      <div className="bg-gradient-to-r from-emerald-800 to-teal-900 text-white text-xs px-4 py-1.5 flex justify-between items-center">
+      <div className="bg-gradient-to-r from-emerald-900 via-teal-950 to-slate-900 text-white text-xs px-4 py-1.5 flex justify-between items-center border-b border-emerald-900/50">
         <div className="flex items-center space-x-3">
           <span className="flex items-center font-medium">
+            <span className="flex h-2 w-2 relative mr-1.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
+            </span>
             <PhoneCall className="w-3.5 h-3.5 mr-1 text-emerald-300" />
-            {t('kisanCallCenter', 'Kisan Call Centre Toll-Free:')} <strong className="ml-1 text-emerald-200">1800-180-1551</strong>
+            {t('kisanCallCenter', 'Kisan Call Centre Toll-Free:')} <strong className="ml-1 text-emerald-300 font-mono tracking-wide">1800-180-1551</strong>
           </span>
-          <span className="hidden sm:inline-block text-emerald-300/50">|</span>
-          <span className="hidden sm:inline-block text-emerald-200">
+          <span className="hidden sm:inline-block text-emerald-400/40">|</span>
+          <span className="hidden sm:inline-block text-emerald-200/90 font-medium">
             {t('portalDesc', '🌾 Cold Storage & Digital Warehouse Receipt Portal (WDRA Certified)')}
           </span>
         </div>
@@ -67,24 +71,24 @@ export default function Navbar() {
           {/* Language Switcher Trigger (Top Banner) */}
           <button
             onClick={() => setIsLanguageModalOpen(true)}
-            className="flex items-center space-x-1 bg-emerald-700/90 hover:bg-emerald-600 px-2.5 py-0.5 rounded text-white text-[11px] font-medium transition border border-emerald-500/50"
+            className="flex items-center space-x-1.5 bg-emerald-800/80 hover:bg-emerald-700/90 px-2.5 py-0.5 rounded-full text-white text-[11px] font-medium transition border border-emerald-500/40 shadow-xs hover:border-emerald-400"
             title="Change Language (22 Official Languages + English)"
           >
-            <Globe className="w-3 h-3 text-emerald-300 mr-1" />
+            <Globe className="w-3 h-3 text-emerald-300" />
             <span className="font-bold">{currentLanguage.native}</span>
-            <span className="text-emerald-200 text-[10px]">({currentLanguage.name})</span>
+            <span className="text-emerald-300 text-[10px]">({currentLanguage.name})</span>
             <ChevronDown className="w-2.5 h-2.5 text-emerald-300 ml-0.5" />
           </button>
 
           {/* Real-time SMS Simulator Trigger */}
           <button
             onClick={() => setIsSmsSimulatorOpen(!isSmsSimulatorOpen)}
-            className="flex items-center bg-emerald-700/80 hover:bg-emerald-600 px-2 py-0.5 rounded text-white text-[11px] font-medium transition"
+            className="flex items-center bg-emerald-800/80 hover:bg-emerald-700/90 px-2.5 py-0.5 rounded-full text-white text-[11px] font-medium transition border border-emerald-600/30"
           >
             <MessageSquare className="w-3 h-3 mr-1 text-emerald-300" />
             {t('smsSimulator', 'SMS Simulator')}
             {unreadSmsCount > 0 && (
-              <span className="ml-1.5 bg-amber-400 text-slate-900 text-[10px] font-bold px-1.5 py-0.2 rounded-full">
+              <span className="ml-1.5 bg-amber-400 text-slate-950 text-[10px] font-black px-1.5 py-0.2 rounded-full shadow-xs animate-bounce">
                 {unreadSmsCount}
               </span>
             )}
@@ -98,19 +102,20 @@ export default function Navbar() {
           {/* Brand Logo */}
           <div
             onClick={() => setActiveTab('about')}
-            className="flex items-center space-x-2.5 cursor-pointer group"
+            className="flex items-center space-x-3 cursor-pointer group"
           >
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-600 to-teal-700 flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform">
-              <Snowflake className="w-6 h-6 animate-spin-slow" />
+            <div className="relative w-11 h-11 rounded-2xl bg-gradient-to-br from-emerald-600 via-teal-600 to-emerald-800 flex items-center justify-center text-white shadow-md group-hover:scale-105 group-hover:shadow-emerald-500/25 transition-all duration-300 border border-emerald-400/30">
+              <Snowflake className="w-6 h-6 animate-spin-slow text-emerald-100" />
+              <div className="absolute inset-0 rounded-2xl bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
             </div>
             <div>
               <div className="flex items-center space-x-1.5">
-                <span className="text-xl font-black tracking-tight text-slate-900">Agro<span className="text-emerald-600">Vault</span></span>
-                <span className="text-[10px] font-bold bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded">
+                <span className="text-2xl font-black tracking-tight text-slate-900">Agro<span className="text-emerald-600">Vault</span></span>
+                <span className="text-[10px] font-extrabold bg-gradient-to-r from-emerald-100 to-teal-100 text-emerald-800 px-2 py-0.5 rounded-full border border-emerald-200">
                   {currentLanguage.code === 'en' ? 'Kisan Portal' : currentLanguage.native}
                 </span>
               </div>
-              <p className="text-[11px] text-slate-500 font-medium">{t('portalTagline', 'Smart Cold Storage & Queue')}</p>
+              <p className="text-[11px] text-slate-500 font-semibold tracking-wide">{t('portalTagline', 'Smart Cold Storage & Queue')}</p>
             </div>
           </div>
 
@@ -123,21 +128,25 @@ export default function Navbar() {
                 <button
                   key={item.id}
                   onClick={() => setActiveTab(item.id)}
-                  className={`relative flex items-center px-3 py-2 rounded-lg text-sm font-semibold transition ${
+                  className={`relative flex items-center px-3 py-2 rounded-xl text-xs font-bold transition-all duration-200 ${
                     isActive
-                      ? 'bg-emerald-50 text-emerald-700 shadow-sm ring-1 ring-emerald-200'
-                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                      ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/20'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/80'
                   }`}
                 >
-                  <Icon className={`w-4 h-4 mr-1.5 ${isActive ? 'text-emerald-600' : 'text-slate-400'}`} />
+                  <Icon className={`w-3.5 h-3.5 mr-1.5 ${isActive ? 'text-white' : 'text-slate-400'}`} />
                   {item.label}
                   {item.badge && (
-                    <span className="ml-1.5 bg-rose-500 text-white text-[10px] font-bold px-1.5 py-0.2 rounded-full animate-pulse">
+                    <span className={`ml-1.5 text-[9px] font-black px-1.5 py-0.5 rounded-full ${
+                      isActive ? 'bg-white text-emerald-800' : 'bg-gradient-to-r from-amber-500 to-rose-500 text-white animate-pulse'
+                    }`}>
                       {item.badge}
                     </span>
                   )}
                   {item.countBadge > 0 && (
-                    <span className="ml-1.5 bg-emerald-600 text-white text-[10px] font-bold px-1.5 py-0.2 rounded-full">
+                    <span className={`ml-1.5 text-[9px] font-black px-1.5 py-0.2 rounded-full ${
+                      isActive ? 'bg-white text-emerald-800' : 'bg-emerald-600 text-white'
+                    }`}>
                       {item.countBadge}
                     </span>
                   )}
@@ -151,10 +160,10 @@ export default function Navbar() {
             {/* Dedicated Desktop Language Switcher Button */}
             <button
               onClick={() => setIsLanguageModalOpen(true)}
-              className="flex items-center space-x-2 px-3 py-1.5 rounded-lg border border-slate-200 hover:border-emerald-400 bg-slate-50 hover:bg-emerald-50/50 text-slate-700 transition group shadow-2xs"
+              className="flex items-center space-x-2 px-3 py-1.5 rounded-xl border border-slate-200 hover:border-emerald-400 bg-slate-50/80 hover:bg-emerald-50/50 text-slate-700 transition group shadow-2xs"
               title="Select Language / 22 Official Scheduled Languages of India"
             >
-              <Globe className="w-4 h-4 text-emerald-600 group-hover:rotate-45 transition-transform" />
+              <Globe className="w-4 h-4 text-emerald-600 group-hover:rotate-45 transition-transform duration-300" />
               <div className="text-left">
                 <p className="text-xs font-bold text-slate-800 leading-tight">{currentLanguage.native}</p>
                 <p className="text-[10px] text-slate-500 capitalize">{currentLanguage.name}</p>
@@ -165,7 +174,7 @@ export default function Navbar() {
             <div className="relative">
               <button
                 onClick={() => setRoleDropdownOpen(!roleDropdownOpen)}
-                className="flex items-center space-x-2 bg-slate-100 hover:bg-slate-200/80 px-3 py-1.5 rounded-lg border border-slate-200 text-left transition"
+                className="flex items-center space-x-2 bg-slate-100 hover:bg-slate-200/80 px-3 py-1.5 rounded-xl border border-slate-200 text-left transition shadow-2xs"
               >
                 <span className="text-xl">{currentUser.avatar}</span>
                 <div className="text-xs">
@@ -244,7 +253,7 @@ export default function Navbar() {
 
             <button
               onClick={() => setActiveTab('auth')}
-              className="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold px-3 py-2 rounded-lg shadow-sm transition"
+              className="bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-700 hover:to-teal-800 text-white text-xs font-bold px-4 py-2 rounded-xl shadow-md shadow-emerald-600/20 transition-all hover:scale-105"
             >
               {t('signIn', 'Sign In')}
             </button>

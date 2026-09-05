@@ -11,8 +11,10 @@ import {
   ArrowRight,
   Info,
   Warehouse,
-  MapPin
+  MapPin,
+  Sprout
 } from 'lucide-react';
+import CropCultivationDropdown from '../components/CropCultivationDropdown';
 
 export default function CropsPage() {
   const { setActiveTab, setSelectedCropFilter } = useApp();
@@ -21,6 +23,11 @@ export default function CropsPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [isLoading, setIsLoading] = useState(true);
+  const [expandedCropId, setExpandedCropId] = useState(null);
+
+  const toggleCropGuide = (cropId) => {
+    setExpandedCropId(prev => prev === cropId ? null : cropId);
+  };
 
   useEffect(() => {
     async function load() {
@@ -272,6 +279,13 @@ export default function CropsPage() {
                     <Info className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" />
                     <span className="leading-relaxed">{crop.storageTips}</span>
                   </div>
+
+                  {/* Cultivation & Agronomic Guide Dropdown */}
+                  <CropCultivationDropdown
+                    crop={crop}
+                    isExpanded={expandedCropId === crop.id}
+                    onToggle={() => toggleCropGuide(crop.id)}
+                  />
                 </div>
               </div>
 

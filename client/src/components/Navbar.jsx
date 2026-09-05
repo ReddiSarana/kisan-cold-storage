@@ -39,7 +39,7 @@ export default function Navbar() {
   const [roleDropdownOpen, setRoleDropdownOpen] = useState(false);
 
   const navItems = [
-    { id: 'about', label: t('about', 'About Us'), icon: Sprout },
+    { id: 'about', label: t('about', 'About Us'), icon: Sprout, badge: 'Visual Map' },
     { id: 'crops', label: t('crops', 'Crops Catalog'), icon: Snowflake },
     { id: 'units', label: t('units', 'Storage Units'), icon: Warehouse },
     { id: 'booking', label: t('booking', 'Slot Booking'), icon: CalendarCheck, badge: 'Book Slot' },

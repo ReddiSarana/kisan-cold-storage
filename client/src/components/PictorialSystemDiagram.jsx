@@ -257,7 +257,7 @@ export default function PictorialSystemDiagram() {
   ];
 
   return (
-    <section className="bg-white rounded-3xl p-6 sm:p-10 border-2 border-emerald-200/90 shadow-xl space-y-8 overflow-hidden relative">
+    <section id="pictorial-diagram" className="bg-white rounded-3xl p-6 sm:p-10 border-2 border-emerald-200/90 shadow-xl space-y-8 overflow-hidden relative">
       {/* Decorative Background Accents */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-emerald-100/40 to-teal-100/20 rounded-full blur-3xl pointer-events-none -z-0"></div>
       <div className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-to-tr from-amber-100/40 to-emerald-100/20 rounded-full blur-3xl pointer-events-none -z-0"></div>
@@ -317,6 +317,29 @@ export default function PictorialSystemDiagram() {
             <Warehouse className="w-4 h-4" />
             <span>Visual Infographic</span>
           </button>
+        </div>
+      </div>
+
+      {/* Visual Infographic Picture Banner */}
+      <div className="relative z-10 bg-gradient-to-br from-emerald-950 via-slate-900 to-teal-950 p-4 sm:p-6 rounded-3xl border border-emerald-500/30 shadow-2xl overflow-hidden group">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-3 border-b border-white/10 gap-3">
+          <div className="flex items-center space-x-2.5">
+            <span className="w-3 h-3 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span className="text-white text-xs font-black uppercase tracking-wider">
+              High-Definition Visual Ecosystem Diagram
+            </span>
+          </div>
+          <span className="text-[11px] text-emerald-300 font-bold bg-white/10 px-3 py-1 rounded-full border border-white/15">
+            5 Connected Agricultural Stages
+          </span>
+        </div>
+        
+        <div className="mt-4 rounded-2xl overflow-hidden border-2 border-emerald-500/40 shadow-2xl relative bg-slate-950">
+          <img
+            src="/images/platform-pictorial-diagram.jpg"
+            alt="AgroVault Kisan Cold Storage Pictorial Representation Diagram"
+            className="w-full h-auto object-cover hover:scale-[1.01] transition-transform duration-500"
+          />
         </div>
       </div>
 

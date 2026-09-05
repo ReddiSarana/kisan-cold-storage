@@ -79,6 +79,14 @@ export default function AboutPage() {
               <span>{t('liveQueue', "Live Yard Queue")}</span>
             </button>
 
+            <a
+              href="#pictorial-diagram"
+              className="flex items-center space-x-2 bg-gradient-to-r from-amber-400 to-amber-300 hover:from-amber-300 hover:to-amber-200 text-slate-950 font-black px-5 py-3.5 rounded-2xl shadow-xl shadow-amber-500/20 transition-all hover:scale-105 text-sm"
+            >
+              <span>🖼️ Pictorial System Map</span>
+              <ArrowRight className="w-4 h-4 text-slate-950" />
+            </a>
+
             <button
               onClick={() => setActiveTab('crops')}
               className="flex items-center space-x-2 text-emerald-300 hover:text-emerald-200 text-xs font-bold px-3 py-2 transition hover:translate-x-1"
@@ -108,6 +116,9 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+      {/* Pictorial Representation & Visual Architecture of the Website */}
+      <PictorialSystemDiagram />
 
       {/* Neat Farmer Step-by-Step Directions Board */}
       <section className="bg-gradient-to-br from-emerald-50/90 via-teal-50/70 to-amber-50/80 border-2 border-emerald-300/80 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6 relative overflow-hidden">
@@ -231,9 +242,6 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
-
-      {/* Pictorial Representation & Visual Architecture of the Website */}
-      <PictorialSystemDiagram />
 
       {/* The Problem We Solve */}
       <section className="space-y-6">

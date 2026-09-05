@@ -3,6 +3,7 @@ import { useApp } from '../context/AppContext';
 import { useLanguage } from '../context/LanguageContext';
 import { fetchFacilities, fetchCrops, createBooking, getDocxDownloadUrl } from '../services/api';
 import FarmToStorageRouteMap from '../components/FarmToStorageRouteMap';
+import CropStorageUnitsModal from '../components/CropStorageUnitsModal';
 import {
   CalendarCheck,
   Warehouse,
@@ -85,6 +86,12 @@ export default function SlotBookingPage() {
 
   // Form State
   const [selectedFacilityId, setSelectedFacilityId] = useState('');
+
+  // Crop Units Discovery Modal State
+  const [cropUnitsModalState, setCropUnitsModalState] = useState({
+    isOpen: false,
+    cropId: ''
+  });
   
   // Multi-crop state array
   const [bookedCrops, setBookedCrops] = useState([
@@ -187,9 +194,22 @@ export default function SlotBookingPage() {
           ...updated[index],
           cropId: value
         };
+        // Automatically pop up matching storage units for this crop with distance & transit time
+        if (value) {
+          setCropUnitsModalState({
+            isOpen: true,
+            cropId: value
+          });
+        }
       }
       return updated;
     });
+  };
+
+  const handleSelectFacilityFromModal = (fac) => {
+    if (!fac || !fac.id) return;
+    setSelectedFacilityId(fac.id);
+    showToast(`📍 Selected ${fac.name} (~${fac.distanceKm || 18} km from your farm).`);
   };
 
   // Totals across all selected crops
@@ -748,9 +768,14 @@ export default function SlotBookingPage() {
                       <div className="grid grid-cols-1 sm:grid-cols-12 gap-3">
                         {/* Crop Selector (6 cols) */}
                         <div className="sm:col-span-6 space-y-1">
-                          <label className="block text-[11px] font-bold text-slate-600 uppercase">
-                            Crop Type
-                          </label>
+                          <div className="flex items-center justify-between">
+                            <label className="block text-[11px] font-bold text-slate-600 uppercase">
+                              Crop Type
+                            </label>
+                            <span className="text-[10px] text-emerald-700 font-bold">
+                              Auto Pop-up on Selection ⚡
+                            </span>
+                          </div>
                           <select
                             value={cropItem.cropId}
                             onChange={(e) => handleCropChange(idx, 'cropId', e.target.value)}
@@ -763,6 +788,15 @@ export default function SlotBookingPage() {
                               </option>
                             ))}
                           </select>
+                          <div className="pt-1">
+                            <button
+                              type="button"
+                              onClick={() => setCropUnitsModalState({ isOpen: true, cropId: cropItem.cropId })}
+                              className="w-full sm:w-auto text-[11px] font-bold text-emerald-800 hover:text-emerald-900 bg-emerald-50 hover:bg-emerald-100 border border-emerald-300 rounded-xl px-2.5 py-1 flex items-center justify-center sm:justify-start space-x-1.5 transition"
+                            >
+                              <span>🔍 View Matching Units, Distances & Travel Times</span>
+                            </button>
+                          </div>
                         </div>
 
                         {/* Quantity (3 cols) */}
@@ -1296,6 +1330,20 @@ export default function SlotBookingPage() {
           </div>
         </form>
       )}
+
+      {/* Crop Storage Units Discovery Popup */}
+      <CropStorageUnitsModal
+        isOpen={cropUnitsModalState.isOpen}
+        onClose={() => setCropUnitsModalState(prev => ({ ...prev, isOpen: false }))}
+        cropId={cropUnitsModalState.cropId}
+        crops={crops}
+        facilities={facilities}
+        originDistrict={originDistrict}
+        originMandal={originMandal}
+        originVillage={originVillage}
+        selectedFacilityId={selectedFacilityId}
+        onSelectFacility={handleSelectFacilityFromModal}
+      />
     </div>
   );
 }

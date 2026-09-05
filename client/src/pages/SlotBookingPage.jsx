@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useApp } from '../context/AppContext';
 import { useLanguage } from '../context/LanguageContext';
 import { fetchFacilities, fetchCrops, createBooking, getDocxDownloadUrl } from '../services/api';
+import FarmToStorageRouteMap from '../components/FarmToStorageRouteMap';
 import {
   CalendarCheck,
   Warehouse,
@@ -522,6 +523,31 @@ export default function SlotBookingPage() {
                 <p className="text-[11px] text-emerald-600 font-semibold">Direct Farm ➔ Hub Route</p>
               </div>
             </div>
+          </div>
+
+          {/* Visual Interactive Transit Map on Success Confirmation */}
+          <div className="space-y-2">
+            <div className="flex items-center justify-between">
+              <span className="text-[11px] font-black uppercase tracking-wider text-slate-700 flex items-center space-x-1.5">
+                <Navigation className="w-4 h-4 text-emerald-600" />
+                <span>Verified Transit Corridor & Highway Route Map</span>
+              </span>
+              <span className="text-[10px] font-bold text-emerald-700 bg-emerald-100 px-2.5 py-0.5 rounded-full border border-emerald-300">
+                Gate Entry Clearance Active
+              </span>
+            </div>
+            <FarmToStorageRouteMap
+              originVillage={originVillage}
+              originMandal={originMandal}
+              originDistrict={originDistrict}
+              originLandmark={originLandmark}
+              originPincode={originPincode}
+              originSourceType={originSourceType}
+              facility={activeFacility}
+              vehicleType={vehicleType}
+              vehicleNumber={vehicleNumber}
+              distanceKm={transitDistanceKm}
+            />
           </div>
 
           {/* Dedicated Breakdown of all booked crops */}
@@ -1087,27 +1113,35 @@ export default function SlotBookingPage() {
                 </div>
               </div>
 
-              {/* Live Origin Route & Geotag Verification Banner */}
-              <div className="bg-gradient-to-r from-emerald-50 via-teal-50 to-emerald-50 p-4 rounded-2xl border border-emerald-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-xs">
-                <div className="flex items-center space-x-3">
-                  <div className="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-lg shadow-sm shrink-0">
-                    🚜
-                  </div>
-                  <div>
-                    <span className="text-[10px] font-black uppercase text-emerald-800 tracking-wider">
-                      Live Transit Route & Farm-to-Chamber Traceability
+              {/* Interactive Visual Farm-to-Storage Transit Route Map */}
+              <div className="pt-2 space-y-2">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2">
+                    <span className="text-xs font-black uppercase text-slate-800 tracking-wider flex items-center space-x-1.5">
+                      <Navigation className="w-4 h-4 text-emerald-600" />
+                      <span>Live Visual Transit Route & Road Corridor Map</span>
                     </span>
-                    <p className="text-xs font-bold text-slate-900 mt-0.5">
-                      {originVillage || 'Village'}, {originMandal || 'Mandal'} ({originDistrict}) ➔ {activeFacility?.name}
-                    </p>
-                    <p className="text-[11px] text-slate-500">
-                      Est. Road Transit: <strong>~{transitDistanceKm} km</strong> • Origin Verification Active
-                    </p>
+                    <span className="hidden sm:inline-block px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase bg-emerald-100 text-emerald-800 border border-emerald-300">
+                      Point A ➔ Point B
+                    </span>
                   </div>
+                  <span className="text-xs font-mono font-bold text-emerald-800">
+                    Est. Transit: ~{transitDistanceKm} km
+                  </span>
                 </div>
-                <span className="shrink-0 text-[11px] font-bold bg-white text-emerald-800 border border-emerald-300 px-3 py-1 rounded-xl shadow-xs">
-                  WDRA Traceable
-                </span>
+
+                <FarmToStorageRouteMap
+                  originVillage={originVillage}
+                  originMandal={originMandal}
+                  originDistrict={originDistrict}
+                  originLandmark={originLandmark}
+                  originPincode={originPincode}
+                  originSourceType={originSourceType}
+                  facility={activeFacility}
+                  vehicleType={vehicleType}
+                  vehicleNumber={vehicleNumber}
+                  distanceKm={transitDistanceKm}
+                />
               </div>
             </div>
 

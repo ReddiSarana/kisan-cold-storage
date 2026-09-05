@@ -363,6 +363,11 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* Pictorial System Architecture & Agricultural Supply Chain Map */}
+      <section id="pictorial-diagram" className="scroll-mt-20">
+        <PictorialSystemDiagram />
+      </section>
+
       {/* Crops Quick Selector */}
       <section className="space-y-6">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">

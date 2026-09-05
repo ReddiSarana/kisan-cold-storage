@@ -308,6 +308,10 @@ export default function QueuePage() {
                       <span className="text-slate-400">Cargo:</span>
                       <strong className="text-emerald-800 font-bold">{token.quantityQuintals} Qtl {token.cropName}</strong>
                     </p>
+                    <p className="flex justify-between">
+                      <span className="text-slate-400">Sourced From:</span>
+                      <strong className="text-slate-900 font-semibold text-right truncate max-w-[180px]">{token.originAddress || `${token.originVillage || 'Maheshwaram'}, ${token.originDistrict || 'Warangal'}`}</strong>
+                    </p>
                   </div>
                 </div>
 
@@ -365,7 +369,7 @@ export default function QueuePage() {
                     <th className="p-4">Token ID</th>
                     <th className="p-4">Farmer Name</th>
                     <th className="p-4">Vehicle Number</th>
-                    <th className="p-4">Commodity</th>
+                    <th className="p-4">Commodity & Origin</th>
                     <th className="p-4">Est. Wait Time</th>
                     <th className="p-4">Call Action</th>
                   </tr>
@@ -377,7 +381,12 @@ export default function QueuePage() {
                       <td className="p-4 font-mono font-black text-emerald-700 text-sm">{token.tokenId}</td>
                       <td className="p-4 font-semibold text-slate-800">{token.farmerName}</td>
                       <td className="p-4 font-mono text-slate-600">{token.vehicleNumber}</td>
-                      <td className="p-4">{token.quantityQuintals} Qtl {token.cropName}</td>
+                      <td className="p-4">
+                        <div className="font-bold text-slate-900">{token.quantityQuintals} Qtl {token.cropName}</div>
+                        <div className="text-[11px] text-emerald-800 mt-0.5 flex items-center">
+                          <span className="mr-1">📍</span> Sourced: {token.originAddress || `${token.originVillage || 'Maheshwaram'}, ${token.originDistrict || 'Warangal'}`}
+                        </div>
+                      </td>
                       <td className="p-4">
                         <span className="inline-flex items-center space-x-1 text-amber-700 font-bold bg-amber-50 px-2 py-0.5 rounded-lg border border-amber-200">
                           <Clock className="w-3 h-3" />

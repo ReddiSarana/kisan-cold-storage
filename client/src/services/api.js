@@ -76,6 +76,8 @@ export async function createBooking(bookingData) {
     const totalQty = Number(bookingData.quantityQuintals) || 100;
     const totalBags = Number(bookingData.bagsCount) || totalQty * 2;
 
+    const originAddress = bookingData.originAddress || `${bookingData.originVillage || 'Maheshwaram'}, ${bookingData.originMandal || 'Narsampet'} (${bookingData.originDistrict || 'Warangal'} Dist)`;
+
     const newBooking = {
       id: `BK-2026-${Math.floor(100 + Math.random() * 900)}`,
       farmerName: bookingData.farmerName,
@@ -86,6 +88,14 @@ export async function createBooking(bookingData) {
       cropsList: bookingData.cropsList || null,
       quantityQuintals: totalQty,
       bagsCount: totalBags,
+      originDistrict: bookingData.originDistrict || 'Warangal',
+      originMandal: bookingData.originMandal || 'Narsampet',
+      originVillage: bookingData.originVillage || 'Maheshwaram',
+      originLandmark: bookingData.originLandmark || 'Survey No. 48/B, Near Rythu Vedika',
+      originPincode: bookingData.originPincode || '506132',
+      originSourceType: bookingData.originSourceType || 'Own Cultivated Land / Farm Gate',
+      originAddress,
+      originLocation: bookingData.originLocation || null,
       arrivalDate: bookingData.arrivalDate,
       vehicleNumber: bookingData.vehicleNumber || 'TS-03-BK-2026',
       status: 'confirmed',
@@ -104,6 +114,9 @@ export async function createBooking(bookingData) {
       vehicleNumber: bookingData.vehicleNumber || 'TS-03-BK-2026',
       cropName: cropNameDisplay,
       cropsList: bookingData.cropsList || null,
+      originAddress,
+      originVillage: bookingData.originVillage || 'Maheshwaram',
+      originDistrict: bookingData.originDistrict || 'Warangal',
       quantityQuintals: totalQty,
       status: 'waiting',
       estimatedWaitMins: 20
@@ -117,7 +130,7 @@ export async function createBooking(bookingData) {
       recipientName: bookingData.farmerName,
       senderId: 'AGROVAULT',
       type: 'BOOKING_CONFIRMATION',
-      message: `Namaste ${bookingData.farmerName}! Booking confirmed for ${totalQty} Qtl (${cropNameDisplay}). Token: ${tokenId}. Please report with vehicle.`,
+      message: `Namaste ${bookingData.farmerName}! Booking confirmed for ${totalQty} Qtl (${cropNameDisplay}) sourced from ${bookingData.originVillage || 'Maheshwaram'} (${bookingData.originDistrict || 'Warangal'} Dist). Token: ${tokenId}. Please report with vehicle.`,
       status: 'DELIVERED',
       timestamp: new Date().toISOString()
     });

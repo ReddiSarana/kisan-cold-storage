@@ -66,7 +66,15 @@ router.post('/bookings', (req, res) => {
     arrivalDate,
     expectedDurationMonths = 6,
     vehicleNumber,
-    vehicleType
+    vehicleType,
+    originDistrict,
+    originMandal,
+    originVillage,
+    originLandmark,
+    originPincode,
+    originSourceType,
+    originAddress: incomingOriginAddress,
+    originLocation: incomingOriginLocation
   } = req.body;
 
   if (!farmerName || !farmerPhone || !facilityId) {
@@ -112,6 +120,23 @@ router.post('/bookings', (req, res) => {
   const crop = cropsData.find(c => c.id === primaryCropId);
   const cropNamesSummary = incomingCropName || resolvedCropsList.map(c => c.cropName).join(', ');
 
+  // Sourcing Place & Harvest Origin Details
+  const resolvedOriginDistrict = originDistrict || "Warangal";
+  const resolvedOriginVillage = originVillage || "Maheshwaram";
+  const resolvedOriginMandal = originMandal || "Narsampet";
+  const resolvedOriginLandmark = originLandmark || "Survey No. 48/B, Near Rythu Vedika";
+  const resolvedOriginPincode = originPincode || "506132";
+  const resolvedOriginSourceType = originSourceType || "Own Cultivated Land / Farm Gate";
+  const originAddress = incomingOriginAddress || `${resolvedOriginVillage}, ${resolvedOriginMandal} Mandal, ${resolvedOriginDistrict} Dist - ${resolvedOriginPincode}`;
+  const originLocation = incomingOriginLocation || {
+    district: resolvedOriginDistrict,
+    mandal: resolvedOriginMandal,
+    village: resolvedOriginVillage,
+    landmark: resolvedOriginLandmark,
+    pincode: resolvedOriginPincode,
+    sourceType: resolvedOriginSourceType
+  };
+
   const duration = Number(expectedDurationMonths) || 6;
   const rate = facility ? facility.baseRatePerQuintalMonth : (crop?.avgTariffPerQuintalMonth || 40);
   const estimatedCostTotal = totalQty * rate * duration;
@@ -120,7 +145,7 @@ router.post('/bookings', (req, res) => {
 
   const bookingId = `BK-2026-${Math.floor(100 + Math.random() * 900)}`;
 
-  // Create queue token for arrival
+  // Create queue token for arrival with origin location
   const token = queueService.generateToken({
     bookingId,
     farmerName,
@@ -129,7 +154,11 @@ router.post('/bookings', (req, res) => {
     cropName: cropNamesSummary,
     cropsList: resolvedCropsList,
     quantityQuintals: totalQty,
-    facilityId
+    facilityId,
+    originAddress,
+    originVillage: resolvedOriginVillage,
+    originDistrict: resolvedOriginDistrict,
+    originLocation
   });
 
   const newBooking = {
@@ -144,6 +173,14 @@ router.post('/bookings', (req, res) => {
     cropsList: resolvedCropsList,
     quantityQuintals: totalQty,
     bagsCount: totalBags,
+    originDistrict: resolvedOriginDistrict,
+    originMandal: resolvedOriginMandal,
+    originVillage: resolvedOriginVillage,
+    originLandmark: resolvedOriginLandmark,
+    originPincode: resolvedOriginPincode,
+    originSourceType: resolvedOriginSourceType,
+    originAddress,
+    originLocation,
     bookingDate: new Date().toISOString().split("T")[0],
     arrivalDate: arrivalDate || new Date().toISOString().split("T")[0],
     expectedDurationMonths: duration,
@@ -170,12 +207,12 @@ router.post('/bookings', (req, res) => {
     facility.availableCapacityMT = Math.max(0, facility.availableCapacityMT - Math.round(totalQty / 10));
   }
 
-  // Send Booking Confirmation SMS
+  // Send Booking Confirmation SMS with sourcing place
   smsService.sendSms({
     recipientPhone: farmerPhone,
     recipientName: farmerName,
     type: "BOOKING_CONFIRMATION",
-    message: `AgroVault: Namaste ${farmerName}! Booking ${bookingId} confirmed at ${facility?.name || "Cold Store"} for ${totalQty} Qtl (${cropNamesSummary}). Token: ${token.tokenId}. Date: ${arrivalDate || newBooking.arrivalDate}.`
+    message: `AgroVault: Namaste ${farmerName}! Booking ${bookingId} confirmed at ${facility?.name || "Cold Store"} for ${totalQty} Qtl (${cropNamesSummary}) sourced from ${resolvedOriginVillage}, ${resolvedOriginMandal} (${resolvedOriginDistrict} Dist). Token: ${token.tokenId}. Date: ${arrivalDate || newBooking.arrivalDate}.`
   });
 
   res.status(201).json({ success: true, data: newBooking, token });

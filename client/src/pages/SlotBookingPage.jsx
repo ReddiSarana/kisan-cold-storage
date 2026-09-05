@@ -23,8 +23,45 @@ import {
   Calendar,
   DollarSign,
   Plus,
-  Trash2
+  Trash2,
+  Navigation
 } from 'lucide-react';
+
+const TELANGANA_DISTRICTS = [
+  'Adilabad',
+  'Bhadradri Kothagudem',
+  'Hanamkonda',
+  'Hyderabad',
+  'Jagtial',
+  'Jangaon',
+  'Jayashankar Bhupalpally',
+  'Jogulamba Gadwal',
+  'Kamareddy',
+  'Karimnagar',
+  'Khammam',
+  'Kumuram Bheem Asifabad',
+  'Mahabubabad',
+  'Mahabubnagar',
+  'Mancherial',
+  'Medak',
+  'Medchal-Malkajgiri',
+  'Mulugu',
+  'Nagarkurnool',
+  'Nalgonda',
+  'Narayanpet',
+  'Nirmal',
+  'Nizamabad',
+  'Peddapalli',
+  'Rajanna Sircilla',
+  'Rangareddy',
+  'Sangareddy',
+  'Siddipet',
+  'Suryapet',
+  'Vikarabad',
+  'Wanaparthy',
+  'Warangal',
+  'Yadadri Bhuvanagiri'
+];
 
 export default function SlotBookingPage() {
   const {
@@ -63,10 +100,16 @@ export default function SlotBookingPage() {
   const [vehicleNumber, setVehicleNumber] = useState('TS-03-BK-2026');
   const [farmerName, setFarmerName] = useState(currentUser.name || 'Mallaiah Goud');
   const [farmerPhone, setFarmerPhone] = useState(currentUser.phone || '+91 98765 12345');
-  const [village, setVillage] = useState(currentUser.village || 'Maheshwaram');
-  const [district, setDistrict] = useState(currentUser.district || 'Warangal');
   const [kccNumber, setKccNumber] = useState(currentUser.kccNumber || 'KCC-TS-44921');
   const [notes, setNotes] = useState('');
+
+  // Crop Origin / Sourcing Place State (Accurate place where crops are sourced)
+  const [originDistrict, setOriginDistrict] = useState(currentUser.district || 'Warangal');
+  const [originMandal, setOriginMandal] = useState(currentUser.mandal || 'Narsampet');
+  const [originVillage, setOriginVillage] = useState(currentUser.village || 'Maheshwaram');
+  const [originLandmark, setOriginLandmark] = useState('Survey No. 48/B, Near Rythu Vedika');
+  const [originPincode, setOriginPincode] = useState(currentUser.pincode || '506132');
+  const [originSourceType, setOriginSourceType] = useState('Own Cultivated Land / Farm Gate');
 
   // Load facilities and crops
   useEffect(() => {
@@ -176,6 +219,16 @@ export default function SlotBookingPage() {
     };
   });
 
+  const handlePreFillProfile = () => {
+    if (currentUser.district) setOriginDistrict(currentUser.district);
+    if (currentUser.mandal) setOriginMandal(currentUser.mandal);
+    if (currentUser.village) setOriginVillage(currentUser.village);
+    if (currentUser.pincode) setOriginPincode(currentUser.pincode);
+    showToast('📍 Pre-filled farm origin with your registered profile details!');
+  };
+
+  const transitDistanceKm = originDistrict.toLowerCase() === (activeFacility?.district || '').toLowerCase() ? 18 : 54;
+
   // Handle Form Submission
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -192,6 +245,17 @@ export default function SlotBookingPage() {
       const cropNamesList = cropsList.map(c => c.cropName);
       const cropNamesSummary = cropNamesList.join(', ');
 
+      const originAddress = `${originVillage}, ${originMandal} Mandal, ${originDistrict} Dist - ${originPincode}`;
+      const originLocation = {
+        district: originDistrict,
+        mandal: originMandal,
+        village: originVillage,
+        landmark: originLandmark,
+        pincode: originPincode,
+        sourceType: originSourceType,
+        estimatedDistanceKm: transitDistanceKm
+      };
+
       const payload = {
         farmerName,
         farmerPhone,
@@ -205,7 +269,15 @@ export default function SlotBookingPage() {
         expectedDurationMonths,
         vehicleNumber,
         vehicleType,
-        timeSlot
+        timeSlot,
+        originDistrict,
+        originMandal,
+        originVillage,
+        originLandmark,
+        originPincode,
+        originSourceType,
+        originAddress,
+        originLocation
       };
 
       const res = await createBooking(payload);
@@ -404,6 +476,54 @@ export default function SlotBookingPage() {
             </div>
           </div>
 
+          {/* Accurate Sourcing Place & Farm Traceability Card */}
+          <div className="bg-gradient-to-r from-emerald-50 via-teal-50 to-green-50 rounded-2xl p-5 border-2 border-emerald-200/90 shadow-xs space-y-3">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-emerald-200/80 pb-3">
+              <div className="flex items-center space-x-2">
+                <span className="w-7 h-7 rounded-lg bg-emerald-600 text-white flex items-center justify-center font-bold text-sm shadow-xs">
+                  📍
+                </span>
+                <div>
+                  <h4 className="text-xs font-black text-slate-900 uppercase tracking-wider">
+                    Verified Crop Sourcing Place & Farm Traceability
+                  </h4>
+                  <p className="text-[11px] text-slate-600">
+                    WDRA Chain of Custody, Geotag & Farm Origin Record
+                  </p>
+                </div>
+              </div>
+              <span className="text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-full bg-white text-emerald-800 border border-emerald-300 shadow-xs self-start sm:self-auto">
+                ✓ Origin Geotagged
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs">
+              <div className="bg-white/90 p-3 rounded-xl border border-emerald-200/60 shadow-xs">
+                <p className="text-[10px] text-slate-400 font-bold uppercase">Village & Mandal</p>
+                <p className="font-bold text-slate-900 text-sm mt-0.5">{originVillage}, {originMandal}</p>
+                <p className="text-[11px] text-slate-500">PIN: {originPincode}</p>
+              </div>
+
+              <div className="bg-white/90 p-3 rounded-xl border border-emerald-200/60 shadow-xs">
+                <p className="text-[10px] text-slate-400 font-bold uppercase">Origin District</p>
+                <p className="font-bold text-emerald-800 text-sm mt-0.5">{originDistrict} District</p>
+                <p className="text-[11px] text-slate-500">State: Telangana</p>
+              </div>
+
+              <div className="bg-white/90 p-3 rounded-xl border border-emerald-200/60 shadow-xs">
+                <p className="text-[10px] text-slate-400 font-bold uppercase">Farm Gate / Survey No.</p>
+                <p className="font-bold text-slate-900 text-sm mt-0.5 truncate">{originLandmark || 'Farm Gate'}</p>
+                <p className="text-[11px] text-slate-500">{originSourceType}</p>
+              </div>
+
+              <div className="bg-white/90 p-3 rounded-xl border border-emerald-200/60 shadow-xs">
+                <p className="text-[10px] text-slate-400 font-bold uppercase">Transit Distance</p>
+                <p className="font-mono font-bold text-slate-900 text-sm mt-0.5">~{transitDistanceKm} km</p>
+                <p className="text-[11px] text-emerald-600 font-semibold">Direct Farm ➔ Hub Route</p>
+              </div>
+            </div>
+          </div>
+
           {/* Dedicated Breakdown of all booked crops */}
           <div className="bg-slate-50 rounded-2xl p-5 border border-slate-200 space-y-3">
             <div className="flex items-center justify-between">
@@ -440,7 +560,7 @@ export default function SlotBookingPage() {
             <span className="text-2xl">📲</span>
             <div className="text-xs text-amber-950">
               <strong className="block font-bold">SMS Dispatched to {farmerPhone}</strong>
-              "AgroVault: Namaste {farmerName}! Slot confirmed at {activeFacility?.name} for {totalQuantityQuintals} Qtl ({resolvedBookedCrops.map(c => `${c.quantityQuintals} Qtl ${c.cropName}`).join(', ')}). Token: {successBooking.tokenNumber || 'TK-108'}. Date: {arrivalDate}. Advance payable upon inward weighment: ₹{advanceAmount.toLocaleString()}."
+              "AgroVault: Namaste {farmerName}! Slot confirmed at {activeFacility?.name} for {totalQuantityQuintals} Qtl ({resolvedBookedCrops.map(c => `${c.quantityQuintals} Qtl ${c.cropName}`).join(', ')}) sourced from {originVillage}, {originMandal} ({originDistrict} Dist). Token: {successBooking.tokenNumber || 'TK-108'}. Date: {arrivalDate}. Advance payable upon inward weighment: ₹{advanceAmount.toLocaleString()}."
             </div>
           </div>
 
@@ -839,6 +959,158 @@ export default function SlotBookingPage() {
               </div>
             </div>
 
+            {/* Field 7: Accurate Place Where Crops Are Sourced */}
+            <div className="space-y-4 pt-3 border-t border-slate-100">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 border-b border-slate-100">
+                <div className="flex items-center space-x-2">
+                  <div className="w-8 h-8 rounded-xl bg-amber-100 text-amber-900 flex items-center justify-center font-bold text-sm">
+                    📍
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-900 uppercase tracking-wider">
+                      7. Accurate Crop Sourcing & Harvest Origin Place *
+                    </label>
+                    <p className="text-xs text-slate-500">
+                      Specify exact farm / mandal / village from where you are bringing the produce
+                    </p>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={handlePreFillProfile}
+                  className="self-start sm:self-auto text-[11px] bg-slate-100 hover:bg-emerald-50 text-slate-700 hover:text-emerald-800 font-bold px-3 py-1.5 rounded-xl border border-slate-200 hover:border-emerald-300 transition shadow-xs flex items-center space-x-1"
+                >
+                  <span>📍 Auto-fill My Registered Farm Place</span>
+                </button>
+              </div>
+
+              {/* District & Mandal Selection */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="space-y-1.5">
+                  <label className="block text-xs font-bold text-slate-800 uppercase tracking-wider">
+                    Origin District (Telangana) *
+                  </label>
+                  <select
+                    value={originDistrict}
+                    onChange={(e) => setOriginDistrict(e.target.value)}
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs sm:text-sm font-semibold text-slate-900 focus:bg-white focus:ring-2 focus:ring-emerald-600 focus:outline-none"
+                    required
+                  >
+                    {TELANGANA_DISTRICTS.map((dist) => (
+                      <option key={dist} value={dist}>
+                        {dist} District
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="space-y-1.5">
+                  <label className="block text-xs font-bold text-slate-800 uppercase tracking-wider">
+                    Mandal / Tehsil *
+                  </label>
+                  <input
+                    type="text"
+                    value={originMandal}
+                    onChange={(e) => setOriginMandal(e.target.value)}
+                    placeholder="e.g. Narsampet, Choppadandi, Armoor"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs sm:text-sm font-semibold text-slate-900 focus:bg-white focus:ring-2 focus:ring-emerald-600 focus:outline-none"
+                    required
+                  />
+                </div>
+              </div>
+
+              {/* Village & Landmark / Survey No. */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="space-y-1.5">
+                  <label className="block text-xs font-bold text-slate-800 uppercase tracking-wider">
+                    Village / Gram Panchayat *
+                  </label>
+                  <input
+                    type="text"
+                    value={originVillage}
+                    onChange={(e) => setOriginVillage(e.target.value)}
+                    placeholder="e.g. Maheshwaram, Rekurthi, Dharmaram"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs sm:text-sm font-semibold text-slate-900 focus:bg-white focus:ring-2 focus:ring-emerald-600 focus:outline-none"
+                    required
+                  />
+                </div>
+
+                <div className="space-y-1.5">
+                  <label className="block text-xs font-bold text-slate-800 uppercase tracking-wider">
+                    Farm Gate / Survey No. / Landmark *
+                  </label>
+                  <input
+                    type="text"
+                    value={originLandmark}
+                    onChange={(e) => setOriginLandmark(e.target.value)}
+                    placeholder="e.g. Survey No. 48/B, Rythu Vedika Road"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs sm:text-sm font-semibold text-slate-900 focus:bg-white focus:ring-2 focus:ring-emerald-600 focus:outline-none"
+                    required
+                  />
+                </div>
+              </div>
+
+              {/* Sourcing Type & PIN Code */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="space-y-1.5">
+                  <label className="block text-xs font-bold text-slate-800 uppercase tracking-wider">
+                    Produce Sourcing Source Type *
+                  </label>
+                  <select
+                    value={originSourceType}
+                    onChange={(e) => setOriginSourceType(e.target.value)}
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs sm:text-sm font-semibold text-slate-900 focus:bg-white focus:ring-2 focus:ring-emerald-600 focus:outline-none"
+                    required
+                  >
+                    <option value="Own Cultivated Land / Farm Gate">Own Farm / Harvest Field</option>
+                    <option value="Leased Agricultural Land">Leased Agricultural Land</option>
+                    <option value="FPO / Rythu Sangham Aggregation Point">FPO / Rythu Sangham Aggregation Point</option>
+                    <option value="Village Post-Harvest Threshing Yard">Village Threshing Yard / Drying Platform</option>
+                    <option value="Local APMC Market Yard / Rythu Bazaar">Local APMC Market Yard / Rythu Bazaar</option>
+                  </select>
+                </div>
+
+                <div className="space-y-1.5">
+                  <label className="block text-xs font-bold text-slate-800 uppercase tracking-wider">
+                    Postal PIN Code *
+                  </label>
+                  <input
+                    type="text"
+                    maxLength={6}
+                    value={originPincode}
+                    onChange={(e) => setOriginPincode(e.target.value)}
+                    placeholder="e.g. 506132"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs sm:text-sm font-mono font-semibold text-slate-900 focus:bg-white focus:ring-2 focus:ring-emerald-600 focus:outline-none"
+                    required
+                  />
+                </div>
+              </div>
+
+              {/* Live Origin Route & Geotag Verification Banner */}
+              <div className="bg-gradient-to-r from-emerald-50 via-teal-50 to-emerald-50 p-4 rounded-2xl border border-emerald-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-xs">
+                <div className="flex items-center space-x-3">
+                  <div className="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-lg shadow-sm shrink-0">
+                    🚜
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-black uppercase text-emerald-800 tracking-wider">
+                      Live Transit Route & Farm-to-Chamber Traceability
+                    </span>
+                    <p className="text-xs font-bold text-slate-900 mt-0.5">
+                      {originVillage || 'Village'}, {originMandal || 'Mandal'} ({originDistrict}) ➔ {activeFacility?.name}
+                    </p>
+                    <p className="text-[11px] text-slate-500">
+                      Est. Road Transit: <strong>~{transitDistanceKm} km</strong> • Origin Verification Active
+                    </p>
+                  </div>
+                </div>
+                <span className="shrink-0 text-[11px] font-bold bg-white text-emerald-800 border border-emerald-300 px-3 py-1 rounded-xl shadow-xs">
+                  WDRA Traceable
+                </span>
+              </div>
+            </div>
+
             {/* Submit Button for Mobile */}
             <div className="lg:hidden pt-4">
               <button
@@ -870,6 +1142,20 @@ export default function SlotBookingPage() {
                 <p className="text-xs text-slate-500 mt-0.5 flex items-center">
                   <MapPin className="w-3.5 h-3.5 text-emerald-600 mr-1 flex-shrink-0" />
                   {activeFacility?.district}, {activeFacility?.state}
+                </p>
+              </div>
+
+              {/* Sourcing Origin Path chip */}
+              <div className="bg-emerald-50/90 border border-emerald-200 rounded-2xl p-3 text-xs text-emerald-950 space-y-1">
+                <span className="text-[10px] font-black uppercase tracking-wider text-emerald-800 flex items-center">
+                  <MapPin className="w-3 h-3 text-emerald-600 mr-1 shrink-0" />
+                  Produce Sourced From:
+                </span>
+                <p className="font-bold text-slate-900 truncate">
+                  {originVillage}, {originMandal} ({originDistrict} Dist)
+                </p>
+                <p className="text-[10px] text-slate-600 truncate">
+                  {originLandmark} • ~{transitDistanceKm} km road distance
                 </p>
               </div>
 

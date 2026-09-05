@@ -18,7 +18,7 @@ class QueueService {
     return list.sort((a, b) => (order[a.status] || 99) - (order[b.status] || 99));
   }
 
-  generateToken({ bookingId, farmerName, farmerPhone, vehicleNumber, cropName, cropsList, quantityQuintals, facilityId }) {
+  generateToken({ bookingId, farmerName, farmerPhone, vehicleNumber, cropName, cropsList, quantityQuintals, facilityId, originAddress, originVillage, originDistrict, originLocation }) {
     const tokenId = `TK-${this.nextSeq++}`;
     const token = {
       tokenId,
@@ -28,6 +28,10 @@ class QueueService {
       vehicleNumber: vehicleNumber || "TS-03-BK-2026",
       cropName: cropName || "Produce",
       cropsList: cropsList || null,
+      originAddress: originAddress || `${originVillage || 'Maheshwaram'}, ${originDistrict || 'Warangal'}`,
+      originVillage: originVillage || "Maheshwaram",
+      originDistrict: originDistrict || "Warangal",
+      originLocation: originLocation || null,
       quantityQuintals: Number(quantityQuintals) || 100,
       facilityId: facilityId || "cs-telangana-01",
       status: "waiting",
@@ -40,12 +44,12 @@ class QueueService {
 
     this.tokens.push(token);
 
-    // Send SMS Notification
+    // Send SMS Notification with origin place
     smsService.sendSms({
       recipientPhone: token.farmerPhone,
       recipientName: token.farmerName,
       type: "QUEUE_TOKEN_ISSUED",
-      message: `Namaste ${token.farmerName}! Your Gate Entry Token is ${tokenId} for ${token.quantityQuintals} Qtl ${token.cropName}. Est wait: ~${token.estimatedWaitMins} mins. Please wait in Holding Yard.`
+      message: `Namaste ${token.farmerName}! Your Gate Entry Token is ${tokenId} for ${token.quantityQuintals} Qtl ${token.cropName} sourced from ${token.originVillage} (${token.originDistrict} Dist). Est wait: ~${token.estimatedWaitMins} mins. Please proceed to Holding Yard.`
     });
 
     smsService.broadcastEvent("QUEUE_UPDATED", this.getQueue());

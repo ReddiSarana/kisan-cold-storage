@@ -95,8 +95,8 @@ export default function FarmToStorageRouteMap({
   const containerRef = useRef(null);
   const animationFrameRef = useRef(null);
 
-  // Fallback facility if null
-  const activeFac = facility || {
+  // Fallback facility if null or empty
+  const defaultFac = {
     name: 'Karimnagar DCCB Cold Chain Hub',
     district: 'Karimnagar',
     state: 'Telangana',
@@ -104,6 +104,7 @@ export default function FarmToStorageRouteMap({
     tempMin: -2,
     tempMax: 4
   };
+  const activeFac = (facility && facility.name) ? facility : defaultFac;
 
   // Get Origin & Destination Coordinates
   const originCoord = DISTRICT_COORDS[originDistrict] || DISTRICT_COORDS['Warangal'] || { x: 510, y: 320, lat: '17.9689° N', lng: '79.5941° E', highway: 'Rural SH' };
@@ -564,7 +565,7 @@ export default function FarmToStorageRouteMap({
                   POINT B: COLD STORAGE HUB
                 </text>
                 <text x="0" y="-2" textAnchor="middle" fill="#ffffff" fontSize="8" fontWeight="bold">
-                  {activeFac.name.length > 24 ? activeFac.name.substring(0, 22) + '...' : activeFac.name}
+                  {(activeFac?.name || 'Cold Storage Hub').length > 24 ? (activeFac?.name || 'Cold Storage Hub').substring(0, 22) + '...' : (activeFac?.name || 'Cold Storage Hub')}
                 </text>
               </g>
             </g>

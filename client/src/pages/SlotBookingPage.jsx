@@ -196,8 +196,22 @@ export default function SlotBookingPage() {
   const totalQuantityQuintals = bookedCrops.reduce((sum, item) => sum + (Number(item.quantityQuintals) || 0), 0);
   const totalBagsCount = bookedCrops.reduce((sum, item) => sum + (Number(item.bagsCount) || 0), 0);
 
+  // Default fallback facility to ensure safe render before API data arrives
+  const defaultFallbackFacility = {
+    id: 'cs-warangal-1',
+    name: 'Kakatiya Mega Cold Chain Hub',
+    district: 'Warangal',
+    state: 'Telangana',
+    capacityTons: 10000,
+    availableCapacityTons: 4200,
+    baseRatePerQuintalMonth: 45,
+    handlingFeePerBag: 5,
+    temperatureRange: '0°C to 4°C',
+    humidityRange: '85% to 90%'
+  };
+
   // Find active facility
-  const activeFacility = facilities.find(f => f.id === selectedFacilityId) || facilities[0] || {};
+  const activeFacility = facilities.find(f => f.id === selectedFacilityId) || facilities[0] || defaultFallbackFacility;
 
   // Calculate Tariffs
   const ratePerQtlMonth = activeFacility?.baseRatePerQuintalMonth || 40;

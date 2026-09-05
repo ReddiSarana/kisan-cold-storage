@@ -1,4 +1,4 @@
-// SMS Dispatch Service for AgroVault
+// SMS Dispatch Service for Krishivalaya
 import { initialSmsLogs } from '../data/seedData.js';
 
 class SmsService {
@@ -147,7 +147,7 @@ class SmsService {
       id: `sms-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
       recipientPhone: phone,
       recipientName: recipientName || "Farmer",
-      senderId: "AGROVAULT",
+      senderId: "KRISHIVALAYA",
       type,
       message,
       gateway: gatewayUsed,

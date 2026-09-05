@@ -70,13 +70,13 @@ export default function SmsLogsPage() {
       <div className="bg-gradient-to-r from-emerald-950 via-teal-950 to-slate-900 text-white rounded-3xl p-6 sm:p-10 shadow-lg flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <div className="max-w-2xl space-y-2">
           <span className="text-xs font-bold uppercase tracking-wider text-emerald-400 bg-emerald-900/70 px-3 py-1 rounded-full">
-            {t('smsTag', "AgroVault SMS Gateway & Notification Dispatcher")}
+            {t('smsTag', "Krishivalaya SMS Gateway & Notification Dispatcher")}
           </span>
           <h1 className="text-2xl sm:text-4xl font-black tracking-tight">
             {t('smsTitle', "Automated Farmer SMS Alerts")}
           </h1>
           <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-            {t('smsDesc', "Most Indian farmers rely on standard cellular SMS rather than mobile apps in remote field conditions. AgroVault triggers instant SMS alerts on slot reservations, bay calling, weighment validation, and payment receipts.")}
+            {t('smsDesc', "Most Indian farmers rely on standard cellular SMS rather than mobile apps in remote field conditions. Krishivalaya triggers instant SMS alerts on slot reservations, bay calling, weighment validation, and payment receipts.")}
           </p>
         </div>
 
@@ -221,7 +221,7 @@ export default function SmsLogsPage() {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-2">
                       <span className="font-bold text-emerald-800 bg-emerald-100/70 px-2 py-0.5 rounded font-mono text-[10px]">
-                        {log.senderId || 'AGROVAULT'}
+                        {log.senderId || 'KRISHIVALAYA'}
                       </span>
                       <span className="font-bold text-slate-800">{log.recipientName}</span>
                       <span className="text-slate-500 font-mono text-[11px]">({log.recipientPhone})</span>

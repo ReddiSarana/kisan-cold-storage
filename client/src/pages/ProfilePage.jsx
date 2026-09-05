@@ -499,7 +499,7 @@ export default function ProfilePage() {
               Quick Profile Switcher (Demo Mode)
             </h4>
             <p className="text-xs text-slate-500">
-              Test AgroVault workflows from different user viewpoints in one click:
+              Test Krishivalaya workflows from different user viewpoints in one click:
             </p>
             <div className="space-y-2">
               {Object.entries(DEMO_USERS).map(([key, user]) => (

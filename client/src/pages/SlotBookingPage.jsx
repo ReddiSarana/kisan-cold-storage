@@ -586,7 +586,7 @@ export default function SlotBookingPage() {
             <span className="text-2xl">📲</span>
             <div className="text-xs text-amber-950">
               <strong className="block font-bold">SMS Dispatched to {farmerPhone}</strong>
-              "AgroVault: Namaste {farmerName}! Slot confirmed at {activeFacility?.name} for {totalQuantityQuintals} Qtl ({resolvedBookedCrops.map(c => `${c.quantityQuintals} Qtl ${c.cropName}`).join(', ')}) sourced from {originVillage}, {originMandal} ({originDistrict} Dist). Token: {successBooking.tokenNumber || 'TK-108'}. Date: {arrivalDate}. Advance payable upon inward weighment: ₹{advanceAmount.toLocaleString()}."
+              "Krishivalaya: Namaste {farmerName}! Slot confirmed at {activeFacility?.name} for {totalQuantityQuintals} Qtl ({resolvedBookedCrops.map(c => `${c.quantityQuintals} Qtl ${c.cropName}`).join(', ')}) sourced from {originVillage}, {originMandal} ({originDistrict} Dist). Token: {successBooking.tokenNumber || 'TK-108'}. Date: {arrivalDate}. Advance payable upon inward weighment: ₹{advanceAmount.toLocaleString()}."
             </div>
           </div>
 

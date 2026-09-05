@@ -273,7 +273,7 @@ export default function PictorialSystemDiagram() {
           <div className="flex items-center space-x-2">
             <span className="bg-gradient-to-r from-emerald-600 to-teal-700 text-white text-xs font-black px-3.5 py-1 rounded-full uppercase tracking-wider shadow-xs flex items-center space-x-1.5">
               <Sparkles className="w-3.5 h-3.5" />
-              <span>Pictorial Representation of AgroVault</span>
+              <span>Pictorial Representation of Krishivalaya</span>
             </span>
             <span className="text-xs font-bold text-emerald-800 hidden sm:inline-block">
               {t('pictorialTag', 'Visual System Map')}
@@ -530,7 +530,7 @@ export default function PictorialSystemDiagram() {
             <div className="rounded-2xl overflow-hidden border-2 border-emerald-500/40 shadow-2xl relative bg-slate-950">
               <img
                 src="/images/platform-pictorial-diagram.jpg"
-                alt="AgroVault Kisan Cold Storage Pictorial Representation Diagram"
+                alt="Krishivalaya Kisan Cold Storage Pictorial Representation Diagram"
                 className="w-full h-auto object-cover hover:scale-[1.01] transition-transform duration-500"
               />
             </div>
@@ -767,7 +767,7 @@ export default function PictorialSystemDiagram() {
               </div>
               <div>
                 <h4 className="text-sm font-black text-slate-900">
-                  AgroVault Portal Architecture Blueprint
+                  Krishivalaya Portal Architecture Blueprint
                 </h4>
                 <p className="text-xs text-slate-600">
                   Click any module card below to open its live interactive window.
@@ -845,7 +845,7 @@ export default function PictorialSystemDiagram() {
                 System Schematic Diagram
               </span>
               <h3 className="text-xl sm:text-2xl font-black text-white">
-                AgroVault Cold Chain Cloud & Physical Infrastructure
+                Krishivalaya Cold Chain Cloud & Physical Infrastructure
               </h3>
               <p className="text-xs text-slate-300">
                 Visualizing data, vehicle telemetry, cold chambers, and banking integration.
@@ -894,12 +894,12 @@ export default function PictorialSystemDiagram() {
                     <text x="55" y="108" fill="#10b981" fontSize="9" fontWeight="bold" textAnchor="middle">Slot Booking</text>
                   </g>
 
-                  {/* Node 2: AgroVault Cloud Platform */}
+                  {/* Node 2: Krishivalaya Cloud Platform */}
                   <g transform="translate(260, 120)">
                     <rect width="130" height="140" rx="20" fill="#064e3b" stroke="#34d399" strokeWidth="2.5" />
                     <circle cx="65" cy="45" r="25" fill="#022c22" />
                     <text x="65" y="52" fill="#34d399" fontSize="22" textAnchor="middle">⚡</text>
-                    <text x="65" y="86" fill="#ffffff" fontSize="12" fontWeight="900" textAnchor="middle">AgroVault Hub</text>
+                    <text x="65" y="86" fill="#ffffff" fontSize="12" fontWeight="900" textAnchor="middle">Krishivalaya Hub</text>
                     <text x="65" y="102" fill="#6ee7b7" fontSize="9" textAnchor="middle">Live Token Engine</text>
                     <text x="65" y="116" fill="#cbd5e1" fontSize="8" textAnchor="middle">SMS Dispatch Alerts</text>
                     <text x="65" y="128" fill="#facc15" fontSize="8" fontWeight="bold" textAnchor="middle">22 Languages</text>

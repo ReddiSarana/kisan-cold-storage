@@ -163,7 +163,7 @@ export default function WebsiteMindMap() {
             <span>రైతు సులభ మైండ్ మ్యాప్</span>
           </div>
           <h2 className="text-2xl sm:text-4xl font-black text-white tracking-tight">
-            How AgroVault Works in 6 Easy Steps
+            How Krishivalaya Works in 6 Easy Steps
           </h2>
           <p className="text-sm sm:text-base text-emerald-300 font-semibold mt-1">
             ఈ వెబ్‌సైట్ ద్వారా రైతు పంటను దాచి ఎక్కువ లాభం పొందే విధానం
@@ -178,7 +178,7 @@ export default function WebsiteMindMap() {
           type="button"
           onClick={() =>
             handleSpeak(
-              `AgroVault summary: ${current.title}. ${current.simpleAnswer}`,
+              `Krishivalaya summary: ${current.title}. ${current.simpleAnswer}`,
               current.speechText
             )
           }
@@ -322,7 +322,7 @@ export default function WebsiteMindMap() {
           </div>
         </div>
 
-        {/* Big Contrast: WITHOUT Cold Storage vs WITH AgroVault */}
+        {/* Big Contrast: WITHOUT Cold Storage vs WITH Krishivalaya */}
         <div className="bg-slate-950/90 rounded-3xl p-5 sm:p-7 border border-white/15 space-y-4">
           <h4 className="text-center text-sm sm:text-base font-black text-white uppercase tracking-wider">
             Why Every Farmer Needs This (ఎందుకు ప్రతి రైతుకు ఇది అవసరం?)
@@ -351,11 +351,11 @@ export default function WebsiteMindMap() {
               </ul>
             </div>
 
-            {/* Good Way: AgroVault */}
+            {/* Good Way: Krishivalaya */}
             <div className="bg-emerald-950/40 border-2 border-emerald-500/60 rounded-2xl p-5 space-y-3">
               <div className="flex items-center space-x-2 text-emerald-400 font-black text-sm uppercase">
                 <CheckCircle className="w-5 h-5 text-emerald-400 shrink-0" />
-                <span>With AgroVault (అగ్రోవాల్ట్ ద్వారా రైతుకు లాభం)</span>
+                <span>With Krishivalaya (కృషివలయ ద్వారా రైతుకు లాభం)</span>
               </div>
               <ul className="space-y-2 text-slate-200 font-medium">
                 <li className="flex items-start space-x-2">

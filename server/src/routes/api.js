@@ -212,7 +212,7 @@ router.post('/bookings', (req, res) => {
     recipientPhone: farmerPhone,
     recipientName: farmerName,
     type: "BOOKING_CONFIRMATION",
-    message: `AgroVault: Namaste ${farmerName}! Booking ${bookingId} confirmed at ${facility?.name || "Cold Store"} for ${totalQty} Qtl (${cropNamesSummary}) sourced from ${resolvedOriginVillage}, ${resolvedOriginMandal} (${resolvedOriginDistrict} Dist). Token: ${token.tokenId}. Date: ${arrivalDate || newBooking.arrivalDate}.`
+    message: `Krishivalaya: Namaste ${farmerName}! Booking ${bookingId} confirmed at ${facility?.name || "Cold Store"} for ${totalQty} Qtl (${cropNamesSummary}) sourced from ${resolvedOriginVillage}, ${resolvedOriginMandal} (${resolvedOriginDistrict} Dist). Token: ${token.tokenId}. Date: ${arrivalDate || newBooking.arrivalDate}.`
   });
 
   res.status(201).json({ success: true, data: newBooking, token });
@@ -260,7 +260,7 @@ router.patch('/bookings/:id', (req, res) => {
       recipientPhone: booking.farmerPhone,
       recipientName: booking.farmerName,
       type: "STORED_CONFIRMATION",
-      message: `AgroVault: Produce safely deposited in ${booking.chamberAllocated}. Net Weight: ${booking.weighmentNetKg || (booking.quantityQuintals * 50)} Kg. e-NWR No: ${booking.eNwrNumber}.`
+      message: `Krishivalaya: Produce safely deposited in ${booking.chamberAllocated}. Net Weight: ${booking.weighmentNetKg || (booking.quantityQuintals * 50)} Kg. e-NWR No: ${booking.eNwrNumber}.`
     });
   }
 
@@ -325,7 +325,7 @@ router.get('/documents/generate-docx', async (req, res) => {
     const facility = facilities.find(f => f.id === booking.facilityId) || facilities[0];
 
     let buffer;
-    let filename = `AgroVault_${docType}_${booking.id}.docx`;
+    let filename = `Krishivalaya_${docType}_${booking.id}.docx`;
 
     const payload = {
       ...booking,
@@ -361,7 +361,7 @@ router.post('/documents/generate-docx', async (req, res) => {
   try {
     const { docType = "agreement", ...customData } = req.body;
     let buffer;
-    const filename = `AgroVault_${docType}_${Date.now()}.docx`;
+    const filename = `Krishivalaya_${docType}_${Date.now()}.docx`;
 
     if (docType === "agreement") {
       buffer = await DocxService.generateStorageAgreement(customData);

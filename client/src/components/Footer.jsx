@@ -17,7 +17,7 @@ export default function Footer() {
               <div className="w-8 h-8 rounded-lg bg-emerald-600 flex items-center justify-center text-white">
                 <Snowflake className="w-5 h-5" />
               </div>
-              <span className="text-xl font-black tracking-tight text-white">Agro<span className="text-emerald-400">Vault</span></span>
+              <span className="text-xl font-black tracking-tight text-white">Krishi<span className="text-emerald-400">valaya</span></span>
             </div>
             <p className="text-xs text-slate-400 leading-relaxed">
               Empowering Indian farmers with real-time cold room discovery, transparent tariffs, priority gate queue tokens, and digital warehouse receipts for credit access.
@@ -79,7 +79,7 @@ export default function Footer() {
               </li>
               <li className="flex items-center space-x-2">
                 <Mail className="w-4 h-4 text-emerald-400 flex-shrink-0" />
-                <span>support@agrovault.in</span>
+                <span>support@krishivalaya.in</span>
               </li>
               <li className="flex items-start space-x-2">
                 <MapPin className="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5" />
@@ -90,7 +90,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-8 pt-6 border-t border-slate-800 text-center text-xs text-slate-500 flex flex-col sm:flex-row justify-between items-center gap-2">
-          <p>© 2026 AgroVault. Designed for Indian Farmers & Post-Harvest Cold Chains.</p>
+          <p>© 2026 Krishivalaya — Empowering the Annadatha. Designed for Indian Farmers & Post-Harvest Cold Chains.</p>
           <div className="flex space-x-4">
             <span className="hover:text-slate-400 cursor-pointer">Privacy Policy</span>
             <span>•</span>

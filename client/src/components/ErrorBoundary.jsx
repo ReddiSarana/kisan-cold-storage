@@ -11,7 +11,7 @@ export class ErrorBoundary extends React.Component {
   }
 
   componentDidCatch(error, errorInfo) {
-    console.error('AgroVault Uncaught Component Error:', error, errorInfo);
+    console.error('Krishivalaya Uncaught Component Error:', error, errorInfo);
   }
 
   handleReset = () => {
@@ -35,7 +35,7 @@ export class ErrorBoundary extends React.Component {
             <div className="w-16 h-16 mx-auto rounded-2xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-3xl">
               🌾
             </div>
-            <h2 className="text-xl font-black text-white">AgroVault Platform Ready</h2>
+            <h2 className="text-xl font-black text-white">Krishivalaya Platform Ready</h2>
             <p className="text-xs text-slate-300">
               An unexpected display issue occurred in a subcomponent. Click below to reset to the default clean state.
             </p>

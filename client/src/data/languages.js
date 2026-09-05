@@ -28,8 +28,8 @@ export const INDIAN_LANGUAGES = [
 // Universal Translations across the entire platform
 export const UI_TRANSLATIONS = {
   en: {
-    portalName: 'AgroVault',
-    portalTagline: 'Smart Cold Storage & Queue',
+    portalName: 'Krishivalaya',
+    portalTagline: 'Empowering the Annadatha',
     kisanCallCenter: 'Kisan Call Centre Toll-Free:',
     portalDesc: '🌾 Cold Storage & Digital Warehouse Receipt Portal (WDRA Certified)',
     smsSimulator: 'SMS Simulator',
@@ -63,14 +63,14 @@ export const UI_TRANSLATIONS = {
     aboutHeroTag: "Empowering India's Agricultural Cold Chain & Post-Harvest Wealth",
     aboutHeroTitle: 'Stop Perishable Distress Sales.',
     aboutHeroSubtitle: 'Preserve, Pledge & Profit.',
-    aboutHeroDesc: 'Every year, India loses nearly ₹92,000 Crores worth of fruits and vegetables due to lacking cold storage access. AgroVault connects farmers with multi-chamber cold storages, transparent tariffs, live gate queues, and bank-pledgeable warehouse receipts (e-NWR).',
+    aboutHeroDesc: 'Every year, India loses nearly ₹92,000 Crores worth of fruits and vegetables due to lacking cold storage access. Krishivalaya connects farmers with multi-chamber cold storages, transparent tariffs, live gate queues, and bank-pledgeable warehouse receipts (e-NWR).',
     capacityMonitored: 'Cold Capacity Monitored',
     registeredFarmers: 'Registered Farmers',
     gateCongestion: 'Gate Congestion with Live Tokens',
     pledgeCredit: 'Pledge Credit Unlocked',
     theChallenge: 'The Agricultural Challenge',
     whyColdChain: 'Why Cold Chain Access is Essential for Farmers',
-    howItWorks: 'How AgroVault Works for Every Farmer',
+    howItWorks: 'How Krishivalaya Works for Every Farmer',
     fourStepProcess: 'Simple 4-Step Process',
 
     // Storage Units Page
@@ -127,7 +127,7 @@ export const UI_TRANSLATIONS = {
     smsDesc: 'Review outbound SMS alerts triggered to farmers and transport drivers for gate calls, temperature deviations, and payment credits.',
 
     // Auth Page
-    authTitle: 'Sign In to AgroVault',
+    authTitle: 'Sign In to Krishivalaya',
     authSubtitle: 'Choose your role to access cold storage management and booking.',
     roleFarmer: 'Farmer / Producer',
     roleManager: 'Cold Storage Manager',
@@ -149,8 +149,8 @@ export const UI_TRANSLATIONS = {
     cancel: 'Cancel'
   },
   te: {
-    portalName: 'అగ్రోవాల్ట్',
-    portalTagline: 'స్మార్ట్ కోల్డ్ స్టోరేజ్ & క్యూ మేనేజ్‌మెంట్',
+    portalName: 'కృషివలయ',
+    portalTagline: 'అన్నదాతకు సాధికారత',
     kisanCallCenter: 'కిసాన్ కాల్ సెంటర్ టోల్-ఫ్రీ:',
     portalDesc: '🌾 కోల్డ్ స్టోరేజ్ & డిజిటల్ వేర్‌హౌస్ రశీదు పోర్టల్ (WDRA సర్టిఫైడ్)',
     smsSimulator: 'SMS సిమ్యులేటర్',
@@ -183,14 +183,14 @@ export const UI_TRANSLATIONS = {
     aboutHeroTag: 'భారతీయ వ్యవసాయ కోల్డ్ చైన్ & నిల్వ వ్యవస్థ',
     aboutHeroTitle: 'దిగుబడి తక్కువ ధరకు అమ్ముకోవద్దు.',
     aboutHeroSubtitle: 'నిల్వ చేయండి, రుణం పొందండి, లాభం సాధించండి.',
-    aboutHeroDesc: 'ప్రతి ఏటా సరైన నిల్వ లేక వేల కోట్ల పంట పాడవుతోంది. అగ్రోవాల్ట్ రైతులకు ఆధునిక కోల్డ్ స్టోరేజ్, పారదర్శక ధరలు, లైవ్ గేట్ టోకెన్లు, మరియు బ్యాంక్ రుణాలకు e-NWR రశీదులను అందిస్తుంది.',
+    aboutHeroDesc: 'ప్రతి ఏటా సరైన నిల్వ లేక వేల కోట్ల పంట పాడవుతోంది. కృషివలయ రైతులకు ఆధునిక కోల్డ్ స్టోరేజ్, పారదర్శక ధరలు, లైవ్ గేట్ టోకెన్లు, మరియు బ్యాంక్ రుణాలకు e-NWR రశీదులను అందిస్తుంది.',
     capacityMonitored: 'నిర్వహించబడుతున్న నిల్వ సామర్థ్యం',
     registeredFarmers: 'నమోదైన రైతులు',
     gateCongestion: 'గేట్ వద్ద వేచి ఉండే సమయం 0 నిమిషాలు',
     pledgeCredit: 'పంటపై మంజూరైన రుణాలు',
     theChallenge: 'రైతులు ఎదుర్కొంటున్న సవాళ్లు',
     whyColdChain: 'రైతులకు కోల్డ్ స్టోరేజ్ ఎందుకు అవసరం',
-    howItWorks: 'అగ్రోవాల్ట్ ఎలా పనిచేస్తుంది',
+    howItWorks: 'కృషివలయ ఎలా పనిచేస్తుంది',
     fourStepProcess: 'సులభమైన 4 దశలు',
 
     storageRegistry: 'తెలంగాణ కోల్డ్ స్టోరేజ్ రిజిస్ట్రీ',
@@ -241,7 +241,7 @@ export const UI_TRANSLATIONS = {
     smsTitle: 'ఆటోమేటెడ్ SMS అలర్ట్ కేంద్రం',
     smsDesc: 'గేట్ కాల్స్, ఉష్ణోగ్రత మరియు చెల్లింపు వివరాలపై రైతులకు వెళ్ళే SMS సందేశాలు.',
 
-    authTitle: 'అగ్రోవాల్ట్ లోనికి లాగిన్ అవ్వండి',
+    authTitle: 'కృషివలయ లోనికి లాగిన్ అవ్వండి',
     authSubtitle: 'మీ పాత్రను ఎంచుకుని కోల్డ్ స్టోరేజ్ సేవలను పొందండి.',
     roleFarmer: 'రైతు / ఉత్పత్తిదారు',
     roleManager: 'కోల్డ్ స్టోరేజ్ మేనేజర్',
@@ -262,8 +262,8 @@ export const UI_TRANSLATIONS = {
     cancel: 'రద్దు చేయండి'
   },
   hi: {
-    portalName: 'एग्रोवोल्ट',
-    portalTagline: 'स्मार्ट कोल्ड स्टोरेज एवं कतार प्रबंधन',
+    portalName: 'कृषिवलय',
+    portalTagline: 'अन्नदाता का सशक्तिकरण',
     kisanCallCenter: 'किसान कॉल सेंटर टोल-फ्री:',
     portalDesc: '🌾 कोल्ड स्टोरेज एवं डिजिटल वेयरहाउस रसीद पोर्टल (WDRA प्रमाणित)',
     smsSimulator: 'एसएमएस सिम्युलेटर',
@@ -296,14 +296,14 @@ export const UI_TRANSLATIONS = {
     aboutHeroTag: 'भारतीय कृषि कोल्ड चेन और फसल सुरक्षा मिशन',
     aboutHeroTitle: 'मजबूरी में औने-पौने दाम पर फसल न बेचें।',
     aboutHeroSubtitle: 'सुरक्षित रखें, गिरवी रखें और लाभ कमाएं।',
-    aboutHeroDesc: 'हर साल देश में लाखों टन फल और सब्जियां कोल्ड स्टोरेज की कमी से खराब हो जाती हैं। एग्रोवोल्ट किसानों को सीधे आधुनिक कोल्ड स्टोरेज, पारदर्शी दरों, लाइव गेट टोकन और बैंक लोन योग्य ई-एनडब्ल्यूआर रसीदों से जोड़ता है।',
+    aboutHeroDesc: 'हर साल देश में लाखों टन फल और सब्जियां कोल्ड स्टोरेज की कमी से खराब हो जाती हैं। कृषिवलय किसानों को सीधे आधुनिक कोल्ड स्टोरेज, पारदर्शी दरों, लाइव गेट टोकन और बैंक लोन योग्य ई-एनडब्ल्यूआर रसीदों से जोड़ता है।',
     capacityMonitored: 'निगरानी क्षमता (मीट्रिक टन)',
     registeredFarmers: 'पंजीकृत किसान',
     gateCongestion: 'गेट पर 0 मिनट की प्रतीक्षा',
     pledgeCredit: 'फसल पर जारी बैंक ऋण',
     theChallenge: 'किसानों की प्रमुख चुनौतियां',
     whyColdChain: 'किसानों के लिए कोल्ड स्टोरेज क्यों जरूरी है',
-    howItWorks: 'एग्रोवोल्ट कैसे काम करता है',
+    howItWorks: 'कृषिवलय कैसे काम करता है',
     fourStepProcess: 'आसान 4 चरण',
 
     storageRegistry: 'कोल्ड चेन एवं स्टोरेज रजिस्ट्री',
@@ -354,7 +354,7 @@ export const UI_TRANSLATIONS = {
     smsTitle: 'स्वचालित एसएमएस प्रेषण केंद्र',
     smsDesc: 'गेट कॉल, तापमान बदलाव और भुगतान की पुष्टि के लिए भेजे जाने वाले एसएमएस।',
 
-    authTitle: 'एग्रोवोल्ट में लॉगिन करें',
+    authTitle: 'कृषिवलय में लॉगिन करें',
     authSubtitle: 'कोल्ड स्टोरेज बुकिंग और प्रबंधन के लिए अपनी भूमिका चुनें।',
     roleFarmer: 'किसान / उत्पादक',
     roleManager: 'कोल्ड स्टोरेज प्रबंधक',
@@ -375,8 +375,8 @@ export const UI_TRANSLATIONS = {
     cancel: 'रद्द करें'
   },
   ta: {
-    portalName: 'அக்ரோவால்ட்',
-    portalTagline: 'ஸ்மார்ட் குளிர்பதன கிடங்கு & வரிசை மேலாண்மை',
+    portalName: 'கிருஷிவலயா',
+    portalTagline: 'அன்னதாதாவின் அதிகாரமளித்தல்',
     kisanCallCenter: 'விவசாயி அழைப்பு மையம் கட்டணமில்லா எண்:',
     portalDesc: '🌾 குளிர்பதன கிடங்கு மற்றும் மின்னணு கிடங்கு ரசீது தளம் (WDRA)',
     smsSimulator: 'SMS சிமுலேட்டர்',
@@ -409,14 +409,14 @@ export const UI_TRANSLATIONS = {
     aboutHeroTag: 'விவசாய குளிர்பதன கிடங்கு மற்றும் பாதுகாப்பு தளம்',
     aboutHeroTitle: 'குறைந்த விலைக்கு பயிர்களை விற்காதீர்கள்.',
     aboutHeroSubtitle: 'பாதுகாக்கவும், அடகு வைக்கவும், லாபம் ஈட்டவும்.',
-    aboutHeroDesc: 'அக்ரோவால்ட் விவசாயிகளை நவீன பல-அறை குளிர்பதன கிடங்குகள், நேரலை வரிசை டோக்கன்கள் மற்றும் வங்கி கடன் பெறக்கூடிய e-NWR ரசீதுகளுடன் இணைக்கிறது.',
+    aboutHeroDesc: 'கிருஷிவலயா விவசாயிகளை நவீன பல-அறை குளிர்பதன கிடங்குகள், நேரலை வரிசை டோக்கன்கள் மற்றும் வங்கி கடன் பெறக்கூடிய e-NWR ரசீதுகளுடன் இணைக்கிறது.',
     capacityMonitored: 'கண்காணிக்கப்படும் கொள்ளளவு',
     registeredFarmers: 'பதிவுசெய்த விவசாயிகள்',
     gateCongestion: 'வரிசையில் காத்திருக்க தேவையில்லை',
     pledgeCredit: 'வழங்கப்பட்ட வங்கி கடன்கள்',
     theChallenge: 'விவசாயிகளின் சவால்கள்',
     whyColdChain: 'குளிர்பதன கிடங்கின் முக்கியத்துவம்',
-    howItWorks: 'அக்ரோவால்ட் எவ்வாறு செயல்படுகிறது',
+    howItWorks: 'கிருஷிவலயா எவ்வாறு செயல்படுகிறது',
     fourStepProcess: 'எளிதான 4 படிகள்',
 
     storageRegistry: 'குளிர்பதன கிடங்கு பதிவு',
@@ -467,7 +467,7 @@ export const UI_TRANSLATIONS = {
     smsTitle: 'தானியங்கி SMS அனுப்பும் மையம்',
     smsDesc: 'வரிசை அழைப்புகள், வெப்பநிலை மற்றும் பணம் செலுத்துதல் குறித்த SMS எச்சரிக்கைகள்.',
 
-    authTitle: 'அக்ரோவால்ட்டில் உள்நுழையவும்',
+    authTitle: 'கிருஷிவலயாவில் உள்நுழையவும்',
     authSubtitle: 'சேவைகளை பெற உங்கள் பொறுப்பைத் தேர்ந்தெடுக்கவும்.',
     roleFarmer: 'விவசாயி / உற்பத்தியாளர்',
     roleManager: 'கிடங்கு மேலாளர்',
@@ -488,8 +488,8 @@ export const UI_TRANSLATIONS = {
     cancel: 'ரத்து செய்'
   },
   kn: {
-    portalName: 'ಆಗ್ರೋವಾಲ್ಟ್',
-    portalTagline: 'ಸ್ಮಾರ್ಟ್ ಶೀತಲ ಸಂಗ್ರಹಾಗಾರ ಮತ್ತು ಕ್ಯೂ ನಿರ್ವಹಣೆ',
+    portalName: 'ಕೃಷಿವಲಯ',
+    portalTagline: 'ಅನ್ನದಾತನ ಸಬಲೀಕರಣ',
     kisanCallCenter: 'ಕಿಸಾನ್ ಕಾಲ್ ಸೆಂಟರ್ ಉಚಿತ ಸಂಖ್ಯೆ:',
     portalDesc: '🌾 ಶೀತಲ ಸಂಗ್ರಹಾಗಾರ ಮತ್ತು ಡಿಜಿಟಲ್ ಗೋದಾಮು ರಶೀದಿ ಪೋರ್ಟಲ್',
     smsSimulator: 'SMS ಸಿಮ್ಯುಲೇಟರ್',
@@ -529,7 +529,7 @@ export const UI_TRANSLATIONS = {
     pledgeCredit: 'ಬೆಳೆ ಮೇಲೆ ಪಡೆದ ಸಾಲ',
     theChallenge: 'ರೈತರ ಪ್ರಮುಖ ಸವಾಲುಗಳು',
     whyColdChain: 'ಶೀತಲ ಸಂಗ್ರಹಾಗಾರದ ಅಗತ್ಯತೆ',
-    howItWorks: 'ಆಗ್ರೋವಾಲ್ಟ್ ಹೇಗೆ ಕಾರ್ಯನಿರ್ವಹಿಸುತ್ತದೆ',
+    howItWorks: 'ಕೃಷಿವಲಯ ಹೇಗೆ ಕಾರ್ಯನಿರ್ವಹಿಸುತ್ತದೆ',
     fourStepProcess: 'ಸರಳ 4 ಹಂತಗಳು',
 
     storageRegistry: 'ಶೀತಲ ಸಂಗ್ರಹಾಗಾರ ನೋಂದಣಿ',
@@ -580,7 +580,7 @@ export const UI_TRANSLATIONS = {
     smsTitle: 'ಸ್ವಯಂಚಾಲಿತ SMS ರವಾನೆ ಕೇಂದ್ರ',
     smsDesc: 'ಕ್ಯೂ ಕರೆಗಳು ಮತ್ತು ಪಾವತಿ ಕುರಿತು ರೈತರಿಗೆ ರವಾನೆಯಾಗುವ SMS ಎಚ್ಚರಿಕೆಗಳು.',
 
-    authTitle: 'ಆಗ್ರೋವಾಲ್ಟ್‌ಗೆ ಸೈನ್ ಇನ್ ಮಾಡಿ',
+    authTitle: 'ಕೃಷಿವಲಯಕ್ಕೆ ಸೈನ್ ಇನ್ ಮಾಡಿ',
     authSubtitle: 'ಸೇವೆಗಳನ್ನು ಪಡೆಯಲು ನಿಮ್ಮ ಪಾತ್ರವನ್ನು ಆಯ್ಕೆಮಾಡಿ.',
     roleFarmer: 'ರೈತ / ಬೆಳೆಗಾರ',
     roleManager: 'ಗೋದಾಮು ವ್ಯವಸ್ಥಾಪಕ',

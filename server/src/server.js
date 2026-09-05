@@ -60,5 +60,5 @@ app.get('*', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`🌾 AgroVault Server running on http://localhost:${PORT}`);
+  console.log(`🌾 Krishivalaya Server running on http://localhost:${PORT}`);
 });

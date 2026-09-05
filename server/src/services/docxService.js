@@ -1,4 +1,4 @@
-// Native DOCX Generator Service for AgroVault using the official `docx` library
+// Native DOCX Generator Service for Krishivalaya using the official `docx` library
 import {
   Document,
   Packer,
@@ -67,11 +67,11 @@ export class DocxService {
           properties: {},
           children: [
             new Paragraph({
-              text: "AGROVAULT COLD STORAGE NETWORK",
+              text: "KRISHIVALAYA COLD STORAGE NETWORK",
               alignment: AlignmentType.CENTER,
               children: [
                 new TextRun({
-                  text: "AGROVAULT COLD STORAGE PRESERVATION NETWORK",
+                  text: "KRISHIVALAYA COLD STORAGE PRESERVATION NETWORK",
                   bold: true,
                   size: 32,
                   color: "15803D" // Green

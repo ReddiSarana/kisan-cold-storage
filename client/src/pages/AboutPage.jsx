@@ -50,7 +50,7 @@ export default function AboutPage() {
           </h1>
 
           <p className="text-slate-300 text-sm sm:text-base leading-relaxed max-w-2xl font-normal">
-            {t('aboutHeroDesc', "Every year, India loses nearly ₹92,000 Crores worth of fruits and vegetables due to lacking cold storage access. AgroVault connects smallholder and commercial farmers directly with modern, multi-chamber cold storage facilities, transparent tariffs, live gate queues, and bank-pledgeable digital warehouse receipts (e-NWR).")}
+            {t('aboutHeroDesc', "Every year, India loses nearly ₹92,000 Crores worth of fruits and vegetables due to lacking cold storage access. Krishivalaya connects smallholder and commercial farmers directly with modern, multi-chamber cold storage facilities, transparent tariffs, live gate queues, and bank-pledgeable digital warehouse receipts (e-NWR).")}
           </p>
 
           <div className="flex flex-wrap items-center gap-3.5 pt-3">
@@ -294,7 +294,7 @@ export default function AboutPage() {
             Simple 4-Step Process
           </span>
           <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-            How AgroVault Works for Every Farmer
+            How Krishivalaya Works for Every Farmer
           </h2>
           <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
             Seamless technology tailored for simplicity, mobile SMS notifications, and physical warehouse operations.
@@ -360,7 +360,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* AgroVault Platform Mind Map */}
+      {/* Krishivalaya Platform Mind Map */}
       <section id="mind-map" className="scroll-mt-20">
         <WebsiteMindMap />
       </section>
@@ -433,7 +433,7 @@ export default function AboutPage() {
               {'★★★★★'.split('').map((star, i) => <span key={i}>{star}</span>)}
             </div>
             <p className="text-xs text-slate-600 italic leading-relaxed">
-              "During the March potato harvest in Agra, my tractor used to wait 36 hours in line. With AgroVault's SMS queue token, I stayed at my field until I got the SMS: 'Token TK-101 proceed to Bay 2'. Zero hassle!"
+              "During the March potato harvest in Agra, my tractor used to wait 36 hours in line. With Krishivalaya's SMS queue token, I stayed at my field until I got the SMS: 'Token TK-101 proceed to Bay 2'. Zero hassle!"
             </p>
             <div className="flex items-center space-x-3 pt-3 border-t border-slate-200/60">
               <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 text-white flex items-center justify-center font-black text-xs shadow-sm">

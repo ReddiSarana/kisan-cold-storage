@@ -1,7 +1,7 @@
 {
-  "name": "agrovault-server",
+  "name": "krishivalaya-server",
   "version": "1.0.0",
-  "description": "Backend API for AgroVault platform",
+  "description": "Backend API for Krishivalaya platform",
   "main": "src/server.js",
   "type": "module",
   "scripts": {

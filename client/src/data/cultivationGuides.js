@@ -405,7 +405,7 @@ export function getCultivationGuide(crop) {
     fertilizer: 'NPK: 30:20:20 kg/acre + 5 tonnes FYM/acre. Soil test based nutrient management.',
     pestsAndDiseases: 'Integrated Pest Management (IPM): Bird perches, pheromone traps, and bio-pesticides.',
     harvesting: 'Harvest at physiological maturity during dry sunny weather to preserve post-harvest quality.',
-    postHarvestHandling: 'Clean, grade, and pre-cool before loading into calibrated AgroVault cold storage chambers.',
+    postHarvestHandling: 'Clean, grade, and pre-cool before loading into calibrated Krishivalaya cold storage chambers.',
     yieldPerAcre: '15 - 25 Quintals/Acre',
     agronomicTip: 'Soil test based application of organic manure and bio-fertilizers cuts input costs by 20% while maintaining soil health.'
   };

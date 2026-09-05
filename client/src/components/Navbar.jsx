@@ -110,12 +110,12 @@ export default function Navbar() {
             </div>
             <div>
               <div className="flex items-center space-x-1.5">
-                <span className="text-2xl font-black tracking-tight text-slate-900">Agro<span className="text-emerald-600">Vault</span></span>
+                <span className="text-2xl font-black tracking-tight text-slate-900">Krishi<span className="text-emerald-600">valaya</span></span>
                 <span className="text-[10px] font-extrabold bg-gradient-to-r from-emerald-100 to-teal-100 text-emerald-800 px-2 py-0.5 rounded-full border border-emerald-200">
                   {currentLanguage.code === 'en' ? 'Kisan Portal' : currentLanguage.native}
                 </span>
               </div>
-              <p className="text-[11px] text-slate-500 font-semibold tracking-wide">{t('portalTagline', 'Smart Cold Storage & Queue')}</p>
+              <p className="text-[11px] text-slate-500 font-semibold tracking-wide">{t('portalTagline', 'Empowering the Annadatha')}</p>
             </div>
           </div>
 

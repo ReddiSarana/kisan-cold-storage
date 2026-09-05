@@ -1,6 +1,6 @@
 import { allStorageFacilities } from './allStorageFacilities.js';
 
-// Seed data for AgroVault platform: 77 Telangana Crops, Facilities, and Queue State
+// Seed data for Krishivalaya platform: 77 Telangana Crops, Facilities, and Queue State
 export const cropsData = [
   {
     "id": "paddy",
@@ -1473,7 +1473,7 @@ export const initialSmsLogs = [
     "id": "sms-001",
     "recipientPhone": "+91 98765 12345",
     "recipientName": "Mallaiah Goud",
-    "senderId": "AGROVAULT",
+    "senderId": "KRISHIVALAYA",
     "type": "BOOKING_CONFIRMATION",
     "message": "Namaste Mallaiah garu! Slot reserved at Kakatiya Mega Cold Chain, Warangal for 160 Qtl Red Chilli. Token: TK-101. Gate opens 08:00 AM.",
     "status": "DELIVERED",
@@ -1483,7 +1483,7 @@ export const initialSmsLogs = [
     "id": "sms-002",
     "recipientPhone": "+91 94250 67890",
     "recipientName": "K. Srinivas Reddy",
-    "senderId": "AGROVAULT",
+    "senderId": "KRISHIVALAYA",
     "type": "QUEUE_CALL",
     "message": "ATTENTION Srinivas Reddy: Token TK-102 is called! Please proceed vehicle TS-16-T-9812 to Unloading Bay 1 immediately.",
     "status": "DELIVERED",
@@ -1493,7 +1493,7 @@ export const initialSmsLogs = [
     "id": "sms-003",
     "recipientPhone": "+91 98765 12345",
     "recipientName": "Mallaiah Goud",
-    "senderId": "AGROVAULT",
+    "senderId": "KRISHIVALAYA",
     "type": "QUEUE_CALL",
     "message": "ATTENTION Mallaiah Goud: Token TK-101 is called! Move tractor TS-03-AB-4521 to Bay 2 for weighbridge inspection.",
     "status": "DELIVERED",

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useApp } from '../context/AppContext';
 import { useLanguage } from '../context/LanguageContext';
+import PictorialSystemDiagram from '../components/PictorialSystemDiagram';
 import {
   Snowflake,
   ShieldCheck,
@@ -230,6 +231,9 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+      {/* Pictorial Representation & Visual Architecture of the Website */}
+      <PictorialSystemDiagram />
 
       {/* The Problem We Solve */}
       <section className="space-y-6">

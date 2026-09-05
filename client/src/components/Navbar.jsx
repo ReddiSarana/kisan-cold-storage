@@ -104,9 +104,12 @@ export default function Navbar() {
             onClick={() => setActiveTab('about')}
             className="flex items-center space-x-3 cursor-pointer group"
           >
-            <div className="relative w-11 h-11 rounded-2xl bg-gradient-to-br from-emerald-600 via-teal-600 to-emerald-800 flex items-center justify-center text-white shadow-md group-hover:scale-105 group-hover:shadow-emerald-500/25 transition-all duration-300 border border-emerald-400/30">
-              <Snowflake className="w-6 h-6 animate-spin-slow text-emerald-100" />
-              <div className="absolute inset-0 rounded-2xl bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+            <div className="relative w-11 h-11 rounded-2xl bg-white p-1 flex items-center justify-center shadow-md group-hover:scale-105 group-hover:shadow-emerald-500/25 transition-all duration-300 border border-emerald-300/80 overflow-hidden shrink-0">
+              <img
+                src="/krishivalaya-logo.jpg"
+                alt="Krishivalaya Logo"
+                className="w-full h-full object-contain rounded-xl"
+              />
             </div>
             <div>
               <div className="flex items-center space-x-1.5">

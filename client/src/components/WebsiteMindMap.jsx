@@ -156,21 +156,30 @@ export default function WebsiteMindMap() {
 
       {/* Main Header: Extremely friendly & clear */}
       <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-white/10 pb-6">
-        <div>
-          <div className="inline-flex items-center space-x-2 bg-emerald-400 text-slate-950 font-black text-xs px-3.5 py-1 rounded-full uppercase tracking-wider mb-2 shadow-md">
-            <span>🧠 SIMPLE FARMER MIND MAP</span>
-            <span>•</span>
-            <span>రైతు సులభ మైండ్ మ్యాప్</span>
+        <div className="flex items-start space-x-4">
+          <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white p-1.5 shadow-xl border-2 border-emerald-400 shrink-0 hidden sm:flex items-center justify-center overflow-hidden">
+            <img
+              src="/krishivalaya-logo.jpg"
+              alt="Krishivalaya"
+              className="w-full h-full object-contain rounded-xl"
+            />
           </div>
-          <h2 className="text-2xl sm:text-4xl font-black text-white tracking-tight">
-            How Krishivalaya Works in 6 Easy Steps
-          </h2>
-          <p className="text-sm sm:text-base text-emerald-300 font-semibold mt-1">
-            ఈ వెబ్‌సైట్ ద్వారా రైతు పంటను దాచి ఎక్కువ లాభం పొందే విధానం
-          </p>
-          <p className="text-xs text-slate-300 mt-1 max-w-2xl">
-            Save your harvest from rotting, get an immediate 75% bank loan, and sell when mandi rates double. Even a child can understand this simple map.
-          </p>
+          <div>
+            <div className="inline-flex items-center space-x-2 bg-emerald-400 text-slate-950 font-black text-xs px-3.5 py-1 rounded-full uppercase tracking-wider mb-2 shadow-md">
+              <span>🧠 SIMPLE FARMER MIND MAP</span>
+              <span>•</span>
+              <span>రైతు సులభ మైండ్ మ్యాప్</span>
+            </div>
+            <h2 className="text-2xl sm:text-4xl font-black text-white tracking-tight">
+              How Krishivalaya Works in 6 Easy Steps
+            </h2>
+            <p className="text-sm sm:text-base text-emerald-300 font-semibold mt-1">
+              ఈ వెబ్‌సైట్ ద్వారా రైతు పంటను దాచి ఎక్కువ లాభం పొందే విధానం
+            </p>
+            <p className="text-xs text-slate-300 mt-1 max-w-2xl">
+              Save your harvest from rotting, get an immediate 75% bank loan, and sell when mandi rates double. Even a child can understand this simple map.
+            </p>
+          </div>
         </div>
 
         {/* Audio Speaker Button: Reads out loud for uneducated farmers */}

@@ -32,8 +32,12 @@ export class ErrorBoundary extends React.Component {
       return (
         <div className="min-h-screen bg-slate-950 text-white flex items-center justify-center p-4">
           <div className="max-w-lg w-full bg-slate-900 border-2 border-emerald-500/60 rounded-3xl p-6 sm:p-8 text-center shadow-2xl space-y-4">
-            <div className="w-16 h-16 mx-auto rounded-2xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-3xl">
-              🌾
+            <div className="w-16 h-16 mx-auto rounded-2xl bg-white p-2 flex items-center justify-center shadow-lg border border-emerald-500/40">
+              <img
+                src="/krishivalaya-logo.jpg"
+                alt="Krishivalaya Logo"
+                className="w-full h-full object-contain rounded-xl"
+              />
             </div>
             <h2 className="text-xl font-black text-white">Krishivalaya Platform Ready</h2>
             <p className="text-xs text-slate-300">

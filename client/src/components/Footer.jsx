@@ -13,9 +13,13 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Col 1: About */}
           <div className="space-y-4">
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 rounded-lg bg-emerald-600 flex items-center justify-center text-white">
-                <Snowflake className="w-5 h-5" />
+            <div className="flex items-center space-x-3">
+              <div className="w-9 h-9 rounded-xl bg-white p-1 flex items-center justify-center shadow-sm overflow-hidden border border-emerald-400/40 shrink-0">
+                <img
+                  src="/krishivalaya-logo.jpg"
+                  alt="Krishivalaya Logo"
+                  className="w-full h-full object-contain rounded-lg"
+                />
               </div>
               <span className="text-xl font-black tracking-tight text-white">Krishi<span className="text-emerald-400">valaya</span></span>
             </div>

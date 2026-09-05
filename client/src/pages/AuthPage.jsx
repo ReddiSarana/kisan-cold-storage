@@ -144,6 +144,16 @@ export default function AuthPage() {
         {/* Left Informational Sidebar */}
         <div className="md:col-span-5 bg-gradient-to-br from-emerald-800 to-teal-900 text-white p-8 flex flex-col justify-between">
           <div className="space-y-6">
+            <div className="flex items-center space-x-3">
+              <div className="w-12 h-12 rounded-2xl bg-white p-1 flex items-center justify-center shadow-lg border border-emerald-300 shrink-0">
+                <img
+                  src="/krishivalaya-logo.jpg"
+                  alt="Krishivalaya"
+                  className="w-full h-full object-contain rounded-xl"
+                />
+              </div>
+              <span className="text-2xl font-black tracking-tight text-white">Krishi<span className="text-emerald-300">valaya</span></span>
+            </div>
             <div className="inline-flex items-center space-x-2 bg-white/10 px-3 py-1 rounded-full text-xs text-emerald-200">
               <ShieldCheck className="w-4 h-4" />
               <span>Verified Agri Identity</span>

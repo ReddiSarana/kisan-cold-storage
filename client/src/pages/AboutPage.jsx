@@ -37,9 +37,18 @@ export default function AboutPage() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-48 bg-emerald-600/10 rounded-full blur-3xl pointer-events-none"></div>
 
         <div className="relative z-10 max-w-3xl space-y-6">
-          <div className="inline-flex items-center space-x-2 bg-emerald-500/15 border border-emerald-400/30 px-4 py-1.5 rounded-full text-emerald-300 text-xs font-bold backdrop-blur-md shadow-xs">
-            <Sparkles className="w-3.5 h-3.5 text-emerald-300 animate-pulse" />
-            <span>{t('aboutHeroTag', "Empowering India's Agricultural Cold Chain & Post-Harvest Wealth")}</span>
+          <div className="flex items-center space-x-3">
+            <div className="w-12 h-12 rounded-2xl bg-white p-1 flex items-center justify-center shadow-lg border border-emerald-400/50 shrink-0">
+              <img
+                src="/krishivalaya-logo.jpg"
+                alt="Krishivalaya Logo"
+                className="w-full h-full object-contain rounded-xl"
+              />
+            </div>
+            <div className="inline-flex items-center space-x-2 bg-emerald-500/15 border border-emerald-400/30 px-4 py-1.5 rounded-full text-emerald-300 text-xs font-bold backdrop-blur-md shadow-xs">
+              <Sparkles className="w-3.5 h-3.5 text-emerald-300 animate-pulse" />
+              <span>{t('aboutHeroTag', "Empowering India's Agricultural Cold Chain & Post-Harvest Wealth")}</span>
+            </div>
           </div>
 
           <h1 className="text-3xl sm:text-5xl font-black tracking-tight leading-tight">

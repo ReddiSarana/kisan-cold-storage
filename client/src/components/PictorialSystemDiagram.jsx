@@ -23,14 +23,19 @@ import {
   ExternalLink,
   QrCode,
   MapPin,
-  Check
+  Check,
+  Compass,
+  Maximize2
 } from 'lucide-react';
+import FarmToStorageRouteMap from './FarmToStorageRouteMap';
 
 export default function PictorialSystemDiagram() {
   const { setActiveTab } = useApp();
   const { t } = useLanguage();
   const [activeView, setActiveView] = useState('journey'); // 'journey' | 'blueprint' | 'infographic'
   const [selectedStage, setSelectedStage] = useState(0);
+  const [ecosystemView, setEcosystemView] = useState('illustrated_map'); // 'illustrated_map' | 'vector_map' | 'workflow'
+  const [activeHotspot, setActiveHotspot] = useState(null);
 
   // 6 End-to-End Visual Journey Stages
   const journeyStages = [
@@ -320,27 +325,220 @@ export default function PictorialSystemDiagram() {
         </div>
       </div>
 
-      {/* Visual Infographic Picture Banner */}
-      <div className="relative z-10 bg-gradient-to-br from-emerald-950 via-slate-900 to-teal-950 p-4 sm:p-6 rounded-3xl border border-emerald-500/30 shadow-2xl overflow-hidden group">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-3 border-b border-white/10 gap-3">
-          <div className="flex items-center space-x-2.5">
-            <span className="w-3 h-3 rounded-full bg-emerald-400 animate-pulse"></span>
-            <span className="text-white text-xs font-black uppercase tracking-wider">
-              High-Definition Visual Ecosystem Diagram
-            </span>
+      {/* High-Definition Visual Ecosystem Diagram & Geographic Cold Chain Map */}
+      <div className="relative z-10 bg-gradient-to-br from-emerald-950 via-slate-900 to-teal-950 p-4 sm:p-7 rounded-3xl border-2 border-emerald-500/40 shadow-2xl overflow-hidden group space-y-4">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between pb-4 border-b border-white/10 gap-3">
+          <div className="space-y-1">
+            <div className="flex items-center space-x-2.5">
+              <span className="w-3 h-3 rounded-full bg-emerald-400 animate-pulse"></span>
+              <h3 className="text-white text-sm sm:text-base font-black uppercase tracking-wider">
+                High-Definition Visual Ecosystem Diagram & Geographic Map
+              </h3>
+            </div>
+            <p className="text-xs text-slate-300">
+              Telangana Cold Storage Network, Transit Highways, Harvest Gates, APMC Mandis & e-NWR Banking
+            </p>
           </div>
-          <span className="text-[11px] text-emerald-300 font-bold bg-white/10 px-3 py-1 rounded-full border border-white/15">
-            5 Connected Agricultural Stages
-          </span>
+
+          {/* Map View Switcher */}
+          <div className="flex items-center space-x-1.5 bg-slate-950/80 p-1.5 rounded-2xl border border-white/10 self-stretch md:self-auto justify-center">
+            <button
+              type="button"
+              onClick={() => setEcosystemView('illustrated_map')}
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 ${
+                ecosystemView === 'illustrated_map'
+                  ? 'bg-gradient-to-r from-emerald-500 to-teal-600 text-slate-950 font-black shadow-md'
+                  : 'text-slate-300 hover:text-white hover:bg-white/10'
+              }`}
+            >
+              <span>🗺️ Ecosystem Map</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setEcosystemView('vector_map')}
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 ${
+                ecosystemView === 'vector_map'
+                  ? 'bg-gradient-to-r from-emerald-500 to-teal-600 text-slate-950 font-black shadow-md'
+                  : 'text-slate-300 hover:text-white hover:bg-white/10'
+              }`}
+            >
+              <span>🛣️ Live Route Map</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setEcosystemView('workflow')}
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 ${
+                ecosystemView === 'workflow'
+                  ? 'bg-gradient-to-r from-emerald-500 to-teal-600 text-slate-950 font-black shadow-md'
+                  : 'text-slate-300 hover:text-white hover:bg-white/10'
+              }`}
+            >
+              <span>📋 5-Stage Flow</span>
+            </button>
+          </div>
         </div>
-        
-        <div className="mt-4 rounded-2xl overflow-hidden border-2 border-emerald-500/40 shadow-2xl relative bg-slate-950">
-          <img
-            src="/images/platform-pictorial-diagram.jpg"
-            alt="AgroVault Kisan Cold Storage Pictorial Representation Diagram"
-            className="w-full h-auto object-cover hover:scale-[1.01] transition-transform duration-500"
-          />
-        </div>
+
+        {/* ECOSYSTEM VIEW 1: HIGH-DEFINITION ILLUSTRATED GEOGRAPHIC MAP */}
+        {ecosystemView === 'illustrated_map' && (
+          <div className="space-y-4">
+            <div className="rounded-2xl overflow-hidden border-2 border-emerald-500/50 shadow-2xl relative bg-slate-950 group/img">
+              <img
+                src="/images/telangana-cold-storage-ecosystem-map.jpg"
+                alt="Telangana Cold Storage Network & Agricultural Ecosystem Map"
+                className="w-full h-auto object-cover hover:scale-[1.01] transition-transform duration-500"
+              />
+              <div className="absolute bottom-3 right-3 bg-slate-950/90 backdrop-blur-md px-3 py-1.5 rounded-xl border border-emerald-500/30 text-[11px] font-bold text-emerald-300 shadow-lg flex items-center space-x-2">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span>Telangana Cold Chain Logistics Region</span>
+              </div>
+            </div>
+
+            {/* Interactive Ecosystem Map Hotspots Bar */}
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-[11px] font-black uppercase text-emerald-300 tracking-wider">
+                  Interactive Ecosystem Hotspots (Click to Inspect)
+                </span>
+                <span className="text-[10px] text-slate-400">
+                  5 Key Cold Chain Pillars
+                </span>
+              </div>
+
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5">
+                {[
+                  {
+                    id: 'warehouse',
+                    icon: '❄️',
+                    title: 'Cold Storage Hubs',
+                    subtitle: 'Multi-Chamber Units',
+                    desc: 'Modern multi-commodity facilities across Karimnagar, Warangal, Nizamabad & Jammikunta with -2°C to 4°C controlled atmosphere.',
+                    kpi: '135 Facilities'
+                  },
+                  {
+                    id: 'harvest',
+                    icon: '🌾',
+                    title: 'Farm Harvest Gates',
+                    subtitle: 'Origin Geotags',
+                    desc: 'Smallholder and commercial farms harvesting Chilli, Turmeric, Potato, Onion and Mango, geotagged for WDRA traceability.',
+                    kpi: '33 Districts'
+                  },
+                  {
+                    id: 'weighbridge',
+                    icon: '⚖️',
+                    title: 'Dharma Kanta',
+                    subtitle: 'Tare Weighbridges',
+                    desc: 'Certified gross-weight and tare-weight intake stations with digital moisture and quality grading at the entry gate.',
+                    kpi: 'Zero Overloading'
+                  },
+                  {
+                    id: 'enwr',
+                    icon: '📄',
+                    title: 'Digital e-NWR',
+                    subtitle: 'Bank Pledge Liquidity',
+                    desc: 'Legally recognized electronic Negotiable Warehouse Receipts enable up to 75% advance loans from SBI, NABARD & Grameena banks.',
+                    kpi: '75% Advance'
+                  },
+                  {
+                    id: 'mandi',
+                    icon: '📈',
+                    title: 'APMC Mandis',
+                    subtitle: 'Off-Season Profits',
+                    desc: 'Strategic release gateways to Hyderabad, Warangal & Khammam wholesale mandis when market prices double or triple.',
+                    kpi: '2x-3x Price Gain'
+                  }
+                ].map((item) => (
+                  <button
+                    key={item.id}
+                    type="button"
+                    onClick={() => setActiveHotspot(activeHotspot === item.id ? null : item.id)}
+                    className={`p-3 rounded-2xl border text-left transition-all ${
+                      activeHotspot === item.id
+                        ? 'bg-emerald-500 text-slate-950 border-emerald-400 font-bold shadow-lg scale-105'
+                        : 'bg-white/5 hover:bg-white/10 border-white/10 text-white'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between mb-1.5">
+                      <span className="text-lg">{item.icon}</span>
+                      <span className={`text-[9px] font-mono px-1.5 py-0.5 rounded-full ${
+                        activeHotspot === item.id ? 'bg-slate-950 text-emerald-300' : 'bg-white/10 text-emerald-300'
+                      }`}>
+                        {item.kpi}
+                      </span>
+                    </div>
+                    <h5 className="font-bold text-xs leading-tight">{item.title}</h5>
+                    <p className={`text-[10px] mt-0.5 ${activeHotspot === item.id ? 'text-slate-900' : 'text-slate-400'}`}>
+                      {item.subtitle}
+                    </p>
+                  </button>
+                ))}
+              </div>
+
+              {/* Active Hotspot Detail Popout */}
+              {activeHotspot && (
+                <div className="bg-slate-900/95 border border-emerald-500/40 rounded-2xl p-4 text-xs text-slate-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-xl">
+                  <div>
+                    <strong className="text-emerald-300 block text-sm font-bold">
+                      {activeHotspot === 'warehouse' && '🏢 Multi-Chamber Cold Storage Infrastructure'}
+                      {activeHotspot === 'harvest' && '🌱 Farm Gate Origin & Produce Collection'}
+                      {activeHotspot === 'weighbridge' && '⚖️ Certified Dharma Kanta & Moisture Lab Checkpoint'}
+                      {activeHotspot === 'enwr' && '📄 Official Digital e-NWR Electronic Warehouse Receipt'}
+                      {activeHotspot === 'mandi' && '📈 Profitable APMC Wholesale Mandi Marketing'}
+                    </strong>
+                    <p className="text-slate-300 text-xs mt-1">
+                      {activeHotspot === 'warehouse' && 'Multi-commodity cold rooms equipped with ammonia/freon cooling, computerized temperature logging, pre-cooling staging bays, and WDRA compliance.'}
+                      {activeHotspot === 'harvest' && 'Direct farm-to-storage road transport corridors bypassing local distress middlemen and guaranteeing produce ownership to the cultivator.'}
+                      {activeHotspot === 'weighbridge' && 'Automated weighbridge gross weight measurement, tare recording, bag count verification, and digital receipt generation.'}
+                      {activeHotspot === 'enwr' && 'Direct bank integration allows farmers to pledge stored commodity receipts for instant 75% liquidity at 7% subsidized agricultural interest.'}
+                      {activeHotspot === 'mandi' && 'Farmers store produce during harvesting gluts and release when demand rises, boosting total net profits by 150% to 250%.'}
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setActiveHotspot(null)}
+                    className="self-end sm:self-auto px-3 py-1 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold"
+                  >
+                    ✕ Close
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* ECOSYSTEM VIEW 2: INTERACTIVE LIVE TRANSIT CORRIDOR MAP */}
+        {ecosystemView === 'vector_map' && (
+          <div className="space-y-2">
+            <div className="flex items-center justify-between text-xs text-slate-300">
+              <span>Dynamic Highway Corridor, Topography & Satellite Vector Engine</span>
+              <span className="text-emerald-400 font-bold">● Active Transit Simulation</span>
+            </div>
+            <FarmToStorageRouteMap
+              originVillage="Choppadandi"
+              originMandal="Choppadandi"
+              originDistrict="Karimnagar"
+              originLandmark="Kisan Agro Cold Chain Corridors"
+              distanceKm={52}
+            />
+          </div>
+        )}
+
+        {/* ECOSYSTEM VIEW 3: 5-STAGE WORKFLOW INFOGRAPHIC */}
+        {ecosystemView === 'workflow' && (
+          <div className="space-y-3">
+            <div className="rounded-2xl overflow-hidden border-2 border-emerald-500/40 shadow-2xl relative bg-slate-950">
+              <img
+                src="/images/platform-pictorial-diagram.jpg"
+                alt="AgroVault Kisan Cold Storage Pictorial Representation Diagram"
+                className="w-full h-auto object-cover hover:scale-[1.01] transition-transform duration-500"
+              />
+            </div>
+            <p className="text-xs text-slate-400 text-center">
+              End-to-End Farmer Workflow: From crop harvest and scientific preservation to digital e-NWR pledge loans and off-season profit realization.
+            </p>
+          </div>
+        )}
       </div>
 
       {/* VIEW 1: FARM-TO-MANDI PICTORIAL JOURNEY */}

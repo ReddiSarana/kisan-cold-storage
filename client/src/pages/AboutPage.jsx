@@ -1,7 +1,7 @@
 import React from 'react';
 import { useApp } from '../context/AppContext';
 import { useLanguage } from '../context/LanguageContext';
-import PictorialSystemDiagram from '../components/PictorialSystemDiagram';
+import WebsiteMindMap from '../components/WebsiteMindMap';
 import {
   Snowflake,
   ShieldCheck,
@@ -80,10 +80,10 @@ export default function AboutPage() {
             </button>
 
             <a
-              href="#pictorial-diagram"
+              href="#mind-map"
               className="flex items-center space-x-2 bg-gradient-to-r from-amber-400 to-amber-300 hover:from-amber-300 hover:to-amber-200 text-slate-950 font-black px-5 py-3.5 rounded-2xl shadow-xl shadow-amber-500/20 transition-all hover:scale-105 text-sm"
             >
-              <span>🖼️ Pictorial System Map</span>
+              <span>🧠 Platform Mind Map</span>
               <ArrowRight className="w-4 h-4 text-slate-950" />
             </a>
 
@@ -363,9 +363,9 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Pictorial System Architecture & Agricultural Supply Chain Map */}
-      <section id="pictorial-diagram" className="scroll-mt-20">
-        <PictorialSystemDiagram />
+      {/* AgroVault Platform Mind Map */}
+      <section id="mind-map" className="scroll-mt-20">
+        <WebsiteMindMap />
       </section>
 
       {/* Crops Quick Selector */}

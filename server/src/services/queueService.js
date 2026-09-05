@@ -18,17 +18,18 @@ class QueueService {
     return list.sort((a, b) => (order[a.status] || 99) - (order[b.status] || 99));
   }
 
-  generateToken({ bookingId, farmerName, farmerPhone, vehicleNumber, cropName, quantityQuintals, facilityId }) {
+  generateToken({ bookingId, farmerName, farmerPhone, vehicleNumber, cropName, cropsList, quantityQuintals, facilityId }) {
     const tokenId = `TK-${this.nextSeq++}`;
     const token = {
       tokenId,
       bookingId: bookingId || `BK-${Date.now()}`,
       farmerName: farmerName || "Farmer",
       farmerPhone: farmerPhone || "+91 98765 00000",
-      vehicleNumber: vehicleNumber || "UP-80-XX-0000",
+      vehicleNumber: vehicleNumber || "TS-03-BK-2026",
       cropName: cropName || "Produce",
+      cropsList: cropsList || null,
       quantityQuintals: Number(quantityQuintals) || 100,
-      facilityId: facilityId || "cs-agra-01",
+      facilityId: facilityId || "cs-telangana-01",
       status: "waiting",
       assignedBay: null,
       estimatedWaitMins: Math.max(15, (this.tokens.filter(t => t.status === "waiting").length + 1) * 20),

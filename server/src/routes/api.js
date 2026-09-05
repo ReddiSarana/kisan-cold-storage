@@ -59,6 +59,8 @@ router.post('/bookings', (req, res) => {
     farmerPhone,
     facilityId,
     cropId,
+    cropName: incomingCropName,
+    cropsList,
     quantityQuintals,
     bagsCount,
     arrivalDate,
@@ -67,17 +69,52 @@ router.post('/bookings', (req, res) => {
     vehicleType
   } = req.body;
 
-  if (!farmerName || !farmerPhone || !facilityId || !cropId || !quantityQuintals) {
+  if (!farmerName || !farmerPhone || !facilityId) {
     return res.status(400).json({ success: false, message: "Missing required fields for booking" });
   }
 
   const facility = facilities.find(f => f.id === facilityId);
-  const crop = cropsData.find(c => c.id === cropId);
 
-  const qty = Number(quantityQuintals);
+  // Normalize multi-crop or single-crop produce items
+  let resolvedCropsList = [];
+  let totalQty = 0;
+  let totalBags = 0;
+
+  if (Array.isArray(cropsList) && cropsList.length > 0) {
+    resolvedCropsList = cropsList.map(c => {
+      const cropObj = cropsData.find(cd => cd.id === c.cropId);
+      const q = Math.max(1, Number(c.quantityQuintals) || 0);
+      const b = Number(c.bagsCount) || Math.round(q * 2);
+      totalQty += q;
+      totalBags += b;
+      return {
+        cropId: c.cropId,
+        cropName: c.cropName || cropObj?.name || c.cropId,
+        quantityQuintals: q,
+        bagsCount: b
+      };
+    });
+  } else {
+    const q = Math.max(1, Number(quantityQuintals) || 100);
+    const b = Number(bagsCount) || Math.round(q * 2);
+    totalQty = q;
+    totalBags = b;
+    const cropObj = cropsData.find(cd => cd.id === cropId);
+    resolvedCropsList = [{
+      cropId: cropId || 'produce',
+      cropName: incomingCropName || cropObj?.name || cropId || 'Agricultural Produce',
+      quantityQuintals: q,
+      bagsCount: b
+    }];
+  }
+
+  const primaryCropId = resolvedCropsList[0]?.cropId || cropId || 'produce';
+  const crop = cropsData.find(c => c.id === primaryCropId);
+  const cropNamesSummary = incomingCropName || resolvedCropsList.map(c => c.cropName).join(', ');
+
   const duration = Number(expectedDurationMonths) || 6;
   const rate = facility ? facility.baseRatePerQuintalMonth : (crop?.avgTariffPerQuintalMonth || 40);
-  const estimatedCostTotal = qty * rate * duration;
+  const estimatedCostTotal = totalQty * rate * duration;
   const advancePaid = Math.round(estimatedCostTotal * 0.25);
   const balanceDue = estimatedCostTotal - advancePaid;
 
@@ -88,9 +125,10 @@ router.post('/bookings', (req, res) => {
     bookingId,
     farmerName,
     farmerPhone,
-    vehicleNumber: vehicleNumber || "UP-80-AB-0000",
-    cropName: crop ? crop.name : "Produce",
-    quantityQuintals: qty,
+    vehicleNumber: vehicleNumber || "TS-03-BK-2026",
+    cropName: cropNamesSummary,
+    cropsList: resolvedCropsList,
+    quantityQuintals: totalQty,
     facilityId
   });
 
@@ -101,14 +139,15 @@ router.post('/bookings', (req, res) => {
     farmerPhone,
     facilityId,
     facilityName: facility ? facility.name : "Cold Storage Hub",
-    cropId,
-    cropName: crop ? crop.name : cropId,
-    quantityQuintals: qty,
-    bagsCount: Number(bagsCount) || Math.round(qty * 2),
+    cropId: primaryCropId,
+    cropName: cropNamesSummary,
+    cropsList: resolvedCropsList,
+    quantityQuintals: totalQty,
+    bagsCount: totalBags,
     bookingDate: new Date().toISOString().split("T")[0],
     arrivalDate: arrivalDate || new Date().toISOString().split("T")[0],
     expectedDurationMonths: duration,
-    vehicleNumber: vehicleNumber || "Pending",
+    vehicleNumber: vehicleNumber || "TS-03-BK-2026",
     vehicleType: vehicleType || "Tractor Trolley",
     status: "confirmed",
     tokenNumber: token.tokenId,
@@ -128,7 +167,7 @@ router.post('/bookings', (req, res) => {
 
   // Update facility available capacity
   if (facility) {
-    facility.availableCapacityMT = Math.max(0, facility.availableCapacityMT - Math.round(qty / 10));
+    facility.availableCapacityMT = Math.max(0, facility.availableCapacityMT - Math.round(totalQty / 10));
   }
 
   // Send Booking Confirmation SMS
@@ -136,7 +175,7 @@ router.post('/bookings', (req, res) => {
     recipientPhone: farmerPhone,
     recipientName: farmerName,
     type: "BOOKING_CONFIRMATION",
-    message: `AgroVault: Namaste ${farmerName}! Booking ${bookingId} confirmed at ${facility?.name || "Cold Store"} for ${qty} Qtl ${crop?.name}. Token: ${token.tokenId}. Date: ${arrivalDate}.`
+    message: `AgroVault: Namaste ${farmerName}! Booking ${bookingId} confirmed at ${facility?.name || "Cold Store"} for ${totalQty} Qtl (${cropNamesSummary}). Token: ${token.tokenId}. Date: ${arrivalDate || newBooking.arrivalDate}.`
   });
 
   res.status(201).json({ success: true, data: newBooking, token });

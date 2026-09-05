@@ -72,19 +72,27 @@ export async function createBooking(bookingData) {
   } catch (err) {
     // Client-side simulation
     const tokenId = `TK-${100 + localQueue.length + 1}`;
+    const cropNameDisplay = bookingData.cropName || (bookingData.cropsList ? bookingData.cropsList.map(c => c.cropName || c.cropId).join(', ') : bookingData.cropId);
+    const totalQty = Number(bookingData.quantityQuintals) || 100;
+    const totalBags = Number(bookingData.bagsCount) || totalQty * 2;
+
     const newBooking = {
       id: `BK-2026-${Math.floor(100 + Math.random() * 900)}`,
       farmerName: bookingData.farmerName,
       farmerPhone: bookingData.farmerPhone,
-      cropName: bookingData.cropId,
-      quantityQuintals: Number(bookingData.quantityQuintals),
+      facilityId: bookingData.facilityId,
+      cropId: bookingData.cropId,
+      cropName: cropNameDisplay,
+      cropsList: bookingData.cropsList || null,
+      quantityQuintals: totalQty,
+      bagsCount: totalBags,
       arrivalDate: bookingData.arrivalDate,
-      vehicleNumber: bookingData.vehicleNumber || 'UP-80-BK-0000',
+      vehicleNumber: bookingData.vehicleNumber || 'TS-03-BK-2026',
       status: 'confirmed',
       tokenNumber: tokenId,
-      estimatedCostTotal: Number(bookingData.quantityQuintals) * 40 * (bookingData.expectedDurationMonths || 6),
-      advancePaid: Math.round(Number(bookingData.quantityQuintals) * 40 * 1.5),
-      balanceDue: Math.round(Number(bookingData.quantityQuintals) * 40 * 4.5),
+      estimatedCostTotal: totalQty * 40 * (bookingData.expectedDurationMonths || 6),
+      advancePaid: Math.round(totalQty * 40 * 1.5),
+      balanceDue: Math.round(totalQty * 40 * 4.5),
       chamberAllocated: 'Chamber 2 - Bay 1'
     };
     localBookings.unshift(newBooking);
@@ -93,9 +101,10 @@ export async function createBooking(bookingData) {
       tokenId,
       farmerName: bookingData.farmerName,
       farmerPhone: bookingData.farmerPhone,
-      vehicleNumber: bookingData.vehicleNumber || 'UP-80-BK-0000',
-      cropName: bookingData.cropId,
-      quantityQuintals: Number(bookingData.quantityQuintals),
+      vehicleNumber: bookingData.vehicleNumber || 'TS-03-BK-2026',
+      cropName: cropNameDisplay,
+      cropsList: bookingData.cropsList || null,
+      quantityQuintals: totalQty,
       status: 'waiting',
       estimatedWaitMins: 20
     };
@@ -108,7 +117,7 @@ export async function createBooking(bookingData) {
       recipientName: bookingData.farmerName,
       senderId: 'AGROVAULT',
       type: 'BOOKING_CONFIRMATION',
-      message: `Namaste ${bookingData.farmerName}! Booking confirmed. Token: ${tokenId}. Please report with vehicle.`,
+      message: `Namaste ${bookingData.farmerName}! Booking confirmed for ${totalQty} Qtl (${cropNameDisplay}). Token: ${tokenId}. Please report with vehicle.`,
       status: 'DELIVERED',
       timestamp: new Date().toISOString()
     });

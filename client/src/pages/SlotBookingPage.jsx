@@ -21,7 +21,9 @@ import {
   Thermometer,
   Percent,
   Calendar,
-  DollarSign
+  DollarSign,
+  Plus,
+  Trash2
 } from 'lucide-react';
 
 export default function SlotBookingPage() {
@@ -45,9 +47,12 @@ export default function SlotBookingPage() {
 
   // Form State
   const [selectedFacilityId, setSelectedFacilityId] = useState('');
-  const [selectedCropId, setSelectedCropId] = useState('red_chilli');
-  const [quantityQuintals, setQuantityQuintals] = useState(150);
-  const [bagsCount, setBagsCount] = useState(300);
+  
+  // Multi-crop state array
+  const [bookedCrops, setBookedCrops] = useState([
+    { cropId: 'dry_red_chilli', quantityQuintals: 100, bagsCount: 200 }
+  ]);
+
   const [expectedDurationMonths, setExpectedDurationMonths] = useState(6);
   const [arrivalDate, setArrivalDate] = useState(() => {
     const today = new Date();
@@ -81,7 +86,14 @@ export default function SlotBookingPage() {
         }
 
         if (selectedBookingCrop) {
-          setSelectedCropId(selectedBookingCrop);
+          setBookedCrops([
+            { cropId: selectedBookingCrop, quantityQuintals: 100, bagsCount: 200 }
+          ]);
+        } else if (cropList.length > 0) {
+          const defaultCrop = cropList.find(c => c.id === 'dry_red_chilli' || c.id === 'red_chilli') || cropList[0];
+          setBookedCrops([
+            { cropId: defaultCrop.id, quantityQuintals: 100, bagsCount: 200 }
+          ]);
         }
       } catch (e) {
         console.error('Error loading booking data:', e);
@@ -92,25 +104,77 @@ export default function SlotBookingPage() {
     loadData();
   }, [selectedBookingFacility, selectedBookingCrop]);
 
-  // Sync bags count when quantity changes (approx 2 bags per quintal for 50kg bags)
-  const handleQuantityChange = (val) => {
-    const qtl = Math.max(1, Number(val) || 0);
-    setQuantityQuintals(qtl);
-    setBagsCount(qtl * 2);
+  // Multi-crop actions
+  const handleAddCrop = () => {
+    const alreadySelectedIds = new Set(bookedCrops.map(c => c.cropId));
+    const nextCrop = crops.find(c => !alreadySelectedIds.has(c.id)) || crops[0];
+    setBookedCrops(prev => [
+      ...prev,
+      {
+        cropId: nextCrop ? nextCrop.id : 'turmeric',
+        quantityQuintals: 50,
+        bagsCount: 100
+      }
+    ]);
   };
+
+  const handleRemoveCrop = (index) => {
+    if (bookedCrops.length <= 1) return;
+    setBookedCrops(prev => prev.filter((_, i) => i !== index));
+  };
+
+  const handleCropChange = (index, field, value) => {
+    setBookedCrops(prev => {
+      const updated = [...prev];
+      if (field === 'quantityQuintals') {
+        const qtl = Math.max(1, Number(value) || 0);
+        updated[index] = {
+          ...updated[index],
+          quantityQuintals: qtl,
+          bagsCount: qtl * 2
+        };
+      } else if (field === 'bagsCount') {
+        updated[index] = {
+          ...updated[index],
+          bagsCount: Math.max(0, Number(value) || 0)
+        };
+      } else if (field === 'cropId') {
+        updated[index] = {
+          ...updated[index],
+          cropId: value
+        };
+      }
+      return updated;
+    });
+  };
+
+  // Totals across all selected crops
+  const totalQuantityQuintals = bookedCrops.reduce((sum, item) => sum + (Number(item.quantityQuintals) || 0), 0);
+  const totalBagsCount = bookedCrops.reduce((sum, item) => sum + (Number(item.bagsCount) || 0), 0);
 
   // Find active facility
   const activeFacility = facilities.find(f => f.id === selectedFacilityId) || facilities[0] || {};
-  const activeCrop = crops.find(c => c.id === selectedCropId) || { name: 'Agricultural Produce' };
 
   // Calculate Tariffs
   const ratePerQtlMonth = activeFacility?.baseRatePerQuintalMonth || 40;
-  const storageTariff = quantityQuintals * ratePerQtlMonth * expectedDurationMonths;
+  const storageTariff = totalQuantityQuintals * ratePerQtlMonth * expectedDurationMonths;
   const handlingFeePerBag = activeFacility?.handlingFeePerBag || 5;
-  const handlingCharges = bagsCount * handlingFeePerBag;
+  const handlingCharges = totalBagsCount * handlingFeePerBag;
   const totalEstimatedCost = storageTariff + handlingCharges;
   const advanceAmount = Math.round(totalEstimatedCost * 0.25);
   const balanceDue = totalEstimatedCost - advanceAmount;
+
+  // Resolved crop items with details
+  const resolvedBookedCrops = bookedCrops.map(item => {
+    const cropObj = crops.find(c => c.id === item.cropId) || { name: item.cropId, category: 'Produce' };
+    const cropTariff = (Number(item.quantityQuintals) || 0) * ratePerQtlMonth * expectedDurationMonths;
+    return {
+      ...item,
+      cropName: cropObj.name,
+      category: cropObj.category,
+      cropTariff
+    };
+  });
 
   // Handle Form Submission
   const handleSubmit = async (e) => {
@@ -118,13 +182,25 @@ export default function SlotBookingPage() {
     setIsSubmitting(true);
 
     try {
+      const cropsList = resolvedBookedCrops.map(c => ({
+        cropId: c.cropId,
+        cropName: c.cropName,
+        quantityQuintals: Number(c.quantityQuintals) || 0,
+        bagsCount: Number(c.bagsCount) || 0
+      }));
+
+      const cropNamesList = cropsList.map(c => c.cropName);
+      const cropNamesSummary = cropNamesList.join(', ');
+
       const payload = {
         farmerName,
         farmerPhone,
         facilityId: activeFacility.id,
-        cropId: selectedCropId,
-        quantityQuintals,
-        bagsCount,
+        cropId: bookedCrops[0]?.cropId || 'produce',
+        cropName: cropNamesSummary,
+        cropsList,
+        quantityQuintals: totalQuantityQuintals,
+        bagsCount: totalBagsCount,
         arrivalDate,
         expectedDurationMonths,
         vehicleNumber,
@@ -317,9 +393,9 @@ export default function SlotBookingPage() {
               <p className="text-[11px] text-slate-500">{activeFacility?.district}, {activeFacility?.state}</p>
             </div>
             <div>
-              <p className="text-[10px] text-slate-400 font-bold uppercase">Produce & Quantity</p>
-              <p className="font-bold text-sm text-slate-900">{quantityQuintals} Quintals ({bagsCount} Bags)</p>
-              <p className="text-[11px] text-slate-500 capitalize">{activeCrop?.name}</p>
+              <p className="text-[10px] text-slate-400 font-bold uppercase">Total Produce & Quantity</p>
+              <p className="font-bold text-sm text-slate-900">{totalQuantityQuintals} Quintals ({totalBagsCount} Bags)</p>
+              <p className="text-[11px] text-slate-500 font-semibold">{bookedCrops.length} Commodity Type(s)</p>
             </div>
             <div>
               <p className="text-[10px] text-slate-400 font-bold uppercase">Arrival Schedule</p>
@@ -328,12 +404,43 @@ export default function SlotBookingPage() {
             </div>
           </div>
 
+          {/* Dedicated Breakdown of all booked crops */}
+          <div className="bg-slate-50 rounded-2xl p-5 border border-slate-200 space-y-3">
+            <div className="flex items-center justify-between">
+              <h4 className="text-xs font-black text-slate-900 uppercase tracking-wider flex items-center space-x-2">
+                <Layers className="w-4 h-4 text-emerald-600" />
+                <span>Reserved Commodities Breakdown ({resolvedBookedCrops.length} Crops)</span>
+              </h4>
+              <span className="text-[11px] font-mono font-bold text-slate-600">
+                Combined: {totalQuantityQuintals} Qtl • {totalBagsCount} Bags
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+              {resolvedBookedCrops.map((c, i) => (
+                <div key={i} className="bg-white rounded-xl p-3.5 border border-slate-200/90 shadow-xs flex items-center justify-between">
+                  <div>
+                    <span className="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200">
+                      Crop #{i + 1}
+                    </span>
+                    <p className="font-bold text-sm text-slate-900 mt-1">{c.cropName}</p>
+                    <p className="text-[11px] text-slate-500">{c.category}</p>
+                  </div>
+                  <div className="text-right">
+                    <p className="font-mono font-black text-sm text-emerald-700">{c.quantityQuintals} Qtl</p>
+                    <p className="text-[11px] text-slate-500">{c.bagsCount} Bags</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
           {/* SMS Notification callout */}
           <div className="bg-amber-50 border border-amber-300 rounded-2xl p-4 flex items-start space-x-3">
             <span className="text-2xl">📲</span>
             <div className="text-xs text-amber-950">
               <strong className="block font-bold">SMS Dispatched to {farmerPhone}</strong>
-              "AgroVault: Namaste {farmerName}! Slot confirmed at {activeFacility?.name} for {quantityQuintals} Qtl {activeCrop?.name}. Token: {successBooking.tokenNumber || 'TK-108'}. Date: {arrivalDate}. Advance payable upon inward weighment: ₹{advanceAmount.toLocaleString()}."
+              "AgroVault: Namaste {farmerName}! Slot confirmed at {activeFacility?.name} for {totalQuantityQuintals} Qtl ({resolvedBookedCrops.map(c => `${c.quantityQuintals} Qtl ${c.cropName}`).join(', ')}). Token: {successBooking.tokenNumber || 'TK-108'}. Date: {arrivalDate}. Advance payable upon inward weighment: ₹{advanceAmount.toLocaleString()}."
             </div>
           </div>
 
@@ -366,8 +473,9 @@ export default function SlotBookingPage() {
             <button
               onClick={() => {
                 setSuccessBooking(null);
-                setQuantityQuintals(150);
-                setBagsCount(300);
+                setBookedCrops([
+                  { cropId: crops[0]?.id || 'dry_red_chilli', quantityQuintals: 100, bagsCount: 200 }
+                ]);
               }}
               className="ml-auto text-xs font-bold text-slate-600 hover:text-emerald-700 px-3 py-2"
             >
@@ -414,81 +522,187 @@ export default function SlotBookingPage() {
               </select>
             </div>
 
-            {/* Field 2: Crop & Quantity */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="space-y-1.5">
-                <label className="block text-xs font-bold text-slate-800 uppercase tracking-wider">
-                  2. Harvested Crop Commodity *
-                </label>
-                <select
-                  value={selectedCropId}
-                  onChange={(e) => setSelectedCropId(e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs sm:text-sm font-semibold text-slate-900 focus:bg-white focus:ring-2 focus:ring-emerald-600 focus:outline-none"
-                  required
-                >
-                  {crops.map((c) => (
-                    <option key={c.id} value={c.id}>
-                      {c.name} ({c.category})
-                    </option>
-                  ))}
-                </select>
+            {/* Field 2: Multi-Crop Selection & Produce Quantities */}
+            <div className="space-y-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 border-b border-slate-100">
+                <div>
+                  <label className="block text-xs font-bold text-slate-800 uppercase tracking-wider">
+                    2. Harvested Crops & Commodities *
+                  </label>
+                  <p className="text-xs text-slate-500">
+                    Book chamber space for one or multiple crops in a single gate pass
+                  </p>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <span className="text-[11px] bg-emerald-50 text-emerald-800 font-bold border border-emerald-200 px-2.5 py-1 rounded-lg">
+                    {bookedCrops.length} {bookedCrops.length === 1 ? 'Crop' : 'Crops'} Selected
+                  </span>
+                  <button
+                    type="button"
+                    onClick={handleAddCrop}
+                    className="flex items-center space-x-1.5 bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-700 hover:to-teal-800 text-white text-xs font-black px-3.5 py-1.5 rounded-xl shadow-xs transition hover:scale-102"
+                  >
+                    <Plus className="w-3.5 h-3.5" />
+                    <span>Add Another Crop</span>
+                  </button>
+                </div>
               </div>
 
-              <div className="space-y-1.5">
-                <label className="block text-xs font-bold text-slate-800 uppercase tracking-wider">
-                  3. Quantity in Quintals *
-                </label>
-                <div className="relative">
-                  <input
-                    type="number"
-                    min="1"
-                    max="10000"
-                    value={quantityQuintals}
-                    onChange={(e) => handleQuantityChange(e.target.value)}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 pr-12 text-xs sm:text-sm font-bold text-slate-900 focus:bg-white focus:ring-2 focus:ring-emerald-600 focus:outline-none"
-                    required
-                  />
-                  <span className="absolute right-3.5 top-3.5 text-xs text-slate-400 font-bold">
-                    Qtl
+              {/* Crop Rows List */}
+              <div className="space-y-3.5">
+                {bookedCrops.map((cropItem, idx) => {
+                  const currentCropObj = crops.find(c => c.id === cropItem.cropId);
+                  return (
+                    <div
+                      key={idx}
+                      className="bg-slate-50/90 hover:bg-slate-50 rounded-2xl p-4 border border-slate-200/90 shadow-xs transition space-y-3"
+                    >
+                      <div className="flex items-center justify-between pb-2 border-b border-slate-200/60">
+                        <div className="flex items-center space-x-2">
+                          <span className="w-6 h-6 rounded-lg bg-emerald-600 text-white text-xs font-black flex items-center justify-center shadow-xs">
+                            {idx + 1}
+                          </span>
+                          <span className="text-xs font-black text-slate-800">
+                            Commodity #{idx + 1}: {currentCropObj?.name || 'Select Crop'}
+                          </span>
+                          {currentCropObj?.category && (
+                            <span className="text-[10px] bg-slate-200/80 text-slate-700 font-semibold px-2 py-0.5 rounded-md hidden sm:inline-block">
+                              {currentCropObj.category}
+                            </span>
+                          )}
+                        </div>
+
+                        {bookedCrops.length > 1 && (
+                          <button
+                            type="button"
+                            onClick={() => handleRemoveCrop(idx)}
+                            className="flex items-center space-x-1 text-xs text-rose-600 hover:text-rose-700 hover:bg-rose-50 px-2 py-1 rounded-lg transition font-bold"
+                            title="Remove this crop"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                            <span className="hidden sm:inline">Remove</span>
+                          </button>
+                        )}
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-12 gap-3">
+                        {/* Crop Selector (6 cols) */}
+                        <div className="sm:col-span-6 space-y-1">
+                          <label className="block text-[11px] font-bold text-slate-600 uppercase">
+                            Crop Type
+                          </label>
+                          <select
+                            value={cropItem.cropId}
+                            onChange={(e) => handleCropChange(idx, 'cropId', e.target.value)}
+                            className="w-full bg-white border border-slate-200 rounded-xl p-2.5 text-xs sm:text-sm font-semibold text-slate-900 focus:ring-2 focus:ring-emerald-600 focus:outline-none"
+                            required
+                          >
+                            {crops.map((c) => (
+                              <option key={c.id} value={c.id}>
+                                {c.name} ({c.category})
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+
+                        {/* Quantity (3 cols) */}
+                        <div className="sm:col-span-3 space-y-1">
+                          <label className="block text-[11px] font-bold text-slate-600 uppercase">
+                            Weight (Quintals)
+                          </label>
+                          <div className="relative">
+                            <input
+                              type="number"
+                              min="1"
+                              max="10000"
+                              value={cropItem.quantityQuintals}
+                              onChange={(e) => handleCropChange(idx, 'quantityQuintals', e.target.value)}
+                              className="w-full bg-white border border-slate-200 rounded-xl p-2.5 pr-9 text-xs sm:text-sm font-bold text-slate-900 focus:ring-2 focus:ring-emerald-600 focus:outline-none"
+                              required
+                            />
+                            <span className="absolute right-2.5 top-2.5 text-[11px] text-slate-400 font-bold">
+                              Qtl
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Bags Count (3 cols) */}
+                        <div className="sm:col-span-3 space-y-1">
+                          <label className="block text-[11px] font-bold text-slate-600 uppercase">
+                            Gunny Bags
+                          </label>
+                          <div className="relative">
+                            <input
+                              type="number"
+                              min="1"
+                              value={cropItem.bagsCount}
+                              onChange={(e) => handleCropChange(idx, 'bagsCount', e.target.value)}
+                              className="w-full bg-white border border-slate-200 rounded-xl p-2.5 pr-10 text-xs sm:text-sm font-bold text-slate-900 focus:ring-2 focus:ring-emerald-600 focus:outline-none"
+                            />
+                            <span className="absolute right-2.5 top-2.5 text-[10px] text-slate-400 font-bold">
+                              Bags
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Add Crop Button Action Bar */}
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-2 p-3 bg-emerald-50/70 border border-emerald-200/80 rounded-2xl">
+                <div className="text-xs text-emerald-950 font-medium flex items-center space-x-1.5">
+                  <Sparkles className="w-4 h-4 text-emerald-600 shrink-0" />
+                  <span>
+                    Need to deposit multiple crops? Click <strong>"+ Add Another Crop"</strong> to combine them on 1 gate pass.
                   </span>
+                </div>
+                <button
+                  type="button"
+                  onClick={handleAddCrop}
+                  className="w-full sm:w-auto shrink-0 flex items-center justify-center space-x-1.5 bg-white border border-emerald-300 hover:border-emerald-500 hover:bg-emerald-50 text-emerald-800 text-xs font-black px-4 py-2 rounded-xl transition shadow-xs"
+                >
+                  <Plus className="w-3.5 h-3.5 text-emerald-600" />
+                  <span>+ Add Another Crop</span>
+                </button>
+              </div>
+
+              {/* Multi-Crop Totals Summary Strip */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-1">
+                <div className="bg-slate-100 p-3 rounded-xl border border-slate-200">
+                  <p className="text-[10px] text-slate-500 uppercase font-bold">Total Produce</p>
+                  <p className="font-mono font-black text-sm text-slate-900">{bookedCrops.length} Commodity Types</p>
+                </div>
+                <div className="bg-emerald-50 p-3 rounded-xl border border-emerald-200">
+                  <p className="text-[10px] text-emerald-700 uppercase font-bold">Total Weight</p>
+                  <p className="font-mono font-black text-sm text-emerald-900">{totalQuantityQuintals} Qtl ({Math.round(totalQuantityQuintals / 10 * 10) / 10} MT)</p>
+                </div>
+                <div className="bg-teal-50 p-3 rounded-xl border border-teal-200 col-span-2 sm:col-span-1">
+                  <p className="text-[10px] text-teal-700 uppercase font-bold">Total Bags</p>
+                  <p className="font-mono font-black text-sm text-teal-900">{totalBagsCount} Bags (~50kg)</p>
                 </div>
               </div>
             </div>
 
-            {/* Field 3: Bag count & Duration */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="space-y-1.5">
-                <label className="block text-xs font-bold text-slate-800 uppercase tracking-wider">
-                  Estimated Bag Count
-                </label>
-                <input
-                  type="number"
-                  min="1"
-                  value={bagsCount}
-                  onChange={(e) => setBagsCount(Number(e.target.value) || 0)}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs sm:text-sm font-semibold text-slate-900 focus:bg-white focus:ring-2 focus:ring-emerald-600 focus:outline-none"
-                />
-                <span className="text-[11px] text-slate-400">Standard 50kg gunny bags</span>
-              </div>
-
-              <div className="space-y-1.5">
-                <label className="block text-xs font-bold text-slate-800 uppercase tracking-wider">
-                  Storage Duration in Months *
-                </label>
-                <select
-                  value={expectedDurationMonths}
-                  onChange={(e) => setExpectedDurationMonths(Number(e.target.value))}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs sm:text-sm font-semibold text-slate-900 focus:bg-white focus:ring-2 focus:ring-emerald-600 focus:outline-none"
-                  required
-                >
-                  <option value={1}>1 Month (Short Term Transit)</option>
-                  <option value={2}>2 Months</option>
-                  <option value={3}>3 Months</option>
-                  <option value={6}>6 Months (Standard Season Post-Harvest)</option>
-                  <option value={9}>9 Months (Extended Market Price Waiting)</option>
-                  <option value={12}>12 Months (Full Year Storage)</option>
-                </select>
-              </div>
+            {/* Field 3: Duration */}
+            <div className="space-y-1.5">
+              <label className="block text-xs font-bold text-slate-800 uppercase tracking-wider">
+                3. Storage Duration in Months *
+              </label>
+              <select
+                value={expectedDurationMonths}
+                onChange={(e) => setExpectedDurationMonths(Number(e.target.value))}
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs sm:text-sm font-semibold text-slate-900 focus:bg-white focus:ring-2 focus:ring-emerald-600 focus:outline-none"
+                required
+              >
+                <option value={1}>1 Month (Short Term Transit)</option>
+                <option value={2}>2 Months</option>
+                <option value={3}>3 Months</option>
+                <option value={6}>6 Months (Standard Season Post-Harvest)</option>
+                <option value={9}>9 Months (Extended Market Price Waiting)</option>
+                <option value={12}>12 Months (Full Year Storage)</option>
+              </select>
             </div>
 
             {/* Field 4: Arrival Date & Time Slot Cards */}
@@ -684,13 +898,28 @@ export default function SlotBookingPage() {
 
               {/* Items Breakdown */}
               <div className="space-y-3.5 text-xs">
+                {/* Per-crop itemized summary if multiple crops */}
+                {bookedCrops.length > 1 && (
+                  <div className="space-y-2 pb-3 border-b border-white/10">
+                    <p className="text-[11px] font-bold uppercase text-emerald-300">
+                      Produce Breakdown ({bookedCrops.length} Crops):
+                    </p>
+                    {resolvedBookedCrops.map((c, i) => (
+                      <div key={i} className="flex items-center justify-between text-slate-300 text-[11px]">
+                        <span className="truncate pr-2">#{i + 1} {c.cropName} ({c.quantityQuintals} Qtl)</span>
+                        <span className="font-mono text-emerald-200 shrink-0">₹{c.cropTariff.toLocaleString()}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
                 <div className="flex items-center justify-between text-slate-300">
-                  <span className="font-medium">Chamber Rent ({quantityQuintals} Qtl × ₹{ratePerQtlMonth} × {expectedDurationMonths} mo)</span>
+                  <span className="font-medium">Total Rent ({totalQuantityQuintals} Qtl × ₹{ratePerQtlMonth} × {expectedDurationMonths} mo)</span>
                   <span className="font-mono font-bold text-white">₹{storageTariff.toLocaleString()}</span>
                 </div>
 
                 <div className="flex items-center justify-between text-slate-300">
-                  <span className="font-medium">Weighbridge & Bag Stacking Fee ({bagsCount} Bags × ₹{handlingFeePerBag})</span>
+                  <span className="font-medium">Weighbridge & Stacking Fee ({totalBagsCount} Bags × ₹{handlingFeePerBag})</span>
                   <span className="font-mono font-bold text-white">₹{handlingCharges.toLocaleString()}</span>
                 </div>
 

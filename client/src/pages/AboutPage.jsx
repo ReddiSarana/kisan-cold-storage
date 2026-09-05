@@ -117,9 +117,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Pictorial Representation & Visual Architecture of the Website */}
-      <PictorialSystemDiagram />
-
       {/* Neat Farmer Step-by-Step Directions Board */}
       <section className="bg-gradient-to-br from-emerald-50/90 via-teal-50/70 to-amber-50/80 border-2 border-emerald-300/80 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6 relative overflow-hidden">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-emerald-200/80 pb-4">

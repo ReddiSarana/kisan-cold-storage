@@ -15,7 +15,8 @@ import {
   Phone,
   Layers,
   Sparkles,
-  CalendarCheck
+  CalendarCheck,
+  Search
 } from 'lucide-react';
 
 export default function StorageUnitsPage() {
@@ -25,6 +26,7 @@ export default function StorageUnitsPage() {
   const [crops, setCrops] = useState([]);
   const [selectedDistrict, setSelectedDistrict] = useState('All');
   const [maxPrice, setMaxPrice] = useState(100);
+  const [searchQuery, setSearchQuery] = useState('');
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -48,10 +50,15 @@ export default function StorageUnitsPage() {
   const districts = ['All', ...Array.from(new Set(facilities.map(f => f.district)))];
 
   const filteredFacilities = facilities.filter((f) => {
+    const matchesSearch = !searchQuery ||
+      f.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      f.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      f.district.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (f.pincode && f.pincode.includes(searchQuery));
     const matchesCrop = !selectedCropFilter || f.supportedCrops.includes(selectedCropFilter);
     const matchesDistrict = selectedDistrict === 'All' || f.district.toLowerCase() === selectedDistrict.toLowerCase();
     const matchesPrice = f.baseRatePerQuintalMonth <= maxPrice;
-    return matchesCrop && matchesDistrict && matchesPrice;
+    return matchesSearch && matchesCrop && matchesDistrict && matchesPrice;
   });
 
   return (
@@ -161,11 +168,23 @@ export default function StorageUnitsPage() {
         <div className="flex items-center justify-between border-b border-slate-100 pb-3">
           <div className="flex items-center space-x-2 text-slate-800 font-bold text-xs">
             <Filter className="w-4 h-4 text-emerald-600" />
-            <span>Crop & Location Filters</span>
+            <span>Search & Filter 135 Cold Storage Facilities</span>
           </div>
           <span className="text-xs text-slate-500 font-medium">
-            Showing <strong>{filteredFacilities.length}</strong> {t('activeFacilities', "active facilities")}
+            Showing <strong>{filteredFacilities.length}</strong> of <strong>{facilities.length}</strong> {t('activeFacilities', "active facilities")}
           </span>
+        </div>
+
+        {/* Search Bar for 135 Facilities */}
+        <div className="relative">
+          <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
+          <input
+            type="text"
+            placeholder="Search 135 cold storages by facility name, village, mandal, or road (e.g. Choppadandi, Enumamula, Sarangpur, Jadcherla, Gubba, Medchal)..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full bg-slate-50 border border-slate-200 pl-10 pr-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-slate-800 focus:bg-white focus:ring-2 focus:ring-emerald-600 focus:outline-none transition"
+          />
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">

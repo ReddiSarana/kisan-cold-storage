@@ -74,13 +74,13 @@ export default function PictorialSystemDiagram() {
       targetTab: 'booking',
       tabButtonText: 'Open Slot Booking Window',
       bulletPoints: [
-        '16 cold storages with 72,000 MT live capacity across Telangana',
-        'Transparent tariffs starting at ₹52 - ₹65/quintal/month',
+        '135 cold storages with 950,000+ MT live capacity across Telangana',
+        'Transparent tariffs starting at ₹48 - ₹65/quintal/month',
         'Dedicated booking window separated from facility registry',
         'Select vehicle type (Tractor, Mini Truck, 10-Wheeler Lorry)'
       ],
       diagramStats: {
-        metric: '16 Facilities',
+        metric: '135 Facilities',
         sub: 'Telangana & Regional Network'
       }
     },
@@ -203,7 +203,7 @@ export default function PictorialSystemDiagram() {
       id: 'units',
       title: '2. Cold Storage Registry',
       badge: 'Facility Directory',
-      tagline: '16 Facilities in Telangana & Regions',
+      tagline: '135 Facilities in Telangana & Regions',
       desc: 'Browse multi-chamber cold storage facilities with live occupied/available MT, tariff rates, and Google map navigation.',
       icon: Warehouse,
       color: 'from-teal-600 to-emerald-700',

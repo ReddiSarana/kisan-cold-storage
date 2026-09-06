@@ -117,14 +117,14 @@ export default function LandVerificationPage() {
       <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
           <div className="flex items-center space-x-2 text-xs text-emerald-800 font-semibold mb-1">
-            <span className="cursor-pointer hover:underline" onClick={() => setActiveTab('about')}>Home</span>
+            <span className="cursor-pointer hover:underline" onClick={() => setActiveTab('about')}>Home (About Us)</span>
             <span>&rarr;</span>
-            <span className="cursor-pointer hover:underline" onClick={() => setActiveTab('auth')}>Registration</span>
+            <span className="cursor-pointer hover:underline" onClick={() => setActiveTab('signup')}>Step 1: Registration</span>
             <span>&rarr;</span>
-            <span className="text-emerald-950 font-bold">Land Document Verification</span>
+            <span className="text-emerald-950 font-bold">Step 2: Land Document Verification</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight flex items-center gap-2.5">
-            <span>🌾 Farmer Land Ownership Verification</span>
+            <span>🌾 Step 2: Farmer Land Ownership Verification</span>
           </h1>
           <p className="text-xs sm:text-sm text-slate-600 mt-1">
             Submit your Dharani / Pattadar Passbook or RoR records to unlock cold storage space and bank credit receipts.
@@ -431,10 +431,10 @@ export default function LandVerificationPage() {
           <div className="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-slate-100">
             <button
               type="button"
-              onClick={() => setActiveTab('auth')}
-              className="text-xs font-semibold text-slate-500 hover:text-slate-800 cursor-pointer"
+              onClick={() => setActiveTab('signup')}
+              className="text-xs font-semibold text-slate-500 hover:text-slate-800 cursor-pointer flex items-center space-x-1"
             >
-              &larr; Back to Registration
+              <span>&larr; Back to Step 1: Registration</span>
             </button>
 
             <button

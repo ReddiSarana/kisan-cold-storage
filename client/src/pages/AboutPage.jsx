@@ -66,14 +66,36 @@ export default function AboutPage() {
           </p>
 
           <div className="flex flex-wrap items-center gap-3.5 pt-3">
-            <button
-              onClick={() => setActiveTab('auth')}
-              className="flex items-center space-x-2.5 bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-300 hover:from-amber-300 hover:to-yellow-300 text-slate-950 font-black px-6 py-3.5 rounded-2xl shadow-xl shadow-amber-400/25 transition-all hover:scale-105 text-sm cursor-pointer border-2 border-amber-300"
-            >
-              <LogIn className="w-4 h-4 text-slate-950" />
-              <span>{isAuthenticated ? 'My Profile / Switch' : 'Sign In or Sign Up'}</span>
-              <ArrowRight className="w-4 h-4 text-slate-950" />
-            </button>
+            {!isAuthenticated ? (
+              <>
+                <button
+                  onClick={() => setActiveTab('signin')}
+                  className="flex items-center space-x-2.5 bg-gradient-to-r from-emerald-400 to-teal-400 hover:from-emerald-300 hover:to-teal-300 text-slate-950 font-black px-6 py-3.5 rounded-2xl shadow-xl shadow-emerald-500/25 transition-all hover:scale-105 text-sm cursor-pointer border-2 border-emerald-300"
+                >
+                  <LogIn className="w-4 h-4 text-slate-950" />
+                  <span>Sign In (Direct Access)</span>
+                  <ArrowRight className="w-4 h-4 text-slate-950" />
+                </button>
+
+                <button
+                  onClick={() => setActiveTab('signup')}
+                  className="flex items-center space-x-2.5 bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-300 hover:from-amber-300 hover:to-yellow-300 text-slate-950 font-black px-6 py-3.5 rounded-2xl shadow-xl shadow-amber-400/25 transition-all hover:scale-105 text-sm cursor-pointer border-2 border-amber-300"
+                >
+                  <UserPlus className="w-4 h-4 text-slate-950" />
+                  <span>Sign Up & Verify Land</span>
+                  <ArrowRight className="w-4 h-4 text-slate-950" />
+                </button>
+              </>
+            ) : (
+              <button
+                onClick={() => setActiveTab('units')}
+                className="flex items-center space-x-2.5 bg-gradient-to-r from-emerald-400 to-teal-400 hover:from-emerald-300 hover:to-teal-300 text-slate-950 font-black px-6 py-3.5 rounded-2xl shadow-xl shadow-emerald-500/20 transition-all hover:scale-105 text-sm cursor-pointer"
+              >
+                <Warehouse className="w-4 h-4 text-slate-950" />
+                <span>Go to Inside Website</span>
+                <ArrowRight className="w-4 h-4 text-slate-950" />
+              </button>
+            )}
 
             <button
               onClick={() => setActiveTab('booking')}
@@ -183,7 +205,7 @@ export default function AboutPage() {
             ) : (
               <>
                 <button
-                  onClick={() => setActiveTab('auth')}
+                  onClick={() => setActiveTab('signin')}
                   className="flex items-center justify-center space-x-2 bg-gradient-to-r from-emerald-400 via-teal-300 to-emerald-300 hover:from-emerald-300 hover:to-teal-200 text-slate-950 font-black px-6 py-3.5 rounded-2xl shadow-xl shadow-emerald-500/25 transition-all hover:scale-105 text-xs sm:text-sm cursor-pointer border border-emerald-300"
                 >
                   <LogIn className="w-4 h-4 text-slate-950" />
@@ -191,7 +213,7 @@ export default function AboutPage() {
                   <ArrowRight className="w-4 h-4 text-slate-950" />
                 </button>
                 <button
-                  onClick={() => setActiveTab('auth')}
+                  onClick={() => setActiveTab('signup')}
                   className="flex items-center justify-center space-x-2 bg-gradient-to-r from-amber-400 to-yellow-400 hover:from-amber-300 hover:to-yellow-300 text-slate-950 font-black px-6 py-3.5 rounded-2xl shadow-xl shadow-amber-500/25 transition-all hover:scale-105 text-xs sm:text-sm cursor-pointer border border-amber-300"
                 >
                   <UserPlus className="w-4 h-4 text-slate-950" />

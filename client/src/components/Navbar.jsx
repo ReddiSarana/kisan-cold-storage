@@ -17,7 +17,8 @@ import {
   ChevronDown,
   Globe,
   LogIn,
-  LogOut
+  LogOut,
+  UserPlus
 } from 'lucide-react';
 
 export default function Navbar() {
@@ -42,16 +43,26 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [roleDropdownOpen, setRoleDropdownOpen] = useState(false);
 
-  const navItems = [
-    { id: 'about', label: t('about', 'About Us'), icon: Sprout, badge: 'Visual Map' },
+  // Separate step-by-step visitor navigation vs inside website navigation
+  const unauthenticatedNavItems = [
+    { id: 'about', label: t('about', 'About Us'), icon: Sprout, badge: 'Home' },
     { id: 'crops', label: t('crops', 'Crops Catalog'), icon: Snowflake },
-    { id: 'units', label: t('units', 'Storage Units'), icon: Warehouse },
+    { id: 'signin', label: 'Sign In', icon: LogIn, badge: 'Direct Entry' },
+    { id: 'signup', label: 'Sign Up', icon: UserPlus, badge: 'Verify Land' },
+  ];
+
+  const authenticatedNavItems = [
+    { id: 'about', label: t('about', 'About Us'), icon: Sprout },
+    { id: 'units', label: t('units', 'Storage Units'), icon: Warehouse, badge: 'Inside' },
     { id: 'booking', label: t('booking', 'Slot Booking'), icon: CalendarCheck, badge: 'Book Slot' },
     { id: 'queue', label: t('queue', 'Real-Time Queue'), icon: Clock, badge: 'Live' },
+    { id: 'crops', label: t('crops', 'Crops Catalog'), icon: Snowflake },
     { id: 'tracking', label: t('tracking', 'Procurement Tracker'), icon: Activity },
     { id: 'documents', label: t('documents', 'Docx Request'), icon: FileText },
     { id: 'sms', label: t('sms', 'SMS Alerts'), icon: MessageSquare, countBadge: unreadSmsCount },
   ];
+
+  const navItems = isAuthenticated ? authenticatedNavItems : unauthenticatedNavItems;
 
   return (
     <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-xl border-b border-slate-200/80 shadow-sm">
@@ -280,13 +291,22 @@ export default function Navbar() {
                 <span className="hidden md:inline">Sign Out</span>
               </button>
             ) : (
-              <button
-                onClick={() => setActiveTab('auth')}
-                className="bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-700 hover:to-teal-800 text-white text-xs font-black px-4 py-2 rounded-xl shadow-md shadow-emerald-600/20 transition-all hover:scale-105 flex items-center space-x-1.5 cursor-pointer"
-              >
-                <LogIn className="w-3.5 h-3.5" />
-                <span>Sign In / Sign Up</span>
-              </button>
+              <div className="flex items-center space-x-2">
+                <button
+                  onClick={() => setActiveTab('signin')}
+                  className="bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-700 hover:to-teal-800 text-white text-xs font-black px-3.5 py-2 rounded-xl shadow-md shadow-emerald-600/20 transition-all hover:scale-105 flex items-center space-x-1.5 cursor-pointer"
+                >
+                  <LogIn className="w-3.5 h-3.5" />
+                  <span>Sign In</span>
+                </button>
+                <button
+                  onClick={() => setActiveTab('signup')}
+                  className="bg-gradient-to-r from-amber-400 to-yellow-400 hover:from-amber-300 hover:to-yellow-300 text-slate-950 text-xs font-black px-3.5 py-2 rounded-xl shadow-md shadow-amber-500/20 transition-all hover:scale-105 flex items-center space-x-1.5 cursor-pointer border border-amber-300"
+                >
+                  <UserPlus className="w-3.5 h-3.5 text-slate-950" />
+                  <span>Sign Up</span>
+                </button>
+              </div>
             )}
           </div>
 
@@ -390,16 +410,28 @@ export default function Navbar() {
                 <span>Sign Out</span>
               </button>
             ) : (
-              <button
-                onClick={() => {
-                  setActiveTab('auth');
-                  setMobileMenuOpen(false);
-                }}
-                className="w-full bg-gradient-to-r from-emerald-600 to-teal-700 text-white text-xs font-bold py-2.5 rounded-lg text-center shadow-xs flex items-center justify-center space-x-2 cursor-pointer"
-              >
-                <LogIn className="w-4 h-4 text-white" />
-                <span>Sign In / Sign Up</span>
-              </button>
+              <div className="space-y-2">
+                <button
+                  onClick={() => {
+                    setActiveTab('signin');
+                    setMobileMenuOpen(false);
+                  }}
+                  className="w-full bg-gradient-to-r from-emerald-600 to-teal-700 text-white text-xs font-bold py-2.5 rounded-lg text-center shadow-xs flex items-center justify-center space-x-2 cursor-pointer"
+                >
+                  <LogIn className="w-4 h-4 text-white" />
+                  <span>Sign In (Direct Access)</span>
+                </button>
+                <button
+                  onClick={() => {
+                    setActiveTab('signup');
+                    setMobileMenuOpen(false);
+                  }}
+                  className="w-full bg-gradient-to-r from-amber-400 to-yellow-400 text-slate-950 text-xs font-bold py-2.5 rounded-lg text-center shadow-xs flex items-center justify-center space-x-2 cursor-pointer border border-amber-300"
+                >
+                  <UserPlus className="w-4 h-4 text-slate-950" />
+                  <span>Sign Up & Verify Land</span>
+                </button>
+              </div>
             )}
           </div>
         </div>

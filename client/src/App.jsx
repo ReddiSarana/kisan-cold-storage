@@ -16,6 +16,8 @@ import TrackingPage from './pages/TrackingPage';
 import DocumentsPage from './pages/DocumentsPage';
 import SmsLogsPage from './pages/SmsLogsPage';
 import AuthPage from './pages/AuthPage';
+import SignInPage from './pages/SignInPage';
+import SignUpPage from './pages/SignUpPage';
 import ProfilePage from './pages/ProfilePage';
 import LandVerificationPage from './pages/LandVerificationPage';
 
@@ -48,6 +50,8 @@ function AppContent() {
         {activeTab === 'documents' && <DocumentsPage />}
         {activeTab === 'sms' && <SmsLogsPage />}
         {activeTab === 'auth' && <AuthPage />}
+        {activeTab === 'signin' && <SignInPage />}
+        {activeTab === 'signup' && <SignUpPage />}
         {activeTab === 'profile' && <ProfilePage />}
         {activeTab === 'land_verification' && <LandVerificationPage />}
       </main>

@@ -17,6 +17,7 @@ import DocumentsPage from './pages/DocumentsPage';
 import SmsLogsPage from './pages/SmsLogsPage';
 import AuthPage from './pages/AuthPage';
 import ProfilePage from './pages/ProfilePage';
+import LandVerificationPage from './pages/LandVerificationPage';
 
 function AppContent() {
   const { activeTab, latestToast } = useApp();
@@ -48,6 +49,7 @@ function AppContent() {
         {activeTab === 'sms' && <SmsLogsPage />}
         {activeTab === 'auth' && <AuthPage />}
         {activeTab === 'profile' && <ProfilePage />}
+        {activeTab === 'land_verification' && <LandVerificationPage />}
       </main>
 
       {/* Interactive On-Screen Farmer Smartphone SMS Simulator */}

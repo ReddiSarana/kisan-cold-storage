@@ -15,11 +15,14 @@ import {
   Sparkles,
   PhoneCall,
   Warehouse,
-  CalendarCheck
+  CalendarCheck,
+  LogIn,
+  UserPlus,
+  LogOut
 } from 'lucide-react';
 
 export default function AboutPage() {
-  const { setActiveTab, setSelectedCropFilter } = useApp();
+  const { setActiveTab, setSelectedCropFilter, isAuthenticated, currentUser, logoutUser } = useApp();
   const { t } = useLanguage();
 
   const handleCropQuickSelect = (cropId) => {
@@ -63,6 +66,15 @@ export default function AboutPage() {
           </p>
 
           <div className="flex flex-wrap items-center gap-3.5 pt-3">
+            <button
+              onClick={() => setActiveTab('auth')}
+              className="flex items-center space-x-2.5 bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-300 hover:from-amber-300 hover:to-yellow-300 text-slate-950 font-black px-6 py-3.5 rounded-2xl shadow-xl shadow-amber-400/25 transition-all hover:scale-105 text-sm cursor-pointer border-2 border-amber-300"
+            >
+              <LogIn className="w-4 h-4 text-slate-950" />
+              <span>{isAuthenticated ? 'My Profile / Switch' : 'Sign In or Sign Up'}</span>
+              <ArrowRight className="w-4 h-4 text-slate-950" />
+            </button>
+
             <button
               onClick={() => setActiveTab('booking')}
               className="flex items-center space-x-2.5 bg-gradient-to-r from-emerald-400 to-teal-400 hover:from-emerald-300 hover:to-teal-300 text-slate-950 font-black px-6 py-3.5 rounded-2xl shadow-xl shadow-emerald-500/20 transition-all hover:scale-105 text-sm"
@@ -122,6 +134,72 @@ export default function AboutPage() {
           <div className="bg-white/5 backdrop-blur-md p-4 rounded-2xl border border-white/10 card-hover-lift">
             <p className="text-2xl sm:text-3xl font-black text-blue-300 font-mono">₹42 Cr+</p>
             <p className="text-xs text-slate-400 mt-1 font-medium">{t('pledgeCredit', "Pledge Credit Unlocked")}</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Dedicated Sign In or Sign Up Gateway Card */}
+      <section className="bg-gradient-to-r from-emerald-900 via-teal-900 to-slate-900 text-white rounded-3xl p-6 sm:p-10 shadow-xl border-2 border-emerald-500/50 relative overflow-hidden">
+        <div className="absolute top-0 right-0 -mt-10 -mr-10 w-72 h-72 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+          <div className="space-y-3 max-w-2xl">
+            <div className="flex items-center space-x-2">
+              <span className="bg-emerald-500 text-slate-950 text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">
+                Krishivalaya Portal Access
+              </span>
+              <span className="text-xs text-emerald-300 font-semibold">
+                {isAuthenticated ? 'Signed In • Active Session' : 'Direct Sign In & Land Verification'}
+              </span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+              {isAuthenticated ? `Welcome back, ${currentUser.name}!` : 'Ready to Preserve Your Harvest? Sign In or Register'}
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+              {isAuthenticated
+                ? `You are verified as a ${currentUser.role.replace('_', ' ')}. You have direct access to book cold storage chambers, track gate entry tokens, and generate official WDRA receipts.`
+                : 'Already have an account? Sign in to jump directly into the Krishivalaya platform. New farmer? Sign up and complete your quick land document verification (Pattadar Passbook / Dharani record) for instant access.'}
+            </p>
+          </div>
+
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full lg:w-auto shrink-0">
+            {isAuthenticated ? (
+              <>
+                <button
+                  onClick={() => setActiveTab('units')}
+                  className="flex items-center justify-center space-x-2 bg-gradient-to-r from-emerald-400 to-teal-400 hover:from-emerald-300 hover:to-teal-300 text-slate-950 font-black px-6 py-3.5 rounded-2xl shadow-lg transition-all hover:scale-105 text-xs sm:text-sm cursor-pointer"
+                >
+                  <Warehouse className="w-4 h-4 text-slate-950" />
+                  <span>Go to Storage Units</span>
+                  <ArrowRight className="w-4 h-4 text-slate-950" />
+                </button>
+                <button
+                  onClick={() => logoutUser()}
+                  className="flex items-center justify-center space-x-2 bg-white/10 hover:bg-white/20 text-white font-bold px-4 py-3.5 rounded-2xl border border-white/20 transition text-xs sm:text-sm cursor-pointer"
+                >
+                  <LogOut className="w-4 h-4 text-rose-300" />
+                  <span>Sign Out</span>
+                </button>
+              </>
+            ) : (
+              <>
+                <button
+                  onClick={() => setActiveTab('auth')}
+                  className="flex items-center justify-center space-x-2 bg-gradient-to-r from-emerald-400 via-teal-300 to-emerald-300 hover:from-emerald-300 hover:to-teal-200 text-slate-950 font-black px-6 py-3.5 rounded-2xl shadow-xl shadow-emerald-500/25 transition-all hover:scale-105 text-xs sm:text-sm cursor-pointer border border-emerald-300"
+                >
+                  <LogIn className="w-4 h-4 text-slate-950" />
+                  <span>Sign In (Direct Access)</span>
+                  <ArrowRight className="w-4 h-4 text-slate-950" />
+                </button>
+                <button
+                  onClick={() => setActiveTab('auth')}
+                  className="flex items-center justify-center space-x-2 bg-gradient-to-r from-amber-400 to-yellow-400 hover:from-amber-300 hover:to-yellow-300 text-slate-950 font-black px-6 py-3.5 rounded-2xl shadow-xl shadow-amber-500/25 transition-all hover:scale-105 text-xs sm:text-sm cursor-pointer border border-amber-300"
+                >
+                  <UserPlus className="w-4 h-4 text-slate-950" />
+                  <span>Sign Up & Verify Land</span>
+                  <ArrowRight className="w-4 h-4 text-slate-950" />
+                </button>
+              </>
+            )}
           </div>
         </div>
       </section>

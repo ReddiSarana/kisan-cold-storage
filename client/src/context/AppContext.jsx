@@ -177,6 +177,89 @@ export function AppProvider({ children }) {
     showToast('✅ Profile details updated successfully!');
   };
 
+  // Authentication & Land Verification State
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    return localStorage.getItem('kisan_auth') === 'true';
+  });
+
+  const [isLandVerified, setIsLandVerified] = useState(() => {
+    return localStorage.getItem('kisan_land_verified') === 'true';
+  });
+
+  const [pendingSignUpData, setPendingSignUpData] = useState(() => {
+    const saved = localStorage.getItem('kisan_pending_signup');
+    try {
+      return saved ? JSON.parse(saved) : null;
+    } catch {
+      return null;
+    }
+  });
+
+  const [landDocumentData, setLandDocumentData] = useState(() => {
+    const saved = localStorage.getItem('kisan_land_data');
+    try {
+      return saved ? JSON.parse(saved) : null;
+    } catch {
+      return null;
+    }
+  });
+
+  const loginUser = (user = null) => {
+    const targetUser = user || currentUser || DEMO_USERS.farmer;
+    setCurrentUser(targetUser);
+    setIsAuthenticated(true);
+    localStorage.setItem('kisan_auth', 'true');
+    localStorage.setItem('kisan_custom_user', JSON.stringify(targetUser));
+    showToast(`🌾 Welcome, ${targetUser.name}! Direct access granted to Krishivalaya.`);
+    setActiveTab('units');
+  };
+
+  const logoutUser = () => {
+    setIsAuthenticated(false);
+    setIsLandVerified(false);
+    localStorage.removeItem('kisan_auth');
+    localStorage.removeItem('kisan_land_verified');
+    localStorage.removeItem('kisan_land_data');
+    localStorage.removeItem('kisan_pending_signup');
+    showToast('Signed out. Returned to Home page.');
+    setActiveTab('about');
+  };
+
+  const startSignUp = (farmerData) => {
+    setPendingSignUpData(farmerData);
+    localStorage.setItem('kisan_pending_signup', JSON.stringify(farmerData));
+    showToast(`📋 Registration details saved. Please submit land documents to verify.`);
+    setActiveTab('land_verification');
+  };
+
+  const completeLandVerification = (landData) => {
+    const base = pendingSignUpData || currentUser || DEMO_USERS.farmer;
+    const verifiedUser = {
+      ...base,
+      role: 'farmer',
+      landVerified: true,
+      landRecord: landData,
+      kccNumber: landData.passbookNumber || base.kccNumber || 'KCC-TS-9921',
+      farmSizeAcres: landData.extentAcres || '5.0',
+      surveyNumbers: landData.surveyNumber || '48/A',
+      khataNumber: landData.khataNumber || '102',
+      kisanCardId: `KV-TS-${Math.floor(100000 + Math.random() * 900000)}`
+    };
+
+    setCurrentUser(verifiedUser);
+    setIsAuthenticated(true);
+    setIsLandVerified(true);
+    setLandDocumentData(landData);
+    localStorage.setItem('kisan_auth', 'true');
+    localStorage.setItem('kisan_land_verified', 'true');
+    localStorage.setItem('kisan_land_data', JSON.stringify(landData));
+    localStorage.setItem('kisan_custom_user', JSON.stringify(verifiedUser));
+    localStorage.removeItem('kisan_pending_signup');
+
+    showToast(`✅ Land documents verified successfully! Welcome to Krishivalaya.`);
+    setActiveTab('units');
+  };
+
   const [selectedBookingFacility, setSelectedBookingFacility] = useState(null);
   const [selectedBookingCrop, setSelectedBookingCrop] = useState('');
 
@@ -223,7 +306,16 @@ export function AppProvider({ children }) {
       setUnreadSmsCount,
       latestToast,
       showToast,
-      queueRefreshTrigger
+      queueRefreshTrigger,
+      // Authentication & Land Document Verification
+      isAuthenticated,
+      isLandVerified,
+      pendingSignUpData,
+      landDocumentData,
+      loginUser,
+      logoutUser,
+      startSignUp,
+      completeLandVerification
     }}>
       {children}
     </AppContext.Provider>

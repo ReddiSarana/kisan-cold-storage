@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useApp, DEMO_USERS } from '../context/AppContext';
 import { useLanguage } from '../context/LanguageContext';
 import {
@@ -17,7 +17,9 @@ import {
   Globe,
   LogIn,
   LogOut,
-  UserPlus
+  UserPlus,
+  Search,
+  Check
 } from 'lucide-react';
 
 export default function Navbar() {
@@ -34,7 +36,10 @@ export default function Navbar() {
   } = useApp();
 
   const {
+    languages,
     currentLanguage,
+    selectedLanguageCode,
+    changeLanguage,
     setLanguage,
     setIsLanguageModalOpen,
     t
@@ -42,6 +47,31 @@ export default function Navbar() {
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [roleDropdownOpen, setRoleDropdownOpen] = useState(false);
+  const [langDropdownOpen, setLangDropdownOpen] = useState(false);
+  const [langSearch, setLangSearch] = useState('');
+  const langDropdownRef = useRef(null);
+
+  // Close language dropdown on click outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (langDropdownRef.current && !langDropdownRef.current.contains(event.target)) {
+        setLangDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const filteredLanguages = (languages || []).filter((l) => {
+    if (!langSearch.trim()) return true;
+    const q = langSearch.toLowerCase().trim();
+    return (
+      l.name.toLowerCase().includes(q) ||
+      l.native.toLowerCase().includes(q) ||
+      (l.region && l.region.toLowerCase().includes(q)) ||
+      l.code.toLowerCase().includes(q)
+    );
+  });
 
   // Visitor navigation matching government portal: Home, About us, User Manuals, FAQ
   const unauthenticatedNavItems = [
@@ -255,14 +285,137 @@ export default function Navbar() {
 
             {/* Right: Language Switcher | Login */}
             <div className="flex items-center space-x-2 sm:space-x-3 shrink-0">
-              {/* Language Switcher: తెలుగు / English toggle */}
-              <button
-                onClick={handleLanguageToggle}
-                className="text-white hover:text-amber-200 text-xs sm:text-sm font-extrabold tracking-wide transition cursor-pointer px-1 py-1"
-                title="Toggle Telugu / English"
-              >
-                {currentLanguage.code === 'te' ? 'English' : 'తెలుగు'}
-              </button>
+              {/* Language Switcher: Dropdown with All 22 Official Indian Languages + English */}
+              <div className="relative" ref={langDropdownRef}>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setLangDropdownOpen(!langDropdownOpen);
+                    setRoleDropdownOpen(false);
+                  }}
+                  className="flex items-center space-x-1.5 text-white hover:text-amber-200 text-xs sm:text-sm font-extrabold tracking-wide transition cursor-pointer px-2 py-1 rounded bg-black/20 hover:bg-black/30 border border-white/20 hover:border-amber-300/60 shadow-xs"
+                  title="Select Language (All 22 Official Indian Languages + English)"
+                >
+                  <Globe className="w-3.5 h-3.5 text-emerald-300 shrink-0" />
+                  <span className="font-bold">{currentLanguage.native}</span>
+                  <ChevronDown
+                    className={`w-3.5 h-3.5 text-white/90 transition-transform duration-200 ${
+                      langDropdownOpen ? 'rotate-180 text-amber-300' : ''
+                    }`}
+                  />
+                </button>
+
+                {/* Dropdown Menu */}
+                {langDropdownOpen && (
+                  <div className="absolute right-0 mt-2 w-72 sm:w-80 bg-white rounded-2xl shadow-2xl border border-slate-200 p-2.5 z-50 animate-in fade-in duration-150 text-slate-800">
+                    {/* Header */}
+                    <div className="px-2 py-1.5 border-b border-slate-100 flex items-center justify-between">
+                      <div>
+                        <p className="text-xs font-black text-slate-900 flex items-center space-x-1.5">
+                          <Globe className="w-3.5 h-3.5 text-emerald-600" />
+                          <span>Select Language</span>
+                        </p>
+                        <p className="text-[10px] font-semibold text-slate-500">
+                          22 Official Indian Languages + English
+                        </p>
+                      </div>
+                      <span className="text-[10px] font-bold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full">
+                        {languages?.length || 23} Languages
+                      </span>
+                    </div>
+
+                    {/* Search Input */}
+                    <div className="my-2 px-1">
+                      <div className="relative">
+                        <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-1/2 -translate-y-1/2" />
+                        <input
+                          type="text"
+                          value={langSearch}
+                          onChange={(e) => setLangSearch(e.target.value)}
+                          placeholder="Search language / భాష..."
+                          className="w-full pl-8 pr-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-hidden focus:border-emerald-500 focus:bg-white text-slate-800 placeholder:text-slate-400 font-medium"
+                          autoFocus
+                        />
+                        {langSearch && (
+                          <button
+                            type="button"
+                            onClick={() => setLangSearch('')}
+                            className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 text-xs font-bold"
+                          >
+                            ×
+                          </button>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Scrollable Language List */}
+                    <div className="max-h-64 sm:max-h-72 overflow-y-auto space-y-1 pr-1">
+                      {filteredLanguages.map((lang) => {
+                        const isSelected = lang.code === selectedLanguageCode;
+                        return (
+                          <button
+                            key={lang.code}
+                            type="button"
+                            onClick={() => {
+                              changeLanguage(lang.code);
+                              setLangDropdownOpen(false);
+                              setLangSearch('');
+                            }}
+                            className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-left transition cursor-pointer ${
+                              isSelected
+                                ? 'bg-emerald-600 text-white font-bold shadow-xs'
+                                : 'hover:bg-slate-100 text-slate-700'
+                            }`}
+                          >
+                            <div className="flex items-center space-x-2.5 truncate">
+                              <span className="text-sm font-black tracking-wide truncate">
+                                {lang.native}
+                              </span>
+                              <span
+                                className={`text-xs truncate ${
+                                  isSelected ? 'text-emerald-100' : 'text-slate-400'
+                                }`}
+                              >
+                                ({lang.name})
+                              </span>
+                            </div>
+                            {isSelected && (
+                              <Check className="w-4 h-4 text-white shrink-0" />
+                            )}
+                          </button>
+                        );
+                      })}
+                      {filteredLanguages.length === 0 && (
+                        <div className="p-3 text-center text-xs text-slate-400">
+                          No matching language found
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Footer Actions */}
+                    <div className="mt-2 pt-2 border-t border-slate-100 flex items-center justify-between px-1">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setIsLanguageModalOpen(true);
+                          setLangDropdownOpen(false);
+                        }}
+                        className="text-[11px] font-bold text-emerald-700 hover:text-emerald-800 transition cursor-pointer flex items-center space-x-1"
+                      >
+                        <span>Open Full Grid View</span>
+                        <span>→</span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setLangDropdownOpen(false)}
+                        className="text-[11px] font-semibold text-slate-400 hover:text-slate-600 transition cursor-pointer"
+                      >
+                        Close
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
 
               <span className="text-white/50 font-light text-sm">|</span>
 
@@ -380,6 +533,27 @@ export default function Navbar() {
                 {item.label}
               </button>
             ))}
+            {/* Mobile Language Selector */}
+            <div className="pt-2 border-t border-emerald-700">
+              <label className="block text-[10px] font-bold text-emerald-300 uppercase tracking-wider mb-1 px-1">
+                🌐 Language / భాష ({languages?.length || 23})
+              </label>
+              <select
+                value={selectedLanguageCode}
+                onChange={(e) => {
+                  changeLanguage(e.target.value);
+                  setMobileMenuOpen(false);
+                }}
+                className="w-full bg-emerald-950/90 border border-emerald-500/60 text-white font-bold text-xs py-2 px-3 rounded-lg focus:outline-hidden cursor-pointer"
+              >
+                {languages?.map((l) => (
+                  <option key={l.code} value={l.code} className="bg-slate-900 text-white">
+                    {l.native} ({l.name})
+                  </option>
+                ))}
+              </select>
+            </div>
+
             {!isAuthenticated ? (
               <div className="pt-2 border-t border-emerald-700 flex space-x-2">
                 <button

@@ -89,6 +89,7 @@ export function LanguageProvider({ children }) {
         currentLanguage,
         selectedLanguageCode,
         changeLanguage,
+        setLanguage: changeLanguage,
         isLanguageModalOpen,
         setIsLanguageModalOpen,
         t

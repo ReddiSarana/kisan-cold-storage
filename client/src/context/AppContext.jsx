@@ -89,7 +89,12 @@ export function AppProvider({ children }) {
   });
 
   const [activeTab, setActiveTabState] = useState(() => {
-    return localStorage.getItem('kisan_active_tab') || 'home';
+    const auth = localStorage.getItem('kisan_auth') === 'true';
+    const saved = localStorage.getItem('kisan_active_tab');
+    if (auth && (!saved || saved === 'home' || saved === 'about')) {
+      return 'crops';
+    }
+    return saved || 'home';
   });
 
   const setActiveTab = (tab) => {
@@ -211,7 +216,7 @@ export function AppProvider({ children }) {
     localStorage.setItem('kisan_auth', 'true');
     localStorage.setItem('kisan_custom_user', JSON.stringify(targetUser));
     showToast(`🌾 Welcome, ${targetUser.name}! Direct access granted to Krishivalaya.`);
-    setActiveTab('units');
+    setActiveTab('crops');
   };
 
   const logoutUser = () => {
@@ -257,7 +262,7 @@ export function AppProvider({ children }) {
     localStorage.removeItem('kisan_pending_signup');
 
     showToast(`✅ Land documents verified successfully! Welcome to Krishivalaya.`);
-    setActiveTab('units');
+    setActiveTab('crops');
   };
 
   const [selectedBookingFacility, setSelectedBookingFacility] = useState(null);

@@ -25,7 +25,14 @@ import ProfilePage from './pages/ProfilePage';
 import LandVerificationPage from './pages/LandVerificationPage';
 
 function AppContent() {
-  const { activeTab, latestToast } = useApp();
+  const { activeTab, setActiveTab, isAuthenticated, latestToast } = useApp();
+
+  // If user is authenticated and attempts to access 'home' or 'about', redirect to 'crops'
+  React.useEffect(() => {
+    if (isAuthenticated && (activeTab === 'home' || activeTab === 'about')) {
+      setActiveTab('crops');
+    }
+  }, [isAuthenticated, activeTab, setActiveTab]);
 
   return (
     <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 selection:bg-emerald-200">
@@ -44,7 +51,8 @@ function AppContent() {
 
       {/* Main Content Area */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8">
-        {(activeTab === 'home' || activeTab === 'about') && <HomePage />}
+        {!isAuthenticated && (activeTab === 'home' || activeTab === 'about') && <HomePage />}
+        {isAuthenticated && (activeTab === 'home' || activeTab === 'about') && <CropsPage />}
         {activeTab === 'about_us' && <AboutUsPage />}
         {activeTab === 'user_manual' && <UserManualPage />}
         {activeTab === 'faq' && <FAQPage />}

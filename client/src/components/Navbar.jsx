@@ -82,7 +82,6 @@ export default function Navbar() {
   ];
 
   const authenticatedNavItems = [
-    { id: 'home', label: 'Home' },
     { id: 'crops', label: t('crops', 'Crops Catalog'), icon: Snowflake },
     { id: 'units', label: t('units', 'Storage Units'), icon: Warehouse },
     { id: 'booking', label: t('booking', 'Slot Booking'), icon: CalendarCheck },
@@ -168,7 +167,7 @@ export default function Navbar() {
             <div className="flex items-center space-x-2.5 sm:space-x-4 md:space-x-5 shrink-0">
               {/* Position 1: Farmer Portrait (Turned to Large Circle with White Border) */}
               <div
-                onClick={() => setActiveTab('home')}
+                onClick={() => setActiveTab(isAuthenticated ? 'crops' : 'home')}
                 className="w-18 h-18 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-34 lg:h-34 rounded-full bg-white p-1 sm:p-1.5 shadow-2xl border-3 sm:border-4 border-white/95 overflow-hidden flex items-center justify-center shrink-0 hover:scale-105 transition-transform duration-300 cursor-pointer"
                 title="Krishivalaya Farmer - కృషివలయ రైతు"
               >
@@ -194,7 +193,7 @@ export default function Navbar() {
 
             {/* Position 3: Circular Logo, KRISHIVALAYA Brand Name & Tagline */}
             <div
-              onClick={() => setActiveTab('home')}
+              onClick={() => setActiveTab(isAuthenticated ? 'crops' : 'home')}
               className="flex-1 flex items-center justify-center px-1 sm:px-4 cursor-pointer group"
             >
               <div className="flex items-center justify-center space-x-3 sm:space-x-5">

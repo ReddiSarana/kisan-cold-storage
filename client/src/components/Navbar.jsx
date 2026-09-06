@@ -171,8 +171,8 @@ export default function Navbar() {
                 {/* Krishivalaya Logo (Turned to Large Circle) */}
                 <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 rounded-full bg-white p-2 sm:p-2.5 shadow-2xl border-3 sm:border-4 border-emerald-400/90 shrink-0 flex items-center justify-center overflow-hidden group-hover:scale-105 transition-transform duration-300">
                   <img
-                    src="/krishivalaya-logo.jpg"
-                    alt="Krishivalaya Logo"
+                    src="/images/krishivalaya-official-logo.jpg"
+                    alt="Official Krishivalaya Logo"
                     className="w-full h-full object-contain rounded-full"
                   />
                 </div>

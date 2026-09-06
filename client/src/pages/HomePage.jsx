@@ -53,7 +53,7 @@ export default function HomePage() {
 
             {/* Right: Pill Badge Title & Explanatory Text (No Reviews) */}
             <div className="md:col-span-8 lg:col-span-8 space-y-4 text-left">
-              {/* Title Pill Badge matching reference "భూమిత్ర" */}
+              {/* Title Pill Badge */}
               <div className="inline-flex items-center space-x-3 bg-gradient-to-r from-blue-900 via-indigo-900 to-blue-950 border-2 border-white/80 px-6 py-2.5 rounded-full shadow-2xl">
                 <div className="w-8 h-8 rounded-full bg-white p-1 flex items-center justify-center shrink-0 shadow-sm">
                   <img
@@ -62,30 +62,30 @@ export default function HomePage() {
                     className="w-full h-full object-contain rounded-full"
                   />
                 </div>
-                <div className="flex items-baseline space-x-2">
+                <div className="flex items-center space-x-2">
                   <span className="text-2xl sm:text-4xl font-black text-white tracking-wide">
-                    కృషివలయ
+                    Krishivalaya
                   </span>
-                  <span className="text-base sm:text-xl font-black text-emerald-300">
-                    (Krishivalaya)
+                  <span className="text-[10px] sm:text-xs font-bold text-emerald-300 uppercase tracking-wider bg-white/10 px-2.5 py-0.5 rounded-full border border-white/20">
+                    Kisan Cold Chain
                   </span>
                 </div>
               </div>
 
-              {/* Informational Telugu Text matching reference style */}
+              {/* Informational English Text */}
               <div className="space-y-3 max-w-2xl">
                 <p className="text-white text-base sm:text-xl font-bold leading-relaxed drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-                  రైతులు తమకు కావలసిన కోల్డ్ స్టోరేజ్ సమాచారాన్ని సులభమైన రీతిలో పొందడానికి ఈ కృషివలయ పోర్టల్ సాయం చేస్తుంది.
+                  Krishivalaya helps farmers easily find verified cold storage facilities, transparent tariffs, and live gate queues.
                 </p>
                 <p className="text-slate-100 text-sm sm:text-base font-medium leading-relaxed drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-                  మీరు పండించిన పంటను కోల్డ్ స్టోరేజీలో భద్రపరచుకోవడానికి, తక్కువ వడ్డీతో 75% బ్యాంక్ లోన్ పొందడానికి మరియు మార్కెట్లో ధర పెరిగినప్పుడు ఎక్కువ లాభానికి అమ్ముకోవడానికి తోడ్పడుతుంది.
+                  Safely preserve your perishable harvest, prevent distress sales, get 75% advance bank loans through digital e-NWR warehouse receipts, and sell when market prices peak.
                 </p>
-                <p className="text-emerald-200 text-xs sm:text-sm font-semibold tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+                <p className="text-emerald-300 text-xs sm:text-sm font-semibold tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
                   🌾 Stop Perishable Distress Sales • Multi-Chamber Cold Storage • 75% e-NWR Bank Loan
                 </p>
               </div>
 
-              {/* Action Buttons */}
+              {/* Action Buttons in English */}
               <div className="flex flex-wrap items-center gap-3 pt-2">
                 {!isAuthenticated ? (
                   <>
@@ -94,7 +94,7 @@ export default function HomePage() {
                       className="flex items-center space-x-2 bg-gradient-to-r from-emerald-400 to-teal-400 hover:from-emerald-300 hover:to-teal-300 text-slate-950 font-black px-6 py-3 rounded-2xl shadow-xl transition-all hover:scale-105 text-xs sm:text-sm cursor-pointer border-2 border-white/60"
                     >
                       <LogIn className="w-4 h-4 text-slate-950" />
-                      <span>Sign In (ప్రవేశించండి)</span>
+                      <span>Sign In (Direct Access)</span>
                       <ArrowRight className="w-4 h-4 text-slate-950" />
                     </button>
 
@@ -103,7 +103,7 @@ export default function HomePage() {
                       className="flex items-center space-x-2 bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-300 hover:from-amber-300 hover:to-yellow-300 text-slate-950 font-black px-6 py-3 rounded-2xl shadow-xl transition-all hover:scale-105 text-xs sm:text-sm cursor-pointer border-2 border-white/60"
                     >
                       <UserPlus className="w-4 h-4 text-slate-950" />
-                      <span>Sign Up & Verify Land (నమోదు)</span>
+                      <span>Sign Up & Verify Land</span>
                       <ArrowRight className="w-4 h-4 text-slate-950" />
                     </button>
                   </>
@@ -122,7 +122,7 @@ export default function HomePage() {
                   href="#mind-map"
                   className="flex items-center space-x-2 bg-slate-950/80 hover:bg-slate-900 text-white font-bold px-5 py-3 rounded-2xl shadow-xl transition-all hover:scale-105 text-xs sm:text-sm border border-white/30 backdrop-blur-md"
                 >
-                  <span>🧠 Mind Map (సులభ విధానం)</span>
+                  <span>🧠 Platform Mind Map</span>
                   <ArrowRight className="w-4 h-4 text-slate-200" />
                 </a>
               </div>

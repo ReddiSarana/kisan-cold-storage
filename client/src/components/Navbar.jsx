@@ -162,30 +162,31 @@ export default function Navbar() {
               </div>
             </div>
 
-            {/* Position 3: Center Brand & Portal Title (Bilingual / Trilingual) */}
+            {/* Position 3: Logo, KRISHIVALAYA Brand Name & Tagline */}
             <div
               onClick={() => setActiveTab('home')}
-              className="flex-1 flex flex-col items-center text-center px-1 sm:px-4 cursor-pointer group"
+              className="flex-1 flex items-center justify-center px-1 sm:px-4 cursor-pointer group"
             >
-              {/* Top Title Line: English | Telugu | Urdu */}
-              <div className="flex items-center justify-center flex-wrap gap-1 sm:gap-2">
-                <span className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-white tracking-wide uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
-                  KRISHIVALAYA
-                </span>
-                <span className="text-emerald-300/80 font-light text-xl sm:text-3xl md:text-4xl">|</span>
-                <span className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-white tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
-                  కృషివలయ
-                </span>
-                <span className="text-emerald-300/80 font-light text-xl sm:text-3xl md:text-4xl hidden sm:inline">|</span>
-                <span className="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white tracking-wider drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] hidden sm:inline" dir="rtl">
-                  کرشی ولیا
-                </span>
-              </div>
+              <div className="flex items-center justify-center space-x-2.5 sm:space-x-4">
+                {/* Krishivalaya Logo */}
+                <div className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-2xl bg-white p-1 sm:p-1.5 shadow-2xl border-2 border-emerald-400/90 shrink-0 flex items-center justify-center overflow-hidden group-hover:scale-105 transition-transform duration-300">
+                  <img
+                    src="/krishivalaya-logo.jpg"
+                    alt="Krishivalaya Logo"
+                    className="w-full h-full object-contain rounded-xl"
+                  />
+                </div>
 
-              {/* Subtitle matching Bhu Bharati RECORD OF RIGHTS */}
-              <p className="text-[10px] sm:text-xs md:text-sm lg:text-base font-black uppercase tracking-wider sm:tracking-widest text-white mt-1 drop-shadow-[0_2px_3px_rgba(0,0,0,0.9)]">
-                RECORD OF COLD STORAGE & DIGITAL WAREHOUSE RECEIPTS (e-NWR)
-              </p>
+                {/* Name & Tagline */}
+                <div className="text-left">
+                  <span className="block text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-wider uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] leading-none">
+                    KRISHIVALAYA
+                  </span>
+                  <p className="text-xs sm:text-sm md:text-base lg:text-lg font-extrabold text-amber-300 tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] mt-1 sm:mt-1.5">
+                    Empowering the Annadatha
+                  </p>
+                </div>
+              </div>
             </div>
 
             {/* Right Pair: Crops Emblem & Framed Storage Unit */}

@@ -131,27 +131,27 @@ export default function Navbar() {
           <div className="absolute inset-0 bg-gradient-to-t from-[#021f0e]/50 via-transparent to-[#05431e]/30"></div>
         </div>
 
-        {/* Banner Inner Content: Farmer | Truck | Center Brand | Crops | Storage Unit */}
-        <div className="relative z-10 max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-3 sm:py-4 md:py-5">
-          <div className="flex items-center justify-between gap-2 sm:gap-4 md:gap-6">
-            {/* Left Pair: Framed Farmer Portrait & Truck Emblem */}
-            <div className="flex items-center space-x-2 sm:space-x-4 shrink-0">
-              {/* Position 1: Farmer Portrait (White Frame) */}
+        {/* Banner Inner Content: Circular Farmer | Circular Truck | Center Brand | Circular Crops | Circular Storage Unit */}
+        <div className="relative z-10 max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6 md:py-8">
+          <div className="flex items-center justify-between gap-3 sm:gap-6 md:gap-8">
+            {/* Left Pair: Circular Farmer Portrait & Circular Truck Emblem */}
+            <div className="flex items-center space-x-2.5 sm:space-x-4 md:space-x-5 shrink-0">
+              {/* Position 1: Farmer Portrait (Turned to Large Circle with White Border) */}
               <div
                 onClick={() => setActiveTab('home')}
-                className="w-14 h-18 sm:w-20 sm:h-26 md:w-24 md:h-30 rounded-xs bg-white p-1 sm:p-1.5 shadow-2xl border-2 border-slate-200/90 overflow-hidden flex flex-col items-center justify-center shrink-0 hover:scale-105 transition-transform duration-300 cursor-pointer"
+                className="w-18 h-18 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-34 lg:h-34 rounded-full bg-white p-1 sm:p-1.5 shadow-2xl border-3 sm:border-4 border-white/95 overflow-hidden flex items-center justify-center shrink-0 hover:scale-105 transition-transform duration-300 cursor-pointer"
                 title="Krishivalaya Farmer - కృషివలయ రైతు"
               >
                 <img
                   src="/images/indian-farmer.jpg"
                   alt="Farmer - రైతు"
-                  className="w-full h-full object-cover object-top"
+                  className="w-full h-full object-cover object-top rounded-full"
                 />
               </div>
 
-              {/* Position 2: Cold Chain Truck Emblem (Circular Gold Border) */}
+              {/* Position 2: Cold Chain Truck Emblem (Large Circle with Gold Border) */}
               <div
-                className="w-12 h-12 sm:w-18 sm:h-18 md:w-22 md:h-22 rounded-full p-0.5 bg-gradient-to-br from-amber-300 via-yellow-400 to-amber-500 shadow-2xl shrink-0 border-2 border-white/70 overflow-hidden flex items-center justify-center"
+                className="w-16 h-16 sm:w-22 sm:h-22 md:w-26 md:h-26 lg:w-30 lg:h-30 rounded-full p-1 bg-gradient-to-br from-amber-300 via-yellow-400 to-amber-500 shadow-2xl shrink-0 border-3 sm:border-4 border-white/90 overflow-hidden flex items-center justify-center hover:scale-105 transition-transform duration-300"
                 title="Cold Chain Logistics Truck"
               >
                 <img
@@ -162,18 +162,18 @@ export default function Navbar() {
               </div>
             </div>
 
-            {/* Position 3: Logo, KRISHIVALAYA Brand Name & Tagline */}
+            {/* Position 3: Circular Logo, KRISHIVALAYA Brand Name & Tagline */}
             <div
               onClick={() => setActiveTab('home')}
               className="flex-1 flex items-center justify-center px-1 sm:px-4 cursor-pointer group"
             >
-              <div className="flex items-center justify-center space-x-2.5 sm:space-x-4">
-                {/* Krishivalaya Logo */}
-                <div className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-2xl bg-white p-1 sm:p-1.5 shadow-2xl border-2 border-emerald-400/90 shrink-0 flex items-center justify-center overflow-hidden group-hover:scale-105 transition-transform duration-300">
+              <div className="flex items-center justify-center space-x-3 sm:space-x-5">
+                {/* Krishivalaya Logo (Turned to Large Circle) */}
+                <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 rounded-full bg-white p-2 sm:p-2.5 shadow-2xl border-3 sm:border-4 border-emerald-400/90 shrink-0 flex items-center justify-center overflow-hidden group-hover:scale-105 transition-transform duration-300">
                   <img
                     src="/krishivalaya-logo.jpg"
                     alt="Krishivalaya Logo"
-                    className="w-full h-full object-contain rounded-xl"
+                    className="w-full h-full object-contain rounded-full"
                   />
                 </div>
 
@@ -182,18 +182,18 @@ export default function Navbar() {
                   <span className="block text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-wider uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] leading-none">
                     KRISHIVALAYA
                   </span>
-                  <p className="text-xs sm:text-sm md:text-base lg:text-lg font-extrabold text-amber-300 tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] mt-1 sm:mt-1.5">
+                  <p className="text-xs sm:text-sm md:text-base lg:text-lg font-extrabold text-amber-300 tracking-wide drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)] mt-1 sm:mt-2">
                     Empowering the Annadatha
                   </p>
                 </div>
               </div>
             </div>
 
-            {/* Right Pair: Crops Emblem & Framed Storage Unit */}
-            <div className="flex items-center space-x-2 sm:space-x-4 shrink-0">
-              {/* Position 4: Fresh Crops Emblem (Circular Gold Border) */}
+            {/* Right Pair: Circular Crops Emblem & Circular Storage Unit */}
+            <div className="flex items-center space-x-2.5 sm:space-x-4 md:space-x-5 shrink-0">
+              {/* Position 4: Fresh Crops Emblem (Large Circle with Gold Border) */}
               <div
-                className="w-12 h-12 sm:w-18 sm:h-18 md:w-22 md:h-22 rounded-full p-0.5 bg-gradient-to-br from-amber-300 via-yellow-400 to-amber-500 shadow-2xl shrink-0 border-2 border-white/70 overflow-hidden flex items-center justify-center"
+                className="w-16 h-16 sm:w-22 sm:h-22 md:w-26 md:h-26 lg:w-30 lg:h-30 rounded-full p-1 bg-gradient-to-br from-amber-300 via-yellow-400 to-amber-500 shadow-2xl shrink-0 border-3 sm:border-4 border-white/90 overflow-hidden flex items-center justify-center hover:scale-105 transition-transform duration-300"
                 title="Fresh Harvest Agricultural Crops"
               >
                 <img
@@ -203,15 +203,15 @@ export default function Navbar() {
                 />
               </div>
 
-              {/* Position 5: Storage Unit Warehouse (White Frame) */}
+              {/* Position 5: Storage Unit Warehouse (Turned to Large Circle with White Border) */}
               <div
-                className="w-14 h-18 sm:w-20 sm:h-26 md:w-24 md:h-30 rounded-xs bg-white p-1 sm:p-1.5 shadow-2xl border-2 border-slate-200/90 overflow-hidden flex flex-col items-center justify-center shrink-0 hover:scale-105 transition-transform duration-300"
+                className="w-18 h-18 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-34 lg:h-34 rounded-full bg-white p-1 sm:p-1.5 shadow-2xl border-3 sm:border-4 border-white/95 overflow-hidden flex items-center justify-center shrink-0 hover:scale-105 transition-transform duration-300"
                 title="Multi-Chamber Cold Storage Unit Warehouse"
               >
                 <img
                   src="/images/cold-storage-unit.jpg"
                   alt="Cold Storage Warehouse"
-                  className="w-full h-full object-cover object-center"
+                  className="w-full h-full object-cover object-center rounded-full"
                 />
               </div>
             </div>

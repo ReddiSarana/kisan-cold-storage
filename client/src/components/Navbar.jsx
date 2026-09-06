@@ -49,11 +49,10 @@ export default function Navbar() {
   ];
 
   const authenticatedNavItems = [
-    { id: 'about', label: t('about', 'About Us'), icon: Sprout },
+    { id: 'crops', label: t('crops', 'Crops Catalog'), icon: Snowflake },
     { id: 'units', label: t('units', 'Storage Units'), icon: Warehouse, badge: 'Inside' },
     { id: 'booking', label: t('booking', 'Slot Booking'), icon: CalendarCheck, badge: 'Book Slot' },
     { id: 'queue', label: t('queue', 'Real-Time Queue'), icon: Clock, badge: 'Live' },
-    { id: 'crops', label: t('crops', 'Crops Catalog'), icon: Snowflake },
     { id: 'tracking', label: t('tracking', 'Procurement Tracker'), icon: Activity },
     { id: 'documents', label: t('documents', 'Docx Request'), icon: FileText },
     { id: 'sms', label: t('sms', 'SMS Alerts'), icon: MessageSquare, countBadge: unreadSmsCount },
@@ -113,7 +112,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Brand Logo */}
           <div
-            onClick={() => setActiveTab('about')}
+            onClick={() => setActiveTab(isAuthenticated ? 'crops' : 'about')}
             className="flex items-center space-x-3 cursor-pointer group"
           >
             <div className="relative w-11 h-11 rounded-2xl bg-white p-1 flex items-center justify-center shadow-md group-hover:scale-105 group-hover:shadow-emerald-500/25 transition-all duration-300 border border-emerald-300/80 overflow-hidden shrink-0">

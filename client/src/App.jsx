@@ -7,7 +7,10 @@ import SmsSimulator from './components/SmsSimulator';
 import BookingModal from './components/BookingModal';
 import LanguageModal from './components/LanguageModal';
 
-import AboutPage from './pages/AboutPage';
+import HomePage from './pages/HomePage';
+import AboutUsPage from './pages/AboutUsPage';
+import UserManualPage from './pages/UserManualPage';
+import FAQPage from './pages/FAQPage';
 import CropsPage from './pages/CropsPage';
 import StorageUnitsPage from './pages/StorageUnitsPage';
 import SlotBookingPage from './pages/SlotBookingPage';
@@ -41,7 +44,10 @@ function AppContent() {
 
       {/* Main Content Area */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8">
-        {activeTab === 'about' && <AboutPage />}
+        {(activeTab === 'home' || activeTab === 'about') && <HomePage />}
+        {activeTab === 'about_us' && <AboutUsPage />}
+        {activeTab === 'user_manual' && <UserManualPage />}
+        {activeTab === 'faq' && <FAQPage />}
         {activeTab === 'crops' && <CropsPage />}
         {activeTab === 'units' && <StorageUnitsPage />}
         {activeTab === 'booking' && <SlotBookingPage />}

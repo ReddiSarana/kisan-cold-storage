@@ -18,7 +18,11 @@ import {
   Globe,
   LogIn,
   LogOut,
-  UserPlus
+  UserPlus,
+  Home,
+  Info,
+  BookOpen,
+  HelpCircle
 } from 'lucide-react';
 
 export default function Navbar() {
@@ -43,9 +47,12 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [roleDropdownOpen, setRoleDropdownOpen] = useState(false);
 
-  // Visitor navigation (only About Us, no inside features or catalog)
+  // Visitor navigation: Home, About Us, User Manual, FAQ as separate windows
   const unauthenticatedNavItems = [
-    { id: 'about', label: t('about', 'About Us'), icon: Sprout }
+    { id: 'home', label: t('home', 'Home'), icon: Home },
+    { id: 'about_us', label: t('aboutUs', 'About Us'), icon: Info },
+    { id: 'user_manual', label: t('userManual', 'User Manual'), icon: BookOpen, badge: 'Guide' },
+    { id: 'faq', label: t('faq', 'FAQ'), icon: HelpCircle }
   ];
 
   const authenticatedNavItems = [
@@ -112,7 +119,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Brand Logo */}
           <div
-            onClick={() => setActiveTab(isAuthenticated ? 'crops' : 'about')}
+            onClick={() => setActiveTab(isAuthenticated ? 'crops' : 'home')}
             className="flex items-center space-x-3 cursor-pointer group"
           >
             <div className="relative w-11 h-11 rounded-2xl bg-white p-1 flex items-center justify-center shadow-md group-hover:scale-105 group-hover:shadow-emerald-500/25 transition-all duration-300 border border-emerald-300/80 overflow-hidden shrink-0">

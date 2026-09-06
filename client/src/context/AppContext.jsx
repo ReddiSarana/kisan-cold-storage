@@ -89,7 +89,7 @@ export function AppProvider({ children }) {
   });
 
   const [activeTab, setActiveTabState] = useState(() => {
-    return localStorage.getItem('kisan_active_tab') || 'about';
+    return localStorage.getItem('kisan_active_tab') || 'home';
   });
 
   const setActiveTab = (tab) => {
@@ -222,7 +222,7 @@ export function AppProvider({ children }) {
     localStorage.removeItem('kisan_land_data');
     localStorage.removeItem('kisan_pending_signup');
     showToast('Signed out. Returned to Home page.');
-    setActiveTab('about');
+    setActiveTab('home');
   };
 
   const startSignUp = (farmerData) => {

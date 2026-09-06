@@ -9,9 +9,6 @@ import {
   Warehouse,
   LogIn,
   UserPlus,
-  BookOpen,
-  HelpCircle,
-  Info,
   ShieldCheck,
   TrendingUp,
   Clock,
@@ -118,97 +115,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 3 Separate Public Windows Guide Cards */}
-      <section className="space-y-6">
-        <div className="text-center max-w-2xl mx-auto space-y-2">
-          <span className="text-xs font-black uppercase tracking-wider text-emerald-800 bg-emerald-100/90 border border-emerald-200 px-3.5 py-1 rounded-full shadow-xs">
-            Public Information Windows
-          </span>
-          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-            Explore Krishivalaya Knowledge & Guides
-          </h2>
-          <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-            Everything you need to learn about our mission, step-by-step procedures, and common questions.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-          {/* Window 1: About Us */}
-          <div
-            onClick={() => setActiveTab('about_us')}
-            className="bg-white p-7 rounded-3xl border border-slate-200/90 hover:border-emerald-500 shadow-2xs hover:shadow-md transition-all cursor-pointer group flex flex-col justify-between"
-          >
-            <div className="space-y-3">
-              <div className="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-800 flex items-center justify-center font-black text-xl group-hover:scale-110 transition-transform">
-                <Info className="w-6 h-6 text-emerald-700" />
-              </div>
-              <span className="text-[10px] font-black uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full">
-                Separate Window
-              </span>
-              <h3 className="font-black text-base text-slate-900 group-hover:text-emerald-700 transition">
-                About Us
-              </h3>
-              <p className="text-xs text-slate-500 leading-relaxed">
-                Discover our mission to stop perishable distress sales, WDRA accreditation, and real testimonials from cultivators across India.
-              </p>
-            </div>
-            <div className="mt-5 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-emerald-700 group-hover:translate-x-1 transition">
-              <span>Open About Us Window</span>
-              <span>&rarr;</span>
-            </div>
-          </div>
-
-          {/* Window 2: User Manual */}
-          <div
-            onClick={() => setActiveTab('user_manual')}
-            className="bg-white p-7 rounded-3xl border border-slate-200/90 hover:border-teal-500 shadow-2xs hover:shadow-md transition-all cursor-pointer group flex flex-col justify-between"
-          >
-            <div className="space-y-3">
-              <div className="w-12 h-12 rounded-2xl bg-teal-100 text-teal-800 flex items-center justify-center font-black text-xl group-hover:scale-110 transition-transform">
-                <BookOpen className="w-6 h-6 text-teal-700" />
-              </div>
-              <span className="text-[10px] font-black uppercase tracking-wider text-teal-700 bg-teal-50 px-2.5 py-0.5 rounded-full">
-                Separate Window
-              </span>
-              <h3 className="font-black text-base text-slate-900 group-hover:text-teal-700 transition">
-                Farmer User Manual
-              </h3>
-              <p className="text-xs text-slate-500 leading-relaxed">
-                6 illustrated step-by-step chapters: how to register, verify Dharani passbook, reserve cold chambers, receive SMS tokens, and apply for 75% bank loans.
-              </p>
-            </div>
-            <div className="mt-5 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-teal-700 group-hover:translate-x-1 transition">
-              <span>Open User Manual Window</span>
-              <span>&rarr;</span>
-            </div>
-          </div>
-
-          {/* Window 3: FAQ */}
-          <div
-            onClick={() => setActiveTab('faq')}
-            className="bg-white p-7 rounded-3xl border border-slate-200/90 hover:border-amber-500 shadow-2xs hover:shadow-md transition-all cursor-pointer group flex flex-col justify-between"
-          >
-            <div className="space-y-3">
-              <div className="w-12 h-12 rounded-2xl bg-amber-100 text-amber-800 flex items-center justify-center font-black text-xl group-hover:scale-110 transition-transform">
-                <HelpCircle className="w-6 h-6 text-amber-700" />
-              </div>
-              <span className="text-[10px] font-black uppercase tracking-wider text-amber-700 bg-amber-50 px-2.5 py-0.5 rounded-full">
-                Separate Window
-              </span>
-              <h3 className="font-black text-base text-slate-900 group-hover:text-amber-700 transition">
-                Frequently Asked Questions
-              </h3>
-              <p className="text-xs text-slate-500 leading-relaxed">
-                Instant searchable answers regarding storage tariffs per quintal, tenant verification, bank loan approvals, and produce preservation.
-              </p>
-            </div>
-            <div className="mt-5 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-amber-700 group-hover:translate-x-1 transition">
-              <span>Open FAQ Window</span>
-              <span>&rarr;</span>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Platform Mind Map */}
       <section id="mind-map" className="scroll-mt-20">

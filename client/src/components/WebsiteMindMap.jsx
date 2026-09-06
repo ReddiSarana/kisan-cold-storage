@@ -300,21 +300,6 @@ export default function WebsiteMindMap() {
                 </p>
               </div>
 
-              {/* Audio Listen Step Action (No redirect button) */}
-              <div className="pt-2 flex flex-wrap items-center gap-3">
-                <button
-                  type="button"
-                  onClick={() =>
-                    handleSpeak(
-                      `${current.title}. ${current.simpleAnswer}`,
-                      current.speechText
-                    )
-                  }
-                  className="bg-emerald-400 hover:bg-emerald-300 text-slate-950 font-black px-6 py-3.5 rounded-2xl shadow-xl transition-all hover:scale-105 text-sm flex items-center space-x-2 cursor-pointer"
-                >
-                  <span>🔊 వినండి (Listen Step {current.step})</span>
-                </button>
-              </div>
             </div>
           </div>
         </div>

@@ -27,30 +27,36 @@ export default function HomePage() {
         <div className="absolute bottom-0 left-0 -mb-16 -ml-16 w-96 h-96 bg-teal-500/20 rounded-full blur-3xl pointer-events-none"></div>
 
         <div className="relative z-10 max-w-3xl space-y-6">
-          <div className="flex items-center space-x-3">
-            <div className="w-12 h-12 rounded-2xl bg-white p-1 flex items-center justify-center shadow-lg border border-emerald-400/50 shrink-0">
+          {/* Large Website Name for First Page */}
+          <div className="space-y-3">
+            <h1 className="text-5xl sm:text-7xl lg:text-8xl font-black tracking-tight text-white leading-none">
+              Krishi<span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-emerald-200">valaya</span>
+            </h1>
+            <p className="text-xl sm:text-3xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-teal-200 to-amber-300 leading-snug">
+              {t('aboutHeroTitle', "Stop Perishable Distress Sales.")} <br className="hidden sm:inline" />
+              <span>{t('aboutHeroSubtitle', "Preserve, Pledge & Profit.")}</span>
+            </p>
+          </div>
+
+          {/* Logo beside the Description */}
+          <div className="flex flex-col sm:flex-row items-center sm:items-start gap-5 max-w-3xl bg-white/5 border border-white/10 p-5 sm:p-6 rounded-3xl backdrop-blur-md shadow-2xl">
+            <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl bg-white p-2 flex items-center justify-center shadow-xl border-2 border-emerald-400/80 shrink-0">
               <img
                 src="/krishivalaya-logo.jpg"
                 alt="Krishivalaya Logo"
                 className="w-full h-full object-contain rounded-xl"
               />
             </div>
-            <div className="inline-flex items-center space-x-2 bg-emerald-500/15 border border-emerald-400/30 px-4 py-1.5 rounded-full text-emerald-300 text-xs font-bold backdrop-blur-md shadow-xs">
-              <Sparkles className="w-3.5 h-3.5 text-emerald-300 animate-pulse" />
-              <span>{t('aboutHeroTag', "Empowering India's Agricultural Cold Chain & Post-Harvest Wealth")}</span>
+            <div className="space-y-2 text-center sm:text-left">
+              <div className="inline-flex items-center space-x-2 bg-emerald-500/15 border border-emerald-400/30 px-3.5 py-1 rounded-full text-emerald-300 text-xs font-bold backdrop-blur-md">
+                <Sparkles className="w-3.5 h-3.5 text-emerald-300 animate-pulse" />
+                <span>{t('aboutHeroTag', "Empowering India's Agricultural Cold Chain & Post-Harvest Wealth")}</span>
+              </div>
+              <p className="text-slate-200 text-sm sm:text-base leading-relaxed font-normal">
+                {t('aboutHeroDesc', "Every year, India loses nearly ₹92,000 Crores worth of fruits and vegetables due to lacking cold storage access. Krishivalaya connects smallholder and commercial farmers directly with modern, multi-chamber cold storage facilities, transparent tariffs, live gate queues, and bank-pledgeable digital warehouse receipts (e-NWR).")}
+              </p>
             </div>
           </div>
-
-          <h1 className="text-3xl sm:text-5xl font-black tracking-tight leading-tight">
-            {t('aboutHeroTitle', "Stop Perishable Distress Sales.")} <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-teal-200 to-amber-300">
-              {t('aboutHeroSubtitle', "Preserve, Pledge & Profit.")}
-            </span>
-          </h1>
-
-          <p className="text-slate-300 text-sm sm:text-base leading-relaxed max-w-2xl font-normal">
-            {t('aboutHeroDesc', "Every year, India loses nearly ₹92,000 Crores worth of fruits and vegetables due to lacking cold storage access. Krishivalaya connects smallholder and commercial farmers directly with modern, multi-chamber cold storage facilities, transparent tariffs, live gate queues, and bank-pledgeable digital warehouse receipts (e-NWR).")}
-          </p>
 
           <div className="flex flex-wrap items-center gap-3.5 pt-3">
             {!isAuthenticated ? (

@@ -66,6 +66,7 @@ export default function Navbar() {
   ];
 
   const navItems = isAuthenticated ? authenticatedNavItems : unauthenticatedNavItems;
+  const isHomePage = activeTab === 'home';
 
   return (
     <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-xl border-b border-slate-200/80 shadow-sm">
@@ -122,7 +123,7 @@ export default function Navbar() {
             onClick={() => setActiveTab(isAuthenticated ? 'crops' : 'home')}
             className="flex items-center space-x-3 cursor-pointer group"
           >
-            <div className="relative w-11 h-11 rounded-2xl bg-white p-1 flex items-center justify-center shadow-md group-hover:scale-105 group-hover:shadow-emerald-500/25 transition-all duration-300 border border-emerald-300/80 overflow-hidden shrink-0">
+            <div className={`relative ${isHomePage ? 'w-12 h-12 sm:w-13 sm:h-13' : 'w-11 h-11'} rounded-2xl bg-white p-1 flex items-center justify-center shadow-md group-hover:scale-105 group-hover:shadow-emerald-500/25 transition-all duration-300 border border-emerald-300/80 overflow-hidden shrink-0`}>
               <img
                 src="/krishivalaya-logo.jpg"
                 alt="Krishivalaya Logo"
@@ -131,7 +132,9 @@ export default function Navbar() {
             </div>
             <div>
               <div className="flex items-center space-x-1.5">
-                <span className="text-2xl font-black tracking-tight text-slate-900">Krishi<span className="text-emerald-600">valaya</span></span>
+                <span className={`${isHomePage ? 'text-2xl sm:text-3xl lg:text-3xl' : 'text-2xl'} font-black tracking-tight text-slate-900 transition-all`}>
+                  Krishi<span className="text-emerald-600">valaya</span>
+                </span>
                 <span className="text-[10px] font-extrabold bg-gradient-to-r from-emerald-100 to-teal-100 text-emerald-800 px-2 py-0.5 rounded-full border border-emerald-200">
                   {currentLanguage.code === 'en' ? 'Kisan Portal' : currentLanguage.native}
                 </span>

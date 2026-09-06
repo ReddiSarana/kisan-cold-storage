@@ -286,6 +286,8 @@ export function AppProvider({ children }) {
     setBookingModalUnit(null);
   };
 
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
+
   return (
     <AppContext.Provider value={{
       currentUser,
@@ -320,7 +322,10 @@ export function AppProvider({ children }) {
       loginUser,
       logoutUser,
       startSignUp,
-      completeLandVerification
+      completeLandVerification,
+      // Mobile Dashboard Sidebar Toggle
+      isMobileSidebarOpen,
+      setIsMobileSidebarOpen
     }}>
       {children}
     </AppContext.Provider>

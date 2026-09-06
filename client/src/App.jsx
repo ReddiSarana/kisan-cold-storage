@@ -23,6 +23,7 @@ import SignInPage from './pages/SignInPage';
 import SignUpPage from './pages/SignUpPage';
 import ProfilePage from './pages/ProfilePage';
 import LandVerificationPage from './pages/LandVerificationPage';
+import DashboardSidebar from './components/DashboardSidebar';
 
 function AppContent() {
   const { activeTab, setActiveTab, isAuthenticated, latestToast } = useApp();
@@ -49,26 +50,44 @@ function AppContent() {
         </div>
       )}
 
-      {/* Main Content Area */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8">
-        {!isAuthenticated && (activeTab === 'home' || activeTab === 'about') && <HomePage />}
-        {isAuthenticated && (activeTab === 'home' || activeTab === 'about') && <CropsPage />}
-        {activeTab === 'about_us' && <AboutUsPage />}
-        {activeTab === 'user_manual' && <UserManualPage />}
-        {activeTab === 'faq' && <FAQPage />}
-        {activeTab === 'crops' && <CropsPage />}
-        {activeTab === 'units' && <StorageUnitsPage />}
-        {activeTab === 'booking' && <SlotBookingPage />}
-        {activeTab === 'queue' && <QueuePage />}
-        {activeTab === 'tracking' && <TrackingPage />}
-        {activeTab === 'documents' && <DocumentsPage />}
-        {activeTab === 'sms' && <SmsLogsPage />}
-        {activeTab === 'auth' && <AuthPage />}
-        {activeTab === 'signin' && <SignInPage />}
-        {activeTab === 'signup' && <SignUpPage />}
-        {activeTab === 'profile' && <ProfilePage />}
-        {activeTab === 'land_verification' && <LandVerificationPage />}
-      </main>
+      {/* Main Content Area: Vertical Sidebar Layout when Authenticated */}
+      {isAuthenticated ? (
+        <div className="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-4 lg:px-6 py-4 sm:py-6 flex flex-col lg:flex-row gap-5 sm:gap-6">
+          {/* Vertical Dashboard Sidebar */}
+          <DashboardSidebar />
+
+          {/* Active View / Main Dashboard Content */}
+          <main className="flex-1 min-w-0">
+            {activeTab === 'crops' && <CropsPage />}
+            {activeTab === 'units' && <StorageUnitsPage />}
+            {activeTab === 'booking' && <SlotBookingPage />}
+            {activeTab === 'queue' && <QueuePage />}
+            {activeTab === 'tracking' && <TrackingPage />}
+            {activeTab === 'documents' && <DocumentsPage />}
+            {activeTab === 'sms' && <SmsLogsPage />}
+            {activeTab === 'profile' && <ProfilePage />}
+            {activeTab === 'land_verification' && <LandVerificationPage />}
+            {/* Fallbacks if unauthenticated tab is accessed */}
+            {(activeTab === 'home' || activeTab === 'about') && <CropsPage />}
+            {activeTab === 'about_us' && <AboutUsPage />}
+            {activeTab === 'user_manual' && <UserManualPage />}
+            {activeTab === 'faq' && <FAQPage />}
+          </main>
+        </div>
+      ) : (
+        <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8">
+          {(activeTab === 'home' || activeTab === 'about') && <HomePage />}
+          {activeTab === 'about_us' && <AboutUsPage />}
+          {activeTab === 'user_manual' && <UserManualPage />}
+          {activeTab === 'faq' && <FAQPage />}
+          {activeTab === 'auth' && <AuthPage />}
+          {activeTab === 'signin' && <SignInPage />}
+          {activeTab === 'signup' && <SignUpPage />}
+          {activeTab === 'crops' && <CropsPage />}
+          {activeTab === 'units' && <StorageUnitsPage />}
+          {activeTab === 'land_verification' && <LandVerificationPage />}
+        </main>
+      )}
 
       {/* Interactive On-Screen Farmer Smartphone SMS Simulator */}
       <SmsSimulator />

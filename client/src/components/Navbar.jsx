@@ -32,7 +32,9 @@ export default function Navbar() {
     setIsSmsSimulatorOpen,
     isSmsSimulatorOpen,
     isAuthenticated,
-    logoutUser
+    logoutUser,
+    isMobileSidebarOpen,
+    setIsMobileSidebarOpen
   } = useApp();
 
   const {
@@ -252,32 +254,59 @@ export default function Navbar() {
       <nav className="bg-[#006837] border-t-2 border-[#f7c844] border-b border-[#004e28] shadow-md">
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-11 sm:h-12">
-            {/* Left: Navigation Tabs */}
-            <div className="flex items-center space-x-1 sm:space-x-4 overflow-x-auto no-scrollbar py-1">
-              {navItems.map((item) => {
-                const isActive = activeTab === item.id;
-                const Icon = item.icon;
-                return (
-                  <button
-                    key={item.id}
-                    onClick={() => setActiveTab(item.id)}
-                    className={`px-2.5 sm:px-3.5 py-1.5 rounded text-xs sm:text-sm font-bold tracking-wide transition-all cursor-pointer shrink-0 flex items-center space-x-1.5 ${
-                      isActive
-                        ? 'text-[#48e68b] bg-black/20 border-b-2 border-[#48e68b] shadow-inner'
-                        : 'text-white hover:text-[#a8ffce] hover:bg-white/10'
-                    }`}
-                  >
-                    {Icon && <Icon className="w-3.5 h-3.5" />}
-                    <span>{item.label}</span>
-                    {item.countBadge > 0 && (
-                      <span className="ml-1 bg-amber-400 text-slate-950 text-[10px] font-black px-1.5 py-0.2 rounded-full">
-                        {item.countBadge}
-                      </span>
-                    )}
-                  </button>
-                );
-              })}
-            </div>
+            {/* Left: Navigation Tabs / Dashboard Header */}
+            {!isAuthenticated ? (
+              <div className="flex items-center space-x-1 sm:space-x-4 overflow-x-auto no-scrollbar py-1">
+                {unauthenticatedNavItems.map((item) => {
+                  const isActive = activeTab === item.id;
+                  return (
+                    <button
+                      key={item.id}
+                      onClick={() => setActiveTab(item.id)}
+                      className={`px-2.5 sm:px-3.5 py-1.5 rounded text-xs sm:text-sm font-bold tracking-wide transition-all cursor-pointer shrink-0 flex items-center space-x-1.5 ${
+                        isActive
+                          ? 'text-[#48e68b] bg-black/20 border-b-2 border-[#48e68b] shadow-inner'
+                          : 'text-white hover:text-[#a8ffce] hover:bg-white/10'
+                      }`}
+                    >
+                      <span>{item.label}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            ) : (
+              <div className="flex items-center space-x-2 sm:space-x-3 py-1">
+                {/* Mobile Drawer Trigger for Vertical Sidebar */}
+                <button
+                  type="button"
+                  onClick={() => setIsMobileSidebarOpen(!isMobileSidebarOpen)}
+                  className="lg:hidden flex items-center space-x-1.5 bg-black/25 hover:bg-black/40 text-emerald-200 hover:text-white px-2.5 py-1 rounded-lg text-xs font-bold transition border border-white/15 cursor-pointer"
+                  title="Toggle Dashboard Menu"
+                >
+                  <Menu className="w-3.5 h-3.5" />
+                  <span>Modules</span>
+                </button>
+
+                <div className="flex items-center space-x-2">
+                  <span className="text-xs font-black uppercase tracking-wider text-emerald-300 bg-black/20 px-2.5 py-0.5 rounded-full border border-emerald-400/30">
+                    Dashboard
+                  </span>
+                  <span className="text-white/40 text-xs">/</span>
+                  <span className="text-xs sm:text-sm font-black text-white capitalize truncate max-w-[150px] sm:max-w-none">
+                    {activeTab === 'crops' ? 'Crops Catalog' :
+                     activeTab === 'units' ? 'Storage Units' :
+                     activeTab === 'booking' ? 'Slot Booking' :
+                     activeTab === 'queue' ? 'Real-Time Queue' :
+                     activeTab === 'tracking' ? 'Procurement Tracker' :
+                     activeTab === 'documents' ? 'Docx Request' :
+                     activeTab === 'sms' ? 'SMS Alerts' :
+                     activeTab === 'profile' ? 'Farmer Profile' :
+                     activeTab === 'land_verification' ? 'Land Title Verification' :
+                     activeTab.replace('_', ' ')}
+                  </span>
+                </div>
+              </div>
+            )}
 
             {/* Center: CLEAN AND EMPTY (Disclaimer intentionally removed as crossed out in red by user) */}
             <div className="hidden lg:block flex-1"></div>

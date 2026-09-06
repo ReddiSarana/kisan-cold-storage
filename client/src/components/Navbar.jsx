@@ -143,9 +143,9 @@ export default function Navbar() {
                 title="Krishivalaya Farmer - కృషివలయ రైతు"
               >
                 <img
-                  src="/images/indian-farmer.jpg"
-                  alt="Farmer - రైతు"
-                  className="w-full h-full object-cover object-top rounded-full"
+                  src="/images/telugu-farmer-plough.jpg"
+                  alt="Farmer with Wooden Plough - రైతు"
+                  className="w-full h-full object-cover object-top rounded-full scale-105"
                 />
               </div>
 

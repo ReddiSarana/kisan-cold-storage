@@ -55,15 +55,8 @@ export default function HomePage() {
             {/* Right: Pill Badge Title & Explanatory Text (No Reviews) */}
             <div className="md:col-span-8 lg:col-span-8 space-y-4 text-left">
               {/* Title Pill Badge */}
-              <div className="inline-flex items-center space-x-3 bg-gradient-to-r from-blue-900 via-indigo-900 to-blue-950 border-2 border-white/80 px-6 py-2.5 rounded-full shadow-2xl">
-                <div className="w-8 h-8 rounded-full bg-white p-1 flex items-center justify-center shrink-0 shadow-sm">
-                  <img
-                    src="/krishivalaya-logo.jpg"
-                    alt="Krishivalaya Logo"
-                    className="w-full h-full object-contain rounded-full"
-                  />
-                </div>
-                <div className="flex items-center space-x-2">
+              <div className="inline-flex items-center space-x-3 bg-gradient-to-r from-blue-900 via-indigo-900 to-blue-950 border-2 border-white/80 px-6 py-2 rounded-full shadow-2xl">
+                <div className="flex items-center space-x-2.5">
                   <span className="text-2xl sm:text-4xl font-black text-white tracking-wide">
                     Krishivalaya
                   </span>

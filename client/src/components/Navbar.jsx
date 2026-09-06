@@ -149,15 +149,15 @@ export default function Navbar() {
                 />
               </div>
 
-              {/* Position 2: Cold Chain Truck Emblem (Large Circle with Gold Border) */}
+              {/* Position 2: Cold Chain Truck Emblem (Increased Size matching Position 1) */}
               <div
-                className="w-16 h-16 sm:w-22 sm:h-22 md:w-26 md:h-26 lg:w-30 lg:h-30 rounded-full p-1 bg-gradient-to-br from-amber-300 via-yellow-400 to-amber-500 shadow-2xl shrink-0 border-3 sm:border-4 border-white/90 overflow-hidden flex items-center justify-center hover:scale-105 transition-transform duration-300"
+                className="w-18 h-18 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-34 lg:h-34 rounded-full bg-white p-1 sm:p-1.5 shadow-2xl shrink-0 border-3 sm:border-4 border-white/95 overflow-hidden flex items-center justify-center hover:scale-105 transition-transform duration-300"
                 title="Cold Chain Logistics Truck"
               >
                 <img
                   src="/images/cold-chain-truck.jpg"
                   alt="Cold Transport Truck"
-                  className="w-full h-full object-cover rounded-full"
+                  className="w-full h-full object-cover rounded-full scale-105"
                 />
               </div>
             </div>
@@ -169,7 +169,7 @@ export default function Navbar() {
             >
               <div className="flex items-center justify-center space-x-3 sm:space-x-5">
                 {/* Krishivalaya Logo (Fitted Perfectly into Circle) */}
-                <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 rounded-full bg-white p-2 sm:p-2.5 shadow-2xl border-3 sm:border-4 border-emerald-400/90 shrink-0 flex items-center justify-center overflow-hidden group-hover:scale-105 transition-transform duration-300">
+                <div className="w-16 h-16 sm:w-22 sm:h-22 md:w-26 md:h-26 lg:w-30 lg:h-30 rounded-full bg-white p-2 sm:p-2.5 shadow-2xl border-3 sm:border-4 border-emerald-400/90 shrink-0 flex items-center justify-center overflow-hidden group-hover:scale-105 transition-transform duration-300">
                   <img
                     src="/images/krishivalaya-official-logo.png"
                     alt="Official Krishivalaya Logo"
@@ -191,15 +191,15 @@ export default function Navbar() {
 
             {/* Right Pair: Circular Crops Emblem & Circular Storage Unit */}
             <div className="flex items-center space-x-2.5 sm:space-x-4 md:space-x-5 shrink-0">
-              {/* Position 4: Fresh Crops Emblem (Large Circle with Gold Border) */}
+              {/* Position 4: Fresh Crops Emblem (Increased Size matching Position 5) */}
               <div
-                className="w-16 h-16 sm:w-22 sm:h-22 md:w-26 md:h-26 lg:w-30 lg:h-30 rounded-full p-1 bg-gradient-to-br from-amber-300 via-yellow-400 to-amber-500 shadow-2xl shrink-0 border-3 sm:border-4 border-white/90 overflow-hidden flex items-center justify-center hover:scale-105 transition-transform duration-300"
+                className="w-18 h-18 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-34 lg:h-34 rounded-full bg-white p-1 sm:p-1.5 shadow-2xl shrink-0 border-3 sm:border-4 border-white/95 overflow-hidden flex items-center justify-center hover:scale-105 transition-transform duration-300"
                 title="Fresh Harvest Agricultural Crops"
               >
                 <img
                   src="/images/fresh-crops-emblem.jpg"
                   alt="Fresh Harvest Crops"
-                  className="w-full h-full object-cover rounded-full"
+                  className="w-full h-full object-cover rounded-full scale-105"
                 />
               </div>
 

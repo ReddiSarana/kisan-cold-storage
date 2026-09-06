@@ -168,12 +168,12 @@ export default function Navbar() {
               className="flex-1 flex items-center justify-center px-1 sm:px-4 cursor-pointer group"
             >
               <div className="flex items-center justify-center space-x-3 sm:space-x-5">
-                {/* Krishivalaya Logo (Turned to Large Circle) */}
+                {/* Krishivalaya Logo (Fitted Perfectly into Circle) */}
                 <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 rounded-full bg-white p-2 sm:p-2.5 shadow-2xl border-3 sm:border-4 border-emerald-400/90 shrink-0 flex items-center justify-center overflow-hidden group-hover:scale-105 transition-transform duration-300">
                   <img
-                    src="/images/krishivalaya-official-logo.jpg"
+                    src="/images/krishivalaya-official-logo.png"
                     alt="Official Krishivalaya Logo"
-                    className="w-full h-full object-contain rounded-full"
+                    className="w-full h-full object-contain"
                   />
                 </div>
 

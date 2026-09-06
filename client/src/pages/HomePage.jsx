@@ -44,7 +44,7 @@ export default function HomePage() {
               <div className="relative w-52 h-52 sm:w-64 sm:h-64 lg:w-72 lg:h-72 rounded-full p-2 bg-white/30 backdrop-blur-md shadow-2xl border-4 border-white/80 shrink-0">
                 <div className="w-full h-full rounded-full overflow-hidden bg-white shadow-inner flex items-center justify-center p-3 sm:p-4">
                   <img
-                    src="/images/krishivalaya-official-logo.jpg"
+                    src="/images/krishivalaya-official-logo.png"
                     alt="Krishivalaya Official Logo"
                     className="w-full h-full object-contain rounded-full hover:scale-105 transition-transform duration-300"
                   />

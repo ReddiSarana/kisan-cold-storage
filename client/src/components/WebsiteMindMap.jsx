@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import { useApp } from '../context/AppContext';
 import { useLanguage } from '../context/LanguageContext';
 import {
   Volume2,
   VolumeX,
-  ArrowRight,
   CheckCircle,
   XCircle,
   ExternalLink,
@@ -113,7 +111,6 @@ const SIMPLE_STEPS = [
 ];
 
 export default function WebsiteMindMap() {
-  const { setActiveTab } = useApp();
   const { t } = useLanguage();
 
   const [activeStep, setActiveStep] = useState(0);
@@ -303,17 +300,8 @@ export default function WebsiteMindMap() {
                 </p>
               </div>
 
-              {/* Direct Navigation Button */}
+              {/* Audio Listen Step Action (No redirect button) */}
               <div className="pt-2 flex flex-wrap items-center gap-3">
-                <button
-                  type="button"
-                  onClick={() => setActiveTab(current.actionTab)}
-                  className="bg-gradient-to-r from-emerald-400 to-teal-400 hover:from-emerald-300 hover:to-teal-300 text-slate-950 font-black px-6 py-3.5 rounded-2xl shadow-xl transition-all hover:scale-105 text-sm flex items-center space-x-2"
-                >
-                  <span>{current.actionText}</span>
-                  <ArrowRight className="w-4 h-4 text-slate-950" />
-                </button>
-
                 <button
                   type="button"
                   onClick={() =>
@@ -322,9 +310,9 @@ export default function WebsiteMindMap() {
                       current.speechText
                     )
                   }
-                  className="bg-white/10 hover:bg-white/20 text-white font-bold px-4 py-3.5 rounded-2xl border border-white/20 transition text-sm flex items-center space-x-2"
+                  className="bg-emerald-400 hover:bg-emerald-300 text-slate-950 font-black px-6 py-3.5 rounded-2xl shadow-xl transition-all hover:scale-105 text-sm flex items-center space-x-2 cursor-pointer"
                 >
-                  <span>🔊 వినండి (Listen Step)</span>
+                  <span>🔊 వినండి (Listen Step {current.step})</span>
                 </button>
               </div>
             </div>
@@ -401,13 +389,12 @@ export default function WebsiteMindMap() {
           </div>
         </div>
 
-        <button
-          type="button"
-          onClick={() => setActiveTab('booking')}
-          className="bg-slate-950 hover:bg-slate-800 text-white font-black px-5 py-2.5 rounded-xl shadow-md transition shrink-0"
+        <a
+          href="tel:18001801551"
+          className="bg-slate-950 hover:bg-slate-800 text-white font-black px-5 py-2.5 rounded-xl shadow-md transition shrink-0 flex items-center space-x-2 cursor-pointer"
         >
-          Book Storage Now →
-        </button>
+          <span>📞 Call Toll-Free Helpline</span>
+        </a>
       </div>
     </div>
   );

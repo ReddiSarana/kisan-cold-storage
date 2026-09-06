@@ -3,7 +3,6 @@ import { useApp, DEMO_USERS } from '../context/AppContext';
 import { useLanguage } from '../context/LanguageContext';
 import {
   Snowflake,
-  Sprout,
   Clock,
   FileText,
   MessageSquare,
@@ -18,11 +17,7 @@ import {
   Globe,
   LogIn,
   LogOut,
-  UserPlus,
-  Home,
-  Info,
-  BookOpen,
-  HelpCircle
+  UserPlus
 } from 'lucide-react';
 
 export default function Navbar() {
@@ -40,6 +35,7 @@ export default function Navbar() {
 
   const {
     currentLanguage,
+    setLanguage,
     setIsLanguageModalOpen,
     t
   } = useLanguage();
@@ -47,67 +43,74 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [roleDropdownOpen, setRoleDropdownOpen] = useState(false);
 
-  // Visitor navigation: Home, About Us, User Manual, FAQ as separate windows
+  // Visitor navigation matching government portal: Home, About us, User Manuals, FAQ
   const unauthenticatedNavItems = [
-    { id: 'home', label: t('home', 'Home'), icon: Home },
-    { id: 'about_us', label: t('aboutUs', 'About Us'), icon: Info },
-    { id: 'user_manual', label: t('userManual', 'User Manual'), icon: BookOpen, badge: 'Guide' },
-    { id: 'faq', label: t('faq', 'FAQ'), icon: HelpCircle }
+    { id: 'home', label: 'Home' },
+    { id: 'about_us', label: 'About us' },
+    { id: 'user_manual', label: 'User Manuals' },
+    { id: 'faq', label: 'FAQ' }
   ];
 
   const authenticatedNavItems = [
+    { id: 'home', label: 'Home' },
     { id: 'crops', label: t('crops', 'Crops Catalog'), icon: Snowflake },
-    { id: 'units', label: t('units', 'Storage Units'), icon: Warehouse, badge: 'Inside' },
-    { id: 'booking', label: t('booking', 'Slot Booking'), icon: CalendarCheck, badge: 'Book Slot' },
-    { id: 'queue', label: t('queue', 'Real-Time Queue'), icon: Clock, badge: 'Live' },
+    { id: 'units', label: t('units', 'Storage Units'), icon: Warehouse },
+    { id: 'booking', label: t('booking', 'Slot Booking'), icon: CalendarCheck },
+    { id: 'queue', label: t('queue', 'Real-Time Queue'), icon: Clock },
     { id: 'tracking', label: t('tracking', 'Procurement Tracker'), icon: Activity },
     { id: 'documents', label: t('documents', 'Docx Request'), icon: FileText },
     { id: 'sms', label: t('sms', 'SMS Alerts'), icon: MessageSquare, countBadge: unreadSmsCount },
   ];
 
   const navItems = isAuthenticated ? authenticatedNavItems : unauthenticatedNavItems;
-  const isHomePage = activeTab === 'home';
+
+  const handleLanguageToggle = () => {
+    if (currentLanguage.code === 'te') {
+      setLanguage('en');
+    } else {
+      setLanguage('te');
+    }
+  };
 
   return (
-    <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-xl border-b border-slate-200/80 shadow-sm">
-      {/* Top Banner for Farmer Helpline & Language */}
-      <div className="bg-gradient-to-r from-emerald-900 via-teal-950 to-slate-900 text-white text-xs px-4 py-1.5 flex justify-between items-center border-b border-emerald-900/50">
+    <header className="sticky top-0 z-40 shadow-xl">
+      {/* 1. TOP UTILITY HELPLINE STRIP */}
+      <div className="bg-[#042411] text-white text-[11px] px-4 py-1 flex justify-between items-center border-b border-emerald-900/60 select-none">
         <div className="flex items-center space-x-3">
           <span className="flex items-center font-medium">
             <span className="flex h-2 w-2 relative mr-1.5">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
             </span>
-            <PhoneCall className="w-3.5 h-3.5 mr-1 text-emerald-300" />
+            <PhoneCall className="w-3 h-3 mr-1 text-emerald-300" />
             {t('kisanCallCenter', 'Kisan Call Centre Toll-Free:')} <strong className="ml-1 text-emerald-300 font-mono tracking-wide">1800-180-1551</strong>
           </span>
-          <span className="hidden sm:inline-block text-emerald-400/40">|</span>
+          <span className="hidden sm:inline-block text-emerald-500/40">|</span>
           <span className="hidden sm:inline-block text-emerald-200/90 font-medium">
-            {t('portalDesc', '🌾 Cold Storage & Digital Warehouse Receipt Portal (WDRA Certified)')}
+            🌾 Official National Cold Storage & e-NWR Digital Warehouse Portal
           </span>
         </div>
+
         <div className="flex items-center space-x-2.5">
-          {/* Language Switcher Trigger (Top Banner) */}
+          {/* 22 Languages Modal Button */}
           <button
             onClick={() => setIsLanguageModalOpen(true)}
-            className="flex items-center space-x-1.5 bg-emerald-800/80 hover:bg-emerald-700/90 px-2.5 py-0.5 rounded-full text-white text-[11px] font-medium transition border border-emerald-500/40 shadow-xs hover:border-emerald-400"
-            title="Change Language (22 Official Languages + English)"
+            className="flex items-center space-x-1 text-emerald-200 hover:text-white px-2 py-0.5 rounded text-[11px] font-medium transition cursor-pointer"
+            title="Browse all 22 official scheduled languages"
           >
-            <Globe className="w-3 h-3 text-emerald-300" />
-            <span className="font-bold">{currentLanguage.native}</span>
-            <span className="text-emerald-300 text-[10px]">({currentLanguage.name})</span>
-            <ChevronDown className="w-2.5 h-2.5 text-emerald-300 ml-0.5" />
+            <Globe className="w-3 h-3 text-emerald-400" />
+            <span className="hidden md:inline">22 Languages</span>
           </button>
 
-          {/* Real-time SMS Simulator Trigger */}
+          {/* SMS Simulator Button */}
           <button
             onClick={() => setIsSmsSimulatorOpen(!isSmsSimulatorOpen)}
-            className="flex items-center bg-emerald-800/80 hover:bg-emerald-700/90 px-2.5 py-0.5 rounded-full text-white text-[11px] font-medium transition border border-emerald-600/30"
+            className="flex items-center bg-emerald-800/80 hover:bg-emerald-700/90 px-2 py-0.5 rounded-full text-white text-[10px] font-bold transition border border-emerald-600/40 cursor-pointer"
           >
             <MessageSquare className="w-3 h-3 mr-1 text-emerald-300" />
-            {t('smsSimulator', 'SMS Simulator')}
+            SMS Simulator
             {unreadSmsCount > 0 && (
-              <span className="ml-1.5 bg-amber-400 text-slate-950 text-[10px] font-black px-1.5 py-0.2 rounded-full shadow-xs animate-bounce">
+              <span className="ml-1 bg-amber-400 text-slate-950 text-[9px] font-black px-1.5 py-0.2 rounded-full animate-bounce">
                 {unreadSmsCount}
               </span>
             )}
@@ -115,107 +118,177 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Main Navbar */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Brand Logo */}
-          <div
-            onClick={() => setActiveTab(isAuthenticated ? 'crops' : 'home')}
-            className="flex items-center space-x-3 cursor-pointer group"
-          >
-            <div className={`relative ${isHomePage ? 'w-12 h-12 sm:w-13 sm:h-13' : 'w-11 h-11'} rounded-2xl bg-white p-1 flex items-center justify-center shadow-md group-hover:scale-105 group-hover:shadow-emerald-500/25 transition-all duration-300 border border-emerald-300/80 overflow-hidden shrink-0`}>
-              <img
-                src="/krishivalaya-logo.jpg"
-                alt="Krishivalaya Logo"
-                className="w-full h-full object-contain rounded-xl"
-              />
+      {/* 2. MAJESTIC GOVERNMENT PORTAL BANNER (Bhu Bharati Styled) */}
+      <div className="relative overflow-hidden bg-[#053d1c] border-b border-emerald-950 shadow-md">
+        {/* Scenic Green Countryside Background */}
+        <div className="absolute inset-0 z-0">
+          <img
+            src="/images/govt-green-banner-bg.jpg"
+            alt="Agricultural Countryside"
+            className="w-full h-full object-cover object-center opacity-85"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#032e15]/90 via-[#05431e]/75 to-[#032e15]/90"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-[#021f0e]/50 via-transparent to-[#05431e]/30"></div>
+        </div>
+
+        {/* Banner Inner Content: Farmer | Truck | Center Brand | Crops | Storage Unit */}
+        <div className="relative z-10 max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-3 sm:py-4 md:py-5">
+          <div className="flex items-center justify-between gap-2 sm:gap-4 md:gap-6">
+            {/* Left Pair: Framed Farmer Portrait & Truck Emblem */}
+            <div className="flex items-center space-x-2 sm:space-x-4 shrink-0">
+              {/* Position 1: Farmer Portrait (White Frame) */}
+              <div
+                onClick={() => setActiveTab('home')}
+                className="w-14 h-18 sm:w-20 sm:h-26 md:w-24 md:h-30 rounded-xs bg-white p-1 sm:p-1.5 shadow-2xl border-2 border-slate-200/90 overflow-hidden flex flex-col items-center justify-center shrink-0 hover:scale-105 transition-transform duration-300 cursor-pointer"
+                title="Krishivalaya Farmer - కృషివలయ రైతు"
+              >
+                <img
+                  src="/images/indian-farmer.jpg"
+                  alt="Farmer - రైతు"
+                  className="w-full h-full object-cover object-top"
+                />
+              </div>
+
+              {/* Position 2: Cold Chain Truck Emblem (Circular Gold Border) */}
+              <div
+                className="w-12 h-12 sm:w-18 sm:h-18 md:w-22 md:h-22 rounded-full p-0.5 bg-gradient-to-br from-amber-300 via-yellow-400 to-amber-500 shadow-2xl shrink-0 border-2 border-white/70 overflow-hidden flex items-center justify-center"
+                title="Cold Chain Logistics Truck"
+              >
+                <img
+                  src="/images/cold-chain-truck.jpg"
+                  alt="Cold Transport Truck"
+                  className="w-full h-full object-cover rounded-full"
+                />
+              </div>
             </div>
-            <div>
-              <div className="flex items-center space-x-1.5">
-                <span className={`${isHomePage ? 'text-2xl sm:text-3xl lg:text-3xl' : 'text-2xl'} font-black tracking-tight text-slate-900 transition-all`}>
-                  Krishi<span className="text-emerald-600">valaya</span>
+
+            {/* Position 3: Center Brand & Portal Title (Bilingual / Trilingual) */}
+            <div
+              onClick={() => setActiveTab('home')}
+              className="flex-1 flex flex-col items-center text-center px-1 sm:px-4 cursor-pointer group"
+            >
+              {/* Top Title Line: English | Telugu | Urdu */}
+              <div className="flex items-center justify-center flex-wrap gap-1 sm:gap-2">
+                <span className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-white tracking-wide uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
+                  KRISHIVALAYA
                 </span>
-                <span className="text-[10px] font-extrabold bg-gradient-to-r from-emerald-100 to-teal-100 text-emerald-800 px-2 py-0.5 rounded-full border border-emerald-200">
-                  {currentLanguage.code === 'en' ? 'Kisan Portal' : currentLanguage.native}
+                <span className="text-emerald-300/80 font-light text-xl sm:text-3xl md:text-4xl">|</span>
+                <span className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-white tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
+                  కృషివలయ
+                </span>
+                <span className="text-emerald-300/80 font-light text-xl sm:text-3xl md:text-4xl hidden sm:inline">|</span>
+                <span className="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white tracking-wider drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] hidden sm:inline" dir="rtl">
+                  کرشی ولیا
                 </span>
               </div>
-              <p className="text-[11px] text-slate-500 font-semibold tracking-wide">{t('portalTagline', 'Empowering the Annadatha')}</p>
+
+              {/* Subtitle matching Bhu Bharati RECORD OF RIGHTS */}
+              <p className="text-[10px] sm:text-xs md:text-sm lg:text-base font-black uppercase tracking-wider sm:tracking-widest text-white mt-1 drop-shadow-[0_2px_3px_rgba(0,0,0,0.9)]">
+                RECORD OF COLD STORAGE & DIGITAL WAREHOUSE RECEIPTS (e-NWR)
+              </p>
+            </div>
+
+            {/* Right Pair: Crops Emblem & Framed Storage Unit */}
+            <div className="flex items-center space-x-2 sm:space-x-4 shrink-0">
+              {/* Position 4: Fresh Crops Emblem (Circular Gold Border) */}
+              <div
+                className="w-12 h-12 sm:w-18 sm:h-18 md:w-22 md:h-22 rounded-full p-0.5 bg-gradient-to-br from-amber-300 via-yellow-400 to-amber-500 shadow-2xl shrink-0 border-2 border-white/70 overflow-hidden flex items-center justify-center"
+                title="Fresh Harvest Agricultural Crops"
+              >
+                <img
+                  src="/images/fresh-crops-emblem.jpg"
+                  alt="Fresh Harvest Crops"
+                  className="w-full h-full object-cover rounded-full"
+                />
+              </div>
+
+              {/* Position 5: Storage Unit Warehouse (White Frame) */}
+              <div
+                className="w-14 h-18 sm:w-20 sm:h-26 md:w-24 md:h-30 rounded-xs bg-white p-1 sm:p-1.5 shadow-2xl border-2 border-slate-200/90 overflow-hidden flex flex-col items-center justify-center shrink-0 hover:scale-105 transition-transform duration-300"
+                title="Multi-Chamber Cold Storage Unit Warehouse"
+              >
+                <img
+                  src="/images/cold-storage-unit.jpg"
+                  alt="Cold Storage Warehouse"
+                  className="w-full h-full object-cover object-center"
+                />
+              </div>
             </div>
           </div>
+        </div>
+      </div>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-1">
-            {navItems.map((item) => {
-              const Icon = item.icon;
-              const isActive = activeTab === item.id;
-              return (
+      {/* 3. ATTACHED GREEN SUB-NAVIGATION BAR (Home | About us | User Manuals | FAQ ... తెలుగు | Login) */}
+      <nav className="bg-[#006837] border-t-2 border-[#f7c844] border-b border-[#004e28] shadow-md">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-11 sm:h-12">
+            {/* Left: Navigation Tabs */}
+            <div className="flex items-center space-x-1 sm:space-x-4 overflow-x-auto no-scrollbar py-1">
+              {navItems.map((item) => {
+                const isActive = activeTab === item.id;
+                const Icon = item.icon;
+                return (
+                  <button
+                    key={item.id}
+                    onClick={() => setActiveTab(item.id)}
+                    className={`px-2.5 sm:px-3.5 py-1.5 rounded text-xs sm:text-sm font-bold tracking-wide transition-all cursor-pointer shrink-0 flex items-center space-x-1.5 ${
+                      isActive
+                        ? 'text-[#48e68b] bg-black/20 border-b-2 border-[#48e68b] shadow-inner'
+                        : 'text-white hover:text-[#a8ffce] hover:bg-white/10'
+                    }`}
+                  >
+                    {Icon && <Icon className="w-3.5 h-3.5" />}
+                    <span>{item.label}</span>
+                    {item.countBadge > 0 && (
+                      <span className="ml-1 bg-amber-400 text-slate-950 text-[10px] font-black px-1.5 py-0.2 rounded-full">
+                        {item.countBadge}
+                      </span>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Center: CLEAN AND EMPTY (Disclaimer intentionally removed as crossed out in red by user) */}
+            <div className="hidden lg:block flex-1"></div>
+
+            {/* Right: Language Switcher | Login */}
+            <div className="flex items-center space-x-2 sm:space-x-3 shrink-0">
+              {/* Language Switcher: తెలుగు / English toggle */}
+              <button
+                onClick={handleLanguageToggle}
+                className="text-white hover:text-amber-200 text-xs sm:text-sm font-extrabold tracking-wide transition cursor-pointer px-1 py-1"
+                title="Toggle Telugu / English"
+              >
+                {currentLanguage.code === 'te' ? 'English' : 'తెలుగు'}
+              </button>
+
+              <span className="text-white/50 font-light text-sm">|</span>
+
+              {/* Login / User Profile Button */}
+              {!isAuthenticated ? (
                 <button
-                  key={item.id}
-                  onClick={() => setActiveTab(item.id)}
-                  className={`relative flex items-center px-3 py-2 rounded-xl text-xs font-bold transition-all duration-200 ${
-                    isActive
-                      ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/20'
-                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/80'
-                  }`}
+                  onClick={() => setActiveTab('signin')}
+                  className="flex items-center space-x-1 text-white hover:text-amber-200 text-xs sm:text-sm font-bold tracking-wide transition cursor-pointer px-1.5 py-1 rounded hover:bg-white/10"
                 >
-                  <Icon className={`w-3.5 h-3.5 mr-1.5 ${isActive ? 'text-white' : 'text-slate-400'}`} />
-                  {item.label}
-                  {item.badge && (
-                    <span className={`ml-1.5 text-[9px] font-black px-1.5 py-0.5 rounded-full ${
-                      isActive ? 'bg-white text-emerald-800' : 'bg-gradient-to-r from-amber-500 to-rose-500 text-white animate-pulse'
-                    }`}>
-                      {item.badge}
-                    </span>
-                  )}
-                  {item.countBadge > 0 && (
-                    <span className={`ml-1.5 text-[9px] font-black px-1.5 py-0.2 rounded-full ${
-                      isActive ? 'bg-white text-emerald-800' : 'bg-emerald-600 text-white'
-                    }`}>
-                      {item.countBadge}
-                    </span>
-                  )}
+                  <User className="w-4 h-4 text-white" />
+                  <span>Login</span>
                 </button>
-              );
-            })}
-          </nav>
+              ) : (
+                <div className="relative">
+                  <button
+                    onClick={() => setRoleDropdownOpen(!roleDropdownOpen)}
+                    className="flex items-center space-x-1.5 text-white hover:text-amber-200 text-xs sm:text-sm font-bold transition cursor-pointer px-2 py-1 rounded bg-black/20"
+                  >
+                    <span className="text-base">{currentUser.avatar}</span>
+                    <span className="max-w-[100px] truncate">{currentUser.name}</span>
+                    <ChevronDown className="w-3.5 h-3.5 text-white" />
+                  </button>
 
-          {/* Language Switcher & User Profile / Quick Switcher */}
-          <div className="hidden sm:flex items-center space-x-2.5">
-            {/* Dedicated Desktop Language Switcher Button */}
-            <button
-              onClick={() => setIsLanguageModalOpen(true)}
-              className="flex items-center space-x-2 px-3 py-1.5 rounded-xl border border-slate-200 hover:border-emerald-400 bg-slate-50/80 hover:bg-emerald-50/50 text-slate-700 transition group shadow-2xs"
-              title="Select Language / 22 Official Scheduled Languages of India"
-            >
-              <Globe className="w-4 h-4 text-emerald-600 group-hover:rotate-45 transition-transform duration-300" />
-              <div className="text-left">
-                <p className="text-xs font-bold text-slate-800 leading-tight">{currentLanguage.native}</p>
-                <p className="text-[10px] text-slate-500 capitalize">{currentLanguage.name}</p>
-              </div>
-              <ChevronDown className="w-3.5 h-3.5 text-slate-400 group-hover:text-emerald-600" />
-            </button>
-
-            {/* User Profile / Quick Switcher (Only visible when signed in) */}
-            {isAuthenticated && (
-              <div className="relative">
-                <button
-                  onClick={() => setRoleDropdownOpen(!roleDropdownOpen)}
-                  className="flex items-center space-x-2 bg-slate-100 hover:bg-slate-200/80 px-3 py-1.5 rounded-xl border border-slate-200 text-left transition shadow-2xs"
-                >
-                  <span className="text-xl">{currentUser.avatar}</span>
-                  <div className="text-xs">
-                    <p className="font-bold text-slate-800 leading-tight">{currentUser.name}</p>
-                    <p className="text-[10px] text-emerald-700 font-semibold capitalize">{currentUser.role.replace('_', ' ')}</p>
-                  </div>
-                  <ChevronDown className="w-3.5 h-3.5 text-slate-500" />
-                </button>
-
-                {/* Role Switcher Dropdown */}
-                {roleDropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-72 bg-white rounded-2xl shadow-xl border border-slate-200 p-2.5 z-50 animate-in fade-in duration-150">
-                    {/* Current Profile Summary Card */}
-                    <div className="p-3 bg-emerald-50/80 rounded-xl border border-emerald-200/80 mb-2">
-                      <div className="flex items-center justify-between">
+                  {/* Dropdown Menu */}
+                  {roleDropdownOpen && (
+                    <div className="absolute right-0 mt-2 w-72 bg-white rounded-2xl shadow-2xl border border-slate-200 p-2.5 z-50 animate-in fade-in duration-150">
+                      <div className="p-3 bg-emerald-50/80 rounded-xl border border-emerald-200/80 mb-2">
                         <div className="flex items-center space-x-2.5">
                           <span className="text-2xl">{currentUser.avatar}</span>
                           <div>
@@ -223,230 +296,124 @@ export default function Navbar() {
                             <p className="text-[10px] text-emerald-800 font-semibold">{currentUser.district}, {currentUser.state}</p>
                           </div>
                         </div>
-                        <span className="bg-emerald-600 text-white text-[9px] font-bold px-1.5 py-0.5 rounded shadow-xs">
-                          KYC ✓
-                        </span>
+                        <button
+                          onClick={() => {
+                            setActiveTab('profile');
+                            setRoleDropdownOpen(false);
+                          }}
+                          className="mt-2.5 w-full flex items-center justify-center space-x-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold py-2 rounded-lg shadow-xs transition"
+                        >
+                          <User className="w-3.5 h-3.5" />
+                          <span>View My Profile</span>
+                        </button>
                       </div>
-                      <button
-                        onClick={() => {
-                          setActiveTab('profile');
-                          setRoleDropdownOpen(false);
-                        }}
-                        className="mt-2.5 w-full flex items-center justify-center space-x-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold py-2 rounded-lg shadow-xs transition"
-                      >
-                        <User className="w-3.5 h-3.5" />
-                        <span>View & Edit My Profile</span>
-                      </button>
-                    </div>
 
-                    <div className="px-2 py-1 border-b border-slate-100 mb-1">
-                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Demo Quick Switch</p>
-                    </div>
-                    {Object.entries(DEMO_USERS).map(([key, user]) => (
-                      <button
-                        key={key}
-                        onClick={() => {
-                          switchRole(key);
-                          setRoleDropdownOpen(false);
-                        }}
-                        className={`w-full flex items-center space-x-2 px-2.5 py-2 rounded-lg text-left text-xs transition ${
-                          currentUser.role === user.role
-                            ? 'bg-emerald-50 text-emerald-900 font-semibold'
-                            : 'hover:bg-slate-50 text-slate-700'
-                        }`}
-                      >
-                        <span className="text-lg">{user.avatar}</span>
-                        <div className="truncate">
-                          <p className="font-bold truncate">{user.name}</p>
-                          <p className="text-[10px] text-slate-500 capitalize">{user.role.replace('_', ' ')}</p>
-                        </div>
-                      </button>
-                    ))}
-                    <div className="mt-2 pt-2 border-t border-slate-100 space-y-1">
-                      <button
-                        onClick={() => {
-                          setActiveTab('auth');
-                          setRoleDropdownOpen(false);
-                        }}
-                        className="w-full text-center text-xs text-emerald-700 font-bold hover:underline py-1 block"
-                      >
-                        Login / Create New Account &rarr;
-                      </button>
-                      <button
-                        onClick={() => {
-                          logoutUser();
-                          setRoleDropdownOpen(false);
-                        }}
-                        className="w-full text-center text-xs text-rose-600 hover:text-rose-700 font-bold py-1 flex items-center justify-center space-x-1 hover:bg-rose-50 rounded-lg transition"
-                      >
-                        <LogOut className="w-3 h-3" />
-                        <span>Sign Out</span>
-                      </button>
-                    </div>
-                  </div>
-                )}
-              </div>
-            )}
+                      <div className="px-2 py-1 border-b border-slate-100 mb-1">
+                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Demo Quick Switch</p>
+                      </div>
+                      {Object.entries(DEMO_USERS).map(([key, user]) => (
+                        <button
+                          key={key}
+                          onClick={() => {
+                            switchRole(key);
+                            setRoleDropdownOpen(false);
+                          }}
+                          className={`w-full flex items-center space-x-2 px-2.5 py-2 rounded-lg text-left text-xs transition ${
+                            currentUser.role === user.role
+                              ? 'bg-emerald-50 text-emerald-900 font-semibold'
+                              : 'hover:bg-slate-50 text-slate-700'
+                          }`}
+                        >
+                          <span className="text-lg">{user.avatar}</span>
+                          <div className="truncate">
+                            <p className="font-bold truncate">{user.name}</p>
+                            <p className="text-[10px] text-slate-500 capitalize">{user.role.replace('_', ' ')}</p>
+                          </div>
+                        </button>
+                      ))}
 
-            {isAuthenticated ? (
-              <button
-                onClick={() => logoutUser()}
-                className="bg-slate-100 hover:bg-rose-50 hover:text-rose-700 text-slate-700 text-xs font-bold px-3 py-2 rounded-xl border border-slate-200 transition-all flex items-center space-x-1.5 cursor-pointer"
-                title="Sign out of Krishivalaya"
-              >
-                <LogOut className="w-3.5 h-3.5 text-rose-500" />
-                <span className="hidden md:inline">Sign Out</span>
-              </button>
-            ) : (
-              <div className="flex items-center space-x-2">
-                <button
-                  onClick={() => setActiveTab('signin')}
-                  className="bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-700 hover:to-teal-800 text-white text-xs font-black px-3.5 py-2 rounded-xl shadow-md shadow-emerald-600/20 transition-all hover:scale-105 flex items-center space-x-1.5 cursor-pointer"
-                >
-                  <LogIn className="w-3.5 h-3.5" />
-                  <span>Sign In</span>
-                </button>
-                <button
-                  onClick={() => setActiveTab('signup')}
-                  className="bg-gradient-to-r from-amber-400 to-yellow-400 hover:from-amber-300 hover:to-yellow-300 text-slate-950 text-xs font-black px-3.5 py-2 rounded-xl shadow-md shadow-amber-500/20 transition-all hover:scale-105 flex items-center space-x-1.5 cursor-pointer border border-amber-300"
-                >
-                  <UserPlus className="w-3.5 h-3.5 text-slate-950" />
-                  <span>Sign Up</span>
-                </button>
-              </div>
-            )}
-          </div>
-
-          {/* Mobile menu button */}
-          <div className="flex lg:hidden items-center space-x-2">
-            <button
-              onClick={() => setIsLanguageModalOpen(true)}
-              className="p-2 text-slate-600 hover:text-emerald-700 relative rounded-lg hover:bg-slate-100"
-              title="Change Language"
-            >
-              <Globe className="w-5 h-5 text-emerald-600" />
-            </button>
-            <button
-              onClick={() => setIsSmsSimulatorOpen(!isSmsSimulatorOpen)}
-              className="p-2 text-slate-600 hover:text-slate-900 relative"
-            >
-              <MessageSquare className="w-5 h-5 text-emerald-600" />
-              {unreadSmsCount > 0 && (
-                <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-amber-500 rounded-full"></span>
+                      <div className="mt-2 pt-2 border-t border-slate-100">
+                        <button
+                          onClick={() => {
+                            logoutUser();
+                            setRoleDropdownOpen(false);
+                          }}
+                          className="w-full text-center text-xs text-rose-600 hover:text-rose-700 font-bold py-1 flex items-center justify-center space-x-1 hover:bg-rose-50 rounded-lg transition"
+                        >
+                          <LogOut className="w-3.5 h-3.5" />
+                          <span>Sign Out</span>
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
               )}
-            </button>
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100"
-            >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
+
+              {/* Mobile Hamburger Button */}
+              <div className="sm:hidden">
+                <button
+                  onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                  className="p-1 text-white hover:text-amber-300 rounded"
+                >
+                  {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+                </button>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Mobile Drawer */}
-      {mobileMenuOpen && (
-        <div className="lg:hidden border-t border-slate-200 bg-white px-4 pt-3 pb-6 space-y-1 shadow-lg">
-          {/* Mobile Language Button */}
-          <button
-            onClick={() => {
-              setIsLanguageModalOpen(true);
-              setMobileMenuOpen(false);
-            }}
-            className="w-full flex items-center justify-between px-3 py-2.5 mb-2 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-900 font-semibold text-sm"
-          >
-            <div className="flex items-center space-x-2">
-              <Globe className="w-4 h-4 text-emerald-600" />
-              <span>Language:</span>
-              <strong className="text-emerald-700 font-bold">{currentLanguage.native} ({currentLanguage.name})</strong>
-            </div>
-            <span className="text-xs text-emerald-600 font-bold underline">Change &rarr;</span>
-          </button>
-
-          {navItems.map((item) => {
-            const Icon = item.icon;
-            const isActive = activeTab === item.id;
-            return (
+        {/* Mobile Navigation Drawer */}
+        {mobileMenuOpen && (
+          <div className="sm:hidden bg-[#004e28] border-t border-emerald-700 px-4 py-3 space-y-2">
+            {navItems.map((item) => (
               <button
                 key={item.id}
                 onClick={() => {
                   setActiveTab(item.id);
                   setMobileMenuOpen(false);
                 }}
-                className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-semibold ${
-                  isActive ? 'bg-emerald-50 text-emerald-700' : 'text-slate-700 hover:bg-slate-100'
+                className={`w-full text-left px-3 py-2 rounded text-sm font-bold ${
+                  activeTab === item.id ? 'bg-[#48e68b] text-slate-950' : 'text-white hover:bg-white/10'
                 }`}
               >
-                <div className="flex items-center">
-                  <Icon className="w-4 h-4 mr-2 text-emerald-600" />
-                  {item.label}
-                </div>
-                {item.badge && (
-                  <span className="bg-rose-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
-                    {item.badge}
-                  </span>
-                )}
+                {item.label}
               </button>
-            );
-          })}
-
-          <div className="pt-4 border-t border-slate-100 space-y-2">
-            {isAuthenticated && (
-              <>
-                <div className="px-2 py-1 text-xs text-slate-500">
-                  Active User: <strong>{currentUser.name}</strong> ({currentUser.role})
-                </div>
-                <button
-                  onClick={() => {
-                    setActiveTab('profile');
-                    setMobileMenuOpen(false);
-                  }}
-                  className="w-full flex items-center justify-center space-x-2 bg-emerald-50 border border-emerald-300 text-emerald-900 text-xs font-bold py-2.5 rounded-lg text-center hover:bg-emerald-100 transition"
-                >
-                  <User className="w-4 h-4 text-emerald-700" />
-                  <span>View & Edit My Profile</span>
-                </button>
-              </>
-            )}
-            {isAuthenticated ? (
-              <button
-                onClick={() => {
-                  logoutUser();
-                  setMobileMenuOpen(false);
-                }}
-                className="w-full bg-rose-50 border border-rose-200 text-rose-700 text-xs font-bold py-2.5 rounded-lg text-center flex items-center justify-center space-x-2 hover:bg-rose-100 transition cursor-pointer"
-              >
-                <LogOut className="w-4 h-4 text-rose-600" />
-                <span>Sign Out</span>
-              </button>
-            ) : (
-              <div className="space-y-2">
+            ))}
+            {!isAuthenticated ? (
+              <div className="pt-2 border-t border-emerald-700 flex space-x-2">
                 <button
                   onClick={() => {
                     setActiveTab('signin');
                     setMobileMenuOpen(false);
                   }}
-                  className="w-full bg-gradient-to-r from-emerald-600 to-teal-700 text-white text-xs font-bold py-2.5 rounded-lg text-center shadow-xs flex items-center justify-center space-x-2 cursor-pointer"
+                  className="flex-1 bg-emerald-500 text-slate-950 font-bold py-2 rounded text-xs text-center"
                 >
-                  <LogIn className="w-4 h-4 text-white" />
-                  <span>Sign In (Direct Access)</span>
+                  Sign In
                 </button>
                 <button
                   onClick={() => {
                     setActiveTab('signup');
                     setMobileMenuOpen(false);
                   }}
-                  className="w-full bg-gradient-to-r from-amber-400 to-yellow-400 text-slate-950 text-xs font-bold py-2.5 rounded-lg text-center shadow-xs flex items-center justify-center space-x-2 cursor-pointer border border-amber-300"
+                  className="flex-1 bg-amber-400 text-slate-950 font-bold py-2 rounded text-xs text-center"
                 >
-                  <UserPlus className="w-4 h-4 text-slate-950" />
-                  <span>Sign Up & Verify Land</span>
+                  Sign Up
                 </button>
               </div>
+            ) : (
+              <button
+                onClick={() => {
+                  logoutUser();
+                  setMobileMenuOpen(false);
+                }}
+                className="w-full bg-rose-600 text-white font-bold py-2 rounded text-xs text-center"
+              >
+                Sign Out
+              </button>
             )}
           </div>
-        </div>
-      )}
+        )}
+      </nav>
     </header>
   );
 }

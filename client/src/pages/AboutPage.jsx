@@ -97,31 +97,6 @@ export default function AboutPage() {
               </button>
             )}
 
-            <button
-              onClick={() => setActiveTab('booking')}
-              className="flex items-center space-x-2.5 bg-gradient-to-r from-emerald-400 to-teal-400 hover:from-emerald-300 hover:to-teal-300 text-slate-950 font-black px-6 py-3.5 rounded-2xl shadow-xl shadow-emerald-500/20 transition-all hover:scale-105 text-sm"
-            >
-              <CalendarCheck className="w-4 h-4 text-slate-950" />
-              <span>{t('bookSlot', "Book Chamber Slot")}</span>
-              <ArrowRight className="w-4 h-4 text-slate-950" />
-            </button>
-
-            <button
-              onClick={() => setActiveTab('units')}
-              className="flex items-center space-x-2 bg-white/10 hover:bg-white/20 text-white font-bold px-5 py-3.5 rounded-2xl backdrop-blur-md border border-white/20 transition hover:border-emerald-400/50 text-sm shadow-sm"
-            >
-              <Warehouse className="w-4 h-4 text-emerald-300" />
-              <span>{t('findUnits', "Storage Units Registry")}</span>
-            </button>
-
-            <button
-              onClick={() => setActiveTab('queue')}
-              className="flex items-center space-x-2 bg-white/10 hover:bg-white/20 text-white font-bold px-5 py-3.5 rounded-2xl backdrop-blur-md border border-white/20 transition hover:border-teal-400/50 text-sm shadow-sm"
-            >
-              <Clock className="w-4 h-4 text-teal-300" />
-              <span>{t('liveQueue', "Live Yard Queue")}</span>
-            </button>
-
             <a
               href="#mind-map"
               className="flex items-center space-x-2 bg-gradient-to-r from-amber-400 to-amber-300 hover:from-amber-300 hover:to-amber-200 text-slate-950 font-black px-5 py-3.5 rounded-2xl shadow-xl shadow-amber-500/20 transition-all hover:scale-105 text-sm"

@@ -43,12 +43,9 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [roleDropdownOpen, setRoleDropdownOpen] = useState(false);
 
-  // Separate step-by-step visitor navigation vs inside website navigation
+  // Visitor navigation (only About Us, no inside features or catalog)
   const unauthenticatedNavItems = [
-    { id: 'about', label: t('about', 'About Us'), icon: Sprout, badge: 'Home' },
-    { id: 'crops', label: t('crops', 'Crops Catalog'), icon: Snowflake },
-    { id: 'signin', label: 'Sign In', icon: LogIn, badge: 'Direct Entry' },
-    { id: 'signup', label: 'Sign Up', icon: UserPlus, badge: 'Verify Land' },
+    { id: 'about', label: t('about', 'About Us'), icon: Sprout }
   ];
 
   const authenticatedNavItems = [
@@ -189,82 +186,83 @@ export default function Navbar() {
               <ChevronDown className="w-3.5 h-3.5 text-slate-400 group-hover:text-emerald-600" />
             </button>
 
-            <div className="relative">
-              <button
-                onClick={() => setRoleDropdownOpen(!roleDropdownOpen)}
-                className="flex items-center space-x-2 bg-slate-100 hover:bg-slate-200/80 px-3 py-1.5 rounded-xl border border-slate-200 text-left transition shadow-2xs"
-              >
-                <span className="text-xl">{currentUser.avatar}</span>
-                <div className="text-xs">
-                  <p className="font-bold text-slate-800 leading-tight">{currentUser.name}</p>
-                  <p className="text-[10px] text-emerald-700 font-semibold capitalize">{currentUser.role.replace('_', ' ')}</p>
-                </div>
-                <ChevronDown className="w-3.5 h-3.5 text-slate-500" />
-              </button>
+            {/* User Profile / Quick Switcher (Only visible when signed in) */}
+            {isAuthenticated && (
+              <div className="relative">
+                <button
+                  onClick={() => setRoleDropdownOpen(!roleDropdownOpen)}
+                  className="flex items-center space-x-2 bg-slate-100 hover:bg-slate-200/80 px-3 py-1.5 rounded-xl border border-slate-200 text-left transition shadow-2xs"
+                >
+                  <span className="text-xl">{currentUser.avatar}</span>
+                  <div className="text-xs">
+                    <p className="font-bold text-slate-800 leading-tight">{currentUser.name}</p>
+                    <p className="text-[10px] text-emerald-700 font-semibold capitalize">{currentUser.role.replace('_', ' ')}</p>
+                  </div>
+                  <ChevronDown className="w-3.5 h-3.5 text-slate-500" />
+                </button>
 
-              {/* Role Switcher Dropdown */}
-              {roleDropdownOpen && (
-                <div className="absolute right-0 mt-2 w-72 bg-white rounded-2xl shadow-xl border border-slate-200 p-2.5 z-50 animate-in fade-in duration-150">
-                  {/* Current Profile Summary Card */}
-                  <div className="p-3 bg-emerald-50/80 rounded-xl border border-emerald-200/80 mb-2">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-2.5">
-                        <span className="text-2xl">{currentUser.avatar}</span>
-                        <div>
-                          <p className="font-black text-xs text-slate-900 leading-tight">{currentUser.name}</p>
-                          <p className="text-[10px] text-emerald-800 font-semibold">{currentUser.district}, {currentUser.state}</p>
+                {/* Role Switcher Dropdown */}
+                {roleDropdownOpen && (
+                  <div className="absolute right-0 mt-2 w-72 bg-white rounded-2xl shadow-xl border border-slate-200 p-2.5 z-50 animate-in fade-in duration-150">
+                    {/* Current Profile Summary Card */}
+                    <div className="p-3 bg-emerald-50/80 rounded-xl border border-emerald-200/80 mb-2">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center space-x-2.5">
+                          <span className="text-2xl">{currentUser.avatar}</span>
+                          <div>
+                            <p className="font-black text-xs text-slate-900 leading-tight">{currentUser.name}</p>
+                            <p className="text-[10px] text-emerald-800 font-semibold">{currentUser.district}, {currentUser.state}</p>
+                          </div>
                         </div>
+                        <span className="bg-emerald-600 text-white text-[9px] font-bold px-1.5 py-0.5 rounded shadow-xs">
+                          KYC ✓
+                        </span>
                       </div>
-                      <span className="bg-emerald-600 text-white text-[9px] font-bold px-1.5 py-0.5 rounded shadow-xs">
-                        KYC ✓
-                      </span>
+                      <button
+                        onClick={() => {
+                          setActiveTab('profile');
+                          setRoleDropdownOpen(false);
+                        }}
+                        className="mt-2.5 w-full flex items-center justify-center space-x-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold py-2 rounded-lg shadow-xs transition"
+                      >
+                        <User className="w-3.5 h-3.5" />
+                        <span>View & Edit My Profile</span>
+                      </button>
                     </div>
-                    <button
-                      onClick={() => {
-                        setActiveTab('profile');
-                        setRoleDropdownOpen(false);
-                      }}
-                      className="mt-2.5 w-full flex items-center justify-center space-x-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold py-2 rounded-lg shadow-xs transition"
-                    >
-                      <User className="w-3.5 h-3.5" />
-                      <span>View & Edit My Profile</span>
-                    </button>
-                  </div>
 
-                  <div className="px-2 py-1 border-b border-slate-100 mb-1">
-                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Demo Quick Switch</p>
-                  </div>
-                  {Object.entries(DEMO_USERS).map(([key, user]) => (
-                    <button
-                      key={key}
-                      onClick={() => {
-                        switchRole(key);
-                        setRoleDropdownOpen(false);
-                      }}
-                      className={`w-full flex items-center space-x-2 px-2.5 py-2 rounded-lg text-left text-xs transition ${
-                        currentUser.role === user.role
-                          ? 'bg-emerald-50 text-emerald-900 font-semibold'
-                          : 'hover:bg-slate-50 text-slate-700'
-                      }`}
-                    >
-                      <span className="text-lg">{user.avatar}</span>
-                      <div className="truncate">
-                        <p className="font-bold truncate">{user.name}</p>
-                        <p className="text-[10px] text-slate-500 capitalize">{user.role.replace('_', ' ')}</p>
-                      </div>
-                    </button>
-                  ))}
-                  <div className="mt-2 pt-2 border-t border-slate-100 space-y-1">
-                    <button
-                      onClick={() => {
-                        setActiveTab('auth');
-                        setRoleDropdownOpen(false);
-                      }}
-                      className="w-full text-center text-xs text-emerald-700 font-bold hover:underline py-1 block"
-                    >
-                      Login / Create New Account &rarr;
-                    </button>
-                    {isAuthenticated && (
+                    <div className="px-2 py-1 border-b border-slate-100 mb-1">
+                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Demo Quick Switch</p>
+                    </div>
+                    {Object.entries(DEMO_USERS).map(([key, user]) => (
+                      <button
+                        key={key}
+                        onClick={() => {
+                          switchRole(key);
+                          setRoleDropdownOpen(false);
+                        }}
+                        className={`w-full flex items-center space-x-2 px-2.5 py-2 rounded-lg text-left text-xs transition ${
+                          currentUser.role === user.role
+                            ? 'bg-emerald-50 text-emerald-900 font-semibold'
+                            : 'hover:bg-slate-50 text-slate-700'
+                        }`}
+                      >
+                        <span className="text-lg">{user.avatar}</span>
+                        <div className="truncate">
+                          <p className="font-bold truncate">{user.name}</p>
+                          <p className="text-[10px] text-slate-500 capitalize">{user.role.replace('_', ' ')}</p>
+                        </div>
+                      </button>
+                    ))}
+                    <div className="mt-2 pt-2 border-t border-slate-100 space-y-1">
+                      <button
+                        onClick={() => {
+                          setActiveTab('auth');
+                          setRoleDropdownOpen(false);
+                        }}
+                        className="w-full text-center text-xs text-emerald-700 font-bold hover:underline py-1 block"
+                      >
+                        Login / Create New Account &rarr;
+                      </button>
                       <button
                         onClick={() => {
                           logoutUser();
@@ -275,11 +273,11 @@ export default function Navbar() {
                         <LogOut className="w-3 h-3" />
                         <span>Sign Out</span>
                       </button>
-                    )}
+                    </div>
                   </div>
-                </div>
-              )}
-            </div>
+                )}
+              </div>
+            )}
 
             {isAuthenticated ? (
               <button
@@ -385,19 +383,23 @@ export default function Navbar() {
           })}
 
           <div className="pt-4 border-t border-slate-100 space-y-2">
-            <div className="px-2 py-1 text-xs text-slate-500">
-              Active User: <strong>{currentUser.name}</strong> ({currentUser.role})
-            </div>
-            <button
-              onClick={() => {
-                setActiveTab('profile');
-                setMobileMenuOpen(false);
-              }}
-              className="w-full flex items-center justify-center space-x-2 bg-emerald-50 border border-emerald-300 text-emerald-900 text-xs font-bold py-2.5 rounded-lg text-center hover:bg-emerald-100 transition"
-            >
-              <User className="w-4 h-4 text-emerald-700" />
-              <span>View & Edit My Profile</span>
-            </button>
+            {isAuthenticated && (
+              <>
+                <div className="px-2 py-1 text-xs text-slate-500">
+                  Active User: <strong>{currentUser.name}</strong> ({currentUser.role})
+                </div>
+                <button
+                  onClick={() => {
+                    setActiveTab('profile');
+                    setMobileMenuOpen(false);
+                  }}
+                  className="w-full flex items-center justify-center space-x-2 bg-emerald-50 border border-emerald-300 text-emerald-900 text-xs font-bold py-2.5 rounded-lg text-center hover:bg-emerald-100 transition"
+                >
+                  <User className="w-4 h-4 text-emerald-700" />
+                  <span>View & Edit My Profile</span>
+                </button>
+              </>
+            )}
             {isAuthenticated ? (
               <button
                 onClick={() => {

@@ -90,13 +90,13 @@ export default function KisanVoiceReaderBar() {
                 {isTelugu ? 'రైతు ఆడియో రీడర్' : isHindi ? 'किसान वॉयस रीडर' : 'Kisan Voice Reader'}
               </span>
               <span className="text-[10px] font-bold text-slate-950 bg-emerald-400 px-1.5 py-0.2 rounded">
-                {isTelugu ? 'ప్రతి లైన్ చదువుతుంది' : 'Reads Every Line'}
+                {isTelugu ? 'ఆన్-డిమాండ్ వాయిస్' : 'On-Demand Voice'}
               </span>
             </div>
             <p className="text-[11px] text-slate-300 font-medium truncate max-w-[240px] sm:max-w-[340px]">
               {isSpeaking
                 ? `🗣️ "${currentText}"`
-                : (isTelugu ? 'ఏ వాక్యంపై నొక్కినా స్పష్టంగా చదువుతుంది' : 'Tap any text/card to read aloud in voice')}
+                : (isTelugu ? 'వినడానికి "పేజీ మొత్తం చదవండి" పై క్లిక్ చేయండి' : 'Click "Read Full Page" to hear narration')}
             </p>
           </div>
         </div>
@@ -145,10 +145,10 @@ export default function KisanVoiceReaderBar() {
                 ? 'bg-emerald-950 text-emerald-200 border-emerald-400/60 ring-2 ring-emerald-500/30'
                 : 'bg-white/10 text-slate-400 border-white/15 hover:text-white'
             }`}
-            title="When active, tapping any text or card immediately speaks it out loud"
+            title={tapToReadEnabled ? "Tap to Read is ON" : "Tap to Read is OFF. Normal screen clicks will not speak."}
           >
             <span className={`w-2 h-2 rounded-full ${tapToReadEnabled ? 'bg-emerald-400 animate-pulse' : 'bg-slate-500'}`} />
-            <span>{isTelugu ? '👆 టచ్ చేసి వినండి' : '👆 Tap to Read'}</span>
+            <span>{tapToReadEnabled ? (isTelugu ? 'టచ్ వాయిస్: ఆన్' : 'Tap Voice: ON') : (isTelugu ? 'టచ్ వాయిస్: ఆఫ్' : 'Tap Voice: OFF')}</span>
           </button>
         </div>
 

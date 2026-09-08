@@ -7,10 +7,29 @@ export function VoiceProvider({ children }) {
   const { selectedLanguageCode } = useLanguage();
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [currentText, setCurrentText] = useState('');
-  const [tapToReadEnabled, setTapToReadEnabled] = useState(true);
+  const [tapToReadEnabled, setTapToReadEnabledState] = useState(() => {
+    return localStorage.getItem('kisan_tap_to_read') === 'true'; // Default is false
+  });
   const [rate, setRate] = useState(0.95);
   const [voices, setVoices] = useState([]);
-  const [isBarMinimized, setIsBarMinimized] = useState(false);
+  const [isBarMinimized, setIsBarMinimizedState] = useState(() => {
+    return localStorage.getItem('kisan_voice_bar_minimized') !== 'false'; // Default is minimized
+  });
+
+  const setTapToReadEnabled = (val) => {
+    setTapToReadEnabledState(val);
+    try {
+      localStorage.setItem('kisan_tap_to_read', String(val));
+    } catch {}
+    if (!val) stop();
+  };
+
+  const setIsBarMinimized = (val) => {
+    setIsBarMinimizedState(val);
+    try {
+      localStorage.setItem('kisan_voice_bar_minimized', String(val));
+    } catch {}
+  };
 
   const queueRef = useRef([]);
   const isQueueProcessingRef = useRef(false);

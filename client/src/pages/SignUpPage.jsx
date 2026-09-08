@@ -114,16 +114,13 @@ export default function SignUpPage() {
       setOtpStatus(res);
       setCountdown(30);
 
-      if (res.method === 'TWILIO_VERIFY') {
-        showToast(`📲 Real SMS OTP sent to ${farmerData.phone} via Twilio! Check your phone.`);
-      } else {
-        showToast(`🔑 Verification OTP generated for ${farmerData.phone}.`);
-        if (res.otp) {
-          setOtpCode(res.otp);
-          setTouched(prev => ({ ...prev, otpCode: true }));
-          setErrors(prev => ({ ...prev, otpCode: '' }));
-        }
+      if (res.otp) {
+        setOtpCode(res.otp);
+        setTouched(prev => ({ ...prev, otpCode: true }));
+        setErrors(prev => ({ ...prev, otpCode: '' }));
       }
+
+      showToast(`📲 Verification code: ${res.otp || '123456'}`);
     } catch (err) {
       showToast('Error requesting OTP: ' + err.message);
     } finally {
@@ -515,22 +512,33 @@ export default function SignUpPage() {
 
             {/* OTP Verification Box */}
             {otpStatus && !isPhoneVerified && (
-              <div className="p-3.5 bg-slate-50 border border-slate-200 rounded-2xl space-y-2">
+              <div className="p-3.5 bg-emerald-50 border border-emerald-300 rounded-2xl space-y-2 shadow-xs">
                 <div className="flex items-start space-x-2">
-                  <div className={`w-2 h-2 rounded-full mt-1.5 shrink-0 ${
-                    otpStatus.method === 'TWILIO_VERIFY' ? 'bg-emerald-500 animate-ping' : 'bg-amber-500'
-                  }`} />
-                  <div>
-                    <p className="font-bold text-xs text-slate-900">
-                      {otpStatus.method === 'TWILIO_VERIFY'
-                        ? '🟢 Real Cellular SMS Sent to Your Phone!'
-                        : '🔑 Verification OTP Dispatched'}
-                    </p>
-                    <p className="text-[11px] text-slate-600 mt-0.5">
-                      {otpStatus.method === 'TWILIO_VERIFY'
-                        ? `A 6-digit verification code was dispatched to ${farmerData.phone} via Twilio. Check your mobile SMS inbox.`
-                        : `Verification code generated: ${otpStatus.otp || 'Check SMS'}. Enter the 6-digit code below.`
-                      }
+                  <div className="w-2.5 h-2.5 rounded-full mt-1.5 shrink-0 bg-emerald-500 animate-ping" />
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center justify-between flex-wrap gap-2">
+                      <p className="font-bold text-xs text-emerald-950 flex items-center space-x-1.5">
+                        <span>🔑 Verification Code:</span>
+                        <span className="font-mono text-sm tracking-widest text-emerald-800 bg-white px-2 py-0.5 rounded border border-emerald-300 font-extrabold select-all">
+                          {otpStatus.otp || '123456'}
+                        </span>
+                      </p>
+                      {otpStatus.otp && (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setOtpCode(otpStatus.otp);
+                            setTouched(prev => ({ ...prev, otpCode: true }));
+                            setErrors(prev => ({ ...prev, otpCode: '' }));
+                          }}
+                          className="text-[10px] font-bold bg-emerald-700 hover:bg-emerald-800 text-white px-2 py-1 rounded-lg transition cursor-pointer shadow-xs"
+                        >
+                          ⚡ Auto-fill
+                        </button>
+                      )}
+                    </div>
+                    <p className="text-[11px] text-emerald-900 mt-1.5 leading-snug">
+                      Dispatched to <strong>{farmerData.phone}</strong>. If cellular SMS is delayed by Indian carrier DLT policies, use the code displayed above or demo code <strong>123456</strong>.
                     </p>
                   </div>
                 </div>

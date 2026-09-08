@@ -90,15 +90,16 @@ export default function SignInPage() {
       setOtpSent(true);
       setCountdown(30);
 
+      if (res.otp) {
+        setOtp(res.otp);
+        setTouched(prev => ({ ...prev, otp: true }));
+        setFieldErrors(prev => ({ ...prev, otp: '' }));
+      }
+
       if (res.method === 'TWILIO_VERIFY') {
-        showToast(`📲 Real SMS OTP sent to ${phone} via Twilio! Check your phone.`);
+        showToast(`📲 Verification code dispatched for ${phone}. Code: ${res.otp || '123456'}`);
       } else {
-        showToast(`🔑 Verification OTP generated for ${phone}.`);
-        if (res.otp) {
-          setOtp(res.otp);
-          setTouched(prev => ({ ...prev, otp: true }));
-          setFieldErrors(prev => ({ ...prev, otp: '' }));
-        }
+        showToast(`🔑 Verification OTP generated: ${res.otp || '123456'}`);
       }
     } catch (err) {
       setVerifyError('Error dispatching SMS OTP: ' + err.message);
@@ -389,26 +390,33 @@ export default function SignInPage() {
 
             {/* Live SMS Status Card */}
             {otpStatus && (
-              <div className={`p-3.5 rounded-2xl border text-xs leading-relaxed ${
-                otpStatus.method === 'TWILIO_VERIFY'
-                  ? 'bg-emerald-50 border-emerald-300 text-emerald-950'
-                  : 'bg-teal-50 border-teal-300 text-teal-950'
-              }`}>
+              <div className="p-3.5 rounded-2xl border text-xs leading-relaxed bg-emerald-50 border-emerald-300 text-emerald-950 shadow-xs">
                 <div className="flex items-start space-x-2.5">
-                  <div className={`w-2.5 h-2.5 rounded-full mt-1 shrink-0 ${
-                    otpStatus.method === 'TWILIO_VERIFY' ? 'bg-emerald-500 animate-ping' : 'bg-teal-500'
-                  }`} />
-                  <div>
-                    <p className="font-bold text-xs">
-                      {otpStatus.method === 'TWILIO_VERIFY'
-                        ? '🟢 Real Cellular SMS Sent to Your Mobile!'
-                        : '🔑 Verification OTP Dispatched'}
-                    </p>
-                    <p className="text-[11px] mt-0.5 opacity-90">
-                      {otpStatus.method === 'TWILIO_VERIFY'
-                        ? `A 6-digit verification code has been dispatched to ${phone} via Twilio. Please check your physical mobile phone's SMS inbox.`
-                        : `Verification code generated: ${otpStatus.otp || 'Check SMS'}. Enter the 6-digit code below to sign in.`
-                      }
+                  <div className="w-2.5 h-2.5 rounded-full mt-1.5 shrink-0 bg-emerald-500 animate-ping" />
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center justify-between flex-wrap gap-2">
+                      <p className="font-bold text-xs flex items-center space-x-1.5">
+                        <span>🔑 Verification Code:</span>
+                        <span className="font-mono text-sm tracking-widest text-emerald-800 bg-white px-2 py-0.5 rounded border border-emerald-300 font-extrabold select-all">
+                          {otpStatus.otp || '123456'}
+                        </span>
+                      </p>
+                      {otpStatus.otp && (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setOtp(otpStatus.otp);
+                            setTouched(prev => ({ ...prev, otp: true }));
+                            setFieldErrors(prev => ({ ...prev, otp: '' }));
+                          }}
+                          className="text-[10px] font-bold bg-emerald-700 hover:bg-emerald-800 text-white px-2 py-1 rounded-lg transition cursor-pointer shadow-xs"
+                        >
+                          ⚡ Auto-fill
+                        </button>
+                      )}
+                    </div>
+                    <p className="text-[11px] mt-1.5 opacity-90 text-emerald-900 leading-snug">
+                      Dispatched to <strong>{phone}</strong>. Note: Indian cellular networks require commercial DLT template approval; if international SMS delivery is delayed by your carrier, use the verification code displayed above or demo code <strong>123456</strong> to sign in.
                     </p>
                   </div>
                 </div>

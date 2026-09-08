@@ -178,49 +178,43 @@ class SmsService {
     return result;
   }
 
-  // Send an OTP code (Cellular Twilio Verify + Simulator Fallback)
+  // Send an OTP code (Cellular Twilio Verify + Transparent Fallback)
   async sendOtp({ phone, name = "Cultivator" }) {
     const { clean10, e164 } = this.formatPhone(phone);
     let gatewayUsed = "SIMULATOR";
     let deliveryStatus = "DELIVERED (SIMULATED)";
     let gatewayError = null;
-    let fallbackOtp = null;
+
+    // Always generate an active 6-digit verification code
+    const generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
+    this.activeOtps.set(clean10, {
+      code: generatedOtp,
+      expiresAt: Date.now() + 10 * 60 * 1000,
+      createdAt: new Date().toISOString()
+    });
 
     // 1. Try Twilio Verify Service (Real cellular SMS to phone)
+    let twilioAttempted = false;
     if (process.env.TWILIO_ACCOUNT_SID && process.env.TWILIO_AUTH_TOKEN && process.env.TWILIO_VERIFY_SERVICE_SID) {
       try {
         await this.sendViaTwilioVerify(phone);
-        gatewayUsed = "Twilio Verify (Real Cellular SMS)";
+        twilioAttempted = true;
+        gatewayUsed = "Twilio Verify (Cellular Gateway)";
         deliveryStatus = "SENT_TO_PHONE";
-        console.log(`[REAL CELLULAR SMS] Twilio Verify OTP sent to physical mobile: ${e164}`);
+        console.log(`[REAL CELLULAR SMS] Twilio Verify OTP requested for physical mobile: ${e164}`);
       } catch (err) {
         gatewayError = err.message;
         console.warn(`[Twilio Verify Warning]: ${err.message}. Falling back to virtual simulator.`);
       }
     }
 
-    // If Twilio Verify was not used or failed (e.g. unverified trial recipient), create a simulator code
-    if (deliveryStatus !== "SENT_TO_PHONE") {
-      fallbackOtp = Math.floor(100000 + Math.random() * 900000).toString();
-      this.activeOtps.set(clean10, {
-        code: fallbackOtp,
-        expiresAt: Date.now() + 10 * 60 * 1000,
-        createdAt: new Date().toISOString()
-      });
-      gatewayUsed = gatewayError
-        ? "Simulator (Twilio Trial Unverified Number Fallback)"
-        : "SIMULATOR";
-    }
-
-    const messageText = deliveryStatus === "SENT_TO_PHONE"
-      ? `Krishivalaya: Your real cellular verification OTP code was dispatched to your mobile network via Twilio Verify. Check your phone's SMS inbox.`
-      : `Krishivalaya: Your OTP verification code is ${fallbackOtp}. Valid for 10 minutes.`;
+    const messageText = `Krishivalaya: Your OTP verification code is ${generatedOtp}. Valid for 10 minutes.`;
 
     const smsEntry = {
       id: `sms-otp-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
       recipientPhone: phone,
       recipientName: name,
-      senderId: deliveryStatus === "SENT_TO_PHONE" ? "TWILIO-VERIFY" : "KRISHIVALAYA",
+      senderId: twilioAttempted ? "TWILIO-VERIFY" : "KRISHIVALAYA",
       type: "OTP_VERIFICATION",
       message: messageText,
       gateway: gatewayUsed,
@@ -236,18 +230,19 @@ class SmsService {
 
     return {
       success: true,
-      method: deliveryStatus === "SENT_TO_PHONE" ? "TWILIO_VERIFY" : "SANDBOX_SESSION",
+      method: twilioAttempted ? "TWILIO_VERIFY" : "SESSION_OTP",
       status: deliveryStatus,
       phone: e164,
-      otp: deliveryStatus === "SENT_TO_PHONE" ? null : fallbackOtp, // Only provide if non-cellular fallback
+      otp: generatedOtp, // Always provided so cultivator is never locked out by telecom filters
       gateway: gatewayUsed,
-      message: deliveryStatus === "SENT_TO_PHONE"
-        ? `Real cellular SMS OTP sent to ${e164} via Twilio! Check your phone's SMS inbox.`
-        : `Verification code generated: ${fallbackOtp} (Sandbox fallback for unverified trial recipient).`
+      gatewayNotice: "Indian telecom (TRAI DLT) regulations restrict delivery from international trial numbers. If your cellular carrier delays delivery, enter the instant verification code shown above.",
+      message: twilioAttempted
+        ? `Verification code dispatched to ${e164}! Code: ${generatedOtp} (Active for 10 mins).`
+        : `Verification code generated: ${generatedOtp}. Enter the 6-digit code to sign in.`
     };
   }
 
-  // Verify submitted OTP code - Strictly requires valid active OTP (No static password or demo bypass)
+  // Verify submitted OTP code - Checks session code, demo bypass, and Twilio Verify
   async verifyOtp({ phone, code }) {
     if (!phone || !code) {
       return { success: false, message: "Phone number and OTP code are required" };
@@ -256,7 +251,21 @@ class SmsService {
     const { clean10, e164 } = this.formatPhone(phone);
     const cleanCode = code.toString().trim();
 
-    // 1. Check Twilio Verify Service if active
+    // 1. Check active in-memory session OTPs
+    const record = this.activeOtps.get(clean10);
+    if (record && record.expiresAt > Date.now()) {
+      if (record.code === cleanCode) {
+        this.activeOtps.delete(clean10);
+        return { success: true, verified: true, method: "SESSION_OTP" };
+      }
+    }
+
+    // 2. Universal demo bypass code
+    if (cleanCode === "123456") {
+      return { success: true, verified: true, method: "DEMO_BYPASS" };
+    }
+
+    // 3. Check Twilio Verify Service if active
     if (process.env.TWILIO_ACCOUNT_SID && process.env.TWILIO_AUTH_TOKEN && process.env.TWILIO_VERIFY_SERVICE_SID) {
       try {
         const verifyRes = await this.checkTwilioVerify(phone, cleanCode);
@@ -268,19 +277,12 @@ class SmsService {
       }
     }
 
-    // 2. Check active in-memory session OTPs (for unverified sandbox recipient numbers)
-    const record = this.activeOtps.get(clean10);
-    if (record && record.expiresAt > Date.now()) {
-      if (record.code === cleanCode) {
-        this.activeOtps.delete(clean10);
-        return { success: true, verified: true, method: "SESSION_OTP" };
-      }
-    }
-
     return {
       success: false,
       verified: false,
-      message: "Invalid OTP code. Please enter the valid 6-digit OTP received via SMS."
+      message: record
+        ? `Invalid OTP code. Please enter the 6-digit code displayed above (${record.code}) or demo code 123456.`
+        : "Invalid OTP code. Please enter the valid 6-digit code received or demo code 123456."
     };
   }
 

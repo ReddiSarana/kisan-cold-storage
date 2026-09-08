@@ -29,8 +29,6 @@ export default function Navbar() {
     currentUser,
     switchRole,
     unreadSmsCount,
-    setIsSmsSimulatorOpen,
-    isSmsSimulatorOpen,
     isAuthenticated,
     logoutUser,
     isMobileSidebarOpen,
@@ -132,22 +130,9 @@ export default function Navbar() {
             <Globe className="w-3 h-3 text-emerald-400" />
             <span className="hidden md:inline">22 Languages</span>
           </button>
-
-          {/* SMS Simulator Button */}
-          <button
-            onClick={() => setIsSmsSimulatorOpen(!isSmsSimulatorOpen)}
-            className="flex items-center bg-emerald-800/80 hover:bg-emerald-700/90 px-2 py-0.5 rounded-full text-white text-[10px] font-bold transition border border-emerald-600/40 cursor-pointer"
-          >
-            <MessageSquare className="w-3 h-3 mr-1 text-emerald-300" />
-            SMS Simulator
-            {unreadSmsCount > 0 && (
-              <span className="ml-1 bg-amber-400 text-slate-950 text-[9px] font-black px-1.5 py-0.2 rounded-full animate-bounce">
-                {unreadSmsCount}
-              </span>
-            )}
-          </button>
         </div>
       </div>
+
 
       {/* 2. MAJESTIC GOVERNMENT PORTAL BANNER (Bhu Bharati Styled) */}
       <div className="relative overflow-hidden bg-[#053d1c] border-b border-emerald-950 shadow-md">
@@ -165,12 +150,12 @@ export default function Navbar() {
         {/* Banner Inner Content: Circular Farmer | Circular Truck | Center Brand | Circular Crops | Circular Storage Unit */}
         <div className="relative z-10 max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6 md:py-8">
           <div className="flex items-center justify-between gap-3 sm:gap-6 md:gap-8">
-            {/* Left Pair: Circular Farmer Portrait & Circular Truck Emblem */}
-            <div className="flex items-center space-x-2.5 sm:space-x-4 md:space-x-5 shrink-0">
+            {/* Left Pair: Circular Farmer Portrait & Circular Truck Emblem (Desktop/Tablet Only) */}
+            <div className="hidden md:flex items-center space-x-2.5 sm:space-x-4 md:space-x-5 shrink-0">
               {/* Position 1: Farmer Portrait (Turned to Large Circle with White Border) */}
               <div
                 onClick={() => setActiveTab(isAuthenticated ? 'crops' : 'home')}
-                className="w-18 h-18 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-34 lg:h-34 rounded-full bg-white p-1 sm:p-1.5 shadow-2xl border-3 sm:border-4 border-white/95 overflow-hidden flex items-center justify-center shrink-0 hover:scale-105 transition-transform duration-300 cursor-pointer"
+                className="w-20 h-20 md:w-28 md:h-28 lg:w-34 lg:h-34 rounded-full bg-white p-1 sm:p-1.5 shadow-2xl border-3 sm:border-4 border-white/95 overflow-hidden flex items-center justify-center shrink-0 hover:scale-105 transition-transform duration-300 cursor-pointer"
                 title="Krishivalaya Farmer - కృషివలయ రైతు"
               >
                 <img
@@ -182,7 +167,7 @@ export default function Navbar() {
 
               {/* Position 2: Cold Chain Truck Emblem (Increased Size matching Position 1) */}
               <div
-                className="w-18 h-18 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-34 lg:h-34 rounded-full bg-white p-1 sm:p-1.5 shadow-2xl shrink-0 border-3 sm:border-4 border-white/95 overflow-hidden flex items-center justify-center hover:scale-105 transition-transform duration-300"
+                className="w-20 h-20 md:w-28 md:h-28 lg:w-34 lg:h-34 rounded-full bg-white p-1 sm:p-1.5 shadow-2xl shrink-0 border-3 sm:border-4 border-white/95 overflow-hidden flex items-center justify-center hover:scale-105 transition-transform duration-300"
                 title="Cold Chain Logistics Truck"
               >
                 <img
@@ -198,9 +183,9 @@ export default function Navbar() {
               onClick={() => setActiveTab(isAuthenticated ? 'crops' : 'home')}
               className="flex-1 flex items-center justify-center px-1 sm:px-4 cursor-pointer group"
             >
-              <div className="flex items-center justify-center space-x-3 sm:space-x-5">
+              <div className="flex items-center justify-center space-x-2.5 sm:space-x-5">
                 {/* Krishivalaya Logo (Fitted Perfectly into Circle) */}
-                <div className="w-16 h-16 sm:w-22 sm:h-22 md:w-26 md:h-26 lg:w-30 lg:h-30 rounded-full bg-white p-2 sm:p-2.5 shadow-2xl border-3 sm:border-4 border-emerald-400/90 shrink-0 flex items-center justify-center overflow-hidden group-hover:scale-105 transition-transform duration-300">
+                <div className="w-14 h-14 sm:w-20 sm:h-20 md:w-26 md:h-26 lg:w-30 lg:h-30 rounded-full bg-white p-1.5 sm:p-2 md:p-2.5 shadow-2xl border-2 sm:border-4 border-emerald-400/90 shrink-0 flex items-center justify-center overflow-hidden group-hover:scale-105 transition-transform duration-300">
                   <img
                     src="/images/krishivalaya-official-logo.png"
                     alt="Official Krishivalaya Logo"
@@ -210,21 +195,26 @@ export default function Navbar() {
 
                 {/* Name & Tagline */}
                 <div className="text-left">
-                  <span className="block text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-wider uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] leading-none">
-                    KRISHIVALAYA
-                  </span>
-                  <p className="text-xs sm:text-sm md:text-base lg:text-lg font-extrabold text-amber-300 tracking-wide drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)] mt-1 sm:mt-2">
-                    Empowering the Annadatha
+                  <div className="flex flex-wrap items-baseline gap-x-2 sm:gap-x-3">
+                    <span className="block text-xl sm:text-3xl md:text-5xl lg:text-6xl font-black text-white tracking-wider uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] leading-none">
+                      KRISHIVALAYA
+                    </span>
+                    <span className="text-lg sm:text-2xl md:text-4xl lg:text-5xl font-black text-amber-300 drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] leading-none">
+                      కృషివలయ
+                    </span>
+                  </div>
+                  <p className="text-[11px] sm:text-xs md:text-base lg:text-lg font-extrabold text-amber-200 tracking-wide drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)] mt-1 sm:mt-2">
+                    Empowering the Annadatha • అన్నదాతకు అండగా
                   </p>
                 </div>
               </div>
             </div>
 
-            {/* Right Pair: Circular Crops Emblem & Circular Storage Unit */}
-            <div className="flex items-center space-x-2.5 sm:space-x-4 md:space-x-5 shrink-0">
+            {/* Right Pair: Circular Crops Emblem & Circular Storage Unit (Desktop/Tablet Only) */}
+            <div className="hidden md:flex items-center space-x-2.5 sm:space-x-4 md:space-x-5 shrink-0">
               {/* Position 4: Fresh Crops Emblem (Increased Size matching Position 5) */}
               <div
-                className="w-18 h-18 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-34 lg:h-34 rounded-full bg-white p-1 sm:p-1.5 shadow-2xl shrink-0 border-3 sm:border-4 border-white/95 overflow-hidden flex items-center justify-center hover:scale-105 transition-transform duration-300"
+                className="w-20 h-20 md:w-28 md:h-28 lg:w-34 lg:h-34 rounded-full bg-white p-1 sm:p-1.5 shadow-2xl shrink-0 border-3 sm:border-4 border-white/95 overflow-hidden flex items-center justify-center hover:scale-105 transition-transform duration-300"
                 title="Fresh Harvest Agricultural Crops"
               >
                 <img
@@ -236,7 +226,7 @@ export default function Navbar() {
 
               {/* Position 5: Storage Unit Warehouse (Turned to Large Circle with White Border) */}
               <div
-                className="w-18 h-18 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-34 lg:h-34 rounded-full bg-white p-1 sm:p-1.5 shadow-2xl border-3 sm:border-4 border-white/95 overflow-hidden flex items-center justify-center shrink-0 hover:scale-105 transition-transform duration-300"
+                className="w-20 h-20 md:w-28 md:h-28 lg:w-34 lg:h-34 rounded-full bg-white p-1 sm:p-1.5 shadow-2xl border-3 sm:border-4 border-white/95 overflow-hidden flex items-center justify-center shrink-0 hover:scale-105 transition-transform duration-300"
                 title="Multi-Chamber Cold Storage Unit Warehouse"
               >
                 <img
@@ -256,23 +246,34 @@ export default function Navbar() {
           <div className="flex items-center justify-between h-11 sm:h-12">
             {/* Left: Navigation Tabs / Dashboard Header */}
             {!isAuthenticated ? (
-              <div className="flex items-center space-x-1 sm:space-x-4 overflow-x-auto no-scrollbar py-1">
-                {unauthenticatedNavItems.map((item) => {
-                  const isActive = activeTab === item.id;
-                  return (
-                    <button
-                      key={item.id}
-                      onClick={() => setActiveTab(item.id)}
-                      className={`px-2.5 sm:px-3.5 py-1.5 rounded text-xs sm:text-sm font-bold tracking-wide transition-all cursor-pointer shrink-0 flex items-center space-x-1.5 ${
-                        isActive
-                          ? 'text-[#48e68b] bg-black/20 border-b-2 border-[#48e68b] shadow-inner'
-                          : 'text-white hover:text-[#a8ffce] hover:bg-white/10'
-                      }`}
-                    >
-                      <span>{item.label}</span>
-                    </button>
-                  );
-                })}
+              <div className="flex items-center space-x-2">
+                <span className="text-xs font-black uppercase tracking-wider text-emerald-300 bg-black/20 px-2.5 py-0.5 rounded-full border border-emerald-400/30">
+                  Portal
+                </span>
+                <span className="text-white/40 text-xs sm:hidden">/</span>
+                <span className="text-xs font-black text-white capitalize truncate sm:hidden">
+                  {unauthenticatedNavItems.find(i => i.id === activeTab)?.label || 'Home'}
+                </span>
+
+                {/* Desktop Tabs */}
+                <div className="hidden sm:flex items-center space-x-1 sm:space-x-3 overflow-x-auto no-scrollbar py-1">
+                  {unauthenticatedNavItems.map((item) => {
+                    const isActive = activeTab === item.id;
+                    return (
+                      <button
+                        key={item.id}
+                        onClick={() => setActiveTab(item.id)}
+                        className={`px-2.5 sm:px-3.5 py-1.5 rounded text-xs sm:text-sm font-bold tracking-wide transition-all cursor-pointer shrink-0 flex items-center space-x-1.5 ${
+                          isActive
+                            ? 'text-[#48e68b] bg-black/20 border-b-2 border-[#48e68b] shadow-inner'
+                            : 'text-white hover:text-[#a8ffce] hover:bg-white/10'
+                        }`}
+                      >
+                        <span>{item.label}</span>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
             ) : (
               <div className="flex items-center space-x-2 sm:space-x-3 py-1">

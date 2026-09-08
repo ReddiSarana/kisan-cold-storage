@@ -1,4 +1,3 @@
-// API Client with automatic fallback for standalone GitHub Pages static deployment
 import {
   fallbackCrops,
   fallbackFacilities,
@@ -6,6 +5,11 @@ import {
   fallbackQueue,
   fallbackSms
 } from '../data/mockData';
+import {
+  transportFleetData,
+  verifiedDrivers,
+  initialTransportRentals
+} from '../data/transportData';
 
 const BASE_URL = '/api';
 
@@ -13,6 +17,7 @@ const BASE_URL = '/api';
 let localBookings = [...fallbackBookings];
 let localQueue = [...fallbackQueue];
 let localSms = [...fallbackSms];
+let localRentals = [...initialTransportRentals];
 
 export async function fetchCrops() {
   try {
@@ -247,6 +252,190 @@ export async function sendSms(smsData) {
   }
 }
 
+export async function sendOtp(phone, name = 'Farmer') {
+  try {
+    const res = await fetch(`${BASE_URL}/auth/send-otp`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ phone, name })
+    });
+    return await res.json();
+  } catch (err) {
+    // Fallback simulation
+    const dummyOtp = Math.floor(100000 + Math.random() * 900000).toString();
+    localSms.unshift({
+      id: `sms-${Date.now()}`,
+      recipientPhone: phone,
+      recipientName: name,
+      senderId: 'KRISHIVALAYA',
+      type: 'OTP_VERIFICATION',
+      message: `Your Krishivalaya verification code is ${dummyOtp}. Valid for 10 minutes.`,
+      status: 'DELIVERED',
+      timestamp: new Date().toISOString()
+    });
+    return {
+      success: true,
+      method: 'SESSION_OTP',
+      otp: dummyOtp,
+      message: `Offline verification code generated: ${dummyOtp}`
+    };
+  }
+}
+
+export async function verifyOtp(phone, code) {
+  try {
+    const res = await fetch(`${BASE_URL}/auth/verify-otp`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ phone, code })
+    });
+    return await res.json();
+  } catch (err) {
+    return { success: false, message: 'Could not connect to verification server. Please ensure backend is running.' };
+  }
+}
+
+
 export function getDocxDownloadUrl(docType, bookingId) {
   return `${BASE_URL}/documents/generate-docx?docType=${encodeURIComponent(docType)}&bookingId=${encodeURIComponent(bookingId || '')}`;
 }
+
+export async function processPayment(paymentData) {
+  try {
+    const res = await fetch(`${BASE_URL}/payments`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(paymentData)
+    });
+    if (!res.ok) throw new Error('Payment API request failed');
+    return await res.json();
+  } catch (err) {
+    console.warn('Payment API offline fallback simulation:', err);
+    // Offline / GitHub Pages fallback simulation
+    const txnId = `TXN-KV-${Math.floor(10000000 + Math.random() * 90000000)}`;
+    const newPayment = {
+      txnId,
+      bookingId: paymentData.bookingId || `BK-2026-${Math.floor(100 + Math.random() * 900)}`,
+      farmerName: paymentData.farmerName || 'Valued Farmer',
+      farmerPhone: paymentData.farmerPhone || '+91 98765 12345',
+      amount: Number(paymentData.amount) || 2500,
+      paymentMode: paymentData.paymentMode || 'upi',
+      paymentType: paymentData.paymentType || 'advance_25',
+      facilityName: paymentData.facilityName || 'Kakatiya Mega Cold Chain Hub',
+      status: 'SUCCESS',
+      referenceDetails: paymentData.referenceDetails || {},
+      timestamp: new Date().toISOString()
+    };
+    return { success: true, data: newPayment, transaction: newPayment };
+  }
+}
+
+export async function fetchPayments(params = {}) {
+  try {
+    const query = new URLSearchParams(params).toString();
+    const res = await fetch(`${BASE_URL}/payments?${query}`);
+    if (!res.ok) throw new Error('API unavailable');
+    const data = await res.json();
+    return data.data || [];
+  } catch (err) {
+    return [];
+  }
+}
+
+export async function fetchTransportFleet() {
+  try {
+    const res = await fetch(`${BASE_URL}/transport/fleet`);
+    if (!res.ok) throw new Error('API unavailable');
+    const data = await res.json();
+    return data.data || transportFleetData;
+  } catch (err) {
+    return transportFleetData;
+  }
+}
+
+export async function fetchTransportDrivers(params = {}) {
+  try {
+    const query = new URLSearchParams(params).toString();
+    const res = await fetch(`${BASE_URL}/transport/drivers?${query}`);
+    if (!res.ok) throw new Error('API unavailable');
+    const data = await res.json();
+    return data.data || verifiedDrivers;
+  } catch (err) {
+    return verifiedDrivers;
+  }
+}
+
+export async function fetchTransportRentals(params = {}) {
+  try {
+    const query = new URLSearchParams(params).toString();
+    const res = await fetch(`${BASE_URL}/transport/rentals?${query}`);
+    if (!res.ok) throw new Error('API unavailable');
+    const data = await res.json();
+    return data.data || localRentals;
+  } catch (err) {
+    return localRentals;
+  }
+}
+
+export async function bookTransportRental(rentalData) {
+  try {
+    const res = await fetch(`${BASE_URL}/transport/rentals`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(rentalData)
+    });
+    if (!res.ok) throw new Error('Transport API request failed');
+    return await res.json();
+  } catch (err) {
+    console.warn('Transport rental API fallback simulation:', err);
+    const vehicle = transportFleetData.find(v => v.id === rentalData.vehicleType) || transportFleetData[0];
+    const driver = verifiedDrivers.find(d => d.id === rentalData.driverId) || verifiedDrivers[0];
+    const km = Math.max(1, Number(rentalData.distanceKm) || 20);
+    const baseFare = vehicle.baseFare || 450;
+    const distanceFare = (vehicle.perKmRate || 28) * km;
+    const loadingFee = rentalData.needHelpers ? (vehicle.loadingHelperFee || 250) : 0;
+    const grossFare = baseFare + distanceFare + loadingFee;
+    const govSubsidy = Math.round(grossFare * 0.20);
+    const netFare = grossFare - govSubsidy;
+
+    const rentalId = `TR-2026-${Math.floor(100 + Math.random() * 900)}`;
+    const waybillNumber = `LR-TS-2026-${Math.floor(10000 + Math.random() * 90000)}`;
+
+    const newRental = {
+      rentalId,
+      bookingId: rentalData.bookingId || `BK-2026-${Math.floor(100 + Math.random() * 900)}`,
+      farmerName: rentalData.farmerName || 'Farmer',
+      farmerPhone: rentalData.farmerPhone || '+91 98765 12345',
+      vehicleType: vehicle.id,
+      vehicleName: vehicle.name,
+      vehiclePlate: driver.vehiclePlate,
+      driverId: driver.id,
+      driverName: driver.name,
+      driverPhone: driver.phone,
+      pickupLocation: rentalData.pickupLocation || 'Farm Gate',
+      dropoffFacility: rentalData.dropoffFacility || 'Kakatiya Mega Cold Chain Hub',
+      distanceKm: km,
+      produceName: rentalData.produceName || 'Produce',
+      quantityQuintals: Number(rentalData.quantityQuintals) || 100,
+      bagsCount: Number(rentalData.bagsCount) || 200,
+      pickupDate: rentalData.pickupDate || new Date().toISOString().split('T')[0],
+      pickupTimeSlot: rentalData.pickupTimeSlot || 'Morning (07:00 AM - 09:00 AM)',
+      baseFare,
+      distanceFare,
+      loadingFee,
+      grossFare,
+      govSubsidy,
+      netFare,
+      tripStatus: 'assigned',
+      waybillNumber,
+      gateTokenNumber: rentalData.gateTokenNumber || 'TK-108',
+      createdAt: new Date().toISOString()
+    };
+
+    localRentals.unshift(newRental);
+    return { success: true, data: newRental, waybill: newRental };
+  }
+}
+
+
+

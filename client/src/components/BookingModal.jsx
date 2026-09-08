@@ -20,7 +20,6 @@ export default function BookingModal() {
     closeBookingModal,
     currentUser,
     setActiveTab,
-    setIsSmsSimulatorOpen,
     showToast
   } = useApp();
 
@@ -88,8 +87,8 @@ export default function BookingModal() {
       if (res.success) {
         setSuccessBooking(res.data);
         showToast(`🎉 Booking confirmed! Gate Token: ${res.token?.tokenId}`);
-        setIsSmsSimulatorOpen(true);
       } else {
+
         alert('Booking failed: ' + res.message);
       }
     } catch (err) {

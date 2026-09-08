@@ -21,7 +21,7 @@ export default function Footer() {
                   className="w-full h-full object-contain rounded-lg"
                 />
               </div>
-              <span className="text-xl font-black tracking-tight text-white">Krishi<span className="text-emerald-400">valaya</span></span>
+              <span className="text-xl font-black tracking-tight text-white">Krishi<span className="text-emerald-400">valaya</span> <span className="text-amber-300 font-bold text-sm ml-1">(కృషివలయ)</span></span>
             </div>
             <p className="text-xs text-slate-400 leading-relaxed">
               Empowering Indian farmers with real-time cold room discovery, transparent tariffs, priority gate queue tokens, and digital warehouse receipts for credit access.

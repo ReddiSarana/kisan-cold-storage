@@ -1,6 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { sendSms } from '../services/api';
 
 const AppContext = createContext();
+
 
 export const DEMO_USERS = {
   farmer: {
@@ -117,7 +119,6 @@ export function AppProvider({ children }) {
 
   const [selectedCropFilter, setSelectedCropFilter] = useState('');
   const [bookingModalUnit, setBookingModalUnit] = useState(null);
-  const [isSmsSimulatorOpen, setIsSmsSimulatorOpen] = useState(false);
   const [smsNotificationList, setSmsNotificationList] = useState([]);
   const [unreadSmsCount, setUnreadSmsCount] = useState(0);
   const [latestToast, setLatestToast] = useState(null);
@@ -262,11 +263,58 @@ export function AppProvider({ children }) {
     localStorage.removeItem('kisan_pending_signup');
 
     showToast(`✅ Land documents verified successfully! Welcome to Krishivalaya.`);
+    
+    // Dispatch Registration Confirmation SMS to farmer's mobile
+    sendSms({
+      recipientPhone: verifiedUser.phone,
+      recipientName: verifiedUser.name,
+      type: 'REGISTRATION_SUCCESS',
+      message: `Krishivalaya: Congratulations ${verifiedUser.name}! Land documents verified (Survey: ${verifiedUser.surveyNumbers}). Your Kisan Card ${verifiedUser.kisanCardId} is active. You can now book cold store chambers and generate e-NWRs.`
+    }).catch(e => console.warn('Registration SMS error:', e));
+
     setActiveTab('crops');
   };
 
   const [selectedBookingFacility, setSelectedBookingFacility] = useState(null);
   const [selectedBookingCrop, setSelectedBookingCrop] = useState('');
+
+  // Active Booking for Payment Gateway checkout
+  const [activePaymentBooking, setActivePaymentBooking] = useState(() => {
+    const saved = localStorage.getItem('kisan_active_payment_booking');
+    try {
+      return saved ? JSON.parse(saved) : null;
+    } catch {
+      return null;
+    }
+  });
+
+  const proceedToPayment = (bookingData) => {
+    if (bookingData) {
+      setActivePaymentBooking(bookingData);
+      localStorage.setItem('kisan_active_payment_booking', JSON.stringify(bookingData));
+    }
+    setActiveTab('payment');
+    showToast(`💳 Directing to Payment Gateway for Booking ${bookingData?.id || 'Slot'}`);
+  };
+
+  // Active Booking for Transport Rental reservation
+  const [activeTransportBooking, setActiveTransportBooking] = useState(() => {
+    const saved = localStorage.getItem('kisan_active_transport_booking');
+    try {
+      return saved ? JSON.parse(saved) : null;
+    } catch {
+      return null;
+    }
+  });
+
+  const navigateToTransport = (bookingData = null) => {
+    if (bookingData) {
+      setActiveTransportBooking(bookingData);
+      localStorage.setItem('kisan_active_transport_booking', JSON.stringify(bookingData));
+    }
+    setActiveTab('transport');
+    showToast(`🚜 Opening Farm-Gate Transport Rental`);
+  };
 
   const navigateToSlotBooking = (facility = null, crop = '') => {
     if (facility) setSelectedBookingFacility(facility);
@@ -288,6 +336,7 @@ export function AppProvider({ children }) {
 
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
 
+
   return (
     <AppContext.Provider value={{
       currentUser,
@@ -303,11 +352,15 @@ export function AppProvider({ children }) {
       selectedBookingCrop,
       setSelectedBookingCrop,
       navigateToSlotBooking,
+      activePaymentBooking,
+      setActivePaymentBooking,
+      proceedToPayment,
+      activeTransportBooking,
+      setActiveTransportBooking,
+      navigateToTransport,
       bookingModalUnit,
       openBookingFor,
       closeBookingModal,
-      isSmsSimulatorOpen,
-      setIsSmsSimulatorOpen,
       smsNotificationList,
       unreadSmsCount,
       setUnreadSmsCount,

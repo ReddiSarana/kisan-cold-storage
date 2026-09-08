@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useApp, DEMO_USERS } from '../context/AppContext';
+import { sendOtp, verifyOtp } from '../services/api';
 import {
   User,
   Phone,
@@ -12,7 +13,10 @@ import {
   Lock,
   MapPin,
   LogIn,
-  UserPlus
+  UserPlus,
+  Smartphone,
+  RefreshCw,
+  AlertCircle
 } from 'lucide-react';
 
 export default function AuthPage() {
@@ -32,7 +36,7 @@ export default function AuthPage() {
 
   const [formState, setFormState] = useState({
     name: '',
-    phone: '',
+    phone: '+91 94413 89562',
     district: 'Warangal Rural',
     state: 'Telangana',
     mandal: 'Geesugonda',
@@ -41,15 +45,73 @@ export default function AuthPage() {
     primaryCrop: 'Chilli'
   });
 
-  const handleFormSubmit = (e) => {
+  const [passcode, setPasscode] = useState('');
+  const [isSendingOtp, setIsSendingOtp] = useState(false);
+  const [otpStatus, setOtpStatus] = useState(null);
+  const [countdown, setCountdown] = useState(0);
+  const [verifyError, setVerifyError] = useState('');
+
+  useEffect(() => {
+    let timer;
+    if (countdown > 0) {
+      timer = setTimeout(() => setCountdown(c => c - 1), 1000);
+    }
+    return () => clearTimeout(timer);
+  }, [countdown]);
+
+  const handleSendOtp = async () => {
+    if (!formState.phone || formState.phone.replace(/\D/g, '').length < 10) {
+      showToast('Please enter a valid 10-digit mobile number');
+      return;
+    }
+
+    setIsSendingOtp(true);
+    setVerifyError('');
+    try {
+      const res = await sendOtp(formState.phone, formState.name || 'Cultivator');
+      setOtpStatus(res);
+      setCountdown(30);
+
+      if (res.method === 'TWILIO_VERIFY') {
+        showToast(`📲 Real SMS sent to ${formState.phone} via Twilio! Check your phone.`);
+      } else {
+        showToast(`🔑 Verification OTP generated for ${formState.phone}.`);
+        if (res.otp) {
+          setPasscode(res.otp);
+        }
+      }
+    } catch (err) {
+      showToast('Error requesting OTP: ' + err.message);
+    } finally {
+      setIsSendingOtp(false);
+    }
+  };
+
+
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
 
     if (authMode === 'login') {
+      if (!passcode || passcode.trim().length < 4) {
+        setVerifyError('Please enter the 6-digit OTP code received via SMS.');
+        return;
+      }
+      try {
+        const verifyRes = await verifyOtp(formState.phone, passcode.trim());
+        if (!verifyRes.verified) {
+          setVerifyError(verifyRes.message || 'Invalid or expired OTP code. Please enter the valid code received via SMS.');
+          return;
+        }
+      } catch (err) {
+        setVerifyError('Verification error: ' + err.message);
+        return;
+      }
+
       // Direct sign-in: takes user directly into the main platform
       const signedInUser = {
         role: selectedRole,
         name: formState.name || (selectedRole === 'farmer' ? 'Ramesh Kumar' : (selectedRole === 'facility_manager' ? 'Sanjay Singhal' : 'Sunil Verma')),
-        phone: formState.phone || '+91 98765 00000',
+        phone: formState.phone || '+91 94413 89562',
         district: formState.district || 'Warangal Rural',
         state: formState.state || 'Telangana',
         kccNumber: formState.kccNumber || 'KCC-' + Math.floor(10000 + Math.random() * 90000),
@@ -62,7 +124,7 @@ export default function AuthPage() {
       const pendingFarmer = {
         role: selectedRole,
         name: formState.name || 'Agri Producer',
-        phone: formState.phone || '+91 98765 00000',
+        phone: formState.phone || '+91 94413 89562',
         state: formState.state || 'Telangana',
         district: formState.district || 'Warangal Rural',
         mandal: formState.mandal || 'Geesugonda',
@@ -75,6 +137,7 @@ export default function AuthPage() {
     }
   };
 
+
   const handleQuickLogin = (roleKey) => {
     const user = DEMO_USERS[roleKey];
     loginUser(user);
@@ -82,67 +145,6 @@ export default function AuthPage() {
 
   return (
     <div className="max-w-4xl mx-auto py-8 px-4">
-      {/* 1-Click Instant Demo Login Banner */}
-      <div className="bg-gradient-to-r from-amber-50 to-orange-50 border-2 border-amber-300 rounded-3xl p-6 shadow-sm mb-10">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <div>
-            <div className="flex items-center space-x-2">
-              <span className="bg-amber-200 text-amber-900 text-xs font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider">
-                Instant Direct Access
-              </span>
-              <span className="text-xs text-amber-800 font-semibold">Click any demo profile to enter directly</span>
-            </div>
-            <h3 className="text-base font-bold text-slate-900 mt-1">
-              Select a pre-configured role to enter Krishivalaya immediately:
-            </h3>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-4">
-          <button
-            type="button"
-            onClick={() => handleQuickLogin('farmer')}
-            className="p-3 rounded-2xl border text-left transition flex items-center space-x-3 bg-white hover:bg-emerald-50 text-slate-800 border-slate-200 hover:border-emerald-500 shadow-xs cursor-pointer group"
-          >
-            <span className="text-2xl group-hover:scale-110 transition-transform">👨‍🌾</span>
-            <div>
-              <p className="font-bold text-xs group-hover:text-emerald-800">Ramesh Kumar (Farmer)</p>
-              <p className="text-[10px] text-slate-500">
-                Direct entry to Storage Units & Booking
-              </p>
-            </div>
-          </button>
-
-          <button
-            type="button"
-            onClick={() => handleQuickLogin('facility_manager')}
-            className="p-3 rounded-2xl border text-left transition flex items-center space-x-3 bg-white hover:bg-emerald-50 text-slate-800 border-slate-200 hover:border-emerald-500 shadow-xs cursor-pointer group"
-          >
-            <span className="text-2xl group-hover:scale-110 transition-transform">🏭</span>
-            <div>
-              <p className="font-bold text-xs group-hover:text-emerald-800">Sanjay Singhal (Store Operator)</p>
-              <p className="text-[10px] text-slate-500">
-                Direct entry to Yard Queue & Bays
-              </p>
-            </div>
-          </button>
-
-          <button
-            type="button"
-            onClick={() => handleQuickLogin('procurement_officer')}
-            className="p-3 rounded-2xl border text-left transition flex items-center space-x-3 bg-white hover:bg-emerald-50 text-slate-800 border-slate-200 hover:border-emerald-500 shadow-xs cursor-pointer group"
-          >
-            <span className="text-2xl group-hover:scale-110 transition-transform">📋</span>
-            <div>
-              <p className="font-bold text-xs group-hover:text-emerald-800">Sunil Verma (APMC Officer)</p>
-              <p className="text-[10px] text-slate-500">
-                Direct entry to e-NWRs & Quality
-              </p>
-            </div>
-          </button>
-        </div>
-      </div>
-
       {/* Main Form Container */}
       <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden grid grid-cols-1 md:grid-cols-12">
         {/* Left Informational Sidebar */}
@@ -301,16 +303,76 @@ export default function AuthPage() {
             )}
 
             <div>
-              <label className="block font-semibold text-slate-700 mb-1">Mobile Number (For OTP & SMS Alerts) *</label>
-              <input
-                type="tel"
-                required
-                placeholder="+91 98765 12345"
-                value={formState.phone}
-                onChange={(e) => setFormState({ ...formState, phone: e.target.value })}
-                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:bg-white focus:ring-2 focus:ring-emerald-500 font-mono"
-              />
+              <div className="flex items-center justify-between mb-1">
+                <label className="font-semibold text-slate-700">Mobile Number (For Real OTP & SMS Alerts) *</label>
+                <div className="flex items-center space-x-1">
+                  <button
+                    type="button"
+                    onClick={() => setFormState({ ...formState, phone: '+91 94413 89562' })}
+                    className="text-[10px] text-emerald-700 hover:text-emerald-800 font-bold bg-emerald-50 px-2 py-0.5 rounded cursor-pointer"
+                  >
+                    📲 +91 94413 89562
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setFormState({ ...formState, phone: '+91 98765 43210' })}
+                    className="text-[10px] text-slate-500 hover:text-slate-700 bg-slate-100 px-2 py-0.5 rounded cursor-pointer"
+                  >
+                    Demo
+                  </button>
+                </div>
+              </div>
+
+              <div className="flex gap-2">
+                <input
+                  type="tel"
+                  required
+                  placeholder="+91 94413 89562"
+                  value={formState.phone}
+                  onChange={(e) => setFormState({ ...formState, phone: e.target.value })}
+                  className="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:bg-white focus:ring-2 focus:ring-emerald-500 font-mono text-xs"
+                />
+                <button
+                  type="button"
+                  onClick={handleSendOtp}
+                  disabled={isSendingOtp || countdown > 0}
+                  className="bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white font-bold px-3 py-2 rounded-xl transition text-xs shrink-0 cursor-pointer flex items-center space-x-1"
+                >
+                  {isSendingOtp ? (
+                    <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                  ) : countdown > 0 ? (
+                    <span>({countdown}s)</span>
+                  ) : (
+                    <>
+                      <Smartphone className="w-3.5 h-3.5" />
+                      <span>Send OTP</span>
+                    </>
+                  )}
+                </button>
+              </div>
             </div>
+
+            {/* OTP Status Badge */}
+            {otpStatus && (
+              <div className={`p-2.5 rounded-xl border text-[11px] ${
+                otpStatus.method === 'TWILIO_VERIFY'
+                  ? 'bg-emerald-50 border-emerald-300 text-emerald-950'
+                  : 'bg-teal-50 border-teal-300 text-teal-950'
+              }`}>
+                <p className="font-bold">
+                  {otpStatus.method === 'TWILIO_VERIFY'
+                    ? '🟢 Real Cellular SMS Sent via Twilio!'
+                    : '🔑 Verification OTP Dispatched'}
+                </p>
+                <p className="opacity-90 mt-0.5">
+                  {otpStatus.method === 'TWILIO_VERIFY'
+                    ? `Verification code delivered to your mobile (${formState.phone}). Check your SMS inbox.`
+                    : `Verification code generated: ${otpStatus.otp || 'Check SMS'}. Enter the 6-digit code below.`
+                  }
+                </p>
+              </div>
+            )}
+
 
             {authMode === 'signup' && (
               <>
@@ -366,16 +428,26 @@ export default function AuthPage() {
 
             {authMode === 'login' && (
               <div>
-                <label className="block font-semibold text-slate-700 mb-1">Passcode / OTP</label>
+                <label className="block font-semibold text-slate-700 mb-1">6-Digit SMS Verification OTP *</label>
                 <input
-                  type="password"
-                  placeholder="Enter 4-digit PIN or OTP"
-                  defaultValue="1234"
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:bg-white focus:ring-2 focus:ring-emerald-500 font-mono tracking-widest"
+                  type="text"
+                  maxLength={6}
+                  required
+                  placeholder="Enter 6-digit SMS OTP"
+                  value={passcode}
+                  onChange={(e) => setPasscode(e.target.value)}
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:bg-white focus:ring-2 focus:ring-emerald-500 font-mono tracking-widest text-xs"
                 />
-                <p className="text-[10px] text-slate-400 mt-1">Default demo passcode is <strong>1234</strong></p>
+                <p className="text-[10px] text-slate-400 mt-1">Must submit the 6-digit SMS OTP code received on your mobile phone</p>
+                {verifyError && (
+                  <p className="text-[11px] text-red-600 mt-1.5 flex items-center space-x-1">
+                    <AlertCircle className="w-3 h-3" />
+                    <span>{verifyError}</span>
+                  </p>
+                )}
               </div>
             )}
+
 
             <button
               type="submit"

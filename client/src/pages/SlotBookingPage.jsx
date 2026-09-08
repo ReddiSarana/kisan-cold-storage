@@ -2,6 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { useApp } from '../context/AppContext';
 import { useLanguage } from '../context/LanguageContext';
 import { fetchFacilities, fetchCrops, createBooking, getDocxDownloadUrl } from '../services/api';
+import {
+  validateName,
+  validatePhone,
+  validateVehicleNumber,
+  validateArrivalDate,
+  validatePincode,
+  validateQuantity,
+  validateBags,
+  validateRequiredText
+} from '../utils/validation';
 import FarmToStorageRouteMap from '../components/FarmToStorageRouteMap';
 import CropStorageUnitsModal from '../components/CropStorageUnitsModal';
 import {
@@ -26,7 +36,8 @@ import {
   DollarSign,
   Plus,
   Trash2,
-  Navigation
+  Navigation,
+  CreditCard
 } from 'lucide-react';
 
 const TELANGANA_DISTRICTS = [
@@ -72,8 +83,9 @@ export default function SlotBookingPage() {
     setSelectedBookingFacility,
     selectedBookingCrop,
     setActiveTab,
-    setIsSmsSimulatorOpen,
-    showToast
+    showToast,
+    proceedToPayment,
+    navigateToTransport
   } = useApp();
 
   const { t } = useLanguage();
@@ -118,6 +130,45 @@ export default function SlotBookingPage() {
   const [originLandmark, setOriginLandmark] = useState('Survey No. 48/B, Near Rythu Vedika');
   const [originPincode, setOriginPincode] = useState(currentUser.pincode || '506132');
   const [originSourceType, setOriginSourceType] = useState('Own Cultivated Land / Farm Gate');
+  const [errors, setErrors] = useState({});
+  const [touched, setTouched] = useState({});
+
+  const validateBookingField = (field, val) => {
+    switch (field) {
+      case 'arrivalDate':
+        return validateArrivalDate(val);
+      case 'vehicleNumber':
+        return validateVehicleNumber(val);
+      case 'farmerName':
+        return validateName(val, 'Farmer Full Name');
+      case 'farmerPhone':
+        return validatePhone(val);
+      case 'originMandal':
+        return validateRequiredText(val, 'Mandal');
+      case 'originVillage':
+        return validateRequiredText(val, 'Village');
+      case 'originLandmark':
+        return validateRequiredText(val, 'Landmark / Survey No.');
+      case 'originPincode':
+        return validatePincode(val);
+      default:
+        return { isValid: true };
+    }
+  };
+
+  const handleBookingFieldChange = (field, setter, val) => {
+    setter(val);
+    if (touched[field]) {
+      const res = validateBookingField(field, val);
+      setErrors(prev => ({ ...prev, [field]: res.isValid ? '' : res.message }));
+    }
+  };
+
+  const handleBookingBlur = (field, val) => {
+    setTouched(prev => ({ ...prev, [field]: true }));
+    const res = validateBookingField(field, val);
+    setErrors(prev => ({ ...prev, [field]: res.isValid ? '' : res.message }));
+  };
 
   // Load facilities and crops
   useEffect(() => {
@@ -259,6 +310,20 @@ export default function SlotBookingPage() {
     if (currentUser.mandal) setOriginMandal(currentUser.mandal);
     if (currentUser.village) setOriginVillage(currentUser.village);
     if (currentUser.pincode) setOriginPincode(currentUser.pincode);
+    setTouched(prev => ({
+      ...prev,
+      originDistrict: true,
+      originMandal: true,
+      originVillage: true,
+      originPincode: true
+    }));
+    setErrors(prev => ({
+      ...prev,
+      originDistrict: '',
+      originMandal: '',
+      originVillage: '',
+      originPincode: ''
+    }));
     showToast('📍 Pre-filled farm origin with your registered profile details!');
   };
 
@@ -267,6 +332,55 @@ export default function SlotBookingPage() {
   // Handle Form Submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Comprehensive field-level validations
+    const dateCheck = validateArrivalDate(arrivalDate);
+    const vehicleCheck = validateVehicleNumber(vehicleNumber);
+    const nameCheck = validateName(farmerName, 'Farmer Full Name');
+    const phoneCheck = validatePhone(farmerPhone);
+    const mandalCheck = validateRequiredText(originMandal, 'Mandal');
+    const villageCheck = validateRequiredText(originVillage, 'Village');
+    const landmarkCheck = validateRequiredText(originLandmark, 'Landmark / Survey No.');
+    const pincodeCheck = validatePincode(originPincode);
+
+    // Validate multi-crop entries
+    let cropErrorsFound = false;
+    for (const crop of bookedCrops) {
+      if (!validateQuantity(crop.quantityQuintals).isValid || !validateBags(crop.bagsCount).isValid) {
+        cropErrorsFound = true;
+        break;
+      }
+    }
+
+    const newErrors = {
+      arrivalDate: dateCheck.isValid ? '' : dateCheck.message,
+      vehicleNumber: vehicleCheck.isValid ? '' : vehicleCheck.message,
+      farmerName: nameCheck.isValid ? '' : nameCheck.message,
+      farmerPhone: phoneCheck.isValid ? '' : phoneCheck.message,
+      originMandal: mandalCheck.isValid ? '' : mandalCheck.message,
+      originVillage: villageCheck.isValid ? '' : villageCheck.message,
+      originLandmark: landmarkCheck.isValid ? '' : landmarkCheck.message,
+      originPincode: pincodeCheck.isValid ? '' : pincodeCheck.message
+    };
+
+    setTouched({
+      arrivalDate: true,
+      vehicleNumber: true,
+      farmerName: true,
+      farmerPhone: true,
+      originMandal: true,
+      originVillage: true,
+      originLandmark: true,
+      originPincode: true
+    });
+    setErrors(newErrors);
+
+    const hasError = Object.values(newErrors).some(msg => !!msg) || cropErrorsFound;
+    if (hasError) {
+      showToast('⚠️ Please fix the highlighted booking form fields before confirming.');
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -319,12 +433,11 @@ export default function SlotBookingPage() {
       if (res.success) {
         setSuccessBooking(res.data);
         showToast(`🎉 Chamber slot booked successfully! Token: ${res.token?.tokenId || 'TK-Generated'}`);
-        setIsSmsSimulatorOpen(true);
       } else {
-        alert('Booking submission failed: ' + (res.message || 'Please check input fields'));
+        showToast('⚠️ Booking submission failed: ' + (res.message || 'Please check input fields'));
       }
     } catch (err) {
-      alert('Error during booking: ' + err.message);
+      showToast('⚠️ Error during booking: ' + err.message);
     } finally {
       setIsSubmitting(false);
     }
@@ -627,10 +740,30 @@ export default function SlotBookingPage() {
           {/* Action Buttons */}
           <div className="flex flex-wrap items-center gap-3 pt-4 border-t border-slate-200">
             <button
-              onClick={() => setIsSmsSimulatorOpen(true)}
-              className="flex items-center space-x-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-4 py-3 rounded-xl shadow-md transition"
+              type="button"
+              onClick={() => {
+                proceedToPayment({
+                  ...successBooking,
+                  facilityName: activeFacility?.name || 'Cold Chain Hub',
+                  facilityDistrict: activeFacility?.district,
+                  cropName: resolvedBookedCrops.map(c => c.cropName).join(', ') || successBooking.cropName,
+                  cropsList: resolvedBookedCrops,
+                  quantityQuintals: totalQuantityQuintals,
+                  bagsCount: totalBagsCount,
+                  ratePerQtlMonth,
+                  expectedDurationMonths,
+                  storageTariff,
+                  handlingCharges,
+                  totalEstimatedCost,
+                  advanceAmount,
+                  balanceDue,
+                  tokenNumber: successBooking.tokenNumber || 'TK-108'
+                });
+              }}
+              className="flex items-center space-x-2 bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 hover:from-emerald-500 hover:to-teal-500 text-white text-xs sm:text-sm font-black px-5 py-3 rounded-xl shadow-lg shadow-emerald-600/30 transition transform hover:scale-[1.02] cursor-pointer"
             >
-              <span>📱 Open SMS Simulator</span>
+              <CreditCard className="w-4 h-4 text-emerald-200" />
+              <span>💳 Proceed to Payment Gateway (25% Advance: ₹{advanceAmount.toLocaleString()}) &rarr;</span>
             </button>
 
             <button
@@ -639,6 +772,29 @@ export default function SlotBookingPage() {
             >
               <span>🚜 View Live Gate Queue</span>
               <ArrowRight className="w-4 h-4" />
+            </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                navigateToTransport({
+                  ...successBooking,
+                  facilityName: activeFacility?.name || 'Cold Chain Hub',
+                  cropName: resolvedBookedCrops.map(c => c.cropName).join(', ') || successBooking.cropName,
+                  quantityQuintals: totalQuantityQuintals,
+                  bagsCount: totalBagsCount,
+                  originVillage,
+                  originMandal,
+                  originDistrict,
+                  originLandmark,
+                  tokenNumber: successBooking.tokenNumber || 'TK-108',
+                  arrivalDate
+                });
+              }}
+              className="flex items-center space-x-2 bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-white text-xs sm:text-sm font-black px-4 py-3 rounded-xl shadow-md transition transform hover:scale-[1.02] cursor-pointer"
+            >
+              <Truck className="w-4 h-4" />
+              <span>🚜 Book Farm Transport Fleet &rarr;</span>
             </button>
 
             <a
@@ -907,13 +1063,35 @@ export default function SlotBookingPage() {
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div className="sm:col-span-1">
-                  <input
-                    type="date"
-                    value={arrivalDate}
-                    onChange={(e) => setArrivalDate(e.target.value)}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs sm:text-sm font-semibold text-slate-900 focus:bg-white focus:ring-2 focus:ring-emerald-600 focus:outline-none"
-                    required
-                  />
+                  <div className="relative">
+                    <input
+                      type="date"
+                      min={new Date().toISOString().split('T')[0]}
+                      value={arrivalDate}
+                      onChange={(e) => handleBookingFieldChange('arrivalDate', setArrivalDate, e.target.value)}
+                      onBlur={() => handleBookingBlur('arrivalDate', arrivalDate)}
+                      className={`w-full rounded-xl p-3 text-xs sm:text-sm font-semibold transition focus:outline-none focus:ring-2 ${
+                        touched.arrivalDate && errors.arrivalDate
+                          ? 'bg-rose-50/30 border-2 border-rose-500 text-rose-900 focus:ring-rose-400'
+                          : touched.arrivalDate && !errors.arrivalDate
+                          ? 'bg-emerald-50/20 border-2 border-emerald-500 text-emerald-950 focus:ring-emerald-400'
+                          : 'bg-slate-50 border border-slate-200 text-slate-900 focus:bg-white focus:ring-emerald-600'
+                      }`}
+                      required
+                    />
+                  </div>
+                  {touched.arrivalDate && errors.arrivalDate && (
+                    <p className="text-[10px] text-rose-600 mt-1 flex items-center space-x-1 font-medium">
+                      <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                      <span>{errors.arrivalDate}</span>
+                    </p>
+                  )}
+                  {touched.arrivalDate && !errors.arrivalDate && (
+                    <p className="text-[10px] text-emerald-600 mt-1 flex items-center space-x-1 font-medium">
+                      <CheckCircle className="w-3.5 h-3.5 shrink-0" />
+                      <span>✓ Valid future arrival date</span>
+                    </p>
+                  )}
                 </div>
 
                 <div className="sm:col-span-2 grid grid-cols-3 gap-2.5">
@@ -993,14 +1171,44 @@ export default function SlotBookingPage() {
                 <label className="block text-xs font-bold text-slate-800 uppercase tracking-wider">
                   Vehicle Reg Plate *
                 </label>
-                <input
-                  type="text"
-                  value={vehicleNumber}
-                  onChange={(e) => setVehicleNumber(e.target.value)}
-                  placeholder="e.g. TS-03-BK-2026"
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs sm:text-sm font-bold uppercase font-mono text-slate-900 focus:bg-white focus:ring-2 focus:ring-emerald-600 focus:outline-none"
-                  required
-                />
+                <div className="relative">
+                  <input
+                    type="text"
+                    value={vehicleNumber}
+                    onChange={(e) => handleBookingFieldChange('vehicleNumber', setVehicleNumber, e.target.value)}
+                    onBlur={() => handleBookingBlur('vehicleNumber', vehicleNumber)}
+                    placeholder="e.g. TS-03-BK-2026"
+                    className={`w-full rounded-xl p-3 text-xs sm:text-sm font-bold uppercase font-mono transition focus:outline-none focus:ring-2 ${
+                      touched.vehicleNumber && errors.vehicleNumber
+                        ? 'bg-rose-50/30 border-2 border-rose-500 text-rose-900 focus:ring-rose-400'
+                        : touched.vehicleNumber && !errors.vehicleNumber
+                        ? 'bg-emerald-50/20 border-2 border-emerald-500 text-emerald-950 focus:ring-emerald-400'
+                        : 'bg-slate-50 border border-slate-200 text-slate-900 focus:bg-white focus:ring-emerald-600'
+                    }`}
+                    required
+                  />
+                  {touched.vehicleNumber && (
+                    <div className="absolute right-3 top-3 pointer-events-none">
+                      {errors.vehicleNumber ? (
+                        <AlertCircle className="w-4 h-4 text-rose-500 animate-pulse" />
+                      ) : (
+                        <CheckCircle className="w-4 h-4 text-emerald-500" />
+                      )}
+                    </div>
+                  )}
+                </div>
+                {touched.vehicleNumber && errors.vehicleNumber && (
+                  <p className="text-[10px] text-rose-600 mt-1 flex items-center space-x-1 font-medium">
+                    <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                    <span>{errors.vehicleNumber}</span>
+                  </p>
+                )}
+                {touched.vehicleNumber && !errors.vehicleNumber && (
+                  <p className="text-[10px] text-emerald-600 mt-1 flex items-center space-x-1 font-medium">
+                    <CheckCircle className="w-3.5 h-3.5 shrink-0" />
+                    <span>✓ Valid vehicle registration plate</span>
+                  </p>
+                )}
               </div>
             </div>
 
@@ -1010,26 +1218,86 @@ export default function SlotBookingPage() {
                 <label className="block text-xs font-bold text-slate-800 uppercase tracking-wider">
                   Farmer Full Name *
                 </label>
-                <input
-                  type="text"
-                  value={farmerName}
-                  onChange={(e) => setFarmerName(e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs sm:text-sm font-semibold text-slate-900 focus:bg-white focus:ring-2 focus:ring-emerald-600 focus:outline-none"
-                  required
-                />
+                <div className="relative">
+                  <input
+                    type="text"
+                    value={farmerName}
+                    onChange={(e) => handleBookingFieldChange('farmerName', setFarmerName, e.target.value)}
+                    onBlur={() => handleBookingBlur('farmerName', farmerName)}
+                    className={`w-full rounded-xl p-3 text-xs sm:text-sm font-semibold transition focus:outline-none focus:ring-2 ${
+                      touched.farmerName && errors.farmerName
+                        ? 'bg-rose-50/30 border-2 border-rose-500 text-rose-900 focus:ring-rose-400'
+                        : touched.farmerName && !errors.farmerName
+                        ? 'bg-emerald-50/20 border-2 border-emerald-500 text-emerald-950 focus:ring-emerald-400'
+                        : 'bg-slate-50 border border-slate-200 text-slate-900 focus:bg-white focus:ring-emerald-600'
+                    }`}
+                    required
+                  />
+                  {touched.farmerName && (
+                    <div className="absolute right-3 top-3 pointer-events-none">
+                      {errors.farmerName ? (
+                        <AlertCircle className="w-4 h-4 text-rose-500 animate-pulse" />
+                      ) : (
+                        <CheckCircle className="w-4 h-4 text-emerald-500" />
+                      )}
+                    </div>
+                  )}
+                </div>
+                {touched.farmerName && errors.farmerName && (
+                  <p className="text-[10px] text-rose-600 mt-1 flex items-center space-x-1 font-medium">
+                    <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                    <span>{errors.farmerName}</span>
+                  </p>
+                )}
+                {touched.farmerName && !errors.farmerName && (
+                  <p className="text-[10px] text-emerald-600 mt-1 flex items-center space-x-1 font-medium">
+                    <CheckCircle className="w-3.5 h-3.5 shrink-0" />
+                    <span>✓ Valid farmer name</span>
+                  </p>
+                )}
               </div>
 
               <div className="space-y-1.5">
                 <label className="block text-xs font-bold text-slate-800 uppercase tracking-wider">
                   Mobile Phone for SMS Token *
                 </label>
-                <input
-                  type="tel"
-                  value={farmerPhone}
-                  onChange={(e) => setFarmerPhone(e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs sm:text-sm font-bold font-mono text-slate-900 focus:bg-white focus:ring-2 focus:ring-emerald-600 focus:outline-none"
-                  required
-                />
+                <div className="relative">
+                  <input
+                    type="tel"
+                    value={farmerPhone}
+                    onChange={(e) => handleBookingFieldChange('farmerPhone', setFarmerPhone, e.target.value)}
+                    onBlur={() => handleBookingBlur('farmerPhone', farmerPhone)}
+                    className={`w-full rounded-xl p-3 text-xs sm:text-sm font-bold font-mono transition focus:outline-none focus:ring-2 ${
+                      touched.farmerPhone && errors.farmerPhone
+                        ? 'bg-rose-50/30 border-2 border-rose-500 text-rose-900 focus:ring-rose-400'
+                        : touched.farmerPhone && !errors.farmerPhone
+                        ? 'bg-emerald-50/20 border-2 border-emerald-500 text-emerald-950 focus:ring-emerald-400'
+                        : 'bg-slate-50 border border-slate-200 text-slate-900 focus:bg-white focus:ring-emerald-600'
+                    }`}
+                    required
+                  />
+                  {touched.farmerPhone && (
+                    <div className="absolute right-3 top-3 pointer-events-none">
+                      {errors.farmerPhone ? (
+                        <AlertCircle className="w-4 h-4 text-rose-500 animate-pulse" />
+                      ) : (
+                        <CheckCircle className="w-4 h-4 text-emerald-500" />
+                      )}
+                    </div>
+                  )}
+                </div>
+                {touched.farmerPhone && errors.farmerPhone && (
+                  <p className="text-[10px] text-rose-600 mt-1 flex items-center space-x-1 font-medium">
+                    <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                    <span>{errors.farmerPhone}</span>
+                  </p>
+                )}
+                {touched.farmerPhone && !errors.farmerPhone && (
+                  <p className="text-[10px] text-emerald-600 mt-1 flex items-center space-x-1 font-medium">
+                    <CheckCircle className="w-3.5 h-3.5 shrink-0" />
+                    <span>✓ Valid cellular contact</span>
+                  </p>
+                )}
               </div>
             </div>
 
@@ -1083,14 +1351,38 @@ export default function SlotBookingPage() {
                   <label className="block text-xs font-bold text-slate-800 uppercase tracking-wider">
                     Mandal / Tehsil *
                   </label>
-                  <input
-                    type="text"
-                    value={originMandal}
-                    onChange={(e) => setOriginMandal(e.target.value)}
-                    placeholder="e.g. Narsampet, Choppadandi, Armoor"
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs sm:text-sm font-semibold text-slate-900 focus:bg-white focus:ring-2 focus:ring-emerald-600 focus:outline-none"
-                    required
-                  />
+                  <div className="relative">
+                    <input
+                      type="text"
+                      value={originMandal}
+                      onChange={(e) => handleBookingFieldChange('originMandal', setOriginMandal, e.target.value)}
+                      onBlur={() => handleBookingBlur('originMandal', originMandal)}
+                      placeholder="e.g. Narsampet, Choppadandi, Armoor"
+                      className={`w-full rounded-xl p-3 text-xs sm:text-sm font-semibold transition focus:outline-none focus:ring-2 ${
+                        touched.originMandal && errors.originMandal
+                          ? 'bg-rose-50/30 border-2 border-rose-500 text-rose-900 focus:ring-rose-400'
+                          : touched.originMandal && !errors.originMandal
+                          ? 'bg-emerald-50/20 border-2 border-emerald-500 text-emerald-950 focus:ring-emerald-400'
+                          : 'bg-slate-50 border border-slate-200 text-slate-900 focus:bg-white focus:ring-emerald-600'
+                      }`}
+                      required
+                    />
+                    {touched.originMandal && (
+                      <div className="absolute right-3 top-3 pointer-events-none">
+                        {errors.originMandal ? (
+                          <AlertCircle className="w-4 h-4 text-rose-500 animate-pulse" />
+                        ) : (
+                          <CheckCircle className="w-4 h-4 text-emerald-500" />
+                        )}
+                      </div>
+                    )}
+                  </div>
+                  {touched.originMandal && errors.originMandal && (
+                    <p className="text-[10px] text-rose-600 mt-1 flex items-center space-x-1 font-medium">
+                      <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                      <span>{errors.originMandal}</span>
+                    </p>
+                  )}
                 </div>
               </div>
 
@@ -1100,28 +1392,76 @@ export default function SlotBookingPage() {
                   <label className="block text-xs font-bold text-slate-800 uppercase tracking-wider">
                     Village / Gram Panchayat *
                   </label>
-                  <input
-                    type="text"
-                    value={originVillage}
-                    onChange={(e) => setOriginVillage(e.target.value)}
-                    placeholder="e.g. Maheshwaram, Rekurthi, Dharmaram"
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs sm:text-sm font-semibold text-slate-900 focus:bg-white focus:ring-2 focus:ring-emerald-600 focus:outline-none"
-                    required
-                  />
+                  <div className="relative">
+                    <input
+                      type="text"
+                      value={originVillage}
+                      onChange={(e) => handleBookingFieldChange('originVillage', setOriginVillage, e.target.value)}
+                      onBlur={() => handleBookingBlur('originVillage', originVillage)}
+                      placeholder="e.g. Maheshwaram, Rekurthi, Dharmaram"
+                      className={`w-full rounded-xl p-3 text-xs sm:text-sm font-semibold transition focus:outline-none focus:ring-2 ${
+                        touched.originVillage && errors.originVillage
+                          ? 'bg-rose-50/30 border-2 border-rose-500 text-rose-900 focus:ring-rose-400'
+                          : touched.originVillage && !errors.originVillage
+                          ? 'bg-emerald-50/20 border-2 border-emerald-500 text-emerald-950 focus:ring-emerald-400'
+                          : 'bg-slate-50 border border-slate-200 text-slate-900 focus:bg-white focus:ring-emerald-600'
+                      }`}
+                      required
+                    />
+                    {touched.originVillage && (
+                      <div className="absolute right-3 top-3 pointer-events-none">
+                        {errors.originVillage ? (
+                          <AlertCircle className="w-4 h-4 text-rose-500 animate-pulse" />
+                        ) : (
+                          <CheckCircle className="w-4 h-4 text-emerald-500" />
+                        )}
+                      </div>
+                    )}
+                  </div>
+                  {touched.originVillage && errors.originVillage && (
+                    <p className="text-[10px] text-rose-600 mt-1 flex items-center space-x-1 font-medium">
+                      <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                      <span>{errors.originVillage}</span>
+                    </p>
+                  )}
                 </div>
 
                 <div className="space-y-1.5">
                   <label className="block text-xs font-bold text-slate-800 uppercase tracking-wider">
                     Farm Gate / Survey No. / Landmark *
                   </label>
-                  <input
-                    type="text"
-                    value={originLandmark}
-                    onChange={(e) => setOriginLandmark(e.target.value)}
-                    placeholder="e.g. Survey No. 48/B, Rythu Vedika Road"
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs sm:text-sm font-semibold text-slate-900 focus:bg-white focus:ring-2 focus:ring-emerald-600 focus:outline-none"
-                    required
-                  />
+                  <div className="relative">
+                    <input
+                      type="text"
+                      value={originLandmark}
+                      onChange={(e) => handleBookingFieldChange('originLandmark', setOriginLandmark, e.target.value)}
+                      onBlur={() => handleBookingBlur('originLandmark', originLandmark)}
+                      placeholder="e.g. Survey No. 48/B, Rythu Vedika Road"
+                      className={`w-full rounded-xl p-3 text-xs sm:text-sm font-semibold transition focus:outline-none focus:ring-2 ${
+                        touched.originLandmark && errors.originLandmark
+                          ? 'bg-rose-50/30 border-2 border-rose-500 text-rose-900 focus:ring-rose-400'
+                          : touched.originLandmark && !errors.originLandmark
+                          ? 'bg-emerald-50/20 border-2 border-emerald-500 text-emerald-950 focus:ring-emerald-400'
+                          : 'bg-slate-50 border border-slate-200 text-slate-900 focus:bg-white focus:ring-emerald-600'
+                      }`}
+                      required
+                    />
+                    {touched.originLandmark && (
+                      <div className="absolute right-3 top-3 pointer-events-none">
+                        {errors.originLandmark ? (
+                          <AlertCircle className="w-4 h-4 text-rose-500 animate-pulse" />
+                        ) : (
+                          <CheckCircle className="w-4 h-4 text-emerald-500" />
+                        )}
+                      </div>
+                    )}
+                  </div>
+                  {touched.originLandmark && errors.originLandmark && (
+                    <p className="text-[10px] text-rose-600 mt-1 flex items-center space-x-1 font-medium">
+                      <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                      <span>{errors.originLandmark}</span>
+                    </p>
+                  )}
                 </div>
               </div>
 
@@ -1149,15 +1489,45 @@ export default function SlotBookingPage() {
                   <label className="block text-xs font-bold text-slate-800 uppercase tracking-wider">
                     Postal PIN Code *
                   </label>
-                  <input
-                    type="text"
-                    maxLength={6}
-                    value={originPincode}
-                    onChange={(e) => setOriginPincode(e.target.value)}
-                    placeholder="e.g. 506132"
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs sm:text-sm font-mono font-semibold text-slate-900 focus:bg-white focus:ring-2 focus:ring-emerald-600 focus:outline-none"
-                    required
-                  />
+                  <div className="relative">
+                    <input
+                      type="text"
+                      maxLength={6}
+                      value={originPincode}
+                      onChange={(e) => handleBookingFieldChange('originPincode', setOriginPincode, e.target.value)}
+                      onBlur={() => handleBookingBlur('originPincode', originPincode)}
+                      placeholder="e.g. 506132"
+                      className={`w-full rounded-xl p-3 text-xs sm:text-sm font-mono font-semibold transition focus:outline-none focus:ring-2 ${
+                        touched.originPincode && errors.originPincode
+                          ? 'bg-rose-50/30 border-2 border-rose-500 text-rose-900 focus:ring-rose-400'
+                          : touched.originPincode && !errors.originPincode
+                          ? 'bg-emerald-50/20 border-2 border-emerald-500 text-emerald-950 focus:ring-emerald-400'
+                          : 'bg-slate-50 border border-slate-200 text-slate-900 focus:bg-white focus:ring-emerald-600'
+                      }`}
+                      required
+                    />
+                    {touched.originPincode && (
+                      <div className="absolute right-3 top-3 pointer-events-none">
+                        {errors.originPincode ? (
+                          <AlertCircle className="w-4 h-4 text-rose-500 animate-pulse" />
+                        ) : (
+                          <CheckCircle className="w-4 h-4 text-emerald-500" />
+                        )}
+                      </div>
+                    )}
+                  </div>
+                  {touched.originPincode && errors.originPincode && (
+                    <p className="text-[10px] text-rose-600 mt-1 flex items-center space-x-1 font-medium">
+                      <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                      <span>{errors.originPincode}</span>
+                    </p>
+                  )}
+                  {touched.originPincode && !errors.originPincode && (
+                    <p className="text-[10px] text-emerald-600 mt-1 flex items-center space-x-1 font-medium">
+                      <CheckCircle className="w-3.5 h-3.5 shrink-0" />
+                      <span>✓ Valid 6-digit postal PIN code</span>
+                    </p>
+                  )}
                 </div>
               </div>
 

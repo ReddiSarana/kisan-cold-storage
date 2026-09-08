@@ -5,6 +5,7 @@ class SmsService {
   constructor() {
     this.smsLogs = [...initialSmsLogs];
     this.sseClients = new Set();
+    this.activeOtps = new Map(); // clean10 -> { code, expiresAt, method }
   }
 
   // Register SSE client connection
@@ -43,6 +44,76 @@ class SmsService {
     return { clean10, e164 };
   }
 
+  // Send real SMS via Twilio Verify Service (Bypasses trial template restrictions!)
+  async sendViaTwilioVerify(phone) {
+    const { e164 } = this.formatPhone(phone);
+    const sid = process.env.TWILIO_ACCOUNT_SID;
+    const token = process.env.TWILIO_AUTH_TOKEN;
+    const verifySid = process.env.TWILIO_VERIFY_SERVICE_SID;
+
+    if (!sid || !token || !verifySid) {
+      throw new Error("Twilio Verify credentials not configured in environment");
+    }
+
+    console.log(`[Twilio Verify] Requesting real OTP SMS delivery to ${e164}...`);
+    const authHeader = 'Basic ' + Buffer.from(`${sid.trim()}:${token.trim()}`).toString('base64');
+    const body = new URLSearchParams({
+      To: e164,
+      Channel: 'sms'
+    });
+
+    const response = await fetch(`https://verify.twilio.com/v2/Services/${verifySid.trim()}/Verifications`, {
+      method: "POST",
+      headers: {
+        "Authorization": authHeader,
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      body: body.toString()
+    });
+
+    const result = await response.json();
+    console.log("[Twilio Verify Dispatch Response]:", result);
+    if (!response.ok || (result.status !== "pending" && result.status !== "approved")) {
+      throw new Error(result.message || `Twilio Verify failed (Code: ${result.code || response.status})`);
+    }
+    return result;
+  }
+
+  // Check code via Twilio Verify Service
+  async checkTwilioVerify(phone, code) {
+    const { e164 } = this.formatPhone(phone);
+    const sid = process.env.TWILIO_ACCOUNT_SID;
+    const token = process.env.TWILIO_AUTH_TOKEN;
+    const verifySid = process.env.TWILIO_VERIFY_SERVICE_SID;
+
+    if (!sid || !token || !verifySid) {
+      throw new Error("Twilio Verify credentials not configured in environment");
+    }
+
+    console.log(`[Twilio Verify] Checking OTP code for ${e164}...`);
+    const authHeader = 'Basic ' + Buffer.from(`${sid.trim()}:${token.trim()}`).toString('base64');
+    const body = new URLSearchParams({
+      To: e164,
+      Code: code.trim()
+    });
+
+    const response = await fetch(`https://verify.twilio.com/v2/Services/${verifySid.trim()}/VerificationCheck`, {
+      method: "POST",
+      headers: {
+        "Authorization": authHeader,
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      body: body.toString()
+    });
+
+    const result = await response.json();
+    console.log("[Twilio Verify Check Response]:", result);
+    if (result.status === "approved" && result.valid === true) {
+      return { verified: true, method: "TWILIO_VERIFY", result };
+    }
+    return { verified: false, message: result.message || "Invalid OTP code", result };
+  }
+
   // Send real SMS via Fast2SMS API (India)
   async sendViaFast2Sms(phone, message) {
     const { clean10 } = this.formatPhone(phone);
@@ -56,7 +127,7 @@ class SmsService {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        route: "q", // Quick SMS route (transactional / test messages)
+        route: "q",
         message: message,
         language: "english",
         flash: 0,
@@ -66,7 +137,7 @@ class SmsService {
 
     const result = await response.json();
     console.log("[Fast2SMS Gateway Response]:", result);
-    if (!response.ok || result.return === false || result.status_code !== 200 && result.return !== true) {
+    if (!response.ok || result.return === false || (result.status_code !== 200 && result.return !== true)) {
       const errorMsg = Array.isArray(result.message)
         ? result.message.join(", ")
         : (result.message || "Fast2SMS dispatch failed");
@@ -75,14 +146,14 @@ class SmsService {
     return result;
   }
 
-  // Send real SMS via Twilio API
+  // Send real SMS via Twilio Messages API
   async sendViaTwilio(phone, message) {
     const { e164 } = this.formatPhone(phone);
     const sid = process.env.TWILIO_ACCOUNT_SID;
     const token = process.env.TWILIO_AUTH_TOKEN;
     const from = process.env.TWILIO_PHONE_NUMBER;
 
-    console.log(`[Twilio] Attempting real SMS delivery to ${e164}...`);
+    console.log(`[Twilio Messages] Attempting real SMS delivery to ${e164}...`);
     const authHeader = 'Basic ' + Buffer.from(`${sid.trim()}:${token.trim()}`).toString('base64');
     const body = new URLSearchParams({
       To: e164,
@@ -107,6 +178,113 @@ class SmsService {
     return result;
   }
 
+  // Send an OTP code (Cellular Twilio Verify + Simulator Fallback)
+  async sendOtp({ phone, name = "Cultivator" }) {
+    const { clean10, e164 } = this.formatPhone(phone);
+    let gatewayUsed = "SIMULATOR";
+    let deliveryStatus = "DELIVERED (SIMULATED)";
+    let gatewayError = null;
+    let fallbackOtp = null;
+
+    // 1. Try Twilio Verify Service (Real cellular SMS to phone)
+    if (process.env.TWILIO_ACCOUNT_SID && process.env.TWILIO_AUTH_TOKEN && process.env.TWILIO_VERIFY_SERVICE_SID) {
+      try {
+        await this.sendViaTwilioVerify(phone);
+        gatewayUsed = "Twilio Verify (Real Cellular SMS)";
+        deliveryStatus = "SENT_TO_PHONE";
+        console.log(`[REAL CELLULAR SMS] Twilio Verify OTP sent to physical mobile: ${e164}`);
+      } catch (err) {
+        gatewayError = err.message;
+        console.warn(`[Twilio Verify Warning]: ${err.message}. Falling back to virtual simulator.`);
+      }
+    }
+
+    // If Twilio Verify was not used or failed (e.g. unverified trial recipient), create a simulator code
+    if (deliveryStatus !== "SENT_TO_PHONE") {
+      fallbackOtp = Math.floor(100000 + Math.random() * 900000).toString();
+      this.activeOtps.set(clean10, {
+        code: fallbackOtp,
+        expiresAt: Date.now() + 10 * 60 * 1000,
+        createdAt: new Date().toISOString()
+      });
+      gatewayUsed = gatewayError
+        ? "Simulator (Twilio Trial Unverified Number Fallback)"
+        : "SIMULATOR";
+    }
+
+    const messageText = deliveryStatus === "SENT_TO_PHONE"
+      ? `Krishivalaya: Your real cellular verification OTP code was dispatched to your mobile network via Twilio Verify. Check your phone's SMS inbox.`
+      : `Krishivalaya: Your OTP verification code is ${fallbackOtp}. Valid for 10 minutes.`;
+
+    const smsEntry = {
+      id: `sms-otp-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
+      recipientPhone: phone,
+      recipientName: name,
+      senderId: deliveryStatus === "SENT_TO_PHONE" ? "TWILIO-VERIFY" : "KRISHIVALAYA",
+      type: "OTP_VERIFICATION",
+      message: messageText,
+      gateway: gatewayUsed,
+      gatewayError,
+      status: deliveryStatus,
+      timestamp: new Date().toISOString()
+    };
+
+    this.smsLogs.unshift(smsEntry);
+    if (this.smsLogs.length > 200) this.smsLogs.pop();
+
+    this.broadcastEvent("NEW_SMS", smsEntry);
+
+    return {
+      success: true,
+      method: deliveryStatus === "SENT_TO_PHONE" ? "TWILIO_VERIFY" : "SANDBOX_SESSION",
+      status: deliveryStatus,
+      phone: e164,
+      otp: deliveryStatus === "SENT_TO_PHONE" ? null : fallbackOtp, // Only provide if non-cellular fallback
+      gateway: gatewayUsed,
+      message: deliveryStatus === "SENT_TO_PHONE"
+        ? `Real cellular SMS OTP sent to ${e164} via Twilio! Check your phone's SMS inbox.`
+        : `Verification code generated: ${fallbackOtp} (Sandbox fallback for unverified trial recipient).`
+    };
+  }
+
+  // Verify submitted OTP code - Strictly requires valid active OTP (No static password or demo bypass)
+  async verifyOtp({ phone, code }) {
+    if (!phone || !code) {
+      return { success: false, message: "Phone number and OTP code are required" };
+    }
+
+    const { clean10, e164 } = this.formatPhone(phone);
+    const cleanCode = code.toString().trim();
+
+    // 1. Check Twilio Verify Service if active
+    if (process.env.TWILIO_ACCOUNT_SID && process.env.TWILIO_AUTH_TOKEN && process.env.TWILIO_VERIFY_SERVICE_SID) {
+      try {
+        const verifyRes = await this.checkTwilioVerify(phone, cleanCode);
+        if (verifyRes.verified) {
+          return { success: true, verified: true, method: "TWILIO_VERIFY" };
+        }
+      } catch (err) {
+        console.warn("[Twilio Verify Check Warning]:", err.message);
+      }
+    }
+
+    // 2. Check active in-memory session OTPs (for unverified sandbox recipient numbers)
+    const record = this.activeOtps.get(clean10);
+    if (record && record.expiresAt > Date.now()) {
+      if (record.code === cleanCode) {
+        this.activeOtps.delete(clean10);
+        return { success: true, verified: true, method: "SESSION_OTP" };
+      }
+    }
+
+    return {
+      success: false,
+      verified: false,
+      message: "Invalid OTP code. Please enter the valid 6-digit OTP received via SMS."
+    };
+  }
+
+
   // Send an SMS notification (Real Gateway or Simulator Fallback)
   async sendSms({ recipientPhone, recipientName, message, type = "GENERAL" }) {
     const phone = recipientPhone || "+91 98765 00000";
@@ -114,7 +292,7 @@ class SmsService {
     let deliveryStatus = "DELIVERED (SIMULATED)";
     let gatewayError = null;
 
-    // 1. Check Fast2SMS
+    // 1. Try Fast2SMS
     if (process.env.FAST2SMS_API_KEY && process.env.FAST2SMS_API_KEY.trim()) {
       try {
         await this.sendViaFast2Sms(phone, message);
@@ -124,23 +302,25 @@ class SmsService {
         gatewayError = err.message;
         gatewayUsed = "Fast2SMS (Gateway Restricted)";
         deliveryStatus = "GATEWAY_ERROR";
-        console.warn(`[Fast2SMS Gateway Error]: ${err.message}`);
       }
     }
-    // 2. Or check Twilio
-    else if (process.env.TWILIO_ACCOUNT_SID && process.env.TWILIO_AUTH_TOKEN && process.env.TWILIO_PHONE_NUMBER) {
+
+    // 2. Try Twilio Messages API if Fast2SMS didn't send
+    if (deliveryStatus !== "SENT_TO_PHONE" && process.env.TWILIO_ACCOUNT_SID && process.env.TWILIO_AUTH_TOKEN && process.env.TWILIO_PHONE_NUMBER) {
       try {
         await this.sendViaTwilio(phone, message);
         gatewayUsed = "Twilio (Cellular)";
         deliveryStatus = "SENT_TO_PHONE";
+        gatewayError = null;
       } catch (err) {
         gatewayError = err.message;
-        gatewayUsed = "Twilio (Failed)";
-        deliveryStatus = "GATEWAY_ERROR";
-        console.warn(`[Twilio Gateway Error]: ${err.message}`);
+        gatewayUsed = "Twilio (Trial Account Restricted)";
+        deliveryStatus = "SIMULATOR_FALLBACK";
       }
-    } else {
-      console.log(`[SMS SIMULATOR] Dispatched to on-screen phone. (Add FAST2SMS_API_KEY or Twilio credentials to server/.env to send real SMS).`);
+    }
+
+    if (deliveryStatus !== "SENT_TO_PHONE") {
+      console.log(`[SMS SIMULATOR] Dispatched to on-screen phone. Status: ${deliveryStatus}`);
     }
 
     const smsEntry = {
@@ -152,7 +332,7 @@ class SmsService {
       message,
       gateway: gatewayUsed,
       gatewayError,
-      status: deliveryStatus,
+      status: deliveryStatus === "SENT_TO_PHONE" ? "SENT_TO_PHONE" : "DELIVERED (SIMULATED)",
       timestamp: new Date().toISOString()
     };
 
@@ -163,7 +343,7 @@ class SmsService {
       this.smsLogs.pop();
     }
 
-    console.log(`[SMS DISPATCHED] Status: ${deliveryStatus} | To: ${recipientName} (${phone}) | Gateway: ${gatewayUsed}`);
+    console.log(`[SMS DISPATCHED] Status: ${smsEntry.status} | To: ${recipientName} (${phone}) | Gateway: ${gatewayUsed}`);
 
     // Broadcast update to real-time subscribers & live phone simulator
     this.broadcastEvent("NEW_SMS", smsEntry);
@@ -181,3 +361,4 @@ class SmsService {
 }
 
 export const smsService = new SmsService();
+

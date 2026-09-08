@@ -56,9 +56,12 @@ export default function HomePage() {
             <div className="md:col-span-8 lg:col-span-8 space-y-4 text-left">
               {/* Title Pill Badge */}
               <div className="inline-flex items-center space-x-3 bg-gradient-to-r from-blue-900 via-indigo-900 to-blue-950 border-2 border-white/80 px-6 py-2 rounded-full shadow-2xl">
-                <div className="flex items-center space-x-2.5">
+                <div className="flex flex-wrap items-center gap-2">
                   <span className="text-2xl sm:text-4xl font-black text-white tracking-wide">
                     Krishivalaya
+                  </span>
+                  <span className="text-xl sm:text-3xl font-black text-amber-300">
+                    (కృషివలయ)
                   </span>
                   <span className="text-[10px] sm:text-xs font-bold text-emerald-300 uppercase tracking-wider bg-white/10 px-2.5 py-0.5 rounded-full border border-white/20">
                     Kisan Cold Chain

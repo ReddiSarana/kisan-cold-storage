@@ -17,7 +17,7 @@ import {
 } from 'lucide-react';
 
 export default function QueuePage() {
-  const { currentUser, queueRefreshTrigger, showToast, setIsSmsSimulatorOpen } = useApp();
+  const { currentUser, queueRefreshTrigger, showToast } = useApp();
   const { t } = useLanguage();
   const [queueTokens, setQueueTokens] = useState([]);
   const [selectedFacility, setSelectedFacility] = useState('cs-agra-01');
@@ -43,9 +43,9 @@ export default function QueuePage() {
       const res = await callNextToken(bay, selectedFacility);
       if (res.success) {
         showToast(`📢 Token ${res.data.tokenId} called to ${bay}! SMS alert dispatched.`);
-        setIsSmsSimulatorOpen(true);
         loadQueue();
       } else {
+
         alert(res.message);
       }
     } catch (err) {
@@ -111,16 +111,9 @@ export default function QueuePage() {
             <RefreshCw className="w-3.5 h-3.5 text-emerald-400" />
             <span>Sync Live</span>
           </button>
-
-          <button
-            onClick={() => setIsSmsSimulatorOpen(true)}
-            className="flex items-center space-x-1.5 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 px-3.5 py-2 rounded-xl text-xs font-black text-slate-950 transition shadow-md shadow-emerald-500/20"
-          >
-            <Bell className="w-3.5 h-3.5 text-slate-950" />
-            <span>SMS Phone</span>
-          </button>
         </div>
       </div>
+
 
       {/* Farmer & Tractor Driver Gate Directions */}
       <div className="bg-gradient-to-r from-amber-50/90 via-orange-50/70 to-amber-50/80 border-2 border-amber-300/80 rounded-3xl p-6 sm:p-7 shadow-xs">

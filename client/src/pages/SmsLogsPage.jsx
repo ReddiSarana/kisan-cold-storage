@@ -15,10 +15,11 @@ import {
 } from 'lucide-react';
 
 export default function SmsLogsPage() {
-  const { currentUser, smsNotificationList, setIsSmsSimulatorOpen, showToast } = useApp();
+  const { currentUser, smsNotificationList, showToast } = useApp();
   const [logs, setLogs] = useState([]);
   const [filterPhone, setFilterPhone] = useState('');
   const [isSending, setIsSending] = useState(false);
+
 
   // Manual SMS Form state
   const [smsForm, setSmsForm] = useState({
@@ -51,7 +52,6 @@ export default function SmsLogsPage() {
       if (res.success) {
         showToast(`📲 SMS sent to ${smsForm.recipientName}!`);
         setSmsForm(prev => ({ ...prev, message: '' }));
-        setIsSmsSimulatorOpen(true);
         loadLogs();
       } else {
         alert('Failed to send SMS: ' + res.message);
@@ -79,15 +79,8 @@ export default function SmsLogsPage() {
             {t('smsDesc', "Most Indian farmers rely on standard cellular SMS rather than mobile apps in remote field conditions. Krishivalaya triggers instant SMS alerts on slot reservations, bay calling, weighment validation, and payment receipts.")}
           </p>
         </div>
-
-        <button
-          onClick={() => setIsSmsSimulatorOpen(true)}
-          className="flex items-center space-x-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs py-3 px-5 rounded-2xl shadow-lg transition hover:scale-105 flex-shrink-0"
-        >
-          <Smartphone className="w-4 h-4" />
-          <span>Open Interactive Phone</span>
-        </button>
       </div>
+
 
       {/* Grid: Manual Dispatcher (Left) + SMS Audit Log (Right) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
@@ -169,12 +162,13 @@ export default function SmsLogsPage() {
           <div className="bg-slate-50 p-3 rounded-2xl border border-slate-200 text-[11px] text-slate-600 space-y-1">
             <p className="font-bold text-slate-800 flex items-center space-x-1">
               <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-              <span>Gateway Integration Ready</span>
+              <span>Cellular SMS Gateway Active</span>
             </p>
             <p>
-              Configured with standard fallback: In-app live smartphone simulation + plug-and-play Fast2SMS / Twilio API keys in <code className="bg-slate-200 px-1 rounded">.env</code>.
+              Integrated with real cellular Twilio Verify and SMS gateways. Instant notifications are dispatched directly to farmers' mobile networks.
             </p>
           </div>
+
         </div>
 
         {/* Right: SMS Audit Trail */}
@@ -241,11 +235,19 @@ export default function SmsLogsPage() {
                     {log.message}
                   </p>
 
-                  <div className="flex justify-between items-center text-[10px] text-slate-400 pt-1">
-                    <span>Event Tag: <code className="text-slate-600 font-bold">{log.type}</code></span>
-                    <span>Carrier: AIRTEL / JIO Agri Gateway</span>
+                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center text-[10px] text-slate-500 pt-1 gap-1">
+                    <span>Event Tag: <code className="text-slate-700 font-bold bg-slate-100 px-1.5 py-0.5 rounded">{log.type}</code></span>
+                    <span className="font-medium">
+                      Gateway Route: <strong className={log.status === 'SENT_TO_PHONE' ? 'text-emerald-700' : 'text-slate-700'}>{log.gateway || 'Twilio Verify / Cellular Gateway'}</strong>
+                    </span>
                   </div>
+                  {log.gatewayError && (
+                    <p className="text-[10px] text-amber-700 bg-amber-50 px-2 py-1 rounded-lg border border-amber-200">
+                      ℹ️ Gateway Note: {log.gatewayError}
+                    </p>
+                  )}
                 </div>
+
               ))}
             </div>
           )}

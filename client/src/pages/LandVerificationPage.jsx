@@ -1,10 +1,18 @@
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
 import {
+  validatePassbookNumber,
+  validateSurveyNumber,
+  validateAcres,
+  validateRequiredText,
+  validatePhone
+} from '../utils/validation';
+import {
   ShieldCheck,
   FileCheck2,
   UploadCloud,
   CheckCircle2,
+  CheckCircle,
   AlertCircle,
   ArrowRight,
   Sparkles,
@@ -43,6 +51,41 @@ export default function LandVerificationPage() {
   const [isVerifying, setIsVerifying] = useState(false);
   const [verificationStep, setVerificationStep] = useState(0); // 0: idle, 1: connecting, 2: validating, 3: success
   const [verificationError, setVerificationError] = useState('');
+  const [errors, setErrors] = useState({});
+  const [touched, setTouched] = useState({});
+
+  const validateField = (field, val) => {
+    switch (field) {
+      case 'farmerName':
+        return validateRequiredText(val, 'Cultivator Name');
+      case 'phone':
+        return validatePhone(val);
+      case 'passbookNumber':
+        return validatePassbookNumber(val);
+      case 'khataNumber':
+        return validateRequiredText(val, 'Khata Number');
+      case 'surveyNumber':
+        return validateSurveyNumber(val);
+      case 'extentAcres':
+        return validateAcres(val);
+      default:
+        return { isValid: true };
+    }
+  };
+
+  const handleFieldChange = (field, val) => {
+    setForm(prev => ({ ...prev, [field]: val }));
+    if (touched[field]) {
+      const res = validateField(field, val);
+      setErrors(prev => ({ ...prev, [field]: res.isValid ? '' : res.message }));
+    }
+  };
+
+  const handleBlur = (field) => {
+    setTouched(prev => ({ ...prev, [field]: true }));
+    const res = validateField(field, form[field]);
+    setErrors(prev => ({ ...prev, [field]: res.isValid ? '' : res.message }));
+  };
 
   // Demo auto-fill helper for instant evaluation
   const handleAutoFillDemo = () => {
@@ -65,6 +108,16 @@ export default function LandVerificationPage() {
       size: '1.4 MB',
       verified: true
     });
+    setTouched({
+      farmerName: true,
+      phone: true,
+      passbookNumber: true,
+      khataNumber: true,
+      surveyNumber: true,
+      extentAcres: true
+    });
+    setErrors({});
+    setVerificationError('');
     showToast('⚡ Pre-filled verified Telangana Dharani Passbook data for demo!');
   };
 
@@ -82,8 +135,43 @@ export default function LandVerificationPage() {
 
   const handleVerificationSubmit = (e) => {
     e.preventDefault();
-    if (!form.passbookNumber || !form.surveyNumber) {
-      setVerificationError('Please enter Passbook / Khata Number and Survey Number.');
+
+    const nameCheck = validateRequiredText(form.farmerName, 'Cultivator Name');
+    const phoneCheck = validatePhone(form.phone);
+    const ppbCheck = validatePassbookNumber(form.passbookNumber);
+    const khataCheck = validateRequiredText(form.khataNumber, 'Khata Number');
+    const surveyCheck = validateSurveyNumber(form.surveyNumber);
+    const acresCheck = validateAcres(form.extentAcres);
+
+    const newErrors = {
+      farmerName: nameCheck.isValid ? '' : nameCheck.message,
+      phone: phoneCheck.isValid ? '' : phoneCheck.message,
+      passbookNumber: ppbCheck.isValid ? '' : ppbCheck.message,
+      khataNumber: khataCheck.isValid ? '' : khataCheck.message,
+      surveyNumber: surveyCheck.isValid ? '' : surveyCheck.message,
+      extentAcres: acresCheck.isValid ? '' : acresCheck.message
+    };
+
+    setTouched({
+      farmerName: true,
+      phone: true,
+      passbookNumber: true,
+      khataNumber: true,
+      surveyNumber: true,
+      extentAcres: true
+    });
+    setErrors(newErrors);
+
+    const hasError = Object.values(newErrors).some(msg => !!msg);
+    if (hasError) {
+      setVerificationError('Please resolve all highlighted field validation errors.');
+      showToast('⚠️ Please correct highlighted field errors before verifying.');
+      return;
+    }
+
+    if (!uploadedFile) {
+      setVerificationError('Please upload your scanned Pattadar Passbook or Dharani RoR copy (PDF/JPG/PNG).');
+      showToast('⚠️ Please upload your scanned Passbook document.');
       return;
     }
 
@@ -216,24 +304,66 @@ export default function LandVerificationPage() {
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-4 gap-3 text-xs">
               <div className="sm:col-span-2">
-                <label className="block font-bold text-slate-700 mb-1">Pattadar / Farmer Name</label>
-                <input
-                  type="text"
-                  required
-                  value={form.farmerName}
-                  onChange={(e) => setForm({ ...form, farmerName: e.target.value })}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800 focus:bg-white focus:ring-2 focus:ring-emerald-500"
-                />
+                <label className="block font-bold text-slate-700 mb-1">Pattadar / Farmer Name *</label>
+                <div className="relative">
+                  <input
+                    type="text"
+                    required
+                    value={form.farmerName}
+                    onChange={(e) => handleFieldChange('farmerName', e.target.value)}
+                    onBlur={() => handleBlur('farmerName')}
+                    className={`w-full rounded-xl px-3 py-2 text-slate-800 transition focus:outline-none focus:ring-2 ${
+                      touched.farmerName && errors.farmerName
+                        ? 'bg-rose-50/30 border-2 border-rose-500 text-rose-900 focus:ring-rose-400'
+                        : touched.farmerName && !errors.farmerName
+                        ? 'bg-emerald-50/20 border-2 border-emerald-500 text-emerald-950 focus:ring-emerald-400'
+                        : 'bg-slate-50 border border-slate-200 focus:bg-white focus:ring-emerald-500'
+                    }`}
+                  />
+                  {touched.farmerName && (
+                    <div className="absolute right-2.5 top-2.5 pointer-events-none">
+                      {errors.farmerName ? (
+                        <AlertCircle className="w-3.5 h-3.5 text-rose-500" />
+                      ) : (
+                        <CheckCircle className="w-3.5 h-3.5 text-emerald-500" />
+                      )}
+                    </div>
+                  )}
+                </div>
+                {touched.farmerName && errors.farmerName && (
+                  <p className="text-[10px] text-rose-600 mt-0.5">{errors.farmerName}</p>
+                )}
               </div>
               <div className="sm:col-span-2">
-                <label className="block font-bold text-slate-700 mb-1">Registered Mobile</label>
-                <input
-                  type="text"
-                  required
-                  value={form.phone}
-                  onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800 font-mono focus:bg-white focus:ring-2 focus:ring-emerald-500"
-                />
+                <label className="block font-bold text-slate-700 mb-1">Registered Mobile *</label>
+                <div className="relative">
+                  <input
+                    type="text"
+                    required
+                    value={form.phone}
+                    onChange={(e) => handleFieldChange('phone', e.target.value)}
+                    onBlur={() => handleBlur('phone')}
+                    className={`w-full rounded-xl px-3 py-2 text-slate-800 font-mono transition focus:outline-none focus:ring-2 ${
+                      touched.phone && errors.phone
+                        ? 'bg-rose-50/30 border-2 border-rose-500 text-rose-900 focus:ring-rose-400'
+                        : touched.phone && !errors.phone
+                        ? 'bg-emerald-50/20 border-2 border-emerald-500 text-emerald-950 focus:ring-emerald-400'
+                        : 'bg-slate-50 border border-slate-200 focus:bg-white focus:ring-emerald-500'
+                    }`}
+                  />
+                  {touched.phone && (
+                    <div className="absolute right-2.5 top-2.5 pointer-events-none">
+                      {errors.phone ? (
+                        <AlertCircle className="w-3.5 h-3.5 text-rose-500" />
+                      ) : (
+                        <CheckCircle className="w-3.5 h-3.5 text-emerald-500" />
+                      )}
+                    </div>
+                  )}
+                </div>
+                {touched.phone && errors.phone && (
+                  <p className="text-[10px] text-rose-600 mt-0.5">{errors.phone}</p>
+                )}
               </div>
               <div>
                 <label className="block font-bold text-slate-700 mb-1">State</label>
@@ -291,59 +421,146 @@ export default function LandVerificationPage() {
                 <label className="block font-bold text-slate-700 mb-1">
                   Pattadar Passbook No. (PPB) *
                 </label>
-                <input
-                  type="text"
-                  required
-                  placeholder="e.g. PPB-TS-2024-88421"
-                  value={form.passbookNumber}
-                  onChange={(e) => setForm({ ...form, passbookNumber: e.target.value })}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800 font-mono uppercase focus:bg-white focus:ring-2 focus:ring-emerald-500"
-                />
-                <span className="text-[10px] text-slate-400 mt-1 block">Printed on your green Passbook cover</span>
+                <div className="relative">
+                  <input
+                    type="text"
+                    required
+                    placeholder="e.g. PPB-TS-2024-88421"
+                    value={form.passbookNumber}
+                    onChange={(e) => handleFieldChange('passbookNumber', e.target.value)}
+                    onBlur={() => handleBlur('passbookNumber')}
+                    className={`w-full rounded-xl px-3 py-2 text-slate-800 font-mono uppercase transition focus:outline-none focus:ring-2 ${
+                      touched.passbookNumber && errors.passbookNumber
+                        ? 'bg-rose-50/30 border-2 border-rose-500 text-rose-900 focus:ring-rose-400'
+                        : touched.passbookNumber && !errors.passbookNumber
+                        ? 'bg-emerald-50/20 border-2 border-emerald-500 text-emerald-950 focus:ring-emerald-400'
+                        : 'bg-slate-50 border border-slate-200 focus:bg-white focus:ring-emerald-500'
+                    }`}
+                  />
+                  {touched.passbookNumber && (
+                    <div className="absolute right-2.5 top-2.5 pointer-events-none">
+                      {errors.passbookNumber ? (
+                        <AlertCircle className="w-3.5 h-3.5 text-rose-500" />
+                      ) : (
+                        <CheckCircle className="w-3.5 h-3.5 text-emerald-500" />
+                      )}
+                    </div>
+                  )}
+                </div>
+                {touched.passbookNumber && errors.passbookNumber ? (
+                  <p className="text-[10px] text-rose-600 mt-0.5">{errors.passbookNumber}</p>
+                ) : (
+                  <span className="text-[10px] text-slate-400 mt-1 block">Printed on your green Passbook cover</span>
+                )}
               </div>
 
               <div>
                 <label className="block font-bold text-slate-700 mb-1">
                   Khata Number / Account No. *
                 </label>
-                <input
-                  type="text"
-                  required
-                  placeholder="e.g. KH-819"
-                  value={form.khataNumber}
-                  onChange={(e) => setForm({ ...form, khataNumber: e.target.value })}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800 font-mono focus:bg-white focus:ring-2 focus:ring-emerald-500"
-                />
-                <span className="text-[10px] text-slate-400 mt-1 block">Khata number as in Dharani portal</span>
+                <div className="relative">
+                  <input
+                    type="text"
+                    required
+                    placeholder="e.g. KH-819"
+                    value={form.khataNumber}
+                    onChange={(e) => handleFieldChange('khataNumber', e.target.value)}
+                    onBlur={() => handleBlur('khataNumber')}
+                    className={`w-full rounded-xl px-3 py-2 text-slate-800 font-mono transition focus:outline-none focus:ring-2 ${
+                      touched.khataNumber && errors.khataNumber
+                        ? 'bg-rose-50/30 border-2 border-rose-500 text-rose-900 focus:ring-rose-400'
+                        : touched.khataNumber && !errors.khataNumber
+                        ? 'bg-emerald-50/20 border-2 border-emerald-500 text-emerald-950 focus:ring-emerald-400'
+                        : 'bg-slate-50 border border-slate-200 focus:bg-white focus:ring-emerald-500'
+                    }`}
+                  />
+                  {touched.khataNumber && (
+                    <div className="absolute right-2.5 top-2.5 pointer-events-none">
+                      {errors.khataNumber ? (
+                        <AlertCircle className="w-3.5 h-3.5 text-rose-500" />
+                      ) : (
+                        <CheckCircle className="w-3.5 h-3.5 text-emerald-500" />
+                      )}
+                    </div>
+                  )}
+                </div>
+                {touched.khataNumber && errors.khataNumber ? (
+                  <p className="text-[10px] text-rose-600 mt-0.5">{errors.khataNumber}</p>
+                ) : (
+                  <span className="text-[10px] text-slate-400 mt-1 block">Khata number as in Dharani portal</span>
+                )}
               </div>
 
               <div>
                 <label className="block font-bold text-slate-700 mb-1">
                   Survey Number(s) *
                 </label>
-                <input
-                  type="text"
-                  required
-                  placeholder="e.g. 48/A, 49/1"
-                  value={form.surveyNumber}
-                  onChange={(e) => setForm({ ...form, surveyNumber: e.target.value })}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800 font-mono focus:bg-white focus:ring-2 focus:ring-emerald-500"
-                />
-                <span className="text-[10px] text-slate-400 mt-1 block">Comma separated if multiple parcels</span>
+                <div className="relative">
+                  <input
+                    type="text"
+                    required
+                    placeholder="e.g. 48/A, 49/1"
+                    value={form.surveyNumber}
+                    onChange={(e) => handleFieldChange('surveyNumber', e.target.value)}
+                    onBlur={() => handleBlur('surveyNumber')}
+                    className={`w-full rounded-xl px-3 py-2 text-slate-800 font-mono transition focus:outline-none focus:ring-2 ${
+                      touched.surveyNumber && errors.surveyNumber
+                        ? 'bg-rose-50/30 border-2 border-rose-500 text-rose-900 focus:ring-rose-400'
+                        : touched.surveyNumber && !errors.surveyNumber
+                        ? 'bg-emerald-50/20 border-2 border-emerald-500 text-emerald-950 focus:ring-emerald-400'
+                        : 'bg-slate-50 border border-slate-200 focus:bg-white focus:ring-emerald-500'
+                    }`}
+                  />
+                  {touched.surveyNumber && (
+                    <div className="absolute right-2.5 top-2.5 pointer-events-none">
+                      {errors.surveyNumber ? (
+                        <AlertCircle className="w-3.5 h-3.5 text-rose-500" />
+                      ) : (
+                        <CheckCircle className="w-3.5 h-3.5 text-emerald-500" />
+                      )}
+                    </div>
+                  )}
+                </div>
+                {touched.surveyNumber && errors.surveyNumber ? (
+                  <p className="text-[10px] text-rose-600 mt-0.5">{errors.surveyNumber}</p>
+                ) : (
+                  <span className="text-[10px] text-slate-400 mt-1 block">Comma separated if multiple parcels</span>
+                )}
               </div>
 
               <div>
                 <label className="block font-bold text-slate-700 mb-1">
-                  Cultivable Land Extent (Acres)
+                  Cultivable Land Extent (Acres) *
                 </label>
-                <input
-                  type="text"
-                  required
-                  placeholder="e.g. 5.25"
-                  value={form.extentAcres}
-                  onChange={(e) => setForm({ ...form, extentAcres: e.target.value })}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800 font-mono focus:bg-white focus:ring-2 focus:ring-emerald-500"
-                />
+                <div className="relative">
+                  <input
+                    type="text"
+                    required
+                    placeholder="e.g. 5.25"
+                    value={form.extentAcres}
+                    onChange={(e) => handleFieldChange('extentAcres', e.target.value)}
+                    onBlur={() => handleBlur('extentAcres')}
+                    className={`w-full rounded-xl px-3 py-2 text-slate-800 font-mono transition focus:outline-none focus:ring-2 ${
+                      touched.extentAcres && errors.extentAcres
+                        ? 'bg-rose-50/30 border-2 border-rose-500 text-rose-900 focus:ring-rose-400'
+                        : touched.extentAcres && !errors.extentAcres
+                        ? 'bg-emerald-50/20 border-2 border-emerald-500 text-emerald-950 focus:ring-emerald-400'
+                        : 'bg-slate-50 border border-slate-200 focus:bg-white focus:ring-emerald-500'
+                    }`}
+                  />
+                  {touched.extentAcres && (
+                    <div className="absolute right-2.5 top-2.5 pointer-events-none">
+                      {errors.extentAcres ? (
+                        <AlertCircle className="w-3.5 h-3.5 text-rose-500" />
+                      ) : (
+                        <CheckCircle className="w-3.5 h-3.5 text-emerald-500" />
+                      )}
+                    </div>
+                  )}
+                </div>
+                {touched.extentAcres && errors.extentAcres && (
+                  <p className="text-[10px] text-rose-600 mt-0.5">{errors.extentAcres}</p>
+                )}
               </div>
 
               <div>

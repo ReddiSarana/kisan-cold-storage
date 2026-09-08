@@ -73,10 +73,27 @@ export default function DashboardContainer({ children }) {
     return localStorage.getItem('kisan_dashboard_theme') || 'forest';
   });
 
-  // Font Scale State: 'normal' (100%), 'large' (115%), 'xlarge' (130%)
+  // Font Scale State: 'normal' (A-, 100%), 'large' (A, 115%), 'xlarge' (A+, 130%)
   const [fontSizeScale, setFontSizeScale] = useState(() => {
-    return localStorage.getItem('kisan_dashboard_font_size') || 'large';
+    return localStorage.getItem('kisan_dashboard_font_size') || 'normal';
   });
+
+  // Ensure 'A-' (normal) is selected upon login and listen for login font reset events
+  useEffect(() => {
+    const saved = localStorage.getItem('kisan_dashboard_font_size');
+    if (!saved || saved === 'large') {
+      setFontSizeScale('normal');
+      localStorage.setItem('kisan_dashboard_font_size', 'normal');
+    }
+
+    const handleFontEvent = (e) => {
+      const size = e.detail || localStorage.getItem('kisan_dashboard_font_size') || 'normal';
+      setFontSizeScale(size);
+    };
+
+    window.addEventListener('kisan_font_size_changed', handleFontEvent);
+    return () => window.removeEventListener('kisan_font_size_changed', handleFontEvent);
+  }, []);
 
   // Scroll position & percentage tracking
   const [scrollProgress, setScrollProgress] = useState(0);

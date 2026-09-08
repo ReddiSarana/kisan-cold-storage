@@ -216,6 +216,10 @@ export function AppProvider({ children }) {
     setIsAuthenticated(true);
     localStorage.setItem('kisan_auth', 'true');
     localStorage.setItem('kisan_custom_user', JSON.stringify(targetUser));
+    localStorage.setItem('kisan_dashboard_font_size', 'normal');
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('kisan_font_size_changed', { detail: 'normal' }));
+    }
     showToast(`🌾 Welcome, ${targetUser.name}! Direct access granted to Krishivalaya.`);
     setActiveTab('crops');
   };
@@ -260,6 +264,10 @@ export function AppProvider({ children }) {
     localStorage.setItem('kisan_land_verified', 'true');
     localStorage.setItem('kisan_land_data', JSON.stringify(landData));
     localStorage.setItem('kisan_custom_user', JSON.stringify(verifiedUser));
+    localStorage.setItem('kisan_dashboard_font_size', 'normal');
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('kisan_font_size_changed', { detail: 'normal' }));
+    }
     localStorage.removeItem('kisan_pending_signup');
 
     showToast(`✅ Land documents verified successfully! Welcome to Krishivalaya.`);

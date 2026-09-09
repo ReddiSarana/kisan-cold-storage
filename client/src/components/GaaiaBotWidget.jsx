@@ -254,7 +254,7 @@ Feel free to ask about crop cold storage temperatures, bank loans on warehouse r
     <>
       {/* 1. FLOATING LAUNCHER BUTTON (Bottom-Right) */}
       {!isGaaiaOpen && (
-        <div className="fixed bottom-20 md:bottom-6 right-4 sm:right-6 z-40 flex items-center group">
+        <div className="fixed bottom-20 md:bottom-6 right-4 sm:right-6 z-50 flex items-center group">
           {/* Tooltip hint pill */}
           <div className="hidden sm:flex items-center space-x-1.5 mr-2 bg-slate-900/90 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-xl border border-emerald-500/40 backdrop-blur-md opacity-90 group-hover:opacity-100 transition-opacity">
             <Sparkles className="w-3.5 h-3.5 text-amber-300 animate-pulse" />

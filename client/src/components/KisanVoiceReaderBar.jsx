@@ -38,7 +38,7 @@ export default function KisanVoiceReaderBar() {
       <aside
         id="voice-controller-bar"
         aria-label="Kisan Voice Reader Bar"
-        className="fixed bottom-20 md:bottom-6 right-3 sm:right-6 z-50 animate-in fade-in slide-in-from-bottom-3 duration-200"
+        className="fixed bottom-20 md:bottom-6 left-3 sm:left-6 z-40 animate-in fade-in slide-in-from-bottom-3 duration-200"
       >
         <button
           type="button"
@@ -64,7 +64,7 @@ export default function KisanVoiceReaderBar() {
     <aside
       id="voice-controller-bar"
       aria-label="Kisan Voice Reader Bar"
-      className="fixed bottom-18 md:bottom-5 left-2 right-2 sm:left-auto sm:right-6 z-50 max-w-xl bg-slate-950/95 backdrop-blur-xl border-2 border-emerald-400/80 text-white rounded-3xl shadow-[0_10px_40px_rgba(0,0,0,0.7)] p-3 sm:p-3.5 transition-all animate-in fade-in slide-in-from-bottom-4 duration-200"
+      className="fixed bottom-20 md:bottom-6 left-2 sm:left-6 right-2 sm:right-auto z-50 max-w-lg bg-slate-950/95 backdrop-blur-xl border-2 border-emerald-400/80 text-white rounded-3xl shadow-[0_10px_40px_rgba(0,0,0,0.7)] p-3 sm:p-3.5 transition-all animate-in fade-in slide-in-from-bottom-4 duration-200"
     >
       {/* Top Strip: Status & Ticker */}
       <div className="flex items-center justify-between gap-2 pb-2 border-b border-white/10">

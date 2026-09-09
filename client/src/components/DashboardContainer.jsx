@@ -343,7 +343,7 @@ export default function DashboardContainer({ children }) {
       </div>
 
       {/* Floating Quick Action Controller: Dedicated Scroll Up & Down Widget (Desktop & Tablet) */}
-      <div className="fixed bottom-20 right-3 sm:bottom-6 sm:right-6 z-40 hidden sm:flex flex-col items-center space-y-1.5 bg-slate-950/95 backdrop-blur-md text-white p-2 rounded-2xl shadow-2xl border-2 border-emerald-400/80">
+      <div className="fixed bottom-36 sm:bottom-28 right-3 sm:right-6 z-30 hidden sm:flex flex-col items-center space-y-1.5 bg-slate-950/95 backdrop-blur-md text-white p-2 rounded-2xl shadow-2xl border-2 border-emerald-400/80">
         {/* Scroll Up Button */}
         <button
           type="button"

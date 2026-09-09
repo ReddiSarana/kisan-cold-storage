@@ -21,7 +21,8 @@ import {
   X,
   ExternalLink,
   CheckCircle2,
-  AlertTriangle
+  AlertTriangle,
+  Bot
 } from 'lucide-react';
 
 export default function DashboardSidebar() {
@@ -120,6 +121,14 @@ export default function DashboardSidebar() {
       icon: User,
       accent: 'text-blue-600 bg-blue-50 border-blue-200 group-hover:bg-blue-100',
       activeAccent: 'bg-blue-600 text-white shadow-blue-200'
+    },
+    {
+      id: 'gaaia',
+      label: 'Gaaia AI Bot',
+      desc: 'Ask Agri & Storage Questions',
+      icon: Bot,
+      accent: 'text-emerald-700 bg-emerald-50 border-emerald-300 group-hover:bg-emerald-100',
+      activeAccent: 'bg-gradient-to-r from-emerald-600 to-teal-700 text-white shadow-emerald-200'
     }
   ];
 

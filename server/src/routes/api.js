@@ -3,6 +3,7 @@ import { cropsData, storageFacilities, initialBookings } from '../data/seedData.
 import { queueService } from '../services/queueService.js';
 import { smsService } from '../services/smsService.js';
 import { DocxService } from '../services/docxService.js';
+import { resolveGaaiaQuery, GAAIA_TOPICS, POPULAR_QUESTIONS } from '../services/gaaiaBrain.js';
 
 const router = express.Router();
 
@@ -938,6 +939,45 @@ router.get('/tts', (req, res) => {
   } catch (err) {
     console.error("TTS handler error:", err);
     res.status(500).send("TTS error");
+  }
+});
+
+// ----------------------------------------------------
+// GAAIA - Agricultural AI Assistant Endpoints
+// ----------------------------------------------------
+
+// Get available topics & popular sample questions
+router.get('/gaaia/topics', (req, res) => {
+  try {
+    res.json({
+      success: true,
+      topics: GAAIA_TOPICS,
+      popularQuestions: POPULAR_QUESTIONS
+    });
+  } catch (err) {
+    console.error('Error fetching GAAIA topics:', err);
+    res.status(500).json({ success: false, error: 'Failed to fetch topics' });
+  }
+});
+
+// Ask GAAIA a question
+router.post('/gaaia/ask', (req, res) => {
+  try {
+    const { question, lang = 'en', context = {} } = req.body || {};
+    const result = resolveGaaiaQuery(question, lang, context);
+
+    res.json({
+      success: true,
+      timestamp: new Date().toISOString(),
+      ...result
+    });
+  } catch (err) {
+    console.error('Error in GAAIA ask endpoint:', err);
+    res.status(500).json({
+      success: false,
+      error: 'GAAIA encountered an error processing your query',
+      answer: 'I apologize, an error occurred while processing your question. Please try again or call our Kisan Helpline at 1800-180-1551.'
+    });
   }
 });
 

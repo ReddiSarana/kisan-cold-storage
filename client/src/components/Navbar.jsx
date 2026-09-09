@@ -20,7 +20,8 @@ import {
   UserPlus,
   Search,
   Check,
-  Smartphone
+  Smartphone,
+  Bot
 } from 'lucide-react';
 
 export default function Navbar() {
@@ -35,7 +36,8 @@ export default function Navbar() {
     isMobileSidebarOpen,
     setIsMobileSidebarOpen,
     openMobileSimulator,
-    isMobileSimulatorOpen
+    isMobileSimulatorOpen,
+    openGaaia
   } = useApp();
 
   const isPreviewChild = typeof window !== 'undefined' && window.location.search.includes('mobile_preview=1');
@@ -331,6 +333,17 @@ export default function Navbar() {
 
             {/* Right: Mobile View | Language Switcher | Login */}
             <div className="flex items-center space-x-2 sm:space-x-3 shrink-0">
+              {/* Ask Gaaia AI Bot Quick Trigger */}
+              <button
+                type="button"
+                onClick={() => openGaaia()}
+                className="flex items-center space-x-1.5 text-slate-950 hover:text-white text-xs sm:text-sm font-black tracking-wide transition cursor-pointer px-2.5 sm:px-3 py-1 rounded-xl bg-gradient-to-r from-emerald-400 to-teal-300 hover:from-emerald-500 hover:to-teal-400 shadow-md border border-emerald-300 hover:scale-105"
+                title="Ask Gaaia Agricultural AI Bot questions"
+              >
+                <Bot className="w-4 h-4 text-slate-950 shrink-0" />
+                <span>🤖 Ask Gaaia</span>
+              </button>
+
               {/* Interactive Mobile View Frame Toggle */}
               {!isPreviewChild && (
                 <button

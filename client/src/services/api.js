@@ -10,6 +10,11 @@ import {
   verifiedDrivers,
   initialTransportRentals
 } from '../data/transportData';
+import {
+  resolveGaaiaQuery,
+  GAAIA_TOPICS,
+  POPULAR_QUESTIONS
+} from './gaaiaBrain';
 
 const BASE_URL = '/api';
 
@@ -496,5 +501,49 @@ export async function bookTransportRental(rentalData) {
   }
 }
 
+// ----------------------------------------------------
+// GAAIA - Agricultural AI Assistant API with Fallback
+// ----------------------------------------------------
 
+export async function fetchGaaiaTopics() {
+  try {
+    const res = await fetch(`${BASE_URL}/gaaia/topics`);
+    if (!res.ok) throw new Error('Backend GAAIA API not available');
+    const data = await res.json();
+    return {
+      topics: data.topics || GAAIA_TOPICS,
+      popularQuestions: data.popularQuestions || POPULAR_QUESTIONS
+    };
+  } catch (err) {
+    return {
+      topics: GAAIA_TOPICS,
+      popularQuestions: POPULAR_QUESTIONS
+    };
+  }
+}
 
+export async function askGaaia(question, { lang = 'en', context = {} } = {}) {
+  try {
+    const res = await fetch(`${BASE_URL}/gaaia/ask`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ question, lang, context })
+    });
+
+    if (!res.ok) throw new Error('Backend GAAIA API error');
+    const data = await res.json();
+    if (data.success && data.answer) {
+      return data;
+    }
+    throw new Error('Invalid backend response');
+  } catch (err) {
+    // Zero-latency resilient client-side fallback
+    const fallbackResult = resolveGaaiaQuery(question, lang, context);
+    return {
+      success: true,
+      timestamp: new Date().toISOString(),
+      ...fallbackResult,
+      isFallback: true
+    };
+  }
+}

@@ -31,6 +31,8 @@ import MobileBottomNav from './components/MobileBottomNav';
 import { VoiceProvider } from './context/VoiceContext';
 import KisanVoiceReaderBar from './components/KisanVoiceReaderBar';
 import MobileViewSimulator from './components/MobileViewSimulator';
+import GaaiaPage from './pages/GaaiaPage';
+import GaaiaBotWidget from './components/GaaiaBotWidget';
 
 function AppContent() {
   const { activeTab, setActiveTab, isAuthenticated, latestToast } = useApp();
@@ -72,6 +74,7 @@ function AppContent() {
             {activeTab === 'sms' && <SmsLogsPage />}
             {activeTab === 'profile' && <ProfilePage />}
             {activeTab === 'land_verification' && <LandVerificationPage />}
+            {activeTab === 'gaaia' && <GaaiaPage />}
             {/* Fallbacks if unauthenticated tab is accessed */}
             {(activeTab === 'home' || activeTab === 'about') && <CropsPage />}
             {activeTab === 'about_us' && <AboutUsPage />}
@@ -94,6 +97,7 @@ function AppContent() {
           {activeTab === 'payment' && <PaymentGatewayPage />}
           {activeTab === 'transport' && <TransportRentalPage />}
           {activeTab === 'land_verification' && <LandVerificationPage />}
+          {activeTab === 'gaaia' && <GaaiaPage />}
         </main>
       )}
 
@@ -105,6 +109,9 @@ function AppContent() {
 
       {/* Universal Kisan Audio Voice Reader (Reads each and every line) */}
       <KisanVoiceReaderBar />
+
+      {/* GAAIA - Agricultural AI Assistant Floating Widget */}
+      <GaaiaBotWidget />
 
       {/* Interactive Mobile View Display Simulator */}
       <MobileViewSimulator />

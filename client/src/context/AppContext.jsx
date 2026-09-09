@@ -362,6 +362,25 @@ export function AppProvider({ children }) {
     showToast('💻 Returned to Desktop View Display');
   };
 
+  // GAAIA - Agricultural AI Assistant Bot State
+  const [isGaaiaOpen, setIsGaaiaOpen] = useState(false);
+  const [gaaiaInitialQuery, setGaaiaInitialQuery] = useState('');
+
+  const openGaaia = (initialQuery = '') => {
+    if (initialQuery && typeof initialQuery === 'string') {
+      setGaaiaInitialQuery(initialQuery);
+    }
+    setIsGaaiaOpen(true);
+  };
+
+  const closeGaaia = () => {
+    setIsGaaiaOpen(false);
+  };
+
+  const toggleGaaia = () => {
+    setIsGaaiaOpen(prev => !prev);
+  };
+
   return (
     <AppContext.Provider value={{
       currentUser,
@@ -408,7 +427,15 @@ export function AppProvider({ children }) {
       isMobileSimulatorOpen,
       setIsMobileSimulatorOpen,
       openMobileSimulator,
-      closeMobileSimulator
+      closeMobileSimulator,
+      // GAAIA Agricultural AI Bot
+      isGaaiaOpen,
+      setIsGaaiaOpen,
+      openGaaia,
+      closeGaaia,
+      toggleGaaia,
+      gaaiaInitialQuery,
+      setGaaiaInitialQuery
     }}>
       {children}
     </AppContext.Provider>

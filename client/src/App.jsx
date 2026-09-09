@@ -30,6 +30,7 @@ import DashboardContainer from './components/DashboardContainer';
 import MobileBottomNav from './components/MobileBottomNav';
 import { VoiceProvider } from './context/VoiceContext';
 import KisanVoiceReaderBar from './components/KisanVoiceReaderBar';
+import MobileViewSimulator from './components/MobileViewSimulator';
 
 function AppContent() {
   const { activeTab, setActiveTab, isAuthenticated, latestToast } = useApp();
@@ -104,6 +105,9 @@ function AppContent() {
 
       {/* Universal Kisan Audio Voice Reader (Reads each and every line) */}
       <KisanVoiceReaderBar />
+
+      {/* Interactive Mobile View Display Simulator */}
+      <MobileViewSimulator />
 
       {/* Native Mobile Bottom Navigation Bar (Smartphones only) */}
       <MobileBottomNav />

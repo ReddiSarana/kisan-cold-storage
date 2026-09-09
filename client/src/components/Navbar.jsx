@@ -19,7 +19,8 @@ import {
   LogOut,
   UserPlus,
   Search,
-  Check
+  Check,
+  Smartphone
 } from 'lucide-react';
 
 export default function Navbar() {
@@ -32,8 +33,12 @@ export default function Navbar() {
     isAuthenticated,
     logoutUser,
     isMobileSidebarOpen,
-    setIsMobileSidebarOpen
+    setIsMobileSidebarOpen,
+    openMobileSimulator,
+    isMobileSimulatorOpen
   } = useApp();
+
+  const isPreviewChild = typeof window !== 'undefined' && window.location.search.includes('mobile_preview=1');
 
   const {
     languages,
@@ -121,6 +126,18 @@ export default function Navbar() {
         </div>
 
         <div className="flex items-center space-x-2.5">
+          {/* Mobile View Display Simulator Button */}
+          {!isPreviewChild && (
+            <button
+              onClick={openMobileSimulator}
+              className="hidden md:flex items-center space-x-1.5 text-amber-300 hover:text-white bg-amber-500/20 hover:bg-amber-500/30 border border-amber-400/40 px-2.5 py-0.5 rounded-full text-[11px] font-bold transition cursor-pointer shadow-sm hover:scale-105"
+              title="Display website inside an authentic Smartphone frame for presentation and testing"
+            >
+              <Smartphone className="w-3.5 h-3.5 text-amber-400" />
+              <span>📱 Mobile View</span>
+            </button>
+          )}
+
           {/* 22 Languages Modal Button */}
           <button
             onClick={() => setIsLanguageModalOpen(true)}
@@ -312,8 +329,21 @@ export default function Navbar() {
             {/* Center: CLEAN AND EMPTY (Disclaimer intentionally removed as crossed out in red by user) */}
             <div className="hidden lg:block flex-1"></div>
 
-            {/* Right: Language Switcher | Login */}
+            {/* Right: Mobile View | Language Switcher | Login */}
             <div className="flex items-center space-x-2 sm:space-x-3 shrink-0">
+              {/* Interactive Mobile View Frame Toggle */}
+              {!isPreviewChild && (
+                <button
+                  type="button"
+                  onClick={openMobileSimulator}
+                  className="hidden md:flex items-center space-x-1.5 text-amber-300 hover:text-white text-xs sm:text-sm font-black tracking-wide transition cursor-pointer px-2.5 py-1 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 border border-amber-400/50 shadow-sm hover:scale-105"
+                  title="Open Interactive Mobile View Display Simulator"
+                >
+                  <Smartphone className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                  <span>📱 Mobile View</span>
+                </button>
+              )}
+
               {/* Language Switcher: Dropdown with All 22 Official Indian Languages + English */}
               <div className="relative" ref={langDropdownRef}>
                 <button

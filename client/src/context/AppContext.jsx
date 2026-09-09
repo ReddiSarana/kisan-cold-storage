@@ -344,6 +344,23 @@ export function AppProvider({ children }) {
 
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
 
+  // Mobile Device View Simulator Mode
+  const [isMobileSimulatorOpen, setIsMobileSimulatorOpen] = useState(() => {
+    if (typeof window !== 'undefined' && window.location.search.includes('mobile_preview=1')) {
+      return false; // Never open simulator within its own iframe
+    }
+    return false;
+  });
+
+  const openMobileSimulator = () => {
+    setIsMobileSimulatorOpen(true);
+    showToast('📱 Switched to Mobile View Display');
+  };
+
+  const closeMobileSimulator = () => {
+    setIsMobileSimulatorOpen(false);
+    showToast('💻 Returned to Desktop View Display');
+  };
 
   return (
     <AppContext.Provider value={{
@@ -386,7 +403,12 @@ export function AppProvider({ children }) {
       completeLandVerification,
       // Mobile Dashboard Sidebar Toggle
       isMobileSidebarOpen,
-      setIsMobileSidebarOpen
+      setIsMobileSidebarOpen,
+      // Mobile View Display Simulator
+      isMobileSimulatorOpen,
+      setIsMobileSimulatorOpen,
+      openMobileSimulator,
+      closeMobileSimulator
     }}>
       {children}
     </AppContext.Provider>

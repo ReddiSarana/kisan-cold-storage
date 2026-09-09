@@ -8,7 +8,8 @@ import {
   ArrowDown,
   Palette,
   Type,
-  Compass
+  Compass,
+  Smartphone
 } from 'lucide-react';
 import DashboardSidebar from './DashboardSidebar';
 
@@ -65,8 +66,9 @@ const THEMES = {
 };
 
 export default function DashboardContainer({ children }) {
-  const { activeTab } = useApp();
+  const { activeTab, openMobileSimulator } = useApp();
   const { t } = useLanguage();
+  const isPreviewChild = typeof window !== 'undefined' && window.location.search.includes('mobile_preview=1');
 
   // Color Theme State
   const [selectedTheme, setSelectedTheme] = useState(() => {
@@ -307,6 +309,19 @@ export default function DashboardContainer({ children }) {
                 </button>
               ))}
             </div>
+
+            {/* Mobile View Simulator Button */}
+            {!isPreviewChild && (
+              <button
+                type="button"
+                onClick={openMobileSimulator}
+                className="hidden md:flex items-center space-x-1.5 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-slate-950 px-3 py-1.5 rounded-2xl text-xs font-black shadow-md transition cursor-pointer hover:scale-105 border border-amber-300"
+                title="Open Interactive Mobile View Display Simulator"
+              >
+                <Smartphone className="w-3.5 h-3.5 text-slate-950" />
+                <span>📱 Mobile View</span>
+              </button>
+            )}
           </div>
         </div>
 
